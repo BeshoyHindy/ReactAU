@@ -1,1 +1,1 @@
-web: babel-node tools/distServer.js
+web: npm run postbuild
