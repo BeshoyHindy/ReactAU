@@ -1,0 +1,1093 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"bord",
+				"border-radius"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"re",
+				"removeClass〔function〕"
+			],
+			[
+				"add",
+				"addClass〔function〕"
+			],
+			[
+				"border",
+				"border-bottom-style"
+			],
+			[
+				"min-",
+				"min-width"
+			],
+			[
+				"padd",
+				"padding"
+			],
+			[
+				"bo",
+				"border-radius"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"check",
+				"checked〔function〕"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"cour",
+				"cursor"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"max-",
+				"max-width"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"styl",
+				"list-style"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"ld",
+				"ldSrc"
+			],
+			[
+				"li",
+				"list\tlist-style-type"
+			],
+			[
+				"coll",
+				"collection"
+			],
+			[
+				"marign",
+				"margin-left"
+			],
+			[
+				"mn",
+				"min-width"
+			],
+			[
+				"lef",
+				"left"
+			],
+			[
+				"paddin",
+				"padding"
+			],
+			[
+				"zin",
+				"z-index"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"img",
+				"_img.scss"
+			],
+			[
+				"zi",
+				"z-index"
+			],
+			[
+				"c",
+				"class\tAttr"
+			],
+			[
+				"pt",
+				"padding-top"
+			],
+			[
+				"mt",
+				"margin-top"
+			],
+			[
+				"bot",
+				"border-top"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"backg",
+				"background"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
+				"cl",
+				"clear"
+			],
+			[
+				"background-",
+				"background-position"
+			],
+			[
+				"cur",
+				"cursor"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"h",
+				"href\tAttr"
+			],
+			[
+				"po",
+				"pointer"
+			],
+			[
+				"cou",
+				"cursor"
+			],
+			[
+				"g",
+				"_galereya.scss"
+			],
+			[
+				"on",
+				"onclick\tAttr"
+			],
+			[
+				"ar",
+				"article\tTag"
+			],
+			[
+				"pro",
+				"proto\tPrototype"
+			],
+			[
+				"has",
+				"hasClass\t.hasClass()"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"inl",
+				"inline"
+			],
+			[
+				"inlie",
+				"inline-block"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"cu",
+				"cursor"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"se",
+				"section\tTag"
+			],
+			[
+				"im",
+				"img\tTag"
+			],
+			[
+				"z-",
+				"z-index"
+			],
+			[
+				"t",
+				"type\tAttr"
+			],
+			[
+				"i",
+				"images/"
+			],
+			[
+				"paddi",
+				"padding-left"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"boot",
+				"bootstrap.scss"
+			],
+			[
+				"bordr",
+				"border-radius"
+			],
+			[
+				"fo",
+				"font-weight"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"port",
+				"_portfolio_gp.scss"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"b",
+				"body\tTag"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/Procfile",
+			"settings":
+			{
+				"buffer_size": 20,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/server.js",
+			"settings":
+			{
+				"buffer_size": 2901,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/js/app.js",
+			"settings":
+			{
+				"buffer_size": 660,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/index.html",
+			"settings":
+			{
+				"buffer_size": 3203,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/SASS Build/SASS.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 361.0,
+		"last_filter": "package",
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"SassBeautify",
+				"SassBeautify"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"autosa",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"inst pack",
+				"Package Control: Install Package"
+			],
+			[
+				"inst ",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst pa",
+				"Package Control: Install Package"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"pack li",
+				"Package Control: List Packages"
+			],
+			[
+				"inst p",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pace",
+				"Package Control: Install Package"
+			],
+			[
+				"pacle",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Gist",
+				"Gist: Create Public Gist"
+			],
+			[
+				"gist",
+				"Package Control: Install Package"
+			],
+			[
+				"Emmet",
+				"Toggle Comment"
+			]
+		],
+		"width": 502.0
+	},
+	"console":
+	{
+		"height": 164.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/FTC/deploy-express-with-mongoose-on-heroku"
+	],
+	"file_history":
+	[
+		"/D/FTC/deploy-express-with-mongoose-on-heroku/node_modules/angular/package.json",
+		"/D/FTC/ReactStartKitExpress/webpack.config.prod.js",
+		"/D/FTC/deploy-express-with-mongoose-on-heroku/js/app.js",
+		"/D/FTC/ReactStartKitExpress/tools/build.js",
+		"/D/FTC/ReactStartKitExpress/webpack.config.dev.js",
+		"/D/FTC/ReactStartKitExpress/src/index.html",
+		"/D/FTC/ReactStartKitExpress/src/sass/_index.html.sass",
+		"/D/FTC/ReactStartKitExpress/src/sass/main.sass",
+		"/D/FTC/ReactStartKitExpress/src/components/app.js",
+		"/C/Users/Grace/.ssh/id_rsa.pub",
+		"/D/FTC/ReactStartKitExpress/package.json",
+		"/C/Users/Grace/.ssh/id_rsa",
+		"/D/FTC/ReactStartKitExpress/src/index3.js",
+		"/D/React/React-For-Beginners-Starter-Files/stepped-solutions/Final Codebase/src/index.js",
+		"/D/FTC/ChingChingTest_js/index.html",
+		"/D/React/ReactStartKitExpress/dist/css/main.css",
+		"/D/React/ReactStartKitExpress/src/hot.json",
+		"/D/React/ReactStartKitExpress/package.json",
+		"/D/React/ReactStartKitExpress/src/index2.js",
+		"/D/FTC/ChingChingTest_js/css/sass/_search.html.sass",
+		"/D/FTC/ChingChingTest_js/search.html",
+		"/D/FTC/itineraryTest/sec/itinerary/search-result.htm",
+		"/D/FTC/itineraryTest/sec/itinerary/index.htm",
+		"/D/React/ReactStartKitExpress/webpack.config.dev.js",
+		"/D/FTC/website/webpack.hot.config.js",
+		"/D/FTC/website/index.html",
+		"/D/FTC/website/build.js",
+		"/D/FTC/website/components/app.js",
+		"/D/FTC/website/package.json",
+		"/D/FTC/ChingChingTest_js/css/sass/_article.html.sass",
+		"/D/FTC/ChingChingTest_js/article.html",
+		"/D/FTC/ChingChingTest_js/css/sass/_mixins.sass",
+		"/D/FTC/ChingChingTest_js/css/sass/_author.html.sass",
+		"/D/FTC/itineraryTest/sec/itinerary/article.htm",
+		"/D/FTC/itineraryTest/sec/itinerary/author.htm",
+		"/D/FTC/ChingChingTest_js/css/sass/_img.scss",
+		"/D/FTC/ChingChingTest_js/css/sass/_common.sass",
+		"/D/FTC/ChingChingTest_js/js/jQ.js",
+		"/D/FTC/ChingChingTest_js/css/sass/_variable.sass",
+		"/D/FTC/ChingChingTest_js/css/sass/main.sass",
+		"/D/FTC/ChingChingTest_js/css/sass/_index.html.sass",
+		"/C/Program Files/Sublime Text 3/Data/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/D/FTC/ChingChingTest_js/json/info.json",
+		"/D/FTC/ChingChingTest_js/json/extend.json",
+		"/D/FTC/tripitta-frontend/sec/card4G/article.htm",
+		"/D/FTC/ChingChingTest_js/author.html",
+		"/D/FTC/ChingChingTest_js/item_list.html",
+		"/D/FTC/ChingChingTest_js/json/item.json",
+		"/D/React/ReactStartKitExpressChingChing/webpack.config.dev.js",
+		"/D/React/ReactStartKitExpressChingChing/package.json",
+		"/D/FTC/ChingChingTest_js/partial.html",
+		"/D/FTC/ChingChingTest_js/css/sass/_reset.scss",
+		"/D/FTC/ChingChingTest_js/css/_reset.css",
+		"/D/FTC/ChingChingTest_js/json/ldSrc.json",
+		"/D/FTC/ChingChingTest_js/js/vue-slider.js",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/member/_mobile.htm.sass",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/travel-hotel/embed/_faq.htm.sass",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/itinerary/_index.htm.sass",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/itinerary/_itinerary_list.htm.sass",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/itinerary/_article.htm.sass",
+		"/D/FTC/ChingChingTest_js/json/new.json",
+		"/D/ChingChing/Tools/F2E/Editor/sublimetext/Sublime Text Build 3065 x64/Data/Settings/SideBarEnhancements.json",
+		"/C/xampp/apache/conf/extra/httpd-vhosts.conf",
+		"/C/xampp/apache/conf/httpd.conf",
+		"/D/ChingChing/Tools/F2E/Editor/sublimetext/Sublime Text Build 3065 x64/Data/Packages/SassBeautify/SassBeautify.sublime-settings",
+		"/D/ChingChing/Tools/F2E/Editor/sublimetext/Sublime Text Build 3065 x64/Data/Packages/User/SassBeautify.sublime-settings",
+		"/D/FTC/bootstrap-sass-3.3.7/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_reset-text.scss",
+		"/D/FTC/bootstrap-sass-3.3.7/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_reset-filter.scss",
+		"/D/FTC/tripitta-frontend/css/sass/_mixin.sass",
+		"/D/FTC/tripitta-frontend/.gitignore",
+		"/D/ChingChing/Tools/F2E/Editor/sublimetext/Sublime Text Build 3065 x64/Data/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/D/FTC/ChingChingTest_js/css/main.css",
+		"/D/FTC/ChingChingTest_js/json/hot.json",
+		"/D/FTC/ChingChingTest_js/js/vue-events.js",
+		"/D/ChingChing/Asset/home/index.html",
+		"/D/ChingChing/Asset/home/main.html",
+		"/D/FTC/ChingChingTest_js/.sublime/SideBarEnhancements.json",
+		"/D/ChingChing/Tools/F2E/Editor/sublimetext/Sublime Text Build 3065 x64/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/D/FTC/ChingChingTest/css/sass/_common.sass",
+		"/D/FTC/tripitta-frontend/css/sass/_common.sass",
+		"/D/FTC/ChingChingTest/css/sass/_variable.sass",
+		"/D/FTC/ChingChingTest/css/sass/_img.scss",
+		"/D/FTC/ChingChingTest/css/sass/_reset.scss",
+		"/D/FTC/ChingChingTest/css/sass/main.sass",
+		"/D/FTC/ChingChingTest/css/sass/_index.html.sass",
+		"/D/FTC/ChingChingTest/css/sass/index.html.sass",
+		"/D/FTC/ChingChingTest/css/main.css",
+		"/D/ChingChing/Asset/paints/sass/_variable.scss",
+		"/D/ChingChing/Asset/paints/sass/_mixin.scss",
+		"/D/ChingChing/Asset/paints/sass/main.scss",
+		"/D/Practice/CSS_Sprite2/css/sass/main.scss",
+		"/D/FTC/ChingChingTest/css/_img.scss",
+		"/D/FTC/ChingChingTest/css/_img.css",
+		"/D/Practice/CSS_Sprite2/test.html",
+		"/D/FTC/ChingChingTest/css/sass/_mommon.sass",
+		"/D/FTC/ChingChingTest/.sublime/SideBarEnhancements.json",
+		"/D/FTC/ChingChingTest/css/sass/_common",
+		"/D/FTC/ChingChingTest/css/_variable.css",
+		"/D/FTC/ChingChingTest/css/sass/_variable.scss",
+		"/D/ChingChing/Asset/base/scss/main.scss",
+		"/D/ChingChing/Asset/base/scss/_variable.scss",
+		"/D/ChingChing/Asset/AU/scss/_variable.scss",
+		"/D/FTC/tripitta-frontend/sec/embed/footer.htm",
+		"/D/FTC/tripitta-frontend/event/ezDing/web-notification/index.htm",
+		"/D/FTC/tripitta-frontend/css/sass/page/sec/embed/_header.sass",
+		"/D/FTC/tripitta-frontend/sec/embed/header.htm",
+		"/D/FTC/tripitta-frontend/js/main.js",
+		"/D/FTC/tripitta-frontend/css/sass/page/_index-new.htm.sass",
+		"/D/FTC/tripitta-frontend/index-new.htm",
+		"/D/FTC/tripitta-frontend/css/main.css",
+		"/D/FTC/tripitta-frontend/sec/topic/js/ftc.js",
+		"/D/FTC/tripitta-frontend/index.htm",
+		"/D/FTC/tripitta-frontend/index-m.htm",
+		"/D/FTC/tripitta-frontend/event/tripitta/activity/card4G/css/sass/page/_step2.htm.sass",
+		"/D/FTC/tripitta-frontend/prepros.cfg",
+		"/D/FTC/tripitta-frontend/css/sass/_img.scss",
+		"/D/FTC/tripitta-frontend/css/sass/_img-sub.scss",
+		"/D/Practice/CSS_Sprite/sprite.css",
+		"/D/Practice/CSS_Sprite/test.html",
+		"/D/FTC/tripitta-frontend/.sublime/SideBarEnhancements.json",
+		"/D/tripitta-frontend/css/sass/page/sec/embed/_footer.sass",
+		"/D/tripitta-frontend/css/sass/page/sec/area/_index.htm.sass",
+		"/D/tripitta-frontend/css/sass/_common.sass",
+		"/D/tripitta-frontend/event/tripitta/app/appPay/css/sass/_mixin.sass",
+		"/D/tripitta-frontend/css/sass/img-area.scss",
+		"/D/tripitta-frontend/css/sass/main2.sass",
+		"/D/tripitta-frontend/css/sass/main.sass",
+		"/D/tripitta-frontend/js/main.js"
+	],
+	"find":
+	{
+		"height": 52.0
+	},
+	"find_in_files":
+	{
+		"height": 105.0,
+		"where_history":
+		[
+			"D:\\FTC\\deploy-express-with-mongoose-on-heroku",
+			"D:\\FTC\\ChingChingTest_js\\css\\sass",
+			"D:\\FTC\\ChingChingTest\\css\\sass",
+			"D:\\FTC\\tripitta-frontend\\css",
+			"C:\\xampp\\apache\\",
+			"C:\\xampp\\apache\\conf",
+			"D:\\FTC\\tripitta-frontend",
+			"D:\\tripitta-frontend",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\vertical-timeline\\vertical-timeline",
+			"D:\\xampp\\htdocs\\timeline",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\menu",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\xampp\\htdocs\\",
+			"D:\\xampp\\htdocs\\scss",
+			"D:\\Flycan\\homesite_speed_ajax\\scss",
+			"D:\\Flycan\\homesite_speed\\scss",
+			"D:\\Flycan\\homesite_speed_ajax\\scss",
+			"D:\\RWD\\Painting\\DW\\sass\\bootstrap",
+			"D:\\RWD\\Painting\\DW",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"MONGOLAB_URI",
+			"mongoose",
+			"hot",
+			"#app",
+			"class",
+			"cheapAds",
+			"cheap",
+			"<h5>2014/11/04 - 第 1 站</h5>",
+			"auther",
+			"advSearch",
+			"transition",
+			"RotateFrames",
+			"article",
+			"pointer",
+			"action",
+			"advSearchBoxShow",
+			"closeBtn",
+			"advSearchBoxWrap",
+			"advSearchTimeWrap",
+			"X",
+			"1.5s",
+			"$ease",
+			"ease",
+			"2s",
+			"$bRdegdeg",
+			"-90",
+			";",
+			"368px",
+			"251px",
+			"{",
+			"}",
+			";",
+			"bird",
+			"xAxis",
+			"clear",
+			"clear-",
+			"text",
+			"road",
+			"infos",
+			"infoAdsSrc",
+			"cheapAds",
+			"img-birds-2x",
+			"dirMap",
+			"days",
+			"dirMap",
+			"select",
+			"clearfix",
+			";",
+			"addIcon",
+			"addicon",
+			"add",
+			"infoSrc",
+			"hotSrc",
+			"newSrc",
+			"bg",
+			"news",
+			"hot",
+			"newest",
+			"contentWrapIndexIndex",
+			";",
+			"113",
+			"itineryTitle",
+			"days",
+			"contentWrapItemList",
+			"itineryPlace",
+			";",
+			"days",
+			"advSearch",
+			"destination",
+			"apply",
+			"advSearchBoxWrap",
+			"98px",
+			"98px;",
+			"advSearchTime",
+			"advSearchTimeWrap",
+			"block",
+			"advSearchTime",
+			"advSearchTimeShow",
+			"advSearchTime",
+			"extend",
+			"include",
+			"ul.normal",
+			"pc",
+			"search",
+			"advSearchTime",
+			"reSearchShow",
+			"advSearch2",
+			"active",
+			"advSearchTime",
+			"search",
+			"searchBtn",
+			"advSearch1",
+			"advSearchBoxWrap",
+			"+addIcon",
+			"+fsiz",
+			"fsiz",
+			"result",
+			"fsiz",
+			"siteMap",
+			"Button",
+			"button",
+			"inputTagBefore",
+			"background-position",
+			"50px",
+			"0 0 0 50px",
+			"selTagAfter",
+			"+selTagAfter",
+			"42px",
+			"$bgColor",
+			"hot",
+			"item",
+			"contentWrap",
+			"hot",
+			"Hot",
+			"hot",
+			"48%",
+			"sliderSwitch",
+			"476px",
+			"<img src=\"img/head.jpg\" alt=\"\">",
+			"imgkv-arrow-left-copy-2-2x",
+			"z-index",
+			";",
+			"140px;",
+			"140;",
+			"bgCover",
+			"icon-search-copy-",
+			"icon-search-copy-3",
+			"icon-11"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"className",
+			"$bEase",
+			"$bRdeg",
+			"",
+			"extendSrc",
+			"infoSrc",
+			"infos",
+			"extend",
+			"info",
+			"contentWrapArticle",
+			"",
+			"contentWrapAuthor",
+			"",
+			"ul",
+			"normal",
+			"item",
+			"contentWrapItemList",
+			"contentWrapIndexIndex",
+			"",
+			"ul.subTitle",
+			"h2",
+			"div",
+			"Button",
+			"localhost",
+			"multiLineEllipsis",
+			"background",
+			"四",
+			"month",
+			"year",
+			"subTitle",
+			"title",
+			"• 台北101觀景台 • 四四南村眷村文物館 • 小凱悅南村小吃店 • 四四南村眷村文物館 • 四四南村眷村物...",
+			"+fsiz(",
+			"D:/",
+			"h3",
+			"",
+			"XS",
+			"ecdesign.jpg",
+			"cd-red",
+			"cd-blue",
+			"cd-orange",
+			"$timeline_bg",
+			"timeline_bg",
+			"container-fluid",
+			"row-fluid",
+			"/galereya-master/src/img",
+			"div",
+			"",
+			"fa fa-tags",
+			"fa-coffee",
+			"images/portfolio/full",
+			"2015Calendar",
+			"2015calendar",
+			"calendar",
+			"images/portfolio/full"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": true,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/Procfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Theme - SoDaReloaded/settings/langs/Procfile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/server.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2901,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								798,
+								798
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 660,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/FTC/deploy-express-with-mongoose-on-heroku/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 111.0
+	},
+	"pinned_build_system": "",
+	"project": "modb.sublime-project",
+	"replace":
+	{
+		"height": 94.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\RWD\\123.py.jade"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 58.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"gridb",
+				"gridb"
+			],
+			[
+				"img",
+				"imgholder"
+			]
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 304.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

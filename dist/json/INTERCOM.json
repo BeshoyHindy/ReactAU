@@ -1,0 +1,44 @@
+[
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "SD4B (Black)",
+        "brand": "Futuro",
+        "desc":"7' Hands free Basic Monitor"
+    },
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "SD4B (White)",
+        "brand": "Futuro",
+        "desc":"7' Hands free Basic Monitor"
+    },
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "SD4 (Black)",
+        "brand": "Futuro",
+        "desc":"7' Hands free Basic Monitor with Memory"
+    },
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "SD4 (White)",
+        "brand": "Futuro",
+        "desc":"7' Hands free Basic Monitor with Memory"
+    },
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "CP4",
+        "brand": "Futuro",
+        "desc":"Flush Mount Door Station for Futoro SD4/SD4B"
+    },
+    {
+        "id": "scv-3120p",
+        "imageUrl": "/img/products/rhe-428-j-4ch-compact.png",
+        "name": "CZ4",
+        "brand": "Futuro",
+        "desc":"Surface Mount Door Station for Futoro SD4/SD4B"
+    }
+]
