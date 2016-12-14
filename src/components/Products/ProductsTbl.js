@@ -4,17 +4,30 @@ require.context('../../img', true, /\.?/);
 
 let Griddle = require('griddle-react');
 
+import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-const ImageComponent = ({data}) => (<img src={data} />);
+
+class ImageComponent extends React.Component{
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			(<Link to={"/products/DVR/" + this.props.params.product}><img src={this.props.data} /></Link>)
+		);
+	}
+}
 
 class ProductsTbl extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				products:[]
+				products:[],
+				cat: 'DVR'
 			};
 			this.fetchData = this.fetchData.bind(this);
+
 		}
 
 		componentDidUpdate (prevProps, prevState) {
@@ -30,10 +43,12 @@ class ProductsTbl extends React.Component{
 
 		fetchData(){
 			//console.log('this.props.params: ', this.props.params);
-      let cat = this.props.params.product ? this.props.params.product : 'DVR';
+			this.setState({
+				cat: this.props.params.product ? this.props.params.product : 'DVR'
+			});
 			axios({
 				method: 'get',
-				url: '/json/'+cat+'.json',
+				url: '/json/'+this.state.cat+'.json',
 				dataType: 'JSON'
 			})
 			.then( (response) => {

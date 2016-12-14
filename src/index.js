@@ -274,7 +274,9 @@ render((
 			<Route path="home" component={Home} />
 			<Route path="products" component={Products}>
 				<Route path=":product" components={{ content: Category, sidebar: CategorySidebar }}>
-					<Route path=":ProductsTbl" component={ProductsTbl} />
+					<Route path=":ProductsTbl" component={ProductsTbl} >
+						<Route path="id" component={ProductsTbl} />
+					</Route>
 				</Route>
 			</Route>
 			<Route path="aboutus" component={About} />

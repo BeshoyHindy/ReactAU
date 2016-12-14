@@ -5,8 +5,8 @@
     "images/products/4ch-ir-ball-dome-kit-2.png"
   ],
   "docs": [
-    {"desc": "Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf", "size": 729, "filetype": "pdf", "src":"/products/docs/Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf"},
-    {"desc": "Performance_series_IP_Bundle_Kit_datasheet.pdf", "size": 627, "filetype": "pdf", "src":"/products/docs/Performance_series_IP_Bundle_Kit_datasheet.pdf"}
+    {"desc": "Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf", "size": 729, "filetype": "pdf", "src":"/products/docs/spec.pdf"},
+    {"desc": "Performance_series_IP_Bundle_Kit_datasheet.pdf", "size": 627, "filetype": "pdf", "src":"/products/docs/spec.pdf"}
   ],
   "name": "4ch IR Ball Dome Kit",
   "brand": "Honeywell",

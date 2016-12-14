@@ -4,10 +4,10 @@
     "images/products/alarm_16_plus-1.png"
   ],
   "docs": [
-    {"desc": "ISC_BPR2_Data_sheet.pdf", "size": 625, "filetype": "pdf", "src":"/products/docs/ISC_BPR2_Data_sheet.pdf"},
-    {"desc": "ISC_BPR2_Installation_Manual.pdf", "size": 1378, "filetype": "pdf", "src":"/products/docs/ISC_BPR2_Installation_Manual.pdf"},
-    {"desc": "ISC_BPR2_Quick_Selection_Guide.pdf", "size": 2566, "filetype": "pdf", "src":"/products/docs/ISC_BPR2_Quick_Selection_Guide.pdf"},
-    {"desc": "ISC_BPR2_Commercial_Brochure.pdf", "size": 826, "filetype": "pdf", "src":"/products/docs/ISC_BPR2_Commercial_Brochure.pdf"}
+    {"desc": "ISC_BPR2_Data_sheet.pdf", "size": 625, "filetype": "pdf", "src":"/products/docs/spec.pdf"},
+    {"desc": "ISC_BPR2_Installation_Manual.pdf", "size": 1378, "filetype": "pdf", "src":"/products/docs/spec.pdf"},
+    {"desc": "ISC_BPR2_Quick_Selection_Guide.pdf", "size": 2566, "filetype": "pdf", "src":"/products/docs/spec.pdf"},
+    {"desc": "ISC_BPR2_Commercial_Brochure.pdf", "size": 826, "filetype": "pdf", "src":"/products/docsspec.pdf"}
   ],
   "member": [
     {"desc": "CC100PB Panel Dialler", "qty": 1},

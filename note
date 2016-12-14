@@ -9,7 +9,7 @@ git add .
 git commit -m "version 1 - without redux"
 git remote add origin git@github.com:Grace951/ReactAU.git
 git pull
-git push origin master
+git push -f origin master
 
 
 //NPM
