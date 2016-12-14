@@ -12,6 +12,10 @@ git pull
 git push -f origin master
 
 
+//heroku
+heroku run bash --app react-redux-demo-chingching
+heroku logs --app react-redux-demo-chingching
+
 //NPM
 // 按指示初始化 NPM 設定檔 package.json
 npm init

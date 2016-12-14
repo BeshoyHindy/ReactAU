@@ -5,8 +5,8 @@ var compression  = require('compression');
 
 /* eslint-disable no-console */
 
-const port = 8080;
-const app = express();
+var port = 8080;
+var app = express();
 
 app.use(compression());
 app.use(express.static('dist'));
