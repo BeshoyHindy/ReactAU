@@ -1,1 +1,1 @@
-web: npm run postbuild tools/distServer.js
+web: node tools/distServer.js
