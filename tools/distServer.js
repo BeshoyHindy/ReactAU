@@ -1,6 +1,6 @@
 var express  = require('express');
 var path  = require('path');
-var open  = require('open');
+//var open  = require('open');
 var compression  = require('compression');
 
 /* eslint-disable no-console */
