@@ -1,7 +1,7 @@
 {
   "id": "hbd2prv2",
   "images": [
-    "images/products/hbd2prv2.png"
+    "/img/products/hbd2prv2.png"
   ],
   "docs": [
       {"desc": "HBD2PRV2_X_IR_Bullet_vari.pdf", "size": 182, "filetype": "pdf", "src":"/products/docs/HBD2PRV2_X_IR_Bullet_vari.pdf"}

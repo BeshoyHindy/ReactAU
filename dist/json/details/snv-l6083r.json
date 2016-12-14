@@ -1,7 +1,7 @@
 {
   "id": "snv-l6083r",
   "images": [
-    "images/products/snv-l6083r.png"
+    "/img/products/snv-l6083r.png"
   ],
   "docs": [
       {"desc": "SNO-6011R_Specifications.pdf", "size": 182, "filetype": "pdf", "src":"/products/docs/SNO-6011R_Specifications.pdf"},

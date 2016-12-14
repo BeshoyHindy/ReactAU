@@ -1,8 +1,8 @@
 {
   "id": "4ch-ir-ball-dome-kit",
   "images": [
-    "images/products/4ch-ir-ball-dome-kit-1.png",
-    "images/products/4ch-ir-ball-dome-kit-2.png"
+    "/img/products/4ch-ir-ball-dome-kit-1.png",
+    "/img/products/4ch-ir-ball-dome-kit-2.png"
   ],
   "docs": [
     {"desc": "Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf", "size": 729, "filetype": "pdf", "src":"/products/docs/spec.pdf"},

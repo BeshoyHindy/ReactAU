@@ -1,10 +1,10 @@
 {
   "id": "srd-880d",
   "images": [
-    "images/products/srd-880d-1.png",
-    "images/products/srd-880d-2.png",
-    "images/products/srd-880d-3.png",
-    "images/products/srd-880d-4.png"
+    "/img/products/srd-880d-1.png",
+    "/img/products/srd-880d-2.png",
+    "/img/products/srd-880d-3.png",
+    "/img/products/srd-880d-4.png"
   ],
   "docs": [
       {"desc": "SRD-880D_Datasheet.pdf", "size": 981, "filetype": "pdf", "src":"/products/docs/SRD-880D_Datasheet.pdf"},

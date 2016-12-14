@@ -1,7 +1,7 @@
 {
   "id": "alarm-880-wireless",
   "images": [
-    "images/products/alarm_16_plus-1.png"
+    "/img/products/alarm_16_plus-1.png"
   ],
   "docs": [
     {"desc": "ISC_BPR2_Data_sheet.pdf", "size": 625, "filetype": "pdf", "src":"/products/docs/spec.pdf"},

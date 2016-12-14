@@ -1,7 +1,7 @@
 {
   "id": "hen04101x",
   "images": [
-    "images/products/hen04101x-1.png"
+    "/img/products/hen04101x-1.png"
   ],
   "docs": [
     {"desc": "RHE-825U-B_Specification.pdf", "size": 858, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_Specification.pdf"},

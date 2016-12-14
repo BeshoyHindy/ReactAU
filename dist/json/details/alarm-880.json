@@ -1,9 +1,9 @@
 {
   "id": "alarm-880",
   "images": [
-    "images/products/alarm_880-1.png",
-    "images/products/alarm_880-2.png",
-    "images/products/alarm_880-3.png"
+    "/img/products/alarm_880-1.png",
+    "/img/products/alarm_880-2.png",
+    "/img/products/alarm_880-3.png"
   ],
   "docs": [
     {"desc": "ICP_CC488_Data_sheet.pdf", "size": 380, "filetype": "pdf", "src":"/products/docs/ICP_CC488_Data_sheet.pdf"},

@@ -1,10 +1,10 @@
 {
   "id": "srd-1680d",
   "images": [
-    "images/products/srd-1680d-1.png",
-    "images/products/srd-1680d-2.png",
-    "images/products/srd-1680d-3.png",
-    "images/products/srd-1680d-4.png"
+    "/img/products/srd-1680d-1.png",
+    "/img/products/srd-1680d-2.png",
+    "/img/products/srd-1680d-3.png",
+    "/img/products/srd-1680d-4.png"
   ],
   "docs": [
       {"desc": "SRD-1680D_Datasheet.pdf", "size": 963, "filetype": "pdf", "src":"/products/docs/SRD-1680D_Datasheet.pdf"},

@@ -1,8 +1,8 @@
 {
   "id": "sno-l6013r",
   "images": [
-    "images/products/sno-l6013r.png",
-    "images/products/sno-l6013r-1.png"
+    "/img/products/sno-l6013r.png",
+    "/img/products/sno-l6013r-1.png"
   ],
   "docs": [
       {"desc": "SNO-6011R_Specifications.pdf", "size": 182, "filetype": "pdf", "src":"/products/docs/SNO-6011R_Specifications.pdf"},

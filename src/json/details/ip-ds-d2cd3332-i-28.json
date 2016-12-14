@@ -1,7 +1,7 @@
 {
   "id": "ip-ds-d2cd3332-i-28",
   "images": [
-    "images/products/ip-ds-d2cd3332-i-28.png"
+    "/img/products/ip-ds-d2cd3332-i-28.png"
   ],
   "docs": [
       {"desc": "DS-2CD3332-I_Turret_Network_Camera.pdf", "size": 3882, "filetype": "pdf", "src":"/products/docs/DS-2CD3332-I_Turret_Network_Camera.pdf"},

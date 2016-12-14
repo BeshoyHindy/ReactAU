@@ -1,10 +1,10 @@
 {
   "id": "srd-1656d",
   "images": [
-    "images/products/srd-1656d-1.png",
-    "images/products/srd-1656d-2.png",
-    "images/products/srd-1656d-3.png",
-    "images/products/srd-1656d-4.png"
+    "/img/products/srd-1656d-1.png",
+    "/img/products/srd-1656d-2.png",
+    "/img/products/srd-1656d-3.png",
+    "/img/products/srd-1656d-4.png"
   ],
   "docs": [
       {"desc": "SRD-1656D.pdf", "size": 374, "filetype": "pdf", "src":"/products/docs/SRD-1656D.pdf"},

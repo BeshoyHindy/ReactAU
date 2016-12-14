@@ -1,8 +1,8 @@
 {
   "id": "srd-470d",
   "images": [
-    "images/products/srd-470d-1.png",
-    "images/products/srd-470d-2.png"
+    "/img/products/srd-470d-1.png",
+    "/img/products/srd-470d-2.png"
   ],
   "docs": [
       {"desc": "SRD-470-470D_UserManual.pdf", "size": 6116, "filetype": "pdf", "src":"/products/docs/SRD-470-470D_UserManual.pdf"},

@@ -1,8 +1,8 @@
 {
   "id": "rhe-825u-b",
   "images": [
-    "images/products/rhe-825u-b.png",
-    "images/products/rhe-825u-b-1.png"
+    "/img/products/rhe-825u-b.png",
+    "/img/products/rhe-825u-b-1.png"
   ],
   "docs": [
     {"desc": "RHE-825U-B_Specification.pdf", "size": 858, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_Specification.pdf"},

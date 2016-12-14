@@ -1,8 +1,8 @@
 {
   "id": "scd-2080rp",
   "images": [
-    "images/products/scd-2080rp.png",
-    "images/products/scd-2080rp-1.png"
+    "/img/products/scd-2080rp.png",
+    "/img/products/scd-2080rp-1.png"
   ],
   "docs": [
       {"desc": "SCD-2080RP_Specifications.pdf", "size": 189, "filetype": "pdf", "src":"/products/docs/SCD-2080RP_Specifications.pdf"}

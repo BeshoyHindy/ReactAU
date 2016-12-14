@@ -1,7 +1,7 @@
 {
   "id": "seid700",
   "images": [
-    "images/products/seid700.jpg"
+    "/img/products/seid700.jpg"
   ],
   "docs": [
       {"desc": "SEIRVD49HD.pdf", "size": 274, "filetype": "pdf", "src":"/products/docs/SEIRVD49HD.pdf"}

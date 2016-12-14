@@ -1,7 +1,7 @@
 {
   "id": "snv-6084r",
   "images": [
-    "images/products/snv-6084r.png"
+    "/img/products/snv-6084r.png"
   ],
   "docs": [
       {"desc": "SNV-6084R_Specifications.pdf", "size": 290, "filetype": "pdf", "src":"/products/docs/SNV-6084R_Specifications.pdf"},

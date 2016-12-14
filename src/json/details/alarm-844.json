@@ -1,10 +1,10 @@
 {
   "id": "alarm-844",
   "images": [
-    "images/products/alarm_844-1.png",
-    "images/products/alarm_844-2.png",
-    "images/products/alarm_844-3.png",
-    "images/products/alarm_844-4.png"
+    "/img/products/alarm_844-1.png",
+    "/img/products/alarm_844-2.png",
+    "/img/products/alarm_844-3.png",
+    "/img/products/alarm_844-4.png"
   ],
   "docs": [
     {"desc": "ICP_CC404P_Data_sheet.pdf", "size": 246, "filetype": "pdf", "src":"/products/docs/ICP_CC404P_Data_sheet.pdf"},

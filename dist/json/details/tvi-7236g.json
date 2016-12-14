@@ -1,7 +1,7 @@
 {
   "id": "tvi-7236g",
   "images": [
-    "images/products/tvi-7236g.png"
+    "/img/products/tvi-7236g.png"
   ],
   "docs": [
     {"desc": "C-TVI-7236-G_User_Manual.pdf", "size": 285, "filetype": "pdf", "src":"/products/docs/C-TVI-7236-G_User_Manual.pdf"}

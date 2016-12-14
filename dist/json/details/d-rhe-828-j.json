@@ -1,7 +1,7 @@
 {
   "id": "d-rhe-828-j",
   "images": [
-    "images/products/rhe-828-j.png"
+    "/img/products/rhe-828-j.png"
   ],
   "docs": [
       {"desc": "RHE-828-J.pdf", "size": 962, "filetype": "pdf", "src":"/products/docs/RHE-828-J.pdf"},

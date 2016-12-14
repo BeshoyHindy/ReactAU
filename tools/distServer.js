@@ -5,7 +5,9 @@ var compression  = require('compression');
 
 /* eslint-disable no-console */
 
+// Heroku dynamically assigns your app a port, so you can't set the port to a fixed number. Heroku adds the port to the env
 var port = process.env.PORT || 3000;
+
 var app = express();
 
 app.use(compression());

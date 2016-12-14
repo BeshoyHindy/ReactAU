@@ -1,8 +1,8 @@
 {
   "id": "scv-2080p",
   "images": [
-    "images/products/scv-2080p-1.jpg",
-    "images/products/scv-2080p-2.jpg"
+    "/img/products/scv-2080p-1.jpg",
+    "/img/products/scv-2080p-2.jpg"
   ],
   "docs": [
       {"desc": "SCV-2080P.pdf", "size": 302, "filetype": "pdf", "src":"/products/docs/SCV-2080P.pdf"},

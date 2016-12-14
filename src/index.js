@@ -14,6 +14,8 @@ import {Home} from './components/Home';
 import {About} from './components/About';
 import {Contact} from './components/Contact';
 import {ProductsTbl} from './components/Products/ProductsTbl';
+import { Details } from './components/Products/Detail';
+
 
 
 class Root extends React.Component{
@@ -274,8 +276,8 @@ render((
 			<Route path="home" component={Home} />
 			<Route path="products" component={Products}>
 				<Route path=":product" components={{ content: Category, sidebar: CategorySidebar }}>
+					<Route path="spec/:id" component={Details} />
 					<Route path=":ProductsTbl" component={ProductsTbl} >
-						<Route path="id" component={ProductsTbl} />
 					</Route>
 				</Route>
 			</Route>

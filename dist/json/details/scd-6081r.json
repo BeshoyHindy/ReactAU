@@ -1,7 +1,7 @@
 {
   "id": "scd-6081r",
   "images": [
-    "images/products/scd-6081r.png"
+    "/img/products/scd-6081r.png"
   ],
   "docs": [
       {"desc": "SCD-6081R_Specifications.pdf", "size": 268, "filetype": "pdf", "src":"/products/docs/SCD-6081R_Specifications.pdf"},

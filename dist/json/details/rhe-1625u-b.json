@@ -1,7 +1,7 @@
 {
   "id": "rhe-1625u-b",
   "images": [
-    "images/products/rhe-1625u-b-1.png"
+    "/img/products/rhe-1625u-b-1.png"
   ],
   "docs": [
     {"desc": "RHE-1625U-B_Specification.pdf", "size": 859, "filetype": "pdf", "src":"/products/docs/RHE-1625U-B_Specification.pdf"},

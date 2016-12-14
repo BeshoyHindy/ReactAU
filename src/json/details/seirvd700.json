@@ -1,7 +1,7 @@
 {
   "id": "seirvd700",
   "images": [
-    "images/products/seirvd700.jpg"
+    "/img/products/seirvd700.jpg"
   ],
   "docs": [
       {"desc": "SEIRVD49HD.pdf", "size": 274, "filetype": "pdf", "src":"/products/docs/SEIRVD49HD.pdf"}

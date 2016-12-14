@@ -1,8 +1,8 @@
 {
   "id": "srd-482",
   "images": [
-    "images/products/srd-482-2.jpg",
-    "images/products/srd-482-1.jpg"
+    "/img/products/srd-482-2.jpg",
+    "/img/products/srd-482-1.jpg"
   ],
   "docs": [
       {"desc": "SRD-482_140822.pdf", "size": 249, "filetype": "pdf", "src":"/products/docs/SRD-482_140822.pdf"},

@@ -1,8 +1,8 @@
 {
   "id": "d-rhe-428-j",
   "images": [
-    "images/products/rhe-428-j.png",
-    "images/products/rhe-428-j-2.png"
+    "/img/products/rhe-428-j.png",
+    "/img/products/rhe-428-j-2.png"
   ],
   "docs": [
       {"desc": "RHE-428-J.pdf", "size": 985, "filetype": "pdf", "src":"/products/docs/RHE-428-J.pdf"},

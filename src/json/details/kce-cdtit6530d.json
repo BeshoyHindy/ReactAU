@@ -1,7 +1,7 @@
 {
   "id": "kce-cdtit6530d",
   "images": [
-    "images/products/kce-cdtit6530d.png"
+    "/img/products/kce-cdtit6530d.png"
   ],
   "docs": [
       {"desc": "KCE-SDTIT6530D_Product_Specification.pdf", "size": 430, "filetype": "pdf", "src":"/products/docs/KCE-SDTIT6530D_Product_Specification.pdf"}

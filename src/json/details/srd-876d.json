@@ -1,10 +1,10 @@
 {
   "id": "srd-876d",
   "images": [
-    "images/products/SRD-876D-1.jpg",
-    "images/products/srd-876d-2.png",
-    "images/products/srd-876d-3.png",
-    "images/products/srd-876d-4.png"
+    "/img/products/SRD-876D-1.jpg",
+    "/img/products/srd-876d-2.png",
+    "/img/products/srd-876d-3.png",
+    "/img/products/srd-876d-4.png"
   ],
   "docs": [
       {"desc": "SRD-876D_Specification.pdf", "size": 372, "filetype": "pdf", "src":"/products/docs/SRD-876D_Specification.pdf"},

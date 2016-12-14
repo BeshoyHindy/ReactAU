@@ -1,8 +1,8 @@
 {
   "id": "sco-2020rp",
   "images": [
-    "images/products/sco-2020rp-1.png",
-    "images/products/sco-2020rp-2.png"
+    "/img/products/sco-2020rp-1.png",
+    "/img/products/sco-2020rp-2.png"
   ],
   "docs": [
       {"desc": "SCD-2020R_Specifications.pdf", "size": 186, "filetype": "pdf", "src":"/products/docs/SCD-2020R_Specifications.pdf"},

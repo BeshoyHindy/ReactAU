@@ -1,12 +1,12 @@
 {
   "id": "hd3-16u",
   "images": [
-    "images/products/hd3-16u-1.png",
-    "images/products/snm-vms.png",
-    "images/products/snm-rms.png",
-    "images/products/snm-mac-viewer.png",
-    "images/products/snm-phone-viewer.png",
-    "images/products/smn-backup-player.png"
+    "/img/products/hd3-16u-1.png",
+    "/img/products/snm-vms.png",
+    "/img/products/snm-rms.png",
+    "/img/products/snm-mac-viewer.png",
+    "/img/products/snm-phone-viewer.png",
+    "/img/products/smn-backup-player.png"
   ],
   "docs": [
       {"desc": "SNM_HD-SDI_16ch_Premium_HD3-16U.pdf", "size": 619, "filetype": "pdf", "src":"/products/docs/SNM_HD-SDI_16ch_Premium_HD3-16U.pdf"}

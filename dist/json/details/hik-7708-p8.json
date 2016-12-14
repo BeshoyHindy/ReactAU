@@ -1,9 +1,9 @@
 {
   "id": "hik-7708-p8",
   "images": [
-    "images/products/hik-7708-p8-1.png",
-    "images/products/hik-7708-p8-2.png",
-    "images/products/hik-7708-p8-3.png"
+    "/img/products/hik-7708-p8-1.png",
+    "/img/products/hik-7708-p8-2.png",
+    "/img/products/hik-7708-p8-3.png"
   ],
   "docs": [
        {"desc": "D-HIK7704-P4_D-HIK7708-P8_HIK-7716-P16.pdf", "size": 5056, "filetype": "pdf", "src":"/products/docs/D-HIK7704-P4_D-HIK7708-P8_HIK-7716-P16.pdf"},

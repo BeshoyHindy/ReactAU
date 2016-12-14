@@ -1,9 +1,9 @@
 {
   "id": "hik-8832-p16",
   "images": [
-    "images/products/hik-8832-p16-1.png",
-    "images/products/hik-8832-p16-2.png",
-    "images/products/hik-8832-p16-3.png"
+    "/img/products/hik-8832-p16-1.png",
+    "/img/products/hik-8832-p16-2.png",
+    "/img/products/hik-8832-p16-3.png"
   ],
   "docs": [
       {"desc": "D-HIK8832-P16.pdf", "size": 3288, "filetype": "pdf", "src":"/products/docs/D-HIK8832-P16.pdf"},

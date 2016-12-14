@@ -1,7 +1,7 @@
 {
   "id": "seirvdcm800",
   "images": [
-    "images/products/seirvdcm800.jpg"
+    "/img/products/seirvdcm800.jpg"
   ],
   "docs": [
       {"desc": "SEIRVD49HD.pdf", "size": 274, "filetype": "pdf", "src":"/products/docs/SEIRVD49HD.pdf"}

@@ -1,9 +1,9 @@
 {
   "id": "tvi-7272g",
   "images": [
-    "images/products/tvi-7272g-1.png",
-    "images/products/tvi-7272g-2.png",
-    "images/products/tvi-7272g-3.png"
+    "/img/products/tvi-7272g-1.png",
+    "/img/products/tvi-7272g-2.png",
+    "/img/products/tvi-7272g-3.png"
   ],
   "docs": [
     {"desc": "C-TVI-7272G_User_Manual.pdf", "size": 285, "filetype": "pdf", "src":"/products/docs/C-TVI-7272G_User_Manual.pdf"}

@@ -1,7 +1,7 @@
 {
   "id": "tvi-7201a",
   "images": [
-    "images/products/tvi-7201a.png"
+    "/img/products/tvi-7201a.png"
   ],
   "docs": [
     {"desc": "C-TVI-7201A.pdf", "size": 1737, "filetype": "pdf", "src":"/products/docs/C-TVI-7201A.pdf"},

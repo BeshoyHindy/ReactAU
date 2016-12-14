@@ -1,7 +1,7 @@
 {
   "id": "tvi-7242a",
   "images": [
-    "images/products/tvi-7242a.png"
+    "/img/products/tvi-7242a.png"
   ],
   "docs": [
     {"desc": "C-TVI-7242A.pdf", "size": 1620, "filetype": "pdf", "src":"/products/docs/C-TVI-7242A.pdf"},

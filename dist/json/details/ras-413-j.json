@@ -1,10 +1,10 @@
 {
   "id": "ras-413-j",
   "images": [
-    "images/products/ras-413-j-1.png",
-    "images/products/ras-413-j-2.png",
-    "images/products/ras-413-j-3.png",
-    "images/products/ras-413-j-4.png"
+    "/img/products/ras-413-j-1.png",
+    "/img/products/ras-413-j-2.png",
+    "/img/products/ras-413-j-3.png",
+    "/img/products/ras-413-j-4.png"
   ],
   "docs": [
       {"desc": "RAS-413-J.pdf", "size": 815, "filetype": "pdf", "src":"/products/docs/RAS-413-J.pdf"}

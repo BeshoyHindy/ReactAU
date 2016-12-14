@@ -1,7 +1,7 @@
 {
   "id": "scv-3120p",
   "images": [
-    "images/products/scv-3120p.png"
+    "/img/products/scv-3120p.png"
   ],
   "docs": [
       {"desc": "SCV-3120P-Specifications.pdf", "size": 409, "filetype": "pdf", "src":"/products/docs/SCV-3120P-Specifications.pdf"},

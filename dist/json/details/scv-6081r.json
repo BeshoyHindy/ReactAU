@@ -1,7 +1,7 @@
 {
   "id": "scv-6081r",
   "images": [
-    "images/products/scv-6081r.png"
+    "/img/products/scv-6081r.png"
   ],
   "docs": [
       {"desc": "SCV-6081R_Specifications.pdf", "size": 296, "filetype": "pdf", "src":"/products/docs/SCV-6081R_Specifications.pdf"}

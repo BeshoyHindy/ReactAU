@@ -1,9 +1,9 @@
 {
   "id": "ras-813-j",
   "images": [
-    "images/products/ras-813-j-1.png",
-    "images/products/ras-813-j-2.png",
-    "images/products/ras-813-j-3.png"
+    "/img/products/ras-813-j-1.png",
+    "/img/products/ras-813-j-2.png",
+    "/img/products/ras-813-j-3.png"
   ],
   "docs": [
       {"desc": "RAS-813-C+J+N.pdf", "size": 2097, "filetype": "pdf", "src":"/products/docs/RAS-813-C+J+N.pdf"}

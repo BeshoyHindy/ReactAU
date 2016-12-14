@@ -1,7 +1,7 @@
 {
   "id": "seadirvd130w",
   "images": [
-    "images/products/seadirvd130w.jpg"
+    "/img/products/seadirvd130w.jpg"
   ],
   "docs": [
       {"desc": "SEIRVD49HD.pdf", "size": 274, "filetype": "pdf", "src":"/products/docs/SEIRVD49HD.pdf"}

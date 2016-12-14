@@ -1,7 +1,7 @@
 {
   "id": "kce-sdti650",
   "images": [
-    "images/products/kce-sdti650.png"
+    "/img/products/kce-sdti650.png"
   ],
   "docs": [
       {"desc": "KCE-SDTI650_Specification.pdf", "size": 1622, "filetype": "pdf", "src":"/products/docs/KCE-SDTI650_Specification.pdf"}

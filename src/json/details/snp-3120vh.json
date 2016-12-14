@@ -1,7 +1,7 @@
 {
   "id": "snp-3120vh",
   "images": [
-    "images/products/snp-3120vh.png"
+    "/img/products/snp-3120vh.png"
   ],
   "docs": [
       {"desc": "SNP-3120VH_3120_Specifications.pdf", "size": 298, "filetype": "pdf", "src":"/products/docs/SNP-3120VH_3120_Specifications.pdf"},

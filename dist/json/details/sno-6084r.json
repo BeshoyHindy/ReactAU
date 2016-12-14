@@ -1,7 +1,7 @@
 {
   "id": "sno-6084r",
   "images": [
-    "images/products/sno-6084r.png"
+    "/img/products/sno-6084r.png"
   ],
   "docs": [
       {"desc": "SNO-6011R_Specifications.pdf", "size": 182, "filetype": "pdf", "src":"/products/docs/SNO-6011R_Specifications.pdf"},

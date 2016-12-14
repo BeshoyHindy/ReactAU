@@ -14,7 +14,7 @@ class ImageComponent extends React.Component{
 	}
 	render() {
 		return (
-			(<Link to={"/products/DVR/" + this.props.params.product}><img src={this.props.data} /></Link>)
+			(<Link to={"/products/DVR/spec/" + this.props.rowData.id}><img src={this.props.data} /></Link>)
 		);
 	}
 }
@@ -81,6 +81,11 @@ class ProductsTbl extends React.Component{
 				"locked": true,
 				"visible": true,
 				"customComponent": ImageComponent,
+				/*
+				'customComponentMetadata': {
+					'id': this.props.rowData.id,
+					'type': this.props.rowData.type,
+				},*/
 				"displayName": "Image",
 				"sortable": false,
 				"cssClassName": "tblImage"

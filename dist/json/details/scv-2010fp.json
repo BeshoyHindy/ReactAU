@@ -1,8 +1,8 @@
 {
   "id": "scv-2010fp",
   "images": [
-    "images/products/scv-2010fp-1.jpg",
-    "images/products/scv-2010fp-2.jpg"
+    "/img/products/scv-2010fp-1.jpg",
+    "/img/products/scv-2010fp-2.jpg"
   ],
   "docs": [
       {"desc": "SCV-2010F.pdf", "size": 302, "filetype": "pdf", "src":"/products/docs/SCV-2010F.pdf"},

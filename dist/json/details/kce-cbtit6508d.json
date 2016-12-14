@@ -1,8 +1,8 @@
 {
   "id": "kce-cbtit6508d",
   "images": [
-    "images/products/kce-cbtit6508d.png",
-    "images/products/kce-cbtit6508d-1.png"
+    "/img/products/kce-cbtit6508d.png",
+    "/img/products/kce-cbtit6508d-1.png"
   ],
   "docs": [
       {"desc": "KCE-CBTIT6508D_Product_Specification.pdf", "size": 275, "filetype": "pdf", "src":"/products/docs/KCE-CBTIT6508D_Product_Specification.pdf"}

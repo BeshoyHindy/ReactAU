@@ -1,7 +1,7 @@
 {
   "id": "kce-dti6524",
   "images": [
-    "images/products/kce-dti6524.png"
+    "/img/products/kce-dti6524.png"
   ],
   "docs": [
       {"desc": "KCE-DTI5024-G.pdf", "size": 1024, "filetype": "pdf", "src":"/products/docs/KCE-DTI5024-G.pdf"}

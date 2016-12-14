@@ -1,7 +1,7 @@
 {
   "id": "scb-6001",
   "images": [
-    "images/products/scb-6001.png"
+    "/img/products/scb-6001.png"
   ],
   "docs": [
       {"desc": "SCB-6001_Specification.pdf", "size": 903, "filetype": "pdf", "src":"/products/docs/SCB-6001_Specification.pdf"},

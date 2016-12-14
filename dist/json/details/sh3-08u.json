@@ -1,12 +1,12 @@
 {
   "id": "sh3-08u",
   "images": [
-    "images/products/sh3-08u-1.png",
-    "images/products/snm-vms.png",
-    "images/products/snm-rms.png",
-    "images/products/snm-mac-viewer.png",
-    "images/products/snm-phone-viewer.png",
-    "images/products/smn-backup-player.png"
+    "/img/products/sh3-08u-1.png",
+    "/img/products/snm-vms.png",
+    "/img/products/snm-rms.png",
+    "/img/products/snm-mac-viewer.png",
+    "/img/products/snm-phone-viewer.png",
+    "/img/products/smn-backup-player.png"
   ],
   "docs": [
       {"desc": "SNM_HD-SDI_8ch_Lite_SH3-08U.pdf", "size": 601, "filetype": "pdf", "src":"/products/docs/SNM_HD-SDI_8ch_Lite_SH3-08U.pdf"},

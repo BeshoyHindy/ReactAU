@@ -1,7 +1,7 @@
 {
   "id": "ip-ds-2cd2632f-i_s",
   "images": [
-    "images/products/ip-ds-2cd2632f-i_s.png"
+    "/img/products/ip-ds-2cd2632f-i_s.png"
   ],
   "docs": [
       {"desc": "DS-2CD2632F-IS(3MP).pdf", "size": 589, "filetype": "pdf", "src":"/products/docs/DS-2CD2632F-IS(3MP).pdf"},

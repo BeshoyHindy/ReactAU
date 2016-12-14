@@ -1,9 +1,9 @@
 {
   "id": "rhd-813-b",
   "images": [
-    "images/products/rhd-813-b-1.png",
-    "images/products/rhd-813-b-2.png",
-    "images/products/rhd-813-b-3.png"
+    "/img/products/rhd-813-b-1.png",
+    "/img/products/rhd-813-b-2.png",
+    "/img/products/rhd-813-b-3.png"
   ],
   "docs": [
           {"desc": "RHD-813B.pdf", "size": 259, "filetype": "pdf", "src":"/products/docs/RHD-813B.pdf"}

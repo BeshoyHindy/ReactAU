@@ -1,7 +1,7 @@
 {
   "id": "tvi-6301a",
   "images": [
-    "images/products/tvi-6301a.png"
+    "/img/products/tvi-6301a.png"
   ],
   "docs": [
     {"desc": "C-TVI-6301A.pdf", "size": 1341, "filetype": "pdf", "src":"/products/docs/C-TVI-6301A.pdf"},
