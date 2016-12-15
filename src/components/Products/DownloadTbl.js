@@ -43,7 +43,7 @@ class DownloadTbl extends React.Component{
 										<td >{item.desc}</td>
 										<td >{item.size}</td>
 										<td >{item.filetype}</td>
-										<td > <a href={item.src} target="_blank">Download </a></td>
+										<td > <a href="/json/docs/spec.pdf" target="_blank">Download </a></td>
 									</tr>
 									);
 								})
