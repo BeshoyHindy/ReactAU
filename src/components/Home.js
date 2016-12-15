@@ -1,5 +1,3 @@
-require('../sass/main.scss');
-require("font-awesome-sass-loader");
 var Slider = require('react-slick');
 
 import React from 'react';

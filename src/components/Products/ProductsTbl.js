@@ -1,7 +1,3 @@
-require('../../sass/main.scss');
-require("font-awesome-sass-loader");
-require.context('../../img', true, /\.?/);
-
 let Griddle = require('griddle-react');
 
 import { Link} from 'react-router';
