@@ -81,9 +81,14 @@ class Products extends React.Component{
 }
 
 const ProductCategory = (props) => {
+	if (props && props.children){
 		return (
 			<div> {React.cloneElement(props.children, props)} </div>
-		)
+		);
+	}
+	else{
+		return (<div></div>);
+	}
 };
 
 

@@ -1,6 +1,7 @@
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
+import {nav, isvalidRoute} from '../../Data/RouteData';
 
 const ProductIndexSidebar = () => (
 <div>
@@ -30,7 +31,8 @@ class ProductCategorySidebar extends React.Component{
 		}
 
 		componentDidUpdate (prevProps, prevState) {
-
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+				return;
 			let oldId = prevProps.params.product;
 			let newId = this.props.params.product;
 			let oldTblId = prevProps.params.ProductsTbl;
@@ -45,8 +47,28 @@ class ProductCategorySidebar extends React.Component{
 		componentWillMount() {
 			this.fetchData();
 		}
+		// existMatch(subnav, path){
+		// 	if ( subnav && subnav.length > 0) {
+		// 		return (subnav.filter((item, id) => {
+		// 			if ( item.sub && item.sub.length > 0) {
+		// 				if(item.link.indexOf(path) !== -1)
+		// 					return true;
+		// 				return this.existMatch(item.sub, path);
+		// 			}else{
+		// 				return (item.link.indexOf(path) !== -1);
+		// 			}
+		// 		}).length > 0);
+		// 	}
+		// 	return true;
+		// }
 
+		// validRoute(path){
+		// 	return this.existMatch(nav, path);
+		// }
 		fetchData(){
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+				return;
+
 			//console.log('this.props.params: ', this.props.params);
 			let cat = this.props.params.product || 'DVR';
 			axios({
@@ -63,44 +85,53 @@ class ProductCategorySidebar extends React.Component{
 				console.log(error);
 			});
 		}
-  isActive(value){
-    return ((value===this.state.selected) ?'active':'');
-  }
+		isActive(value){
+			return ((value===this.state.selected) ?'active':'');
+		}
 		render() {
-			let uniqArray = (arrArg) => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
-			let brands = uniqArray(this.state.products && this.state.products.map((item, index) => (item.brand)));
-			let type = uniqArray(this.state.products && this.state.products.map((item, index) => (item.type)));
-			return (
-				<div>
-					<div className="col-sm-12 cat">
-						<ul ><li>Brand:
-									<ul>
-										<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`}>All</Link></li>
-										{
-											brands.map((item, index) => (
-												<li key={index}  className={this.isActive( item )}>
-													<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
-												</li>
-											))
-										}
-									</ul>
-								</li>
-								<li>System:
-									<ul>
-										<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`} >All</Link></li>
-										{
-											type.map((item, index) => (
-												<li key={index}  className={this.isActive( item )}>
-													<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
-												</li>
-											))
-										}
-									</ul>
-								</li>
-							</ul>
+			//console.log(this.state.products);
+			//console.log(this.state.products.length );
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl)){
+				return (<div>
+
+				</div>);
+			}else{
+
+				let uniqArray = (arrArg) => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
+				let brands = uniqArray(this.state.products.map((item, index) => (item.brand)));
+				let type = uniqArray( this.state.products.map((item, index) => (item.type)));
+				return (
+					<div>
+						<div className="col-sm-12 cat">
+							<ul ><li>Brand:
+										<ul>
+											<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`}>All</Link></li>
+											{
+												brands.map((item, index) => (
+													<li key={index}  className={this.isActive( item )}>
+														<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
+													</li>
+												))
+											}
+										</ul>
+									</li>
+									<li>System:
+										<ul>
+											<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`} >All</Link></li>
+											{
+												type.map((item, index) => (
+													<li key={index}  className={this.isActive( item )}>
+														<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
+													</li>
+												))
+											}
+										</ul>
+									</li>
+								</ul>
+						</div>
 					</div>
-				</div>
-			);
+				);
+			}
 		}
 
 }

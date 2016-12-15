@@ -18,6 +18,8 @@ import {ProductCategory, Products} from './components/Products/Products';
 import {ProductsTbl} from './components/Products/ProductsTbl';
 import { Details } from './components/Products/Detail';
 import { NavBar } from './components/header/NavBar';
+import { nav } from './Data/RouteData';
+
 
 class Root extends React.Component{
 		constructor(props) {
@@ -39,34 +41,6 @@ class Root extends React.Component{
 	}
 
 	render() {
-		let nav = [
-			{link: "/home", desc: "Home"},
-			{link: "/products", desc: "Products"
-				, sub: [
-					{link: "/products/DVR/All", desc: "DVR", sub:[
-							{link:"/products/DVR/HD-SDI", desc:"HD-SDI"},
-							{link:"/products/DVR/HD-TVI", desc:"HD-TVI"},
-							{link:"/products/DVR/AHD", desc:"AHD"},
-							{link:"/products/DVR/Analog", desc:"Analog"}
-						]
-					},
-					{link: "/products/KIT/All", desc: "Kit"},
-					{link: "/products/NVR/All", desc: "NVR", sub:[
-							{link:"/products/NVR/HD-SDI", desc:"HD-SDI"},
-							{link:"/products/NVR/HD-TVI", desc:"HD-TVI"},
-							{link:"/products/NVR/AHD", desc:"AHD"},
-							{link:"/products/NVR/Analog", desc:"Analog"},
-							{link:"/products/NVR/IP", desc:"IP"}
-						]
-					},
-					{link: "/products/CCTV/All", desc: "CCTV Camera"},
-					{link: "/products/ALARM/All", desc: "Instrusion Alarm"},
-					{link: "/products/INTERCOM/All", desc: "Video Intercom"}
-				]},
-			{link: "/aboutus", desc: "About Us"},
-			{link: "/contact", desc: "Contact"}
-		];
-
 		return (
 	<div>
 		<header id="header">
@@ -93,6 +67,12 @@ class Root extends React.Component{
 	}
 }
 
+const NotFoundPage = (props) => {
+		return (
+			<h1> Page Not Found </h1>
+		)
+};
+
 render((
 	<Router history={browserHistory}>
 		<Route path="/" component={Root}>
@@ -108,6 +88,7 @@ render((
 			<Route path="aboutus" component={About} />
 			<Route path="contact" component={Contact} />
 		</Route>
+		<Route path="*" component={NotFoundPage} />
 	</Router>
 ), document.getElementById("rootWrap"));
 

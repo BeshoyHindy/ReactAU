@@ -55,7 +55,7 @@ const NavBar = (props) => {
 								<TopParentLink  key={id} item={item}/>
 							)
 						}else{
-							return (<AtomLink a={{link:item.link, desc:item.desc}} activeClass={props.activeClass} />)
+							return (<AtomLink key={id}  a={{link:item.link, desc:item.desc}} activeClass={props.activeClass} />)
 						}
 					})
 				}

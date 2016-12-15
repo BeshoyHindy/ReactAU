@@ -3,17 +3,8 @@ let Griddle = require('griddle-react');
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-
-class ImageComponent extends React.Component{
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			(<Link to={"/products/DVR/spec/" + this.props.rowData.id}><img src={this.props.data} /></Link>)
-		);
-	}
-}
+import {nav, isvalidRoute} from '../../Data/RouteData';
+import { Metadata } from "../../Data/ProductTblSettings";
 
 class ProductsTbl extends React.Component{
 		constructor(props) {
@@ -22,10 +13,11 @@ class ProductsTbl extends React.Component{
 				products:[]
 			};
 			this.fetchData = this.fetchData.bind(this);
-
 		}
 
 		componentDidUpdate (prevProps, prevState) {
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+				return;
 			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
 			let newId = this.props.params.product + this.props.params.ProductsTbl;
 			if (oldId && newId !== oldId){
@@ -33,11 +25,16 @@ class ProductsTbl extends React.Component{
 			}
 		}
 		componentWillMount() {
-			this.fetchData();
+			if ( this.props.params.product && Metadata[this.props.params.product]){
+				this.fetchData();
+			}
 		}
 
 		fetchData(){
-			//console.log('this.props.params: ', this.props.params);
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+				return;
+
+
 			axios({
 				method: 'get',
 				url: '/json/'+this.props.params.product+'.json',
@@ -49,7 +46,7 @@ class ProductsTbl extends React.Component{
 					//this.refs.Griddle.setFilter(this.props.params.ProductsTbl);
 					filtered = response.data.filter( item => {
 						return item.type == this.props.params.ProductsTbl
-						       || item.brand == this.props.params.ProductsTbl;
+							|| item.brand == this.props.params.ProductsTbl;
 					})
 				}
 				this.setState({
@@ -66,110 +63,22 @@ class ProductsTbl extends React.Component{
 
 		}
 		render() {
-			let Metadata =  [
-			{
-				"columnName": "imageUrl",
-				"order": 1,
-				"locked": true,
-				"visible": true,
-				"customComponent": ImageComponent,
-				/*
-				'customComponentMetadata': {
-					'id': this.props.rowData.id,
-					'type': this.props.rowData.type,
-				},*/
-				"displayName": "Image",
-				"sortable": false,
-				"cssClassName": "tblImage"
-			},
-			{
-				"columnName": "brand",
-				"order": 2,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Brand"
-			},
-			{
-				"columnName": "type",
-				"order": 3,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "System"
-			},
-			{
-				"columnName": "name",
-				"order": 4,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Model"
-			},
-			{
-				"columnName": "channel",
-				"order": 5,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Channel"
-			},
-			{
-				"columnName": "remote",
-				"order": 6,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Remote View"
-			},
-			{
-				"columnName": "backup",
-				"order":  7,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Backup",
-			},
-			{
-				"columnName": "videoout",
-				"order":  8,
-				"locked": false,
-				"visible": true,
-				"sortable": true,
-				"displayName": "Video Output",
-			},
-			{
-				"columnName": "HDD",
-				"order":  9,
-				"locked": true,
-				"visible": false,
-				"displayName": "",
-			},
-			{
-				"columnName": "snippet",
-				"order":  10,
-				"locked": true,
-				"visible": false,
-				"displayName": "",
-			},
-			{
-				"columnName": "id",
-				"order":  11,
-				"locked": true,
-				"visible": false,
-				"displayName": "",
+			if ( !this.props.params.product || !Metadata[this.props.params.product]){
+				return (<div>
+
+				</div>);
+			}else{
+				return (
+						<Griddle results={this.state.products} tableClassName="table" columnMetadata={Metadata[this.props.params.product]} showFilter={true} showSettings={true}
+							columns={["imageUrl","brand", "type", "name", "channel", "remote", "backup", "videoout"]}
+							sortAscendingComponent={<span className="fa fa-sort-amount-asc"></span>}
+							sortDescendingComponent={<span className="fa fa-sort-amount-desc"></span>}
+							sortDefaultComponent={<span className="fa fa-sort "></span>}
+							useGriddleStyles={false}
+							ref='Griddle'
+							/>
+				);
 			}
-			];
-			return (
-					<Griddle results={this.state.products} tableClassName="table" columnMetadata={Metadata} showFilter={true} showSettings={true}
-						columns={["imageUrl","brand", "type", "name", "channel", "remote", "backup", "videoout"]}
-						sortAscendingComponent={<span className="fa fa-sort-amount-asc"></span>}
-						sortDescendingComponent={<span className="fa fa-sort-amount-desc"></span>}
-						sortDefaultComponent={<span className="fa fa-sort "></span>}
-						useGriddleStyles={false}
-						ref='Griddle'
-						/>
-			);
 		}
 
 }

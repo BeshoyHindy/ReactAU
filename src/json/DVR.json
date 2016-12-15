@@ -9,7 +9,6 @@
         "channel":4,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -22,7 +21,6 @@
         "channel":4,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -35,7 +33,6 @@
         "channel":4,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -48,7 +45,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"Network, USB 2.0 or SATA",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -61,7 +57,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network, DVD (optional)",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -74,7 +69,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network, DVD",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -87,7 +81,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network, DVD",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -100,7 +93,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -113,7 +105,6 @@
         "channel":8,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network, DVD (optional)",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {
@@ -126,7 +117,6 @@
         "channel":16,
         "remote":"LAN, ie, iPhone, iPad, Android, 3G mobile",
         "backup":"USB, Network, DVD",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA, BNC"
     },
     {

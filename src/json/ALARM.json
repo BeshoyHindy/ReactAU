@@ -7,7 +7,6 @@
         "channel":"4",
         "remote":"LAN and Internet, Mobile Phone ",
 		"compression":"H.264",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -18,7 +17,6 @@
         "channel":"8",
         "remote":"LAN and Internet, Mobile Phone ",
 		"compression":"H.264",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -29,7 +27,6 @@
         "channel":"4",
         "remote":"LAN and Internet, Mobile Phone ",
 		"compression":"H.264",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     },
     {
@@ -40,7 +37,6 @@
         "channel":"4",
         "remote":"LAN and Internet, Mobile Phone ",
 		"compression":"H.264",
-        "HDD":"SATA",
         "videoout":"HDMI, VGA"
     }
 ]
