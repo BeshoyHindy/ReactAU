@@ -53,6 +53,9 @@
     background-color: #eee;
     @include border-radius(20px);
     //@include box-shadow(#ccc 0 0 10px -5px inset);
+	a{
+		color: $color6;
+	}
   }
   li{
     line-height:20px;
