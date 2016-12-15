@@ -17,6 +17,7 @@ import {ProductCategorySidebar, ProductIndexSidebar} from './components/Products
 import {ProductCategory, Products} from './components/Products/Products';
 import {ProductsTbl} from './components/Products/ProductsTbl';
 import { Details } from './components/Products/Detail';
+import { NavBar } from './components/header/NavBar';
 
 class Root extends React.Component{
 		constructor(props) {
@@ -38,6 +39,34 @@ class Root extends React.Component{
 	}
 
 	render() {
+		let nav = [
+			{link: "/home", desc: "Home"},
+			{link: "/products", desc: "Products"
+				, sub: [
+					{link: "/products/DVR/All", desc: "DVR", sub:[
+							{link:"/products/DVR/HD-SDI", desc:"HD-SDI"},
+							{link:"/products/DVR/HD-TVI", desc:"HD-TVI"},
+							{link:"/products/DVR/AHD", desc:"AHD"},
+							{link:"/products/DVR/Analog", desc:"Analog"}
+						]
+					},
+					{link: "/products/KIT/All", desc: "Kit"},
+					{link: "/products/NVR/All", desc: "NVR", sub:[
+							{link:"/products/NVR/HD-SDI", desc:"HD-SDI"},
+							{link:"/products/NVR/HD-TVI", desc:"HD-TVI"},
+							{link:"/products/NVR/AHD", desc:"AHD"},
+							{link:"/products/NVR/Analog", desc:"Analog"},
+							{link:"/products/NVR/IP", desc:"IP"}
+						]
+					},
+					{link: "/products/CCTV/All", desc: "CCTV Camera"},
+					{link: "/products/ALARM/All", desc: "Instrusion Alarm"},
+					{link: "/products/INTERCOM/All", desc: "Video Intercom"}
+				]},
+			{link: "/aboutus", desc: "About Us"},
+			{link: "/contact", desc: "Contact"}
+		];
+
 		return (
 	<div>
 		<header id="header">
@@ -50,59 +79,15 @@ class Root extends React.Component{
 
 						</div>
 				</div>
-				<div id="cctv-nav" className="cctv-nav">
-					<ul>
-						<h3 id="XX"> <i className="fa fa-times"></i></h3>
-						<li><Link to="/home" activeClassName="active"> Home </Link>
-						</li>
-						<li><div className="parent"><Link to="/products" activeClassName="active">Products</Link><span className='caret'></span></div>
-							<ul className="dropdown-menu">
-								<li>
-									<Link to="/products/DVR/All"> DVR <i className="fa fa-caret-right"/></Link>
-									<ul className="dropdown-menu">
-											<li ><Link to="/products/DVR/HD-SDI">HD-SDI</Link></li>
-											<li ><Link to="/products/DVR/HD-TVI">HD-TVI</Link></li>
-											<li ><Link to="/products/DVR/AHD">AHD</Link></li>
-											<li ><Link to="/products/DVR/Analog">Analog</Link></li>
-									</ul></li>
-								<li>
-									<Link to="/products/KIT/All"> Kit </Link>
-								</li>
-								<li>
-									<Link to="/products/NVR/All"> NVR </Link>
-								</li>
-								<li>
-									<Link to="/products/CCTV/All"> CCTV Camera <i className="fa fa-caret-right"/></Link>
-									<ul className="dropdown-menu">
-											<li ><Link to="/products/CCTV/HD-SDI">HD-SDI</Link></li>
-											<li ><Link to="/products/CCTV/HD-TVI">HD-TVI</Link></li>
-											<li ><Link to="/products/CCTV/AHD">AHD</Link></li>
-											<li ><Link to="/products/CCTV/Analog">Analog</Link></li>
-											<li ><Link to="/products/CCTV/IP">IP</Link></li>
-									</ul>
-								</li>
-								<li><Link to="/products/ALARM/All"> Instrusion Alarm </Link></li>
-								<li><Link to="/products/INTERCOM/All"> Video Intercom </Link></li>
-							</ul>
-						</li>
-						<li>
-							<Link to="/aboutus" activeClassName="active"> About Us </Link>
-						</li>
-						<li>
-							<Link to="/contact" activeClassName="active">  Contact</Link>
-						</li>
-					</ul>
-				</div>
+				<div className="myheader"></div>
+				<NavBar data={nav} activeClass="active"/>
 			</div>
-			<div className="myheader"></div>
 		</header>
 		<div id="article">
-			<div className="row">
-				{this.props.children}
-			</div>
+			{this.props.children}
 		</div>
 		<div id="footer"></div>
-</div>
+	</div>
 
 		);
 	}

@@ -59,6 +59,9 @@ class Products extends React.Component{
 							{
 								this.props.params.product  && (<li className="active">{this.props.params.product}</li>)
 							}
+							{
+								this.props.params.ProductsTbl  && (<li className="active">{this.props.params.ProductsTbl}</li>)
+							}
 						</ol>
 					</div>
 					<div className="row">

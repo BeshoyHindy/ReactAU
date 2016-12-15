@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link} from 'react-router';
 class About extends React.Component{
 		constructor(props) {
 			super(props);
@@ -16,7 +16,7 @@ class About extends React.Component{
 	<div className="row">
 			<div className="col-lg-12">
 					<ol className="breadcrumb">
-							<li><a href="/index.html">About</a></li>
+							<li><Link to="/home"> Home </Link></li>
 							<li className="active">About Us</li>
 					</ol>
 					<h1 className="page-header">About Us
@@ -42,6 +42,7 @@ class About extends React.Component{
 			<div className="col-sm-12 brand">
 					<p className="note">These logos are all copyright of their respective owners.</p>
 					<table className="table borderless">
+						<tbody>
 							<tr><td><img className="img-responsive" src="img/brands/bosch.jpg"/></td>
 									<td><img className="img-responsive" src="img/brands/DigiGuard.jpg"/></td>
 									<td><img className="img-responsive" src="img/brands/everfocus.png"/></td>
@@ -53,11 +54,12 @@ class About extends React.Component{
 									<td><img className="img-responsive" src="img/brands/icatch.png"/></td>
 							</tr>
 							<tr>
-								 <td><img className="img-responsive" src="img/brands/kce.gif"/></td>
-								 <td><img className="img-responsive" src="img/brands/secuzone.png"/></td>
-								 <td><img className="img-responsive" src="img/brands/asmsung_l.jpg"/></td>
-								 <td><img className="img-responsive" src="img/brands/unimo.jpg"/></td>
+								<td><img className="img-responsive" src="img/brands/kce.gif"/></td>
+								<td><img className="img-responsive" src="img/brands/secuzone.png"/></td>
+								<td><img className="img-responsive" src="img/brands/asmsung_l.jpg"/></td>
+								<td><img className="img-responsive" src="img/brands/unimo.jpg"/></td>
 							</tr>
+						</tbody>
 					</table>
 			</div>
 	</div>

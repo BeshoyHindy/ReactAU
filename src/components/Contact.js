@@ -3,7 +3,7 @@ require("font-awesome-sass-loader");
 require.context('../img', true, /\.?/);
 
 import React from 'react';
-
+import { Link} from 'react-router';
 class Contact extends React.Component{
 		constructor(props) {
 			super(props);
@@ -15,12 +15,15 @@ class Contact extends React.Component{
 		}
 
 		render() {
+			let fronts = ["/img/front1.png"
+                      , "/img/front2.png"
+                      , "/img/front3.png"];
 			return (
 <div className="container" >
 <div className="row">
     <div className="col-lg-12">
         <ol className="breadcrumb">
-            <li><a href="/index.html">Home</a></li>
+            <li><Link to="/home"> Home </Link></li>
             <li className="active">Contact</li>
         </ol>
         <h1 className="page-header">Contact
@@ -60,8 +63,8 @@ class Contact extends React.Component{
             <div className="contact-bar content-bar-hour col-xs-12">
                 <div className="title"><abbr title="Hours"><i className="fa fa-clock-o"></i> </abbr></div>
                 <div className="content content-hour">  Mon - Fri, 10:00am - 5:00pm<br/>
-                																				Saturday, 10:00am - 3:00pm<br/>
-                																				Sunday and Public Holiday Closed
+																				Saturday, 10:00am - 3:00pm<br/>
+																				Sunday and Public Holiday Closed
                 </div>
 
             </div>
@@ -73,15 +76,15 @@ class Contact extends React.Component{
       <div className="row front-door">
         <div className="col-xs-12 col-md-9 front-door-photo-wrap">
             <div className="front-door-photo">
-               <img  className="img-responsive ani" />
+               <img src={fronts[0]} className="img-responsive ani" />
             </div>
         </div>
         <div className="col-md-3 col-xs-12 front-door-t">
             <ul className="product-thumbs" >
-              <li>
-                <img src=""
-                    className="img-responsive" />
-              </li>
+				{fronts.map( (item, id) => {
+					return (
+						<li key={id}><img src={item}  className="img-responsive" /></li>)
+				})}
             </ul>
         </div>
       </div>
