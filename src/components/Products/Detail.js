@@ -5,7 +5,9 @@ require.context('../../img', true, /\.?/);
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { SpecTbl }  from './Spec';
+import { DownloadTbl }  from './DownloadTbl';
 
 class Details extends React.Component{
 		constructor(props) {
@@ -47,7 +49,9 @@ class Details extends React.Component{
 				console.log(error);
 			});
 		}
-
+		handleSelect(index, last) {
+			console.log('Selected tab: ' + index + ', Last tab: ' + last);
+		}
 		render() {
 			return (
 			<div className="product-detail">
@@ -73,7 +77,7 @@ class Details extends React.Component{
 							})}
 							</ul>
 						</div>
-					 </div>
+					</div>
 					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">
 					<h1>{this.state.detail.name}</h1>
 					<div className="p-desc-detail">
@@ -87,7 +91,23 @@ class Details extends React.Component{
 					</div>
 					</div>
 				</div>
-   			</div>
+				<Tabs
+					onSelect={this.handleSelect}
+					selectedIndex={0}
+				>
+					<TabList>
+						<Tab>Specification</Tab>
+						<Tab>Download</Tab>
+					</TabList>
+					<TabPanel>
+						<SpecTbl spec={this.state.detail.spec ?this.state.detail.spec:""}/>
+					</TabPanel>
+
+					<TabPanel>
+						<DownloadTbl docs={this.state.detail.docs ?this.state.detail.docs:""}/>
+					</TabPanel>
+				</Tabs>
+			</div>
 			);
 		}
 

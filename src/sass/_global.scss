@@ -738,3 +738,16 @@ input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:
 	}
 
 }
+
+
+//react-tabs
+.ReactTabs__TabPanel{
+	border-left : 1px solid #aaa;
+	border-right : 1px solid #aaa;
+	border-bottom : 1px solid #aaa;
+	padding-top: 10px;
+}
+
+.react-tabs [role=tablist] {
+	margin : 0;
+}

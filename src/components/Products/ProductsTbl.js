@@ -23,8 +23,7 @@ class ProductsTbl extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				products:[],
-				cat: 'DVR'
+				products:[]
 			};
 			this.fetchData = this.fetchData.bind(this);
 
@@ -43,12 +42,9 @@ class ProductsTbl extends React.Component{
 
 		fetchData(){
 			//console.log('this.props.params: ', this.props.params);
-			this.setState({
-				cat: this.props.params.product ? this.props.params.product : 'DVR'
-			});
 			axios({
 				method: 'get',
-				url: '/json/'+this.state.cat+'.json',
+				url: '/json/'+this.props.params.product+'.json',
 				dataType: 'JSON'
 			})
 			.then( (response) => {

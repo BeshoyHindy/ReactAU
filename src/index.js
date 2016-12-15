@@ -156,8 +156,8 @@ class CategorySidebar extends React.Component{
   }
 		render() {
 			let uniqArray = (arrArg) => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
-			let brands = uniqArray(this.state.products.map((item, index) => (item.brand)));
-			let type = uniqArray(this.state.products.map((item, index) => (item.type)));
+			let brands = uniqArray(this.state.products && this.state.products.map((item, index) => (item.brand)));
+			let type = uniqArray(this.state.products && this.state.products.map((item, index) => (item.type)));
 			return (
 				<div>
 					<div className="col-sm-12 cat">
