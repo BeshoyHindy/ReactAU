@@ -1,4 +1,4 @@
-const nav = [
+const navData = [
 	{name: "home", link: "/home", desc: "Home"},
 	{name: "products", link: "/products", desc: "Products"
 		, sub: [
@@ -44,4 +44,4 @@ function isvalidRoute(product, type){
 	return isvalidProduct(product) && isvalidProductType(type);
 }
 
-export {nav, isvalidRoute};
+export {navData, isvalidRoute};

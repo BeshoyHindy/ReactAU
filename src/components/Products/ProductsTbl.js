@@ -3,7 +3,7 @@ let Griddle = require('griddle-react');
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import {nav, isvalidRoute} from '../../Data/RouteData';
+import {isvalidRoute} from '../../Data/RouteData';
 import { Metadata } from "../../Data/ProductTblSettings";
 
 class ProductsTbl extends React.Component{
@@ -76,7 +76,7 @@ class ProductsTbl extends React.Component{
 					if (item.visible)
 						col.push(item.columnName);
 				}
-				console.log(col, colMetadata);
+				//console.log(col, colMetadata);
 				//console.log(this.state.products);
 				return (
 						<Griddle results={this.state.products} tableClassName="table" columnMetadata={colMetadata} showFilter={true} showSettings={true}

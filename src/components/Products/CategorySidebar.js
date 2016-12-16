@@ -1,24 +1,38 @@
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import {nav, isvalidRoute} from '../../Data/RouteData';
+import {navData, isvalidRoute} from '../../Data/RouteData';
 
 const ProductIndexSidebar = () => (
-<div>
-					<div className="col-sm-12 cat">
-						<ul ><li>Products:
-									<ul>
-										<li><Link to="/products/DVR/All">DVR</Link></li>
-										<li><Link to="/products/KIT/All">Kit</Link></li>
-										<li><Link to="/products/NVR/All">NVR</Link></li>
-										<li><Link to="/products/CCTV/All">CCTV Camera</Link></li>
-										<li><Link to="/products/ALARM/All">Instrusion Alarm</Link></li>
-										<li><Link to="/products/INTERCOM/All">Video Intercom</Link></li>
-									</ul>
-								</li>
-							</ul>
-					</div>
+			<div>
+				<div className="col-sm-12 cat">
+					<ul ><li>Products:
+								<ul>
+								{
+									navData.filter((item)=> { return item.name === "products"; })
+										.reduce( (result,item) => { return item }, {})
+										.sub.map((item, id) => { return (<li key={id}><Link to={item.link}>{item.desc}</Link></li>); })
+								}
+								</ul>
+							</li>
+						</ul>
 				</div>
+			</div>
+);
+
+const Classify =  (props) => (
+			<li>{props.title}
+				<ul>
+					<li className={props.isActive( 'All' )}><Link to={`/products/${props.params.product}/All`} >All</Link></li>
+					{
+						props.data.map((item, index) => (
+							<li key={index}  className={props.isActive( item )}>
+								<Link to={`/products/${props.params.product}/${item}`}> {item} </Link>
+							</li>
+						))
+					}
+				</ul>
+			</li>
 );
 
 class ProductCategorySidebar extends React.Component{
@@ -28,9 +42,12 @@ class ProductCategorySidebar extends React.Component{
 				products:[],
 				selected:''
 			};
+			this.isActive = this.isActive.bind(this);
 		}
 
 		componentDidUpdate (prevProps, prevState) {
+			/*console.log(navData.filter((item)=> { return item.name === "products"; })
+											.map((item) => { return (<li><Link to={item.link}>{item.desc}</Link></li>); }));*/
 			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
 				return;
 			let oldId = prevProps.params.product;
@@ -63,7 +80,7 @@ class ProductCategorySidebar extends React.Component{
 		// }
 
 		// validRoute(path){
-		// 	return this.existMatch(nav, path);
+		// 	return this.existMatch(navData, path);
 		// }
 		fetchData(){
 			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
@@ -88,46 +105,24 @@ class ProductCategorySidebar extends React.Component{
 		isActive(value){
 			return ((value===this.state.selected) ?'active':'');
 		}
+		uniqArray(arrArg){
+			return arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
+		}
 		render() {
 			//console.log(this.state.products);
 			//console.log(this.state.products.length );
 			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl)){
-				return (<div>
-
-				</div>);
-			}else{
-
-				let uniqArray = (arrArg) => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
-				let brands = uniqArray(this.state.products.map((item, index) => (item.brand)));
-				let type = uniqArray( this.state.products.map((item, index) => (item.type)));
+				return (<div></div>);
+			}else{			
+				let brands = this.uniqArray(this.state.products.map((item, index) => (item.brand)));
+				let type = this.uniqArray( this.state.products.map((item, index) => (item.type)));
 				return (
 					<div>
 						<div className="col-sm-12 cat">
-							<ul ><li>Brand:
-										<ul>
-											<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`}>All</Link></li>
-											{
-												brands.map((item, index) => (
-													<li key={index}  className={this.isActive( item )}>
-														<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
-													</li>
-												))
-											}
-										</ul>
-									</li>
-									<li>System:
-										<ul>
-											<li className={this.isActive( 'All' )}><Link to={`/products/${this.props.params.product}/All`} >All</Link></li>
-											{
-												type.map((item, index) => (
-													<li key={index}  className={this.isActive( item )}>
-														<Link to={`/products/${this.props.params.product}/${item}`}> {item} </Link>
-													</li>
-												))
-											}
-										</ul>
-									</li>
-								</ul>
+							<ul >
+								<Classify title="Brand:" data={brands} isActive={this.isActive} {...this.props}/>
+								<Classify title="System:" data={type} isActive={this.isActive} {...this.props}/>
+							</ul>
 						</div>
 					</div>
 				);

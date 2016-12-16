@@ -18,7 +18,7 @@ import {ProductCategory, Products} from './components/Products/Products';
 import {ProductsTbl} from './components/Products/ProductsTbl';
 import { Details } from './components/Products/Detail';
 import { NavBar } from './components/header/NavBar';
-import { nav } from './Data/RouteData';
+import { navData } from './Data/RouteData';
 
 
 class Root extends React.Component{
@@ -54,7 +54,7 @@ class Root extends React.Component{
 						</div>
 				</div>
 				<div className="myheader"></div>
-				<NavBar data={nav} activeClass="active"/>
+				<NavBar data={navData} activeClass="active"/>
 			</div>
 		</header>
 		<div id="article">
@@ -67,11 +67,7 @@ class Root extends React.Component{
 	}
 }
 
-const NotFoundPage = (props) => {
-		return (
-			<h1> Page Not Found </h1>
-		)
-};
+const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
 
 render((
 	<Router history={browserHistory}>
