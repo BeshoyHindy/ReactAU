@@ -1,6 +1,13 @@
 //Sublime text
 npm install -g eslint babel-eslint eslint-plugin-react
 
+//fix griddle bug
+npm uninstall griddle-react --save
+npm install https://github.com/Grace951/Griddle/tarball/master  --save
+git clone git@github.com:Grace951/Griddle.git
+cd Griddle
+git remote -v
+
 // git & github
 git config --global user.name "my name"
 git config --global user.email "my email"
@@ -44,6 +51,10 @@ npm install --save-dev font-awesome font-awesome-sass-loader css-loader style-lo
 //IMAGE
 npm install --save-dev image-webpack-loader file-loader
 // image-webpack :壓縮
+
+// check update
+npm update
+npm outdated
 
 
 //build

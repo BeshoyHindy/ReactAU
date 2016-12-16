@@ -16,8 +16,9 @@ class ProductsTbl extends React.Component{
 		}
 
 		componentDidUpdate (prevProps, prevState) {
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+			if ( !this.props.params.product || !Metadata[this.props.params.product]){
 				return;
+			}
 			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
 			let newId = this.props.params.product + this.props.params.ProductsTbl;
 			if (oldId && newId !== oldId){
@@ -63,14 +64,23 @@ class ProductsTbl extends React.Component{
 
 		}
 		render() {
+
 			if ( !this.props.params.product || !Metadata[this.props.params.product]){
 				return (<div>
 
 				</div>);
 			}else{
+				let col = [];
+				let colMetadata = Metadata[this.props.params.product];
+				for (let item of colMetadata) {
+					if (item.visible)
+						col.push(item.columnName);
+				}
+				console.log(col, colMetadata);
+				//console.log(this.state.products);
 				return (
-						<Griddle results={this.state.products} tableClassName="table" columnMetadata={Metadata[this.props.params.product]} showFilter={true} showSettings={true}
-							columns={["imageUrl","brand", "type", "name", "channel", "remote", "backup", "videoout"]}
+						<Griddle results={this.state.products} tableClassName="table" columnMetadata={colMetadata} showFilter={true} showSettings={true}
+							columns={col}
 							sortAscendingComponent={<span className="fa fa-sort-amount-asc"></span>}
 							sortDescendingComponent={<span className="fa fa-sort-amount-desc"></span>}
 							sortDefaultComponent={<span className="fa fa-sort "></span>}
