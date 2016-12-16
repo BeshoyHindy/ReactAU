@@ -50,7 +50,10 @@ class DownloadTbl extends React.Component{
 				</div>
 			);
 		}
-
 }
+DownloadTbl.propTypes = {
+	docs: React.PropTypes.array
+};
+
 
 export {DownloadTbl};

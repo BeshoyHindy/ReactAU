@@ -9,28 +9,39 @@ import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
 
 const ContactDetail = (props) => (
             <div className="contact-bar">
-                <div className="title"><abbr title={props.title}><i className={props.iconClass}></i> </abbr></div>
-                <div className="content"> 
-                    { 
+                <div className="title"><abbr title={props.title}><i className={props.iconClass} /> </abbr></div>
+                <div className="content">
+                    {
                         (props.link)?(  <a href={props.link}>   <PureList data={props.content}/> </a>)
                                     :( <PureList data={props.content}/>)
-                    }  
+                    }
                 </div>
             </div>
 );
+ContactDetail.propTypes = {
+  link: React.PropTypes.string,
+  content: React.PropTypes.array.isRequired,
+  iconClass: React.PropTypes.string,
+  title: React.PropTypes.string
+};
+
+
 
 const ContactBoard = (props) => (
     <div>
-       <p>
-            {
-                props.contactData.map((item ,id) => (item.title === "Address") && <PureList data={item.content}/>  )
-            }
-        </p>
+		{
+			props.contactData.map((item ,id) => (item.title === "Address") && <PureList key={id} data={item.content}/>  )
+		}
         <div className="col-xs-12 c">
             {  props.contactData.map((item ,id) => ( item.iconClass) && ( <ContactDetail key={id} {...item}/> )       )     }
         </div>
     </div>
 );
+ContactBoard.propTypes = {
+  contactData: React.PropTypes.array
+};
+
+
 class Contact extends React.Component{
 		constructor(props) {
 			super(props);
@@ -52,15 +63,13 @@ class Contact extends React.Component{
                         </div>
 
                         <div className="col-lg-12">
-                            <GoogleMap link={gMapLinkData}></GoogleMap>
+                            <GoogleMap link={gMapLinkData} />
                         </div>
 
                     </div>
-
-
                     <div className="row">
                         <div className="col-xs-12">
-                            <BigHeader smallTitle=""><b>Hi-Tech</b> Digital CCTV</BigHeader>        
+                            <BigHeader smallTitle=""><b>Hi-Tech</b> Digital CCTV</BigHeader>
                         </div>
                         <div className="col-sm-5 col-md-4">
                         <div className="about contact col-xs-12">

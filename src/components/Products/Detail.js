@@ -29,7 +29,7 @@ class Details extends React.Component{
 			let oldId = prevProps.params.id;
 			let newId = this.props.params.id;
 			if (oldId && newId !== oldId){
-				this.fetchData()
+				this.fetchData();
 			}
 		}
 
@@ -46,11 +46,11 @@ class Details extends React.Component{
 				});
 			})
 			.catch(function (error) {
-				console.log(error);
+				//console.log(error);
 			});
 		}
 		handleSelect(index, last) {
-			console.log('Selected tab: ' + index + ', Last tab: ' + last);
+			//console.log('Selected tab: ' + index + ', Last tab: ' + last);
 		}
 		render() {
 			return (
@@ -73,7 +73,7 @@ class Details extends React.Component{
 								<li key={id} >
 									<img src={item}/>
 								</li>
-								)
+								);
 							})}
 							</ul>
 						</div>
@@ -100,17 +100,19 @@ class Details extends React.Component{
 						<Tab>Download</Tab>
 					</TabList>
 					<TabPanel>
-						<SpecTbl spec={this.state.detail.spec ?this.state.detail.spec:""}/>
+						<SpecTbl spec={this.state.detail.spec ?this.state.detail.spec:[]}/>
 					</TabPanel>
 
 					<TabPanel>
-						<DownloadTbl docs={this.state.detail.docs ?this.state.detail.docs:""}/>
+						<DownloadTbl docs={this.state.detail.docs ?this.state.detail.docs:[]}/>
 					</TabPanel>
 				</Tabs>
 			</div>
 			);
 		}
-
 }
+Details.propTypes = {
+	params: React.PropTypes.object,
+};
 
 export {Details};

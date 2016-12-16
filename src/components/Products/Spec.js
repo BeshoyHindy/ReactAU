@@ -49,5 +49,9 @@ class SpecTbl extends React.Component{
 		}
 
 }
+SpecTbl.propTypes = {
+  spec: React.PropTypes.array
+};
+
 
 export {SpecTbl};

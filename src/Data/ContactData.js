@@ -17,7 +17,7 @@ const contactData =
 	{
 		title:"Address",
 		content: [
-		    "Unit 10/62 Hume Highway, ",
+			"Unit 10/62 Hume Highway, ",
             "Corner of Knight Street",
             "Lansvale 2166 ",
             "NSW Australia",

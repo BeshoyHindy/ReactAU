@@ -43,8 +43,8 @@ class About extends React.Component{
 					<tbody>
 						{
 							BrandsData.reduce( (acc, cur, curId) => {
-									(curId%4===0)?acc.push([cur]):acc[acc.length-1].push(cur)
-									return acc;		
+									(curId%4===0)?acc.push([cur]):acc[acc.length-1].push(cur);
+									return acc;
 								},[])
 								.map( (item, id) =>  (
 										<tr key={id}>
@@ -62,7 +62,9 @@ class About extends React.Component{
 	</div>
 			);
 		}
-
 }
+
+About.propTypes = {
+};
 
 export {About};

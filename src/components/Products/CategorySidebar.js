@@ -10,7 +10,7 @@ const ProductIndexSidebar = () => (
 								<ul>
 								{
 									navData.filter((item)=> { return item.name === "products"; })
-										.reduce( (result,item) => { return item }, {})
+										.reduce( (result,item) => { return item; }, {})
 										.sub.map((item, id) => { return (<li key={id}><Link to={item.link}>{item.desc}</Link></li>); })
 								}
 								</ul>
@@ -19,6 +19,10 @@ const ProductIndexSidebar = () => (
 				</div>
 			</div>
 );
+ProductIndexSidebar.propTypes = {
+	navData: React.PropTypes.array,
+};
+
 
 const Classify =  (props) => (
 			<li>{props.title}
@@ -34,6 +38,12 @@ const Classify =  (props) => (
 				</ul>
 			</li>
 );
+Classify.propTypes = {
+	data: React.PropTypes.array,
+	title: React.PropTypes.string,
+	isActive: React.PropTypes.func.isRequired,
+	params:  React.PropTypes.object
+};
 
 class ProductCategorySidebar extends React.Component{
 		constructor(props) {
@@ -45,24 +55,24 @@ class ProductCategorySidebar extends React.Component{
 			this.isActive = this.isActive.bind(this);
 		}
 
-		componentDidUpdate (prevProps, prevState) {
+		componentWillMount() {
+			this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
+		}
+		componentWillReceiveProps (nextProps) {
 			/*console.log(navData.filter((item)=> { return item.name === "products"; })
 											.map((item) => { return (<li><Link to={item.link}>{item.desc}</Link></li>); }));*/
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+			if (!isvalidRoute(nextProps.params.product, nextProps.ProductsTbl))
 				return;
-			let oldId = prevProps.params.product;
-			let newId = this.props.params.product;
-			let oldTblId = prevProps.params.ProductsTbl;
-			let newTblId = this.props.params.ProductsTbl;
+			let oldId = this.props.params.product;
+			let newId = nextProps.params.product;
+			let oldTblId = this.props.params.ProductsTbl;
+			let newTblId = nextProps.params.ProductsTbl;
 
 			if (oldTblId && newTblId !== oldTblId)
-				this.setState({selected  : this.props.params.ProductsTbl});
+				this.setState({selected  : nextProps.params.ProductsTbl});
 
 			if (oldId && newId !== oldId)
-				this.fetchData();
-		}
-		componentWillMount() {
-			this.fetchData();
+				this.fetchData(nextProps.params.product, nextProps.params.ProductsTbl);
 		}
 		// existMatch(subnav, path){
 		// 	if ( subnav && subnav.length > 0) {
@@ -82,12 +92,12 @@ class ProductCategorySidebar extends React.Component{
 		// validRoute(path){
 		// 	return this.existMatch(navData, path);
 		// }
-		fetchData(){
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+		fetchData(product, ProductsTbl){
+			if (!isvalidRoute(product, ProductsTbl))
 				return;
 
 			//console.log('this.props.params: ', this.props.params);
-			let cat = this.props.params.product || 'DVR';
+			let cat = product || 'DVR';
 			axios({
 				method: 'get',
 				url: '/json/'+cat+'.json',
@@ -99,7 +109,7 @@ class ProductCategorySidebar extends React.Component{
 				});
 			})
 			.catch(function (error) {
-				console.log(error);
+				//console.log(error);
 			});
 		}
 		isActive(value){
@@ -112,8 +122,8 @@ class ProductCategorySidebar extends React.Component{
 			//console.log(this.state.products);
 			//console.log(this.state.products.length );
 			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl)){
-				return (<div></div>);
-			}else{			
+				return (<div/>);
+			}else{
 				let brands = this.uniqArray(this.state.products.map((item, index) => (item.brand)));
 				let type = this.uniqArray( this.state.products.map((item, index) => (item.type)));
 				return (
@@ -128,7 +138,9 @@ class ProductCategorySidebar extends React.Component{
 				);
 			}
 		}
-
 }
+ProductCategorySidebar.propTypes = {
+	params:  React.PropTypes.object
+};
 
 export {ProductCategorySidebar, ProductIndexSidebar};

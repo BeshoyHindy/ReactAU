@@ -13,23 +13,23 @@ const ProductIndex = () => (
 	<div>
 		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="DVR">
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>	
+		</Paragraph>
 
 		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Kit">
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>	
+		</Paragraph>
 
 		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="CCTV Camera">
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>	
+		</Paragraph>
 
 		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Instrusion Alarm">
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>	
+		</Paragraph>
 
 		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Video Intercom">
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>	
+		</Paragraph>
 	</div>
 );
 
@@ -40,7 +40,7 @@ class Products extends React.Component{
 		render() {
 			let linkpair = [
 							{link:"Home", desc:"Home"},
-							{link:"/products", desc:"Products"}													
+							{link:"/products", desc:"Products"}
 						];
 			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
 			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
@@ -62,16 +62,23 @@ class Products extends React.Component{
 			);
 		}
 }
+Products.propTypes = {
+	content: React.PropTypes.node,
+	sidebar: React.PropTypes.node,
+	params:  React.PropTypes.object
+};
 
 const ProductCategory = (props) => (
 	<div>
-		{ 
+		{
 			(props.children)
 				? (<div> {React.cloneElement(props.children, props)} </div>)
-				: (<div></div>)
+				: (<div/>)
 		}
 	</div>
 );
-
+ProductCategory.propTypes = {
+	children: React.PropTypes.node
+};
 
 export {ProductIndex, ProductCategory, Products};

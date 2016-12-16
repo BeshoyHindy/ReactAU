@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link} from 'react-router';
 
-const PureList = (props) => ( <ul>{props.data.map( (item, id) => { return ( <li key={id}> {item} </li> ); })} </ul>)
+const PureList = (props) => ( <ul>{props.data.map( (item, id) => { return ( <li key={id}> {item} </li> ); })} </ul>);
+
+PureList.propTypes = {
+  data: React.PropTypes.array.isRequired
+};
+
 
 const GoogleMap = (props) => (
-		<iframe width="100%" height={props.height ||"400px"} scrolling={props.scrol ||"no"}	src={props.link}>
-		</iframe>
-)
+		<iframe width="100%" height={props.height ||"400px"} scrolling={props.scrol ||"no"}	src={props.link} />
+);
+GoogleMap.propTypes = {
+  link: React.PropTypes.string.isRequired,
+  height: React.PropTypes.string,
+  scrol: React.PropTypes.string
+};
+
 
 const Breadcrumb = (props) => (
 	<ol className="breadcrumb">{
@@ -19,19 +29,33 @@ const Breadcrumb = (props) => (
 			})
 		}
 	</ol>
-	)
+);
+Breadcrumb.propTypes = {
+  linkPair: React.PropTypes.array.isRequired
+};
+
 
 const BigHeader = (props) => (
 	<h1 className="page-header">{props.children}
 			<small>{props.smallTitle}</small>
 		</h1>
-	)
+);
+BigHeader.propTypes = {
+  smallTitle: React.PropTypes.string,
+  children: React.PropTypes.node
+};
+
+
 
 const OrangeBoard = (props) => (
 	<div className="about">
 		{props.children}
 	</div>
-)	
+);
+OrangeBoard.propTypes = {
+  children: React.PropTypes.node
+};
+
 
 const Paragraph = (props) => (
 	<div>
@@ -41,5 +65,10 @@ const Paragraph = (props) => (
 		</p>
 	</div>
 );
+Paragraph.propTypes = {
+  title: React.PropTypes.string,
+  smallTitle: React.PropTypes.string,
+  children: React.PropTypes.node
+};
 
 export { Breadcrumb , BigHeader , OrangeBoard, Paragraph, PureList, GoogleMap};
