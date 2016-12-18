@@ -16,26 +16,27 @@ class ProductsTbl extends React.Component{
 		}
 
 		componentWillMount() {
+		}
+
+
+		componentDidMount() {
 			if ( this.props.params.product && Metadata[this.props.params.product]){
 				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
 			}
 		}
 
-
-		componentDidMount() {
-
-
-		}
-
 		componentWillReceiveProps (nextProps) {
-			if ( !this.props.params.product || !Metadata[this.props.params.product]){
+		}
+		componentDidUpdate (prevProps, prevState) {
+			if ( !prevProps.params.product || !Metadata[prevProps.params.product]){
 				return;
 			}
-			let oldId = this.props.params.product + this.props.params.ProductsTbl;
-			let newId = nextProps.params.product + nextProps.params.ProductsTbl;
+			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
+			let newId = this.props.params.product + this.props.params.ProductsTbl;
 			if (oldId && newId !== oldId){
-				this.fetchData(nextProps.params.product, nextProps.params.ProductsTbl);
+				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
 			}
+
 		}
 		fetchData(product, ProductsTbl){
 			if (!isvalidRoute(product, ProductsTbl))

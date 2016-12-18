@@ -2,7 +2,7 @@ import React from 'react';
 import { Link} from 'react-router';
 import {BrandsData} from '../Data/AboutData';
 
-import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared";
+import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared/Shared";
 
 class About extends React.Component{
 		constructor(props) {

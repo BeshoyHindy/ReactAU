@@ -4,7 +4,7 @@ require.context('../img', true, /\.?/);
 
 import React from 'react';
 import { Link} from 'react-router';
-import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared";
+import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared"
 import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
 
 const ContactDetail = (props) => (

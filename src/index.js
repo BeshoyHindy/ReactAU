@@ -16,7 +16,7 @@ import {Contact} from './components/Contact';
 import {ProductCategorySidebar, ProductIndexSidebar} from './components/Products/CategorySidebar';
 import {ProductCategory, Products} from './components/Products/Products';
 import {ProductsTbl} from './components/Products/ProductsTbl';
-import { Details } from './components/Products/Detail';
+import { Details } from './components/Products/Details';
 import { NavBar } from './components/header/NavBar';
 import { navData } from './Data/RouteData';
 
@@ -47,20 +47,18 @@ class Root extends React.Component{
 			<div className="container">
 				<div className="banner">
 						<Link to="/home"> <h1><b>Hi-Tech</b> <span style={{ fontWeight: 500 }} > Digital CCTV</span></h1></Link>
-						<p>for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"></i> {"\u00a0"} 02 9725 7733</p>
-						<span id="BTN" className="bar"><i className="fa fa-bars"></i></span>
-						<div id="search" className="search">
-
-						</div>
+						<p>for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733</p>
+						<span id="BTN" className="bar"><i className="fa fa-bars"/></span>
+						<div id="search" className="search"/>
 				</div>
-				<div className="myheader"></div>
+				<div className="myheader"/>
 				<NavBar data={navData} activeClass="active"/>
 			</div>
 		</header>
 		<div id="article">
 			{this.props.children}
 		</div>
-		<div id="footer"></div>
+		<div id="footer"/>
 	</div>
 
 		);
@@ -77,8 +75,7 @@ render((
 			<Route path="products" component={Products}>
 				<Route path=":product" components={{ content: ProductCategory, sidebar: ProductCategorySidebar }}>
 					<Route path="spec/:id" component={Details} />
-					<Route path=":ProductsTbl" component={ProductsTbl} >
-					</Route>
+					<Route path=":ProductsTbl" component={ProductsTbl} />
 				</Route>
 			</Route>
 			<Route path="aboutus" component={About} />

@@ -1,11 +1,7 @@
-import { Link} from 'react-router';
 import React from 'react';
-import axios from 'axios';
 
-import {ProductsTbl} from './ProductsTbl';
-import { Details } from './Detail';
 import { ProductIndexSidebar, } from './CategorySidebar';
-import { Breadcrumb , BigHeader, Paragraph} from "../Shared";
+import { Breadcrumb , BigHeader, Paragraph} from "../Shared/Shared";
 
 
 

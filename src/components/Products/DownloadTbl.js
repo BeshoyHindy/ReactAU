@@ -1,6 +1,4 @@
-import { Link} from 'react-router';
 import React from 'react';
-import axios from 'axios';
 
 
 class DownloadTbl extends React.Component{
@@ -33,7 +31,7 @@ class DownloadTbl extends React.Component{
 							</thead>
 							<tbody>
 							{
-								this.props.docs && this.props.docs.map( (item, id) => {
+								this.props.data && this.props.data.map( (item, id) => {
 									return (
 									<tr key={id}>
 										<td >{item.desc}</td>
@@ -52,7 +50,7 @@ class DownloadTbl extends React.Component{
 		}
 }
 DownloadTbl.propTypes = {
-	docs: React.PropTypes.array
+	data: React.PropTypes.array
 };
 
 

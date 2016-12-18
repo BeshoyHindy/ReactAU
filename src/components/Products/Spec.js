@@ -1,6 +1,4 @@
-import { Link} from 'react-router';
 import React from 'react';
-import axios from 'axios';
 
 
 class SpecTbl extends React.Component{
@@ -23,7 +21,7 @@ class SpecTbl extends React.Component{
 				<div id="p-spec">
 					<table className="table table-striped table-bordered table-hover p-spec">
 					{
-						this.props.spec && this.props.spec.map( (item, i) => {
+						this.props.data && this.props.data.map( (item, i) => {
 							return (
 								<tbody key={i}>
 									<tr>
@@ -50,7 +48,7 @@ class SpecTbl extends React.Component{
 
 }
 SpecTbl.propTypes = {
-  spec: React.PropTypes.array
+  data: React.PropTypes.array
 };
 
 

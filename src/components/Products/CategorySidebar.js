@@ -56,12 +56,13 @@ class ProductCategorySidebar extends React.Component{
 		}
 
 		componentWillMount() {
+
+		}
+		componentDidMount() {
 			this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
 		}
 		componentWillReceiveProps (nextProps) {
-			/*console.log(navData.filter((item)=> { return item.name === "products"; })
-											.map((item) => { return (<li><Link to={item.link}>{item.desc}</Link></li>); }));*/
-			if (!isvalidRoute(nextProps.params.product, nextProps.ProductsTbl))
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
 				return;
 			let oldId = this.props.params.product;
 			let newId = nextProps.params.product;
@@ -70,9 +71,21 @@ class ProductCategorySidebar extends React.Component{
 
 			if (oldTblId && newTblId !== oldTblId)
 				this.setState({selected  : nextProps.params.ProductsTbl});
+		}
+		componentDidUpdate (prevProps, prevState) {
+			/*console.log(navData.filter((item)=> { return item.name === "products"; })
+											.map((item) => { return (<li><Link to={item.link}>{item.desc}</Link></li>); }));*/
+			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+				return;
+			let oldId = prevProps.params.product;
+			let newId = this.props.params.product;
+			let oldTblId = prevProps.params.ProductsTbl;
+			let newTblId = this.props.params.ProductsTbl;
+
 
 			if (oldId && newId !== oldId)
-				this.fetchData(nextProps.params.product, nextProps.params.ProductsTbl);
+				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
+
 		}
 		// existMatch(subnav, path){
 		// 	if ( subnav && subnav.length > 0) {

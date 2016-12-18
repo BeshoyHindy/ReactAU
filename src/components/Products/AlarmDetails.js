@@ -8,8 +8,12 @@ import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { SpecTbl }  from './Spec';
 import { DownloadTbl }  from './DownloadTbl';
+import { MemberTbl }  from './MemberTbl';
+import { OptionalTbl }  from './OptionalTbl';
+import ImageLoader from 'react-imageloader';
 
-class Details extends React.Component{
+
+class AlarmDetails extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
@@ -52,6 +56,12 @@ class Details extends React.Component{
 		handleSelect(index, last) {
 			//console.log('Selected tab: ' + index + ', Last tab: ' + last);
 		}
+		detailImgpreLoader() {
+			return <div className="loading-div" style={{minHeight: "300px"}}/>;
+		}
+		thumbnailImgpreLoader() {
+			return <div className="loading-div" style={{minHeight: "60px"}}/>;
+		}
 		render() {
 			return (
 			<div className="product-detail">
@@ -61,7 +71,13 @@ class Details extends React.Component{
 							<div className="col-xs-12 product-images">
 								{this.state.detail.images && this.state.detail.images.map( (item, id) => {
 										return (
-											<img className="product" src={item} key={id}/>
+											<ImageLoader
+												className="product"
+												key={id}
+												src={item}
+												wrapper={React.DOM.div}
+												preloader={this.detailImgpreLoader}>NOT FOUND
+											</ImageLoader>
 										);
 									})}
 							</div>
@@ -71,7 +87,12 @@ class Details extends React.Component{
 							{this.state.detail.images && this.state.detail.images.map( (item, id) => {
 								return (
 								<li key={id} >
-									<img src={item}/>
+									<ImageLoader
+										key={id}
+										src={item}
+										wrapper={React.DOM.div}
+										preloader={this.thumbnailImgpreLoader}>NOT FOUND
+									</ImageLoader>
 								</li>
 								);
 							})}
@@ -96,23 +117,34 @@ class Details extends React.Component{
 					selectedIndex={0}
 				>
 					<TabList>
+						<Tab>Standard Package</Tab>
+						<Tab>Optinal Package</Tab>
 						<Tab>Specification</Tab>
 						<Tab>Download</Tab>
 					</TabList>
+
 					<TabPanel>
-						<SpecTbl spec={this.state.detail.spec ?this.state.detail.spec:[]}/>
+						<MemberTbl data={this.state.detail.member || []}/>
 					</TabPanel>
 
 					<TabPanel>
-						<DownloadTbl docs={this.state.detail.docs ?this.state.detail.docs:[]}/>
+						<OptionalTbl data={this.state.detail.optional || []}/>
+					</TabPanel>
+
+					<TabPanel>
+						<SpecTbl data={this.state.detail.spec ?this.state.detail.spec:[]}/>
+					</TabPanel>
+
+					<TabPanel>
+						<DownloadTbl data={this.state.detail.docs ?this.state.detail.docs:[]}/>
 					</TabPanel>
 				</Tabs>
 			</div>
 			);
 		}
 }
-Details.propTypes = {
+AlarmDetails.propTypes = {
 	params: React.PropTypes.object,
 };
 
-export {Details};
+export {AlarmDetails};
