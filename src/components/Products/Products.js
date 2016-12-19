@@ -1,9 +1,11 @@
-import React from 'react';
 
 import { ProductIndexSidebar, } from './CategorySidebar';
 import { Breadcrumb , BigHeader, Paragraph} from "../Shared/Shared";
-
-
+import { Link} from 'react-router';
+import React from 'react';
+import axios from 'axios';
+import {isvalidRoute} from '../../Data/RouteData';
+import { Metadata } from "../../Data/ProductTblSettings";
 
 const ProductIndex = () => (
 	<div>
@@ -32,6 +34,77 @@ const ProductIndex = () => (
 class Products extends React.Component{
 		constructor(props) {
 			super(props);
+			this.state = {
+				products:[],
+				productTypes:[]
+			};
+			this.fetchData = this.fetchData.bind(this);
+			this.getProductContent = this.getProductContent.bind(this);
+			this.getProductSidebar = this.getProductSidebar.bind(this);
+
+		}
+
+		componentWillMount() {
+		}
+
+
+		componentDidMount() {
+			if ( this.props.params.product && Metadata[this.props.params.product]){
+				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
+			}
+		}
+
+		componentWillReceiveProps (nextProps) {
+		}
+		componentDidUpdate (prevProps, prevState) {
+			if ( !prevProps.params.product || !Metadata[prevProps.params.product]){
+				return;
+			}
+			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
+			let newId = this.props.params.product + this.props.params.ProductsTbl;
+			if (oldId && newId !== oldId){
+				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
+			}
+
+		}
+		fetchData(product, ProductsTbl){
+			if (!isvalidRoute(product, ProductsTbl))
+				return;
+
+
+			axios({
+				method: 'get',
+				url: '/json/'+product+'.json',
+				dataType: 'JSON'
+			})
+			.then( (response) => {
+				let filtered = response.data;
+				if (ProductsTbl && ProductsTbl !== "All"){
+					//this.refs.Griddle.setFilter(ProductsTbl);
+					filtered = response.data.filter( item => {
+						return item.type == ProductsTbl
+							|| item.brand == ProductsTbl;
+					});
+				}
+				let pTypes = response.data.map((item) => {return {brand:item.brand, type:item.type}});
+				this.setState({
+					products: filtered,
+					productTypes: pTypes
+				});
+			})
+			.catch(function (error) {
+				//console.log(error);
+			});
+		}
+		getProductContent() {
+			let ProductContentComponentElement
+				= React.cloneElement(this.props.content, {products: this.state.products, productType:this.props.params.product});
+			return ProductContentComponentElement? ProductContentComponentElement: <ProductIndex/>;
+		}
+		getProductSidebar() {
+			let ProductSidebarComponentElement
+				= React.cloneElement(this.props.sidebar, {products: this.state.productTypes, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
+			return ProductSidebarComponentElement? ProductSidebarComponentElement: <ProductIndexSidebar/>;
 		}
 		render() {
 			let linkpair = [
@@ -40,6 +113,7 @@ class Products extends React.Component{
 						];
 			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
 			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
+
 			return (
 				<div className="row">
 					<div className="col-lg-12">
@@ -47,11 +121,11 @@ class Products extends React.Component{
 					</div>
 					<div className="row">
 							<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-									{this.props.sidebar || <ProductIndexSidebar />}
+								{ this.getProductSidebar() }
 							</div>
 
 							<div className="col-md-9 col-lg-10 roghtcontent">
-									{this.props.content || <ProductIndex />}
+								{this.getProductContent()}
 							</div>
 					</div>
 				</div>
@@ -63,6 +137,8 @@ Products.propTypes = {
 	sidebar: React.PropTypes.node,
 	params:  React.PropTypes.object
 };
+
+
 
 const ProductCategory = (props) => (
 	<div>

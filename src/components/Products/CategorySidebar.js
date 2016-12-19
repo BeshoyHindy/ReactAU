@@ -27,11 +27,11 @@ ProductIndexSidebar.propTypes = {
 const Classify =  (props) => (
 			<li>{props.title}
 				<ul>
-					<li className={props.isActive( 'All' )}><Link to={`/products/${props.params.product}/All`} >All</Link></li>
+					<li className={props.isActive( 'All' )}><Link to={`/products/${props.productType}/All`} >All</Link></li>
 					{
 						props.data.map((item, index) => (
 							<li key={index}  className={props.isActive( item )}>
-								<Link to={`/products/${props.params.product}/${item}`}> {item} </Link>
+								<Link to={`/products/${props.productType}/${item}`}> {item} </Link>
 							</li>
 						))
 					}
@@ -49,44 +49,23 @@ class ProductCategorySidebar extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				products:[],
 				selected:''
 			};
 			this.isActive = this.isActive.bind(this);
 		}
 
-		componentWillMount() {
-
-		}
-		componentDidMount() {
-			this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-		}
 		componentWillReceiveProps (nextProps) {
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
+			if (!isvalidRoute(this.props.productType, this.props.ProductsTbl))
 				return;
-			let oldId = this.props.params.product;
-			let newId = nextProps.params.product;
-			let oldTblId = this.props.params.ProductsTbl;
-			let newTblId = nextProps.params.ProductsTbl;
+			let oldId = this.props.productType;
+			let newId = nextProps.product;
+			let oldTblId = this.props.ProductsTbl;
+			let newTblId = nextProps.ProductsTbl;
 
 			if (oldTblId && newTblId !== oldTblId)
-				this.setState({selected  : nextProps.params.ProductsTbl});
+				this.setState({selected  : nextProps.ProductsTbl});
 		}
-		componentDidUpdate (prevProps, prevState) {
-			/*console.log(navData.filter((item)=> { return item.name === "products"; })
-											.map((item) => { return (<li><Link to={item.link}>{item.desc}</Link></li>); }));*/
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl))
-				return;
-			let oldId = prevProps.params.product;
-			let newId = this.props.params.product;
-			let oldTblId = prevProps.params.ProductsTbl;
-			let newTblId = this.props.params.ProductsTbl;
 
-
-			if (oldId && newId !== oldId)
-				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-
-		}
 		// existMatch(subnav, path){
 		// 	if ( subnav && subnav.length > 0) {
 		// 		return (subnav.filter((item, id) => {
@@ -105,26 +84,7 @@ class ProductCategorySidebar extends React.Component{
 		// validRoute(path){
 		// 	return this.existMatch(navData, path);
 		// }
-		fetchData(product, ProductsTbl){
-			if (!isvalidRoute(product, ProductsTbl))
-				return;
 
-			//console.log('this.props.params: ', this.props.params);
-			let cat = product || 'DVR';
-			axios({
-				method: 'get',
-				url: '/json/'+cat+'.json',
-				dataType: 'JSON'
-			})
-			.then( (response) => {
-				this.setState({
-					products: response.data
-				});
-			})
-			.catch(function (error) {
-				//console.log(error);
-			});
-		}
 		isActive(value){
 			return ((value===this.state.selected) ?'active':'');
 		}
@@ -132,13 +92,13 @@ class ProductCategorySidebar extends React.Component{
 			return arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
 		}
 		render() {
-			//console.log(this.state.products);
-			//console.log(this.state.products.length );
-			if (!isvalidRoute(this.props.params.product, this.props.params.ProductsTbl)){
+			//console.log(this.props.products);
+			//console.log(this.props.products.length );
+			if (!isvalidRoute(this.props.productType, this.props.ProductsTbl)){
 				return (<div/>);
 			}else{
-				let brands = this.uniqArray(this.state.products.map((item, index) => (item.brand)));
-				let type = this.uniqArray( this.state.products.map((item, index) => (item.type)));
+				let brands = this.uniqArray(this.props.products.map((item, index) => (item.brand)));
+				let type = this.uniqArray( this.props.products.map((item, index) => (item.type)));
 				return (
 					<div>
 						<div className="col-sm-12 cat">

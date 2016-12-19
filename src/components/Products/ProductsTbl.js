@@ -1,4 +1,4 @@
-let Griddle = require('griddle-react');
+import Griddle from 'griddle-react';
 
 import { Link} from 'react-router';
 import React from 'react';
@@ -7,79 +7,18 @@ import {isvalidRoute} from '../../Data/RouteData';
 import { Metadata } from "../../Data/ProductTblSettings";
 
 class ProductsTbl extends React.Component{
-		constructor(props) {
-			super(props);
-			this.state = {
-				products:[]
-			};
-			this.fetchData = this.fetchData.bind(this);
-		}
-
-		componentWillMount() {
-		}
-
-
-		componentDidMount() {
-			if ( this.props.params.product && Metadata[this.props.params.product]){
-				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-			}
-		}
-
-		componentWillReceiveProps (nextProps) {
-		}
-		componentDidUpdate (prevProps, prevState) {
-			if ( !prevProps.params.product || !Metadata[prevProps.params.product]){
-				return;
-			}
-			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
-			let newId = this.props.params.product + this.props.params.ProductsTbl;
-			if (oldId && newId !== oldId){
-				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-			}
-
-		}
-		fetchData(product, ProductsTbl){
-			if (!isvalidRoute(product, ProductsTbl))
-				return;
-
-
-			axios({
-				method: 'get',
-				url: '/json/'+product+'.json',
-				dataType: 'JSON'
-			})
-			.then( (response) => {
-				let filtered = response.data;
-				if (ProductsTbl && ProductsTbl !== "All"){
-					//this.refs.Griddle.setFilter(ProductsTbl);
-					filtered = response.data.filter( item => {
-						return item.type == ProductsTbl
-							|| item.brand == ProductsTbl;
-					});
-				}
-				this.setState({
-					products: filtered
-				});
-			})
-			.catch(function (error) {
-				//console.log(error);
-			});
-		}
 		render() {
-
-			if ( !this.props.params.product || !Metadata[this.props.params.product]){
+			if ( !this.props.productType || !Metadata[this.props.productType]){
 				return (<div/>);
 			}else{
 				let col = [];
-				let colMetadata = Metadata[this.props.params.product];
+				let colMetadata = Metadata[this.props.productType];
 				for (let item of colMetadata) {
 					if (item.visible)
 						col.push(item.columnName);
 				}
-				//console.log(col, colMetadata);
-				//console.log(this.state.products);
 				return (
-						<Griddle results={this.state.products} tableClassName="table" columnMetadata={colMetadata} showFilter showSettings
+						<Griddle results={this.props.products} tableClassName="table" columnMetadata={colMetadata} showFilter showSettings
 							columns={col}
 							sortAscendingComponent={<span className="fa fa-sort-amount-asc" />}
 							sortDescendingComponent={<span className="fa fa-sort-amount-desc" />}
@@ -93,7 +32,8 @@ class ProductsTbl extends React.Component{
 
 }
 ProductsTbl.propTypes = {
-	params: React.PropTypes.object
+	productType: React.PropTypes.string,
+	products: React.PropTypes.array
 };
 
 export {ProductsTbl};
