@@ -7,8 +7,8 @@
     "/img/products/srd-1680d-4.png"
   ],
   "docs": [
-      {"desc": "SRD-1680D_Datasheet.pdf", "size": 963, "filetype": "pdf", "src":"/products/docs/SRD-1680D_Datasheet.pdf"},
-      {"desc": "SRD-1680D_UserManual.pdf", "size": 28822, "filetype": "pdf", "src":"/products/docs/SRD-1680D_UserManual.pdf"}
+      {"desc": "SRD-1680D_Datasheet.pdf", "size": 963, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SRD-1680D_UserManual.pdf", "size": 28822, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SRD-1680D (8CH Full HD + 16CH SD)",
   "brand": "Samsung",

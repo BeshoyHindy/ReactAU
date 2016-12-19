@@ -4,8 +4,8 @@
     "/img/products/tvi-7201a.png"
   ],
   "docs": [
-    {"desc": "C-TVI-7201A.pdf", "size": 1737, "filetype": "pdf", "src":"/products/docs/C-TVI-7201A.pdf"},
-    {"desc": "C-TVI-7201A_User_manual.pdf", "size": 3559, "filetype": "pdf", "src":"/products/docs/C-TVI-7201A_User_manual.pdf"}
+    {"desc": "C-TVI-7201A.pdf", "size": 1737, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "C-TVI-7201A_User_manual.pdf", "size": 3559, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "TVI-7201A",
   "brand": "DigiGuard",

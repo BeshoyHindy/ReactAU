@@ -4,8 +4,8 @@
     "/img/products/cp4.jpg"
   ],
   "docs": [
-    {"desc": "Futuro-SD4B_SD4_CP4_CZ4_manual.pdf", "size": 712, "filetype": "pdf", "src":"/products/docs/Futuro-SD4B_SD4_CP4_CZ4_manual.pdf"},
-    {"desc": "Futuro-SD4B_SD4_CP4_CZ4.pdf", "size": 766, "filetype": "pdf", "src":"/products/docs/Futuro-SD4B_SD4_CP4_CZ4.pdf"}
+    {"desc": "Futuro-SD4B_SD4_CP4_CZ4_manual.pdf", "size": 712, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "Futuro-SD4B_SD4_CP4_CZ4.pdf", "size": 766, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "Futuro - CP4",
   "brand": "Futuro",

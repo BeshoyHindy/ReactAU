@@ -5,11 +5,11 @@
     "/img/products/rhe-825u-b-1.png"
   ],
   "docs": [
-    {"desc": "RHE-825U-B_Specification.pdf", "size": 858, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_Specification.pdf"},
-    {"desc": "iCMS_Manual_0716.pdf", "size": 1443, "filetype": "pdf", "src":"/products/docs/iCMS_Manual_0716.pdf"},
-    {"desc": "RHE-825U-B_StartManual.pdf", "size": 972, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_StartManual.pdf"},
-    {"desc": "RHE-825U-B_RemoteAccessManual.pdf", "size": 6920, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_RemoteAccessManual.pdf"},
-    {"desc": "RHE-825U-B_UserManual.pdf", "size": 1077, "filetype": "pdf", "src":"/products/docs/RHE-825U-B_UserManual.pdf"}
+    {"desc": "RHE-825U-B_Specification.pdf", "size": 858, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "iCMS_Manual_0716.pdf", "size": 1443, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "RHE-825U-B_StartManual.pdf", "size": 972, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "RHE-825U-B_RemoteAccessManual.pdf", "size": 6920, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "RHE-825U-B_UserManual.pdf", "size": 1077, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "RHE-825U-B (8ch Universal)",
   "brand": "iCatch",

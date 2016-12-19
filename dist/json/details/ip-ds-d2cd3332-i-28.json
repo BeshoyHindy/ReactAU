@@ -4,8 +4,8 @@
     "/img/products/ip-ds-d2cd3332-i-28.png"
   ],
   "docs": [
-      {"desc": "DS-2CD3332-I_Turret_Network_Camera.pdf", "size": 3882, "filetype": "pdf", "src":"/products/docs/DS-2CD3332-I_Turret_Network_Camera.pdf"},
-      {"desc": "User_Manual_IP_Cameras.pdf", "size": 3403, "filetype": "pdf", "src":"/products/docs/User_Manual_IP_Cameras.pdf"}
+      {"desc": "DS-2CD3332-I_Turret_Network_Camera.pdf", "size": 3882, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "User_Manual_IP_Cameras.pdf", "size": 3403, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "IP-DS-D2CD3332-I-28",
   "brand": "Hikvision",

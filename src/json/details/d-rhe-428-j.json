@@ -5,8 +5,8 @@
     "/img/products/rhe-428-j-2.png"
   ],
   "docs": [
-      {"desc": "RHE-428-J.pdf", "size": 985, "filetype": "pdf", "src":"/products/docs/RHE-428-J.pdf"},
-    {"desc": "iCMS_Manual_0716.pdf", "size": 1443, "filetype": "pdf", "src":"/products/docs/iCMS_Manual_0716.pdf"}
+      {"desc": "RHE-428-J.pdf", "size": 985, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "iCMS_Manual_0716.pdf", "size": 1443, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "RHE-428-J (4ch Compact)",
   "brand": "iCatch",

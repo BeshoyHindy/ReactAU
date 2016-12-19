@@ -2,6 +2,14 @@ import React from 'react';
 import { Link} from 'react-router';
 import ImageLoader from 'react-imageloader';
 
+const CustomDownloadTd = (props) => (
+	<td ><a className="download" href={props.data} target="_blank">Download </a></td>
+);
+CustomDownloadTd.propTypes = {
+	data: React.PropTypes.string,
+	rowData: React.PropTypes.object
+};
+
 
 function ProductTblImgpreloader() {
 	return <div className="loading-div" style={{minHeight: "100px"}}/>;
@@ -137,4 +145,5 @@ Paragraph.propTypes = {
 
 export { Breadcrumb , BigHeader , OrangeBoard, Paragraph, PureList, GoogleMap
 		, IntercomProductTblImageComponent, NvrProductTblImageComponent, AlarmProductTblImageComponent
-		, CctvProductTblImageComponent, DvrProductTblImageComponent, KitProductTblImageComponent};
+		, CctvProductTblImageComponent, DvrProductTblImageComponent, KitProductTblImageComponent
+		, CustomDownloadTd};

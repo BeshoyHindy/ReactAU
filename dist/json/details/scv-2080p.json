@@ -5,8 +5,8 @@
     "/img/products/scv-2080p-2.jpg"
   ],
   "docs": [
-      {"desc": "SCV-2080P.pdf", "size": 302, "filetype": "pdf", "src":"/products/docs/SCV-2080P.pdf"},
-      {"desc": "SCV-2080P_Manual.pdf", "size": 31077, "filetype": "pdf", "src":"/products/docs/SCV-2080P_Manual.pdf"}
+      {"desc": "SCV-2080P.pdf", "size": 302, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SCV-2080P_Manual.pdf", "size": 31077, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SCV-2010FP",
   "brand": "Samsung",

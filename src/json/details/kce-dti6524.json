@@ -4,7 +4,7 @@
     "/img/products/kce-dti6524.png"
   ],
   "docs": [
-      {"desc": "KCE-DTI5024-G.pdf", "size": 1024, "filetype": "pdf", "src":"/products/docs/KCE-DTI5024-G.pdf"}
+      {"desc": "KCE-DTI5024-G.pdf", "size": 1024, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "KCE-DTI6524",
   "brand": "KCE",

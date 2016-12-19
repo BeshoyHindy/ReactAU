@@ -5,8 +5,8 @@
     "/img/products/4ch-ir-bullet-kit-2.png"
   ],
   "docs": [
-    {"desc": "Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf", "size": 729, "filetype": "pdf", "src":"/products/docs/spec.pdf"},
-    {"desc": "Performance_series_IP_Bundle_Kit_datasheet.pdf", "size": 627, "filetype": "pdf", "src":"/products/docs/spec.pdf"}
+    {"desc": "Perfomance_Series_IP_Bundle_Kit_Leaflet.pdf", "size": 729, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "Performance_series_IP_Bundle_Kit_datasheet.pdf", "size": 627, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "4ch IR Bullet Kit",
   "brand": "Honeywell",

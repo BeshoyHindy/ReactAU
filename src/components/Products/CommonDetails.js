@@ -7,49 +7,22 @@ import React from 'react';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { SpecTbl }  from './Spec';
-import { DownloadTbl }  from './DownloadTbl';
+import { SortableTbl }  from './SortableTbl';
 import ImageLoader from 'react-imageloader';
-
+import {CustomDownloadTd} from '../Shared/Shared';
 
 class CommonDetails extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				detail:[]
+				detail:this.props.data || {}
 			};
-			this.fetchData = this.fetchData.bind(this);
 		}
 
-		componentWillMount() {
-			this.fetchData();
-		}
-		componentDidMount() {
-
-
-		}
-		componentDidUpdate (prevProps, prevState) {
-			let oldId = prevProps.params.id;
-			let newId = this.props.params.id;
-			if (oldId && newId !== oldId){
-				this.fetchData();
+		componentWillReceiveProps(nextProps) {
+			if (nextProps.data !== this.state.detail) {
+				this.setState({ detail: nextProps.data });
 			}
-		}
-
-		fetchData(){
-			//console.log('this.props.params: ', this.props.params);
-			axios({
-				method: 'get',
-				url: '/json/details/'+this.props.params.id+'.json',
-				dataType: 'JSON'
-			})
-			.then( (response) => {
-				this.setState({
-					detail: response.data
-				});
-			})
-			.catch(function (error) {
-				//console.log(error);
-			});
 		}
 		handleSelect(index, last) {
 			//console.log('Selected tab: ' + index + ', Last tab: ' + last);
@@ -124,7 +97,10 @@ class CommonDetails extends React.Component{
 					</TabPanel>
 
 					<TabPanel>
-						<DownloadTbl data={this.state.detail.docs ?this.state.detail.docs:[]}/>
+						<SortableTbl data={this.state.detail.docs}
+							tHead={["Description","Size(KB)","File Type","Download"]}
+							customTd={[{custd: CustomDownloadTd, keyItem: "src"}]}
+							dKey={["desc","size","filetype", "src"]} />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -132,7 +108,7 @@ class CommonDetails extends React.Component{
 		}
 }
 CommonDetails.propTypes = {
-	params: React.PropTypes.object,
+	data: React.PropTypes.object
 };
 
 export {CommonDetails};

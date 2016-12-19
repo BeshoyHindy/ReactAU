@@ -5,8 +5,8 @@
     "/img/products/sco-2020rp-2.png"
   ],
   "docs": [
-      {"desc": "SCD-2020R_Specifications.pdf", "size": 186, "filetype": "pdf", "src":"/products/docs/SCD-2020R_Specifications.pdf"},
-      {"desc": "SCD-2020R_UserManual.pdf", "size": 3896, "filetype": "pdf", "src":"/products/docs/SCD-2020R_UserManual.pdf"}
+      {"desc": "SCD-2020R_Specifications.pdf", "size": 186, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SCD-2020R_UserManual.pdf", "size": 3896, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SCO-2020RP",
   "brand": "Samsung",

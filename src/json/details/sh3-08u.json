@@ -9,8 +9,8 @@
     "/img/products/smn-backup-player.png"
   ],
   "docs": [
-      {"desc": "SNM_HD-SDI_8ch_Lite_SH3-08U.pdf", "size": 601, "filetype": "pdf", "src":"/products/docs/SNM_HD-SDI_8ch_Lite_SH3-08U.pdf"},
-      {"desc": "SNM_HD-SDI_Universal_DVR_SH3_Series_4_8_16ch.PDF", "size": 2799, "filetype": "pdf", "src":"/products/docs/SNM_HD-SDI_Universal_DVR_SH3_Series_4_8_16ch.PDF"}
+      {"desc": "SNM_HD-SDI_8ch_Lite_SH3-08U.pdf", "size": 601, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SNM_HD-SDI_Universal_DVR_SH3_Series_4_8_16ch.PDF", "size": 2799, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SH3-08U (8ch )",
   "brand": "SNM",

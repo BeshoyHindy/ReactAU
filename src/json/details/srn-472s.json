@@ -6,8 +6,8 @@
     "/img/products/srn-472s-3.png"
   ],
   "docs": [
-      {"desc": "SRN-472S.pdf", "size": 737, "filetype": "pdf", "src":"/products/docs/SRN-472S.pdf"},
-      {"desc": "SRN-472S_Usermanual.pdf", "size": 33170, "filetype": "pdf", "src":"/products/docs/SRN-472S_Usermanual.pdf"}
+      {"desc": "SRN-472S.pdf", "size": 737, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SRN-472S_Usermanual.pdf", "size": 33170, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SRN-472S (4ch)",
   "brand": "Samsung",

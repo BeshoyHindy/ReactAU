@@ -4,8 +4,8 @@
     "/img/products/scv-3120p.png"
   ],
   "docs": [
-      {"desc": "SCV-3120P-Specifications.pdf", "size": 409, "filetype": "pdf", "src":"/products/docs/SCV-3120P-Specifications.pdf"},
-      {"desc": "SCV-3120P_Manual.pdf", "size": 21611, "filetype": "pdf", "src":"/products/docs/SCV-3120P_Manual.pdf"}
+      {"desc": "SCV-3120P-Specifications.pdf", "size": 409, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SCV-3120P_Manual.pdf", "size": 21611, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SCV-3120P",
   "brand": "Samsung",

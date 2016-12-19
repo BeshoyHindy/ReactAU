@@ -4,8 +4,8 @@
     "/img/products/snv-6084r.png"
   ],
   "docs": [
-      {"desc": "SNO-6011R_Specifications.pdf", "size": 270, "filetype": "pdf", "src":"/products/docs/SNO-6011R_Specifications.pdf"},
-      {"desc": "SNO-6011R_UserManual.pdf", "size": 25439, "filetype": "pdf", "src":"/products/docs/SNO-6011R_UserManual.pdf"}
+      {"desc": "SNO-6011R_Specifications.pdf", "size": 270, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SNO-6011R_UserManual.pdf", "size": 25439, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SNV-6084R",
   "brand": "Samsung",

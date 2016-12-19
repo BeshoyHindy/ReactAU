@@ -9,7 +9,7 @@
     "/img/products/smn-backup-player.png"
   ],
   "docs": [
-      {"desc": "SNM_HD-SDI_8ch_Premium_MH3-08U.pdf", "size": 617, "filetype": "pdf", "src":"/products/docs/SNM_HD-SDI_8ch_Premium_MH3-08U.pdf"}
+      {"desc": "SNM_HD-SDI_8ch_Premium_MH3-08U.pdf", "size": 617, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "MH3-08U (8ch Premium Universal)",
   "brand": "SNM",

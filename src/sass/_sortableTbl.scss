@@ -1,0 +1,18 @@
+.sortable-table{
+	thead{
+		th{
+			cursor: pointer;
+			position: relative;
+		}
+		/*th:after{
+			content: "\f0dc";
+			color: white;
+			position: absolute;
+			right: 15px;
+			top: 0;
+			line-height: 40px;
+			font-family: FontAwesome;
+			font-size: 18px;
+		}*/
+	}
+}

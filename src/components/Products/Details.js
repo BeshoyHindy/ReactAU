@@ -8,15 +8,47 @@ import axios from 'axios';
 import { CommonDetails } from './CommonDetails';
 import { AlarmDetails } from './AlarmDetails';
 
-const Details = (props) =>
+class Details extends React.Component
 {
-	if (props.params.product === 'ALARM'){
-		return ( <AlarmDetails {...props}/>);
-	}else{
-		return ( <CommonDetails {...props}/>);
+	constructor(props) {
+		super(props);
+		this.state = {
+			detail:{}
+		};
+		this.fetchData = this.fetchData.bind(this);
 	}
-};
 
+	componentWillMount() {
+	}
+	componentDidMount() {
+		this.fetchData();
+	}
+	componentDidUpdate (prevProps, prevState) {
+	}
+
+	fetchData(){
+		axios({
+			method: 'get',
+			url: '/json/details/'+this.props.params.id+'.json',
+			dataType: 'JSON'
+		})
+		.then( (response) => {
+			this.setState({
+				detail: response.data
+			});
+		})
+		.catch(function (error) {
+			//console.log(error);
+		});
+	}
+	render() {
+		if (this.props.params.product === 'ALARM'){
+			return ( <AlarmDetails {...this.props} data={this.state.detail}/>);
+		}else{
+			return ( <CommonDetails {...this.props} data={this.state.detail}/>);
+		}
+	}
+}
 
 Details.propTypes = {
 	params: React.PropTypes.object,

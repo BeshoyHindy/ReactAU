@@ -4,8 +4,8 @@
     "/img/products/scb-6001.png"
   ],
   "docs": [
-      {"desc": "SCB-6001_Specification.pdf", "size": 903, "filetype": "pdf", "src":"/products/docs/SCB-6001_Specification.pdf"},
-      {"desc": "SCB-6001_UserManual.pdf", "size": 8392, "filetype": "pdf", "src":"/products/docs/SCB-6001_UserManual.pdf"}
+      {"desc": "SCB-6001_Specification.pdf", "size": 903, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SCB-6001_UserManual.pdf", "size": 8392, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SCB-6001",
   "brand": "Samsung",

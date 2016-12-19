@@ -4,8 +4,8 @@
     "/img/products/tvi-6301a.png"
   ],
   "docs": [
-    {"desc": "C-TVI-6301A.pdf", "size": 1341, "filetype": "pdf", "src":"/products/docs/C-TVI-6301A.pdf"},
-    {"desc": "C-TVI-6301A_User_manual.pdf", "size": 2432, "filetype": "pdf", "src":"/products/docs/C-TVI-6301A_User_manual.pdf"}
+    {"desc": "C-TVI-6301A.pdf", "size": 1341, "filetype": "pdf", "src":"/docs/spec.pdf"},
+    {"desc": "C-TVI-6301A_User_manual.pdf", "size": 2432, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "TVI-6301A",
   "brand": "DigiGuard",

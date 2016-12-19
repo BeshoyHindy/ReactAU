@@ -66,9 +66,15 @@ export default {
 				]
 			},
 			{
-				test: /\.(json|pdf)$/i,
+				test: /\.(json)$/i,
 				loaders: [
 					'file-loader?name=[path][name].[ext]&context=' + path.resolve(__dirname, './src')
+				]
+			},
+			{
+				test: /\.(pdf)$/i,
+				loaders: [
+					'file-loader?name=docs/[name].[ext]&context=' + path.resolve(__dirname, './src/json/docs')
 				]
 			}
 		]

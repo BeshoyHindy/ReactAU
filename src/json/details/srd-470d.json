@@ -5,9 +5,9 @@
     "/img/products/srd-470d-2.png"
   ],
   "docs": [
-      {"desc": "SRD-470-470D_UserManual.pdf", "size": 6116, "filetype": "pdf", "src":"/products/docs/SRD-470-470D_UserManual.pdf"},
-      {"desc": "SRD-470D_Datasheet.pdf", "size": 1968, "filetype": "pdf", "src":"/products/docs/SRD-470D_Datasheet.pdf"},
-      {"desc": "SRD-470D-Specifications.pdf", "size": 772, "filetype": "pdf", "src":"/products/docs/SRD-470D-Specifications.pdf"}
+      {"desc": "SRD-470-470D_UserManual.pdf", "size": 6116, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SRD-470D_Datasheet.pdf", "size": 1968, "filetype": "pdf", "src":"/docs/spec.pdf"},
+      {"desc": "SRD-470D-Specifications.pdf", "size": 772, "filetype": "pdf", "src":"/docs/spec.pdf"}
   ],
   "name": "SRD-470D  (4ch)",
   "brand": "Samsung",

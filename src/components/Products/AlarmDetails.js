@@ -7,57 +7,29 @@ import React from 'react';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { SpecTbl }  from './Spec';
-import { DownloadTbl }  from './DownloadTbl';
-import { MemberTbl }  from './MemberTbl';
-import { OptionalTbl }  from './OptionalTbl';
+import { SortableTbl }  from './SortableTbl';
 import ImageLoader from 'react-imageloader';
-
+import {CustomDownloadTd} from '../Shared/Shared';
 
 class AlarmDetails extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				detail:[]
+				detail:this.props.data || {}
 			};
-			this.fetchData = this.fetchData.bind(this);
+			//constructor is only invoked when the component is first created. need to update on componentWillReceiveProps
 		}
 
-		componentWillMount() {
-			this.fetchData();
-		}
-		componentDidMount() {
-
-
-		}
-		componentDidUpdate (prevProps, prevState) {
-			let oldId = prevProps.params.id;
-			let newId = this.props.params.id;
-			if (oldId && newId !== oldId){
-				this.fetchData();
+		componentWillReceiveProps(nextProps) {
+			if (nextProps.data !== this.state.detail) {
+				this.setState({ detail: nextProps.data });
 			}
-		}
-
-		fetchData(){
-			//console.log('this.props.params: ', this.props.params);
-			axios({
-				method: 'get',
-				url: '/json/details/'+this.props.params.id+'.json',
-				dataType: 'JSON'
-			})
-			.then( (response) => {
-				this.setState({
-					detail: response.data
-				});
-			})
-			.catch(function (error) {
-				//console.log(error);
-			});
 		}
 		handleSelect(index, last) {
 			//console.log('Selected tab: ' + index + ', Last tab: ' + last);
 		}
 		detailImgpreLoader() {
-			return <div className="loading-div" style={{minHeight: "300px"}}/>;
+			return <div className="loading-div" style={{height: "284px"}}/>;
 		}
 		thumbnailImgpreLoader() {
 			return <div className="loading-div" style={{minHeight: "60px"}}/>;
@@ -66,50 +38,52 @@ class AlarmDetails extends React.Component{
 			return (
 			<div className="product-detail">
 				<div className="row">
-					<div id="product-top" className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
+					<div id="product-top" className="col-xs-12">
 						<div className="row">
-							<div className="col-xs-12 product-images">
-								{this.state.detail.images && this.state.detail.images.map( (item, id) => {
+							<div className="col-xs-12 product-desc alarm-product-desc">
+								<h1>{this.state.detail.name}</h1>
+								<div className="p-desc-detail">
+									<ul className="fa-ul">
+										{this.state.detail.description && this.state.detail.description.map( (item, id) => {
+											return (
+											<li key={id}><i className="fa-li fa fa-check-square"/>{item}</li>
+											);
+										})}
+									</ul>
+								</div>
+							</div>
+							<div className="col-xs-12 ">
+								<div className="alarm-image">
+									<div className="product-images alarm-product-images">
+										{this.state.detail.images && this.state.detail.images.map( (item, id) => {
+												return (
+													<ImageLoader
+														className="product"
+														key={id}
+														src={item}
+														wrapper={React.DOM.div}
+														preloader={this.detailImgpreLoader}>NOT FOUND
+													</ImageLoader>
+												);
+											})}
+									</div>
+									<ul className="alarm-product-thumbs">
+									{this.state.detail.images && this.state.detail.images.map( (item, id) => {
 										return (
+										<li key={id} >
 											<ImageLoader
-												className="product"
 												key={id}
 												src={item}
 												wrapper={React.DOM.div}
-												preloader={this.detailImgpreLoader}>NOT FOUND
+												preloader={this.thumbnailImgpreLoader}>NOT FOUND
 											</ImageLoader>
+										</li>
 										);
 									})}
+									</ul>
+								</div>
 							</div>
 						</div>
-						<div className="col-xs-12 hidden-xs p-thumbs">
-							<ul className="product-thumbs">
-							{this.state.detail.images && this.state.detail.images.map( (item, id) => {
-								return (
-								<li key={id} >
-									<ImageLoader
-										key={id}
-										src={item}
-										wrapper={React.DOM.div}
-										preloader={this.thumbnailImgpreLoader}>NOT FOUND
-									</ImageLoader>
-								</li>
-								);
-							})}
-							</ul>
-						</div>
-					</div>
-					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">
-					<h1>{this.state.detail.name}</h1>
-					<div className="p-desc-detail">
-						<ul className="fa-ul">
-							{this.state.detail.description && this.state.detail.description.map( (item, id) => {
-								return (
-								<li key={id}><i className="fa-li fa fa-check-square"/>{item}</li>
-								);
-							})}
-						</ul>
-					</div>
 					</div>
 				</div>
 				<Tabs
@@ -124,19 +98,22 @@ class AlarmDetails extends React.Component{
 					</TabList>
 
 					<TabPanel>
-						<MemberTbl data={this.state.detail.member || []}/>
+						<SortableTbl data={this.state.detail.member} tHead={["Description","Qty"]} dKey={["desc","qty"]} />
 					</TabPanel>
 
 					<TabPanel>
-						<OptionalTbl data={this.state.detail.optional || []}/>
+						<SortableTbl data={this.state.detail.optional}  tHead={["Optional Member"]}  dKey={["desc"]} />
 					</TabPanel>
 
 					<TabPanel>
-						<SpecTbl data={this.state.detail.spec ?this.state.detail.spec:[]}/>
+						<SpecTbl data={this.state.detail.spec}/>
 					</TabPanel>
 
 					<TabPanel>
-						<DownloadTbl data={this.state.detail.docs ?this.state.detail.docs:[]}/>
+						<SortableTbl data={this.state.detail.docs}
+							tHead={["Description","Size(KB)","File Type","Download"]}
+							customTd={[{custd: CustomDownloadTd, keyItem: "src"}]}
+							dKey={["desc","size","filetype", "src"]} />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -145,6 +122,7 @@ class AlarmDetails extends React.Component{
 }
 AlarmDetails.propTypes = {
 	params: React.PropTypes.object,
+	data: React.PropTypes.object
 };
 
 export {AlarmDetails};

@@ -71,6 +71,9 @@ table.p-spec, table.p-stdpkg{
     .product-desc{
       margin-bottom: 30px;
     }
+	.alarm-product-desc{
+		margin-bottom: 0;
+	}
     .fa-ul ul li {
       height: 25px;
       line-height: 25px;
@@ -106,9 +109,13 @@ table.p-spec, table.p-stdpkg{
     opacity: 1;
   }
   .product-images {
+	max-width: 100%;
     position: relative;
     overflow: hidden;
     height: 284px;
+	.imageloader{
+		height: 284px;
+	}
     @include respond-to(xs) {
       height: auto;
     }
@@ -119,8 +126,6 @@ table.p-spec, table.p-stdpkg{
         padding: 0;
       }
       background-color: white;
-      width: 100%;
-      height: auto;
       max-height: 100%;
       display: none;
     }
@@ -129,33 +134,30 @@ table.p-spec, table.p-stdpkg{
       display: block;
     }
   }
-  .alarm-images {
-    position: relative;
-    overflow: hidden;
-    max-width: 100%;
-    height: 400px;
-//    margin: 0 auto;
-    @include respond-to(xs) {
-      height: auto;
-    }
-    //width: 100%;
-    img {
-      @include respond-to(xs) {
-        margin: 0;
-        padding: 0;
-      }
-      background-color: white;
-      max-width: 100%;
-      display: block;
-      //margin: 0 auto;
-      height: auto;
-      max-height: 100%;
-      display: none;
-    }
-
-    img:first-child {
-      display: block;
-    }
+  .alarm-image{
+	width: 600px;
+	margin: 0 auto;
+	.alarm-product-images{
+		height: 400px;
+		float: left;
+		.imageloader{
+			height: auto;
+			text-align: center;
+		}
+	}
+	ul.alarm-product-thumbs{
+		float: left;
+		li{
+			border: 1px solid #ccc;
+			margin: 1px;
+			width: 90px;
+			background-color: white;
+			img{
+				width: 100%;
+				opacity: 0.5;
+			}
+		}
+	}
   }
   .p-desc-detail{
       margin: 0px;
