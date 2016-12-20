@@ -18,13 +18,21 @@ git remote add origin git@github.com:Grace951/ReactAU.git
 git pull
 git push -f origin master
 
+//branch
 git branch
 git branch without-redux
 git checkout without-redux
 git branch -d without-redux
 
+//add a new branch and push the new branch to remote
 git checkout -b without-redux
 git push -u origin without-redux
+
+//tag
+git tag
+git tag V0.1.0
+git tag V0.1.0 -m "First static version with all feature"
+git push origin V0.1.0
 
 //heroku
 heroku run bash --app react-redux-demo-chingching
