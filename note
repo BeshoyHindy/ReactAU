@@ -28,11 +28,31 @@ git branch -d without-redux
 git checkout -b without-redux
 git push -u origin without-redux
 
+//push
+git push origin --all
+	//push all branches
+
+git push origin --tags
+	//push all tags
+
 //tag
 git tag
 git tag V0.1.0
+	//add tag
+
 git tag V0.1.0 -m "First static version with all feature"
+	//add tag with message
+
 git push origin V0.1.0
+	//push tag to remote
+
+git tag -d <TAG_NAME>
+	//delete local tag
+
+git push origin :refs/tags/<TAG_NAME>
+	//delete remote tag
+
+
 
 //heroku
 heroku run bash --app react-redux-demo-chingching
