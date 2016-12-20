@@ -61,7 +61,7 @@ const DvrProductTblImageComponent = (props) => (
 	</Link>
 );
 const KitProductTblImageComponent = (props) => (
-	<Link to={"/products/Kit/spec/" + props.rowData.id}>
+	<Link to={"/products/KIT/spec/" + props.rowData.id}>
 		<ImageLoader
 			src={props.data}
 			wrapper={React.DOM.div}

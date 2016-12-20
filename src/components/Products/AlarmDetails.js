@@ -6,23 +6,34 @@ import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import { SpecTbl }  from './Spec';
-import { SortableTbl }  from './SortableTbl';
+import { SortableTbl }  from '../Shared/SortableTbl';
 import ImageLoader from 'react-imageloader';
 import {CustomDownloadTd} from '../Shared/Shared';
+import {ImageList} from '../Shared/ImageList';
 
 class AlarmDetails extends React.Component{
 		constructor(props) {
 			super(props);
+			let sImage = this.props.data && this.props.data.images && this.props.data.images[0];
 			this.state = {
-				detail:this.props.data || {}
+				detail:this.props.data || {},
+				showImages: [sImage] || [],
+				activeItem: 0
 			};
 			//constructor is only invoked when the component is first created. need to update on componentWillReceiveProps
+			this.changeShowImage = this.changeShowImage.bind(this);
 		}
 
 		componentWillReceiveProps(nextProps) {
 			if (nextProps.data !== this.state.detail) {
-				this.setState({ detail: nextProps.data });
+				let sImage = nextProps.data && nextProps.data.images && nextProps.data.images[0];
+				this.setState({
+						detail: nextProps.data ,
+						showImages: [sImage] || []
+					});
 			}
 		}
 		handleSelect(index, last) {
@@ -31,8 +42,11 @@ class AlarmDetails extends React.Component{
 		detailImgpreLoader() {
 			return <div className="loading-div" style={{height: "284px"}}/>;
 		}
-		thumbnailImgpreLoader() {
-			return <div className="loading-div" style={{minHeight: "60px"}}/>;
+		changeShowImage(id){
+			this.setState({
+				showImages: [this.state.detail.images[id]],
+				activeItem: id
+			});
 		}
 		render() {
 			return (
@@ -55,31 +69,29 @@ class AlarmDetails extends React.Component{
 							<div className="col-xs-12 ">
 								<div className="alarm-image">
 									<div className="product-images alarm-product-images">
-										{this.state.detail.images && this.state.detail.images.map( (item, id) => {
-												return (
-													<ImageLoader
-														className="product"
-														key={id}
-														src={item}
-														wrapper={React.DOM.div}
-														preloader={this.detailImgpreLoader}>NOT FOUND
-													</ImageLoader>
-												);
-											})}
+										<ReactCSSTransitionGroup
+											transitionName="alarmProduct"
+											transitionEnterTimeout={300}
+											transitionLeaveTimeout={300}>
+												{this.state.showImages && this.state.showImages.map( (item, id) => {
+														return (
+														<ImageLoader
+															className="alarmProduct"
+															key={item + id}
+															src={item}
+															wrapper={React.DOM.div}
+															preloader={this.detailImgpreLoader} >NOT FOUND
+														</ImageLoader>
+													);
+												})}
+										</ReactCSSTransitionGroup>
 									</div>
 									<ul className="alarm-product-thumbs">
-									{this.state.detail.images && this.state.detail.images.map( (item, id) => {
-										return (
-										<li key={id} >
-											<ImageLoader
-												key={id}
-												src={item}
-												wrapper={React.DOM.div}
-												preloader={this.thumbnailImgpreLoader}>NOT FOUND
-											</ImageLoader>
-										</li>
-										);
-									})}
+										{
+											this.state.detail.images && this.state.detail.images.map( (item, id) => {
+												return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} loaderStyle={{minHeight: "60px"}}/>);
+											})
+										}
 									</ul>
 								</div>
 							</div>

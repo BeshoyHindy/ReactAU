@@ -110,7 +110,6 @@ table.p-spec, table.p-stdpkg{
   }
   .product-images {
 	max-width: 100%;
-    position: relative;
     overflow: hidden;
     height: 284px;
 	.imageloader{
@@ -139,6 +138,8 @@ table.p-spec, table.p-stdpkg{
 	margin: 0 auto;
 	.alarm-product-images{
 		height: 400px;
+		width: 400px;
+		position: relative;
 		float: left;
 		.imageloader{
 			height: auto;
@@ -161,9 +162,20 @@ table.p-spec, table.p-stdpkg{
 				opacity: 1;
 			}
 		}
+		li.active{
+			img{
+				opacity: 1;
+			}
+		}
 	}
 
   }
+
+  .alarm-image:after{
+		content: "";
+		display: block;
+		clear: both;
+	}
   .p-desc-detail{
       margin: 0px;
   }

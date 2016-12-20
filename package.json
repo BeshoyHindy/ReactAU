@@ -31,6 +31,7 @@
     "griddle-react": "https://github.com/Grace951/Griddle/tarball/master",
     "open": "0.0.5",
     "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.3.2",
     "react-imageloader": "^2.1.0",
     "react-redux": "^5.0.0",

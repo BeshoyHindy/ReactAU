@@ -83,6 +83,7 @@ class Products extends React.Component{
 					});
 				}
 				let pTypes = response.data.map((item) => {return {brand:item.brand, type:item.type}});
+
 				this.setState({
 					products: filtered,
 					productTypes: pTypes
