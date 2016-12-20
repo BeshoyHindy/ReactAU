@@ -4,8 +4,15 @@ require.context('../img', true, /\.?/);
 
 import React from 'react';
 import { Link} from 'react-router';
+import ImageLoader from 'react-imageloader';
+
 import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared";
 import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
+import {ImageList} from './Shared/ImageList';
+
+function FrontImgpreloader() {
+	return <div className="loading-div" style={{minHeight: "368px"}}/>;
+}
 
 const ContactDetail = (props) => (
             <div className="contact-bar">
@@ -81,12 +88,18 @@ class Contact extends React.Component{
                         <div className="row front-door">
                             <div className="col-xs-12 col-md-9 front-door-photo-wrap">
                                 <div className="front-door-photo">
-                                <img src={frontImgData[0]} className="img-responsive ani" />
+                                    <ImageLoader
+                                        src={frontImgData[0]}
+                                        wrapper={React.DOM.div}
+                                        preloader={FrontImgpreloader}>NOT FOUND
+                                    </ImageLoader>                                
                                 </div>
                             </div>
                             <div className="col-md-3 col-xs-12 front-door-t">
                                 <ul className="product-thumbs" >
-                                    {       frontImgData.map( (item, id) => (<li key={id}><img src={item}  className="img-responsive" /></li>)		)      }
+                                    {   
+                                        frontImgData.map( (item, id) => ( <ImageList key={id} src={item} loaderStyle={{minHeight: "120px"}}/>))
+                                    }
                                 </ul>
                             </div>
                         </div>

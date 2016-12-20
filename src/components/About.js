@@ -1,21 +1,14 @@
 import React from 'react';
-import { Link} from 'react-router';
-import {BrandsData} from '../Data/AboutData';
+import ImageLoader from 'react-imageloader';
 
+import {BrandsData} from '../Data/AboutData';
 import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared/Shared";
 
-class About extends React.Component{
-		constructor(props) {
-			super(props);
-		}
+function BrandImgpreloader() {
+	return <div className="loading-div" style={{minHeight: "100px"}}/>;
+}
 
-		componentWillMount() {
-			//console.log('it', this.props.it);
-
-		}
-
-		render() {
-			return (
+const About = (props) => (
 	<div className="container">
 		<div className="row">
 			<div className="col-lg-12">
@@ -49,7 +42,17 @@ class About extends React.Component{
 								.map( (item, id) =>  (
 										<tr key={id}>
 											{
-												item.map((item, id)=> (<td  key={id}><img className="img-responsive" src={item}/></td>))
+												item.map((item, id)=> {
+													return(
+														<td  key={id}>
+																<ImageLoader
+																	src={item}
+																	wrapper={React.DOM.div}
+																	preloader={BrandImgpreloader}>NOT FOUND
+																</ImageLoader>
+														</td>
+													);
+												})
 											}
 										</tr>
 									)
@@ -60,9 +63,7 @@ class About extends React.Component{
 			</div>
 		</div>
 	</div>
-			);
-		}
-}
+);
 
 About.propTypes = {
 };
