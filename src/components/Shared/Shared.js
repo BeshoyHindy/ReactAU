@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link} from 'react-router';
 import ImageLoader from 'react-imageloader';
+import {routeBaseLink} from '../../Data/RouteData';
 
 const CustomDownloadTd = (props) => (
 	<td ><a className="download" href={props.data} target="_blank">Download </a></td>
@@ -15,66 +16,51 @@ function ProductTblImgpreloader() {
 	return <div className="loading-div" style={{minHeight: "100px"}}/>;
 }
 
-const IntercomProductTblImageComponent = (props) => (
-	<Link to={"/products/INTERCOM/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>NOT FOUND
-		</ImageLoader>
+const TblImageLoader = (props) => (
+	<ImageLoader
+		src={props.data}
+		wrapper={React.DOM.div}
+		preloader={ProductTblImgpreloader}>NOT FOUND
+	</ImageLoader>);
+TblImageLoader.propTypes = {
+  data: React.PropTypes.string.isRequired,
+};
+
+
+const BaseProductTblImageComponent = (props) => (
+	<Link to={props.baseLink + props.rowData.id}>
+		<TblImageLoader {...props}/>
 	</Link>
 );
+BaseProductTblImageComponent.propTypes = {
+  baseLink: React.PropTypes.string.isRequired,
+  rowData:  React.PropTypes.object
+};
+
+const IntercomProductTblImageComponent = (props) => (
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["INTERCOM"]}/>
+);
+
 const NvrProductTblImageComponent = (props) => (
-	<Link to={"/products/NVR/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>NOT FOUND
-		</ImageLoader>
-	</Link>
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["NVR"]}/>
 );
 const AlarmProductTblImageComponent = (props) => (
-	<Link to={"/products/ALARM/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>NOT FOUND
-		</ImageLoader>
-	</Link>
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["ALARM"]}/>
 );
 const CctvProductTblImageComponent = (props) => (
-	<Link to={"/products/CCTV/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>NOT FOUND
-		</ImageLoader>
-	</Link>
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["CCTV"]}/>
+
 );
 const DvrProductTblImageComponent = (props) => (
-	<Link to={"/products/DVR/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>NOT FOUND
-		</ImageLoader>
-	</Link>
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["DVR"]}/>
 );
 const KitProductTblImageComponent = (props) => (
-	<Link to={"/products/KIT/spec/" + props.rowData.id}>
-		<ImageLoader
-			src={props.data}
-			wrapper={React.DOM.div}
-			preloader={ProductTblImgpreloader}>
-			NOT FOUND
-		</ImageLoader>
-	</Link>
+	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["KIT"]}/>
 );
 
 
 
 const PureList = (props) => ( <ul>{props.data.map( (item, id) => { return ( <li key={id}> {item} </li> ); })} </ul>);
-
 PureList.propTypes = {
   data: React.PropTypes.array.isRequired
 };

@@ -73,7 +73,7 @@ SortableTbl.propTypes = {
 	data: React.PropTypes.array,
 	tHead: React.PropTypes.array,
 	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.element
+	customTd: React.PropTypes.array
 };
 
 
@@ -157,7 +157,7 @@ const SortableTd = (props) => {
 SortableTd.propTypes = {
 	data: React.PropTypes.object,
 	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.element
+	customTd: React.PropTypes.array
 };
 
 export {SortableTbl};

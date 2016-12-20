@@ -28,7 +28,10 @@ const navData = [
 const validProduct = ["DVR", "NVR", "KIT", "CCTV", "INTERCOM", "ALARM"];
 const validProductType = ["All", "HD-SDI", "HD-TVI", "AHD", "Analog", "IP"];
 const validProductBrand = ["Samsung", "iCATCH", "SNM", "DigiGuard", "BOSCH", "Futuro", "Honeywell"];
-
+const routeBaseLink = validProduct.reduce(
+	(acc,cur) =>{ return Object.assign({}, acc, {[cur]: ("/products/" + cur + "/spec/") });}
+	, {}
+);
 
 function isvalidProductType(value){
 	return validProductType.indexOf(value) !== -1 || validProductBrand.indexOf(value)  !== -1;
@@ -44,4 +47,4 @@ function isvalidRoute(product, type){
 	return isvalidProduct(product) && isvalidProductType(type);
 }
 
-export {navData, isvalidRoute};
+export {navData, isvalidRoute, routeBaseLink};
