@@ -32,6 +32,7 @@ git push -u origin without-redux
 git tag
 git tag V0.1.0
 git tag V0.1.0 -m "First static version with all feature"
+git push origin V0.1.0
 
 //heroku
 heroku run bash --app react-redux-demo-chingching
