@@ -42,7 +42,8 @@ Classify.propTypes = {
 	data: React.PropTypes.array,
 	title: React.PropTypes.string,
 	isActive: React.PropTypes.func.isRequired,
-	params:  React.PropTypes.object
+	params:  React.PropTypes.object,
+	productType:   React.PropTypes.string
 };
 
 class ProductCategorySidebar extends React.Component{
@@ -66,25 +67,6 @@ class ProductCategorySidebar extends React.Component{
 				this.setState({selected  : nextProps.ProductsTbl});
 		}
 
-		// existMatch(subnav, path){
-		// 	if ( subnav && subnav.length > 0) {
-		// 		return (subnav.filter((item, id) => {
-		// 			if ( item.sub && item.sub.length > 0) {
-		// 				if(item.link.indexOf(path) !== -1)
-		// 					return true;
-		// 				return this.existMatch(item.sub, path);
-		// 			}else{
-		// 				return (item.link.indexOf(path) !== -1);
-		// 			}
-		// 		}).length > 0);
-		// 	}
-		// 	return true;
-		// }
-
-		// validRoute(path){
-		// 	return this.existMatch(navData, path);
-		// }
-
 		isActive(value){
 			return ((value===this.state.selected) ?'active':'');
 		}
@@ -92,8 +74,6 @@ class ProductCategorySidebar extends React.Component{
 			return arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
 		}
 		render() {
-			//console.log(this.props.products);
-			//console.log(this.props.products.length );
 			if (!isvalidRoute(this.props.productType, this.props.ProductsTbl)){
 				return (<div/>);
 			}else{
@@ -113,7 +93,10 @@ class ProductCategorySidebar extends React.Component{
 		}
 }
 ProductCategorySidebar.propTypes = {
-	params:  React.PropTypes.object
+	params:  React.PropTypes.object,
+	ProductsTbl:  React.PropTypes.string,
+	products: React.PropTypes.array,
+	productType:   React.PropTypes.string
 };
 
 export {ProductCategorySidebar, ProductIndexSidebar};

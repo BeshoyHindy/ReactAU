@@ -82,7 +82,7 @@ class Products extends React.Component{
 							|| item.brand == ProductsTbl;
 					});
 				}
-				let pTypes = response.data.map((item) => {return {brand:item.brand, type:item.type}});
+				let pTypes = response.data.map((item) => {return {brand:item.brand, type:item.type};});
 
 				this.setState({
 					products: filtered,

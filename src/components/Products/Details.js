@@ -6,7 +6,6 @@ import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
 import { CommonDetails } from './CommonDetails';
-import { AlarmDetails } from './AlarmDetails';
 
 class Details extends React.Component
 {
@@ -42,11 +41,7 @@ class Details extends React.Component
 		});
 	}
 	render() {
-		if (this.props.params.product === 'ALARM'){
-			return ( <AlarmDetails {...this.props} data={this.state.detail}/>);
-		}else{
-			return ( <CommonDetails {...this.props} data={this.state.detail}/>);
-		}
+		return ( <CommonDetails {...this.props} data={this.state.detail} />);
 	}
 }
 

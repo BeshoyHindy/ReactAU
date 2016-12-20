@@ -59,7 +59,7 @@ class SortableTbl extends React.Component{
 							<tbody>
 							{
 								this.state.data && this.state.data.map( (item, id) => {
-									return <SortableTd key={id} data={item} dKey={this.props.dKey } customTd={this.props.customTd}/>;
+									return <SortableTd key={id} data={item} dKey={this.props.dKey} customTd={this.props.customTd}/>;
 								})
 							}
 							</tbody>
@@ -73,7 +73,7 @@ SortableTbl.propTypes = {
 	data: React.PropTypes.array,
 	tHead: React.PropTypes.array,
 	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.any
+	customTd: React.PropTypes.element
 };
 
 
@@ -119,7 +119,8 @@ class SortableTh extends React.Component{
 SortableTh.propTypes = {
 	asc: React.PropTypes.bool,
 	sortData: React.PropTypes.func.isRequired,
-	dataKey:  React.PropTypes.string
+	dataKey:  React.PropTypes.string,
+	children: React.PropTypes.node
 };
 
 
@@ -156,7 +157,7 @@ const SortableTd = (props) => {
 SortableTd.propTypes = {
 	data: React.PropTypes.object,
 	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.any
+	customTd: React.PropTypes.element
 };
 
 export {SortableTbl};
