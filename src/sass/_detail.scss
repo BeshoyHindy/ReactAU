@@ -156,8 +156,13 @@ table.p-spec, table.p-stdpkg{
 				width: 100%;
 				opacity: 0.5;
 			}
+	 		img:hover {
+				cursor: pointer;
+				opacity: 1;
+			}
 		}
 	}
+
   }
   .p-desc-detail{
       margin: 0px;

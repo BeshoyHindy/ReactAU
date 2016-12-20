@@ -57,15 +57,11 @@ class Products extends React.Component{
 		componentWillReceiveProps (nextProps) {
 		}
 		componentDidUpdate (prevProps, prevState) {
-			if ( !prevProps.params.product || !Metadata[prevProps.params.product]){
-				return;
-			}
 			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
 			let newId = this.props.params.product + this.props.params.ProductsTbl;
-			if (oldId && newId !== oldId){
+			if (!oldId || newId !== oldId){
 				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
 			}
-
 		}
 		fetchData(product, ProductsTbl){
 			if (!isvalidRoute(product, ProductsTbl))
@@ -97,14 +93,20 @@ class Products extends React.Component{
 			});
 		}
 		getProductContent() {
+			if(!this.props.content){
+				return <ProductIndex/>;
+			}
 			let ProductContentComponentElement
 				= React.cloneElement(this.props.content, {products: this.state.products, productType:this.props.params.product});
-			return ProductContentComponentElement? ProductContentComponentElement: <ProductIndex/>;
+			return ProductContentComponentElement;
 		}
 		getProductSidebar() {
+			if(!this.props.sidebar){
+				return <ProductIndexSidebar/>;
+			}
 			let ProductSidebarComponentElement
 				= React.cloneElement(this.props.sidebar, {products: this.state.productTypes, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
-			return ProductSidebarComponentElement? ProductSidebarComponentElement: <ProductIndexSidebar/>;
+			return ProductSidebarComponentElement;
 		}
 		render() {
 			let linkpair = [
@@ -113,6 +115,7 @@ class Products extends React.Component{
 						];
 			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
 			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
+			//this.props.params.id && linkpair.push({link:"", desc:this.props.params.id.toUpperCase()});
 
 			return (
 				<div className="row">
