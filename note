@@ -28,6 +28,15 @@ git branch -d without-redux
 git checkout -b without-redux
 git push -u origin without-redux
 
+//merge branch
+git checkout master
+git merge without-redux
+	//把 without-redux 更新的的合併到 master
+
+git checkout without-redux
+git merge master
+	//把 master 更新的的合併到 without-redux，一般不會這樣用
+
 //push
 git push origin --all
 	//push all branches
