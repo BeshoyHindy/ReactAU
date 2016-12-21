@@ -1,7 +1,7 @@
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import {navData, isvalidRoute} from '../../Data/RouteData';
+import {navData, isvalidRoute} from '../../../Data/RouteData';
 
 const ProductIndexSidebar = () => (
 			<div>

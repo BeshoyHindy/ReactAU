@@ -1,11 +1,11 @@
 
-import { ProductIndexSidebar, } from './CategorySidebar';
-import { Breadcrumb , BigHeader, Paragraph} from "../Shared/Shared";
+import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
+import { Breadcrumb , BigHeader, Paragraph} from "./Shared/Shared";
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import {isvalidRoute} from '../../Data/RouteData';
-import { Metadata } from "../../Data/ProductTblSettings";
+import {isvalidRoute} from '../Data/RouteData';
+import { Metadata } from "../Data/ProductTblSettings";
 
 const ProductIndex = () => (
 	<div>
@@ -31,7 +31,7 @@ const ProductIndex = () => (
 	</div>
 );
 
-class Products extends React.Component{
+class ProductsPage extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
@@ -136,7 +136,7 @@ class Products extends React.Component{
 			);
 		}
 }
-Products.propTypes = {
+ProductsPage.propTypes = {
 	content: React.PropTypes.node,
 	sidebar: React.PropTypes.node,
 	params:  React.PropTypes.object
@@ -157,4 +157,4 @@ ProductCategory.propTypes = {
 	children: React.PropTypes.node
 };
 
-export {ProductIndex, ProductCategory, Products};
+export {ProductIndex, ProductCategory, ProductsPage};

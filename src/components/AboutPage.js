@@ -8,7 +8,7 @@ function BrandImgpreloader() {
 	return <div className="loading-div" style={{minHeight: "100px"}}/>;
 }
 
-const About = (props) => (
+const AboutPage = (props) => (
 	<div className="container">
 		<div className="row">
 			<div className="col-lg-12">
@@ -65,7 +65,7 @@ const About = (props) => (
 	</div>
 );
 
-About.propTypes = {
+AboutPage.propTypes = {
 };
 
-export {About};
+export {AboutPage};

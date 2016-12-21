@@ -10,13 +10,13 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import axios from 'axios';
 
-import {Home} from './components/Home';
-import {About} from './components/About';
-import {Contact} from './components/Contact';
-import {ProductCategorySidebar, ProductIndexSidebar} from './components/Products/CategorySidebar';
-import {ProductCategory, Products} from './components/Products/Products';
-import {ProductsTbl} from './components/Products/ProductsTbl';
-import { Details } from './components/Products/Details';
+import {HomePage} from './components/HomePage';
+import {AboutPage} from './components/AboutPage';
+import {ContactPage} from './components/ContactPage';
+import {ProductCategorySidebar, ProductIndexSidebar} from './components/Products/Sidebar/CategorySidebar';
+import {ProductCategory, ProductsPage} from './components/ProductsPage';
+import {ProductsTblPage} from './components/Products/ProductsTblPage';
+import { DetailsPage } from './components/Products/DetailsPage';
 import { NavBar } from './components/header/NavBar';
 import { navData } from './Data/RouteData';
 
@@ -70,16 +70,16 @@ const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
 render((
 	<Router history={browserHistory}>
 		<Route path="/" component={Root}>
-			<IndexRoute component={Home}/>
-			<Route path="home" component={Home} />
-			<Route path="products" component={Products}>
+			<IndexRoute component={HomePage}/>
+			<Route path="home" component={HomePage} />
+			<Route path="products" component={ProductsPage}>
 				<Route path=":product" components={{ content: ProductCategory, sidebar: ProductCategorySidebar }}>
-					<Route path="spec/:id" component={Details} />
-					<Route path=":ProductsTbl" component={ProductsTbl} />
+					<Route path="spec/:id" component={DetailsPage} />
+					<Route path=":ProductsTbl" component={ProductsTblPage} />
 				</Route>
 			</Route>
-			<Route path="aboutus" component={About} />
-			<Route path="contact" component={Contact} />
+			<Route path="aboutus" component={AboutPage} />
+			<Route path="contact" component={ContactPage} />
 		</Route>
 		<Route path="*" component={NotFoundPage} />
 	</Router>

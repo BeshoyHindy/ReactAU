@@ -49,7 +49,7 @@ ContactBoard.propTypes = {
 };
 
 
-class Contact extends React.Component{
+class ContactPage extends React.Component{
 		constructor(props) {
 			super(props);
 		}
@@ -92,12 +92,12 @@ class Contact extends React.Component{
                                         src={frontImgData[0]}
                                         wrapper={React.DOM.div}
                                         preloader={FrontImgpreloader}>NOT FOUND
-                                    </ImageLoader>                                
+                                    </ImageLoader>
                                 </div>
                             </div>
                             <div className="col-md-3 col-xs-12 front-door-t">
                                 <ul className="product-thumbs" >
-                                    {   
+                                    {
                                         frontImgData.map( (item, id) => ( <ImageList key={id} src={item} loaderStyle={{minHeight: "120px"}}/>))
                                     }
                                 </ul>
@@ -111,4 +111,4 @@ class Contact extends React.Component{
 
 }
 
-export {Contact};
+export {ContactPage};

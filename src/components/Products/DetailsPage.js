@@ -5,9 +5,9 @@ require.context('../../img', true, /\.?/);
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import { CommonDetails } from './CommonDetails';
+import { CommonDetails } from './Details/CommonDetails';
 
-class Details extends React.Component
+class DetailsPage extends React.Component
 {
 	constructor(props) {
 		super(props);
@@ -45,8 +45,8 @@ class Details extends React.Component
 	}
 }
 
-Details.propTypes = {
+DetailsPage.propTypes = {
 	params: React.PropTypes.object,
 };
 
-export {Details};
+export {DetailsPage};

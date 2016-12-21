@@ -2,7 +2,7 @@ import Slider from 'react-slick';
 
 import React from 'react';
 
-class Home extends React.Component{
+class HomePage extends React.Component{
 		constructor(props) {
 			super(props);
 		}
@@ -55,9 +55,9 @@ class Home extends React.Component{
 		}
 }
 
-Home.propTypes = {
+HomePage.propTypes = {
 };
 
 
 
-export {Home};
+export {HomePage};

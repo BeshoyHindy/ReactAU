@@ -1,6 +1,4 @@
-require('../../sass/main.scss');
 require("font-awesome-sass-loader");
-require.context('../../img', true, /\.?/);
 
 import { Link} from 'react-router';
 import React from 'react';
@@ -9,10 +7,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { SpecTbl }  from './Spec';
-import { SortableTbl }  from '../Shared/SortableTbl';
+import { SortableTbl }  from '../../Shared/SortableTbl';
 import ImageLoader from 'react-imageloader';
-import {CustomDownloadTd} from '../Shared/Shared';
-import {ImageList} from '../Shared/ImageList';
+import {CustomDownloadTd} from '../../Shared/Shared';
+import {ImageList} from '../../Shared/ImageList';
 
 
 

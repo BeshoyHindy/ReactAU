@@ -1,6 +1,4 @@
-require('../../sass/main.scss');
 require("font-awesome-sass-loader");
-require.context('../../img', true, /\.?/);
 
 import { Link} from 'react-router';
 import React from 'react';

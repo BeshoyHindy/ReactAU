@@ -6,7 +6,7 @@ import axios from 'axios';
 import {isvalidRoute} from '../../Data/RouteData';
 import { Metadata } from "../../Data/ProductTblSettings";
 
-class ProductsTbl extends React.Component{
+class ProductsTblPage extends React.Component{
 		render() {
 			if ( !this.props.productType || !Metadata[this.props.productType]){
 				return (<div/>);
@@ -31,9 +31,9 @@ class ProductsTbl extends React.Component{
 		}
 
 }
-ProductsTbl.propTypes = {
+ProductsTblPage.propTypes = {
 	productType: React.PropTypes.string,
 	products: React.PropTypes.array
 };
 
-export {ProductsTbl};
+export {ProductsTblPage};

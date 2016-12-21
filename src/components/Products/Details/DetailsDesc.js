@@ -2,8 +2,8 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { SpecTbl }  from './Spec';
-import { SortableTbl }  from '../Shared/SortableTbl';
-import {CustomDownloadTd} from '../Shared/Shared';
+import { SortableTbl }  from '../../Shared/SortableTbl';
+import {CustomDownloadTd} from '../../Shared/Shared';
 
 
 const DetailsDesc = (props) => {
