@@ -31,6 +31,7 @@ git push -u origin without-redux
 //merge branch
 git checkout without-redux
 git merge master
+	//把 master 更新的的合併到 without-redux，一般不會這樣用
 
 //push
 git push origin --all
