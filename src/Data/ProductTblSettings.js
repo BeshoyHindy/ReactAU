@@ -336,6 +336,6 @@ const Metadata = {
 				CCTV: CctvMetadata,
 				ALARM: AlarmMetadata,
 				INTERCOM: IntercomMetadata
-}
+};
 
 export {Metadata};

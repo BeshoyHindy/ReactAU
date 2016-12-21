@@ -11,7 +11,7 @@ const BrandsData = [
 	"img/brands/secuzone.png",
 	"img/brands/asmsung_l.jpg",
 	"img/brands/unimo.jpg"
-]
+];
 
 export {BrandsData};
 
