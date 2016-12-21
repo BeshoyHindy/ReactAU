@@ -28,6 +28,10 @@ git branch -d without-redux
 git checkout -b without-redux
 git push -u origin without-redux
 
+//merge branch
+git checkout without-redux
+git merge master
+
 //push
 git push origin --all
 	//push all branches
