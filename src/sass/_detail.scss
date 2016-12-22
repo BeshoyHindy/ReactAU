@@ -114,9 +114,12 @@ table.p-spec, table.p-stdpkg{
     height: 284px;
 	.imageloader{
 		height: 284px;
+		@include respond-to(xs) {
+			height: auto;
+		}
 	}
     @include respond-to(xs) {
-      height: auto;
+      width: 100%;
     }
     //width: 100%;
     img {

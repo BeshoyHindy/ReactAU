@@ -58,13 +58,15 @@ class DetailsImage extends React.Component{
 								}
 						</ReactCSSTransitionGroup>
 					</div>
-					<ul className={productImagesThumbClass}>
-						{
-							this.props.data.images && this.props.data.images.map( (item, id) => {
-								return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} loaderStyle={{minHeight: "60px"}}/>);
-							})
-						}
-					</ul>
+					<div className="col-xs-12 hidden-xs p-thumbs">
+						<ul className={productImagesThumbClass}>
+							{
+								this.props.data.images && this.props.data.images.map( (item, id) => {
+									return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} loaderStyle={{minHeight: "60px"}}/>);
+								})
+							}
+						</ul>
+					</div>
 				</div>
 			);
 		}

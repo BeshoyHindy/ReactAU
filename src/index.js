@@ -57,7 +57,9 @@ class Root extends React.Component{
 			</div>
 		</header>
 		<div id="article">
-			{this.props.children}
+			<div className="container">
+				{this.props.children}
+			</div>
 		</div>
 		<div id="footer"/>
 	</div>
