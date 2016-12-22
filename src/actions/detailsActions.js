@@ -1,4 +1,4 @@
-import DetailApi from '../api/mockDetailsApi';
+import DetailApi from '../api/DetailsApi';
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
 
@@ -6,10 +6,10 @@ export function loadDetailsSuccess(details) {
   return {type: types.LOAD_DETAILS_SUCCESS, details};
 }
 
-export function loadDetails() {
+export function loadDetails(id) {
   return dispatch => {
     dispatch(beginAjaxCall());
-    return DetailApi.getAllDetails().then(details => {
+    return DetailApi.getAllDetails(id).then(details => {
       dispatch(loadDetailsSuccess(details));
     }).catch(error => {
       throw(error);

@@ -57,7 +57,14 @@ class ProductsPage extends React.Component{
 			this.getProductSidebar = this.getProductSidebar.bind(this);
 		}
 		componentDidMount () {
-			this.props.actions.loadProducts();
+			this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
+		}
+		componentDidUpdate (prevProps, prevState) {
+			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
+			let newId = this.props.params.product + this.props.params.ProductsTbl;
+			if (!oldId || newId !== oldId){
+				this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
+			}
 		}
 		getProductContent() {
 			if(!this.props.content){

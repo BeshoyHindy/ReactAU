@@ -20,7 +20,7 @@ class DetailsPage extends React.Component
 	componentWillMount() {
 	}
 	componentDidMount () {
-		this.props.actions.loadDetails();
+		this.props.actions.loadDetails(this.props.params.id);
 	}
 	componentDidUpdate (prevProps, prevState) {
 	}
@@ -32,7 +32,8 @@ class DetailsPage extends React.Component
 
 DetailsPage.propTypes = {
 	actions: React.PropTypes.object.isRequired,
-	detail:  React.PropTypes.object
+	detail:  React.PropTypes.object,
+	params:  React.PropTypes.object
 };
 
 
