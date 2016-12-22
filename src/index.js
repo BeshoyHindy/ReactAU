@@ -9,6 +9,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import axios from 'axios';
+import { Provider } from 'react-redux';
 
 import {HomePage} from './components/HomePage';
 import {AboutPage} from './components/AboutPage';
@@ -19,7 +20,7 @@ import {ProductsTblPage} from './components/Products/ProductsTblPage';
 import { DetailsPage } from './components/Products/DetailsPage';
 import { NavBar } from './components/header/NavBar';
 import { navData } from './Data/RouteData';
-
+import configureStore from './store/configureStore';
 
 class Root extends React.Component{
 		constructor(props) {
@@ -66,8 +67,10 @@ class Root extends React.Component{
 }
 
 const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
+const store = configureStore();
 
 render((
+  <Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/" component={Root}>
 			<IndexRoute component={HomePage}/>
@@ -83,6 +86,7 @@ render((
 		</Route>
 		<Route path="*" component={NotFoundPage} />
 	</Router>
+   </Provider>
 ), document.getElementById("rootWrap"));
 
 if(module.hot){
