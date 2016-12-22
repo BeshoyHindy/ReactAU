@@ -11,20 +11,20 @@ import { DetailsDesc } from './DetailsDesc';
 
 const CommonDetails = (props) => {
 	let detailsImage = {
-		name: props.data.name,
-		description: props.data.description,
-		images: props.data.images
+		name: (props.data && props.data.name) || '',
+		description: (props.data && props.data.description) || [],
+		images: (props.data && props.data.images) || []
 	};
 
 	let tabData = {
-			member: props.data.member,
-			optional: props.data.optional,
-			spec: props.data.spec,
-			docs: props.data.docs
+			member: (props.data &&  props.data.member) || null,
+			optional: (props.data &&  props.data.optional) || null,
+			spec: (props.data &&  props.data.spec) || null,
+			docs: (props.data &&  props.data.docs) || null
 		};
 	let descData = {
-		name: props.data.name,
-		description: props.data.description,
+		name: (props.data &&  props.data.name) || '',
+		description: (props.data &&  props.data.description) || []
 	};
 
 	if(props.params.product==="ALARM"){

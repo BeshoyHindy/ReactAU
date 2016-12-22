@@ -1,11 +1,14 @@
-
-import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
-import { Breadcrumb , BigHeader, Paragraph} from "./Shared/Shared";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
+
+import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
+import { Breadcrumb , BigHeader, Paragraph} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
+import * as productActions from '../actions/productsActions';
 
 const ProductIndex = () => (
 	<div>
@@ -31,82 +34,47 @@ const ProductIndex = () => (
 	</div>
 );
 
+
+
+const ProductCategory = (props) => (
+	<div>
+		{
+			(props.children)
+				? (<div> {React.cloneElement(props.children, props)} </div>)
+				: (<div/>)
+		}
+	</div>
+);
+ProductCategory.propTypes = {
+	children: React.PropTypes.node
+};
+
+
 class ProductsPage extends React.Component{
 		constructor(props) {
 			super(props);
-			this.state = {
-				products:[],
-				productTypes:[]
-			};
-			this.fetchData = this.fetchData.bind(this);
 			this.getProductContent = this.getProductContent.bind(this);
 			this.getProductSidebar = this.getProductSidebar.bind(this);
-
 		}
-
-		componentWillMount() {
-		}
-
-
-		componentDidMount() {
-			if ( this.props.params.product && Metadata[this.props.params.product]){
-				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-			}
-		}
-
-		componentWillReceiveProps (nextProps) {
-		}
-		componentDidUpdate (prevProps, prevState) {
-			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
-			let newId = this.props.params.product + this.props.params.ProductsTbl;
-			if (!oldId || newId !== oldId){
-				this.fetchData(this.props.params.product, this.props.params.ProductsTbl);
-			}
-		}
-		fetchData(product, ProductsTbl){
-			if (!isvalidRoute(product, ProductsTbl))
-				return;
-
-
-			axios({
-				method: 'get',
-				url: '/json/'+product+'.json',
-				dataType: 'JSON'
-			})
-			.then( (response) => {
-				let filtered = response.data;
-				if (ProductsTbl && ProductsTbl !== "All"){
-					//this.refs.Griddle.setFilter(ProductsTbl);
-					filtered = response.data.filter( item => {
-						return item.type == ProductsTbl
-							|| item.brand == ProductsTbl;
-					});
-				}
-				let pTypes = response.data.map((item) => {return {brand:item.brand, type:item.type};});
-
-				this.setState({
-					products: filtered,
-					productTypes: pTypes
-				});
-			})
-			.catch(function (error) {
-				//console.log(error);
-			});
+		componentDidMount () {
+			this.props.actions.loadProducts();
 		}
 		getProductContent() {
 			if(!this.props.content){
 				return <ProductIndex/>;
 			}
 			let ProductContentComponentElement
-				= React.cloneElement(this.props.content, {products: this.state.products, productType:this.props.params.product});
+				= React.cloneElement(this.props.content, {products: this.props.products, productType:this.props.params.product});
 			return ProductContentComponentElement;
 		}
 		getProductSidebar() {
 			if(!this.props.sidebar){
 				return <ProductIndexSidebar/>;
 			}
+			let pTypes = this.props.products && this.props.products.map((item) => {return {brand:item.brand, type:item.type};});
+
 			let ProductSidebarComponentElement
-				= React.cloneElement(this.props.sidebar, {products: this.state.productTypes, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
+				= React.cloneElement(this.props.sidebar, {products: pTypes, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
 			return ProductSidebarComponentElement;
 		}
 		render() {
@@ -139,22 +107,24 @@ class ProductsPage extends React.Component{
 ProductsPage.propTypes = {
 	content: React.PropTypes.node,
 	sidebar: React.PropTypes.node,
-	params:  React.PropTypes.object
+	params:  React.PropTypes.object,
+	products:  React.PropTypes.array,
+	actions: React.PropTypes.object.isRequired
 };
 
+function mapStateToProps(state, ownProps) {
+  return {
+    products: state.products
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(productActions, dispatch)
+  };
+}
 
-const ProductCategory = (props) => (
-	<div>
-		{
-			(props.children)
-				? (<div> {React.cloneElement(props.children, props)} </div>)
-				: (<div/>)
-		}
-	</div>
-);
-ProductCategory.propTypes = {
-	children: React.PropTypes.node
-};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
+
 
 export {ProductIndex, ProductCategory, ProductsPage};

@@ -5,48 +5,48 @@ require.context('../../img', true, /\.?/);
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { CommonDetails } from './Details/CommonDetails';
+import * as detailActions from '../../actions/detailsActions';
 
 class DetailsPage extends React.Component
 {
 	constructor(props) {
 		super(props);
-		this.state = {
-			detail:{}
-		};
-		this.fetchData = this.fetchData.bind(this);
 	}
 
 	componentWillMount() {
 	}
-	componentDidMount() {
-		this.fetchData();
+	componentDidMount () {
+		this.props.actions.loadDetails();
 	}
 	componentDidUpdate (prevProps, prevState) {
 	}
 
-	fetchData(){
-		axios({
-			method: 'get',
-			url: '/json/details/'+this.props.params.id+'.json',
-			dataType: 'JSON'
-		})
-		.then( (response) => {
-			this.setState({
-				detail: response.data
-			});
-		})
-		.catch(function (error) {
-			//console.log(error);
-		});
-	}
 	render() {
-		return ( <CommonDetails {...this.props} data={this.state.detail} />);
+		return ( <CommonDetails {...this.props} data={this.props.detail} />);
 	}
 }
 
 DetailsPage.propTypes = {
-	params: React.PropTypes.object,
+	actions: React.PropTypes.object.isRequired,
+	detail:  React.PropTypes.object
 };
 
-export {DetailsPage};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    detail: state.details
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(detailActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsPage);
+

@@ -1,5 +1,5 @@
 export default {
-  Details: [],
+  details: {},
   products: [],
   ajaxCallsInProgress: 0
 };

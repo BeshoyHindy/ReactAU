@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import products from './productReducer';
-import detail from './detailReducer';
+import details from './detailReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
   products,
-  detail,
+  details,
   ajaxCallsInProgress
 });
 

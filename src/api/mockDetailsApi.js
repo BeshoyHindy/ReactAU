@@ -107,7 +107,7 @@ class DetailApi {
   static getAllDetails() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(Object.assign([], details));
+        resolve(Object.assign({}, details));
       }, 100);
     });
   }
