@@ -112,12 +112,13 @@ table.p-spec, table.p-stdpkg{
 	max-width: 100%;
     overflow: hidden;
     height: 284px;
+	@include respond-to(xs) {
+		height: auto;
+      	width: 100%;
+	}
 	.imageloader{
 		height: 284px;
 	}
-    @include respond-to(xs) {
-      height: auto;
-    }
     //width: 100%;
     img {
       @include respond-to(xs) {
