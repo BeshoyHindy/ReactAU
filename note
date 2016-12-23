@@ -61,6 +61,24 @@ git tag -d <TAG_NAME>
 git push origin :refs/tags/<TAG_NAME>
 	//delete remote tag
 
+//reset to commit
+git reset V0.1.0
+	// Resets index to former commit; replace 'V0.1.0' with your commit code
+
+git reset --soft HEAD@{1}
+	// Moves pointer back to previous HEAD
+
+git commit -m "Revert to V0.1.0"
+
+git reset --hard
+	// Updates working copy to reflect the new commit
+
+//patch and diff
+git diff 813d102927b0833b6d01f5cb5c82efd5f50e87d3 10c570278a4a7d8f4a277f6d1c826084c8e8536e > 1.patch
+git format-patch 813d102927b0833b6d01f5cb5c82efd5f50e87d3 10c570278a4a7d8f4a277f6d1c826084c8e8536e > 1.patch
+git format-patch --base=10c570278a4a7d8f4a277f6d1c826084c8e8536e~ -M -C 10c570278a4a7d8f4a277f6d1c826084c8e8536e~..10c570278a4a7d8f4a277f6d1c826084c8e8536e
+git format-patch --base=0aafd6a61f9a2c95012b7be4c88e8464224e9912~ -M -C 0aafd6a61f9a2c95012b7be4c88e8464224e9912~..0aafd6a61f9a2c95012b7be4c88e8464224e9912
+git apply 1.patch --reject
 
 
 //heroku

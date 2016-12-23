@@ -70,18 +70,25 @@ class ProductsPage extends React.Component{
 			if(!this.props.content){
 				return <ProductIndex/>;
 			}
+			let ProductsTbl = this.props.params.ProductsTbl;
+			let filtered = this.props.products;
+			if (ProductsTbl && ProductsTbl !== "All"){
+				filtered = this.props.products.filter( item => {
+					return item.type == ProductsTbl
+						|| item.brand == ProductsTbl;
+				});
+			}
 			let ProductContentComponentElement
-				= React.cloneElement(this.props.content, {products: this.props.products, productType:this.props.params.product});
+				= React.cloneElement(this.props.content, {products: filtered, productType:this.props.params.product});
 			return ProductContentComponentElement;
 		}
 		getProductSidebar() {
 			if(!this.props.sidebar){
 				return <ProductIndexSidebar/>;
 			}
-			let pTypes = this.props.products && this.props.products.map((item) => {return {brand:item.brand, type:item.type};});
 
 			let ProductSidebarComponentElement
-				= React.cloneElement(this.props.sidebar, {products: pTypes, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
+				= React.cloneElement(this.props.sidebar, {products: this.props.products, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
 			return ProductSidebarComponentElement;
 		}
 		render() {
@@ -118,16 +125,8 @@ ProductsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	let ProductsTbl = ownProps.params.ProductsTbl;
-	let filtered = state.products;
-	if (ProductsTbl && ProductsTbl !== "All"){
-			filtered = state.products.filter( item => {
-				return item.type == ProductsTbl
-					|| item.brand == ProductsTbl;
-			});
-		}
   return {
-    products: filtered
+    products: state.products
   };
 }
 
