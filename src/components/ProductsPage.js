@@ -118,16 +118,22 @@ ProductsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+	let ProductsTbl = ownProps.params.ProductsTbl;
+	let filtered = state.products;
+	if (ProductsTbl && ProductsTbl !== "All"){
+			filtered = state.products.filter( item => {
+				return item.type == ProductsTbl
+					|| item.brand == ProductsTbl;
+			});
+		}
   return {
-    products: state.products
+    products: filtered
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(productActions, dispatch)
-  };
-}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
 

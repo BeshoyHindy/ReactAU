@@ -10,6 +10,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import axios from 'axios';
 import { Provider } from 'react-redux';
+import { syncHistoryWithStore} from 'react-router-redux';
 
 import {HomePage} from './components/HomePage';
 import {AboutPage} from './components/AboutPage';
@@ -70,10 +71,11 @@ class Root extends React.Component{
 
 const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
 const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
 render((
   <Provider store={store}>
-	<Router history={browserHistory}>
+	<Router history={history}>
 		<Route path="/" component={Root}>
 			<IndexRoute component={HomePage}/>
 			<Route path="home" component={HomePage} />

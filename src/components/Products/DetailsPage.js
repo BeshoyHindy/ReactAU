@@ -37,17 +37,15 @@ DetailsPage.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {
-  return {
+const mapStateToProps = (state, ownProps) => ({
     detail: state.details
-  };
-}
+});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(detailActions, dispatch),
-  };
-}
+
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(detailActions, dispatch)
+});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsPage);
 
