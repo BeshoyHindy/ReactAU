@@ -1,9 +1,5 @@
 @import "bootstrap-compass";
 @import "bootstrap";
-@import '../lib/animate';
-@import 'compass';
-@import "compass/functions";
-//@import "rgbapng";
 @import 'variable';
 @import 'mixin';
 @import 'reset';
@@ -104,7 +100,7 @@ html{
 		color: $color6;
 }
 .breadcrumb{
-	@include box-shadow(#e9e9e9 0 0 30px 1px inset);
+	box-shadow: #e9e9e9 0 0 30px 1px inset;
 	a{
 		color: #000;
 	}
@@ -115,7 +111,7 @@ html{
 .bar-title
 {
 	color: #000;
-	@include box-shadow(2px 2px 8px #888);
+	box-shadow: 2px 2px 8px #888;
 	border-top:8px $color6 solid;
 }
 .note{
@@ -225,280 +221,6 @@ a:hover, a:active, a:focus {
 }
 
 
-.list1{
-	color: $navbar-inverse-bg;
-	margin-top: 5px;
-}
-
-.list2{
-	color: #ffb500;
-}
-
-.list2:after{
-	content:"\00a0\00a0";
-}
-
-.summary{
-	padding: 20px 50px 40px ;
-}
-
-
-.fix-width{
-	@include box-shadow(0px 3px 5px #999);
-
-	width:$little-title-w;
-	padding-top: 0px;
-	@include respond-to(md) {
-			width: $little-title-w-md;
-	}
-	@include respond-to(sm) {
-			width: $little-title-w-sm;
-	}
-	@include respond-to(xs) {
-			width:100%;
-	}
-	margin: 0 auto;
-}
-
-.ren{
-	background: #ffffe9;
-}
-
-.t-title{
-	position: relative;
-	height: 70px;
-}
-
-.rectangle {
-	position: absolute;
-	background: #7f9db9;
-	height: 70px;
-	width: $little-title-w + 30px;
-	@include respond-to(sm) {
-			width: $little-title-w-sm + 30px;
-	}
-	@include respond-to(md) {
-			width: $little-title-w-md + 30px;
-	}
-	left:-15px;
-	top: 0px;
-	float: left;
-	@include box-shadow(0px 5px 4px #666);
-	z-index: 100; /* the stack order: foreground */
-	display: inline-block;/*ie7*/
-	behavior: url(/pie-1.0.0/PIE.htc);
-}
-.triangle-l {
-	position: absolute;
-	border-color: transparent darken(#82a002, 10%) transparent transparent ;
-	border-style:solid;
-	border-width:15px;
-	height:0px;
-	width:0px;
-	left: -30px;
-	top: 55px;
-	z-index: 1; /* displayed under bubble */
-}
-
-.triangle-r {
-	position: absolute;
-	border-color: transparent transparent transparent darken(#82a002, 10%);
-	border-style:solid;
-	border-width:15px;
-	height:0px;
-	width:0px;
-	right: -30px;
-	top: 55px;
-	z-index: 1; /* displayed under bubble */
-}
-
-.triangle-exact {
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 50px 0 50px 80px;
-	border-color: transparent transparent transparent #007bff;
-}
-
-.t-title:hover{
-	transform:scale(1.1,1.1);
-	transform:translate(0,-15px);
-	@include transition(.5s);
-}
-
-#review{
-	position: relative;
-	width:70%;
-	height:600px;
-	margin: 0 auto;
-}
-
-.circle{
-	position: absolute;
-//  @include border-radius(100%, 100%);
-	background: gray;
-	color: white;
-	text-align: center;
-}
-
-#re-review{
-	width:250px;
-	height:250px;
-	line-height: 250px;
-	font-size: 40px;
-	top: 20%;
-	left: 15%;
-	background: $color1;
-}
-
-#im-review{
-	width:400px;
-	height:400px;
-	line-height: 400px;
-	font-size: 60px;
-	top: 20%;
-	left: 30%;
-	background: $color2;
-}
-
-#fa-review{
-	width:150px;
-	height:150px;
-	line-height: 150px;
-	font-size: 30px;
-	top: 10%;
-	left: 55%;
-	background: $color4;
-}
-
-#ab-review{
-	width:300px;
-	height:300px;
-	font-size: 45px;
-	line-height: 300px;
-	top: 35%;
-	left: 60%;
-	background: $color3;
-}
-#plane{
-	position: fixed;
-	color: #000;
-	font-size: 36px;
-	z-index: 300;
-}
-.plane-re{
-	position: absolute;
-	top: 22%;
-	left: 15%;
-}
-.plane-im{
-	position: absolute;
-	top: 22%;
-	left: 30%;
-}
-.plane-fa{
-	position: absolute;
-	top: 12%;
-	left: 50%;
-}
-.plane-ab{
-	position: absolute;
-	top: 37%;
-	left: 60%;
-}
-
-#re-review:hover
-,#im-review:hover
-,#fa-review:hover
-,#ab-review:hover
-{
-	z-index: 100;
-	transition: 1000ms;
-	@include animation(shake 0.8s infinite linear);
-}
-
-#re-review:hover{
-	background: darken($color1, 10%);
-}
-
-#im-review:hover{
-	background: darken($color2, 10%);
-}
-
-#fa-review:hover{
-	background: darken($color4, 10%);
-}
-
-#ab-review:hover{
-	background: darken($color3, 10%);
-}
-@include keyframes(shake) {
-		0% { @include transform(translate(2px, 0px) rotate(0deg)); }
-		10% { @include transform(translate(-1px, 0px) rotate(-1deg)); }
-		20% { @include transform(translate(-3px, 0px) rotate(1deg)); }
-		30% { @include transform(translate(0px, 0px) rotate(0deg)); }
-		40% { @include transform(translate(1px, 0px) rotate(1deg)); }
-		50% { @include transform(translate(-1px, 0px) rotate(-1deg)); }
-		60% { @include transform(translate(-3px, 0px) rotate(0deg)); }
-		70% { @include transform(translate(4px, 2px) rotate(-1deg)); }
-		80% { @include transform(translate(-2px, -2px) rotate(1deg)); }
-		90% { @include transform(translate(4px, 0px) rotate(0deg)); }
-		100% { @include transform(translate(2px, 0px) rotate(-1deg)); }
-}
-/* usage
-.item:hover{
-		@include animation(shake 0.8s infinite linear);
-		@include transform-origin(50% 50%);
-}
-*/
-
-
-
-.big-bar{
-		width: 100%;
-		background: $footer-color;
-		height:150px;
-		text-align: center;
-}
-
-.big-title{
-	width: 100%;
-		padding: 60px 20px 60px 20px;
-		font-family: $font-title;
-		font-weight: 600;
-		font-size: 60px;
-		color: white;
-}
-
-.little-title{
-		padding: 20px 20px;
-		font-family: $font-title;
-		font-weight: 550;
-		font-size: 26px;
-		color: white;
-		background: #82a002;
-		margin: 0;
-}
-
-
-.think {
-		padding: 0;
-		a {
-				text-decoration: none;
-				color: #82a002;
-		}
-		.doubt {
-		}
-		.explore{
-				font-size: 45px;
-				margin:120px 0 0 -50px;
-		}
-		.explore:hover{
-			 color: #ff8500;
-			 font-size: 55px;
-			 @include transition(0.3s);
-		}
-}
 
 
 /**************************************
@@ -582,6 +304,7 @@ input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:
 /*******************************************************************************
  griddle
 *******************************************************************************/
+/*
 .griddle-container {
 		border: 1px solid #DDD;
 }
@@ -756,6 +479,7 @@ input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:
 	}
 
 }
+*/
 
 /****************************************************************************
 react-tabs

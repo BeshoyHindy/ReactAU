@@ -2,8 +2,9 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
-var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+let HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	title: 'ChingChingTest',
 	template: __dirname + '/src/index.html',
 	filename: 'index.html',
@@ -15,9 +16,9 @@ const GLOBALS = {
 };
 
 export default {
-	debug: true,
-	devtool: 'source-map',
-	noInfo: false,
+	debug: false,
+//	devtool: 'source-map',
+	noInfo: true,
 	entry: path.resolve(__dirname, 'src/index.js'),
 	target: 'web',
 	output: {
@@ -50,7 +51,13 @@ export default {
 				test: /(\.sass$|\.scss$)/,
 				loader: ExtractTextPlugin.extract(
 					'style', // The backup style loader
-					'css?sourceMap!resolve-url!sass?sourceMap&includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')	+ '&includePaths[]=' + path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets/') + '&includePaths[]=./sass',
+					'css' + 
+					'!resolve-url' + 
+					'!postcss' + 
+					'!sass?sourceMap' 
+//							+ '&includePaths[]=' + path.resolve(__dirname, './node_modules/compass-mixins/lib')	
+							+ '&includePaths[]=' + path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets/') 
+							+ '&includePaths[]=./sass',
 					{ publicPath: '../'}
 				)
 			},
@@ -77,6 +84,7 @@ export default {
 					'file-loader?name=docs/[name].[ext]&context=' + path.resolve(__dirname, './src/json/docs')
 				]
 			}
-		]
+		],
+		postcss: [autoprefixer]		
 	}
 };

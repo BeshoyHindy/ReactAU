@@ -1,55 +1,45 @@
-.sortable-table{
-	thead{
-		th{
-			cursor: pointer;
-			position: relative;
-		}
-		/*th:after{
-			content: "\f0dc";
-			color: white;
-			position: absolute;
-			right: 15px;
-			top: 0;
-			line-height: 40px;
-			font-family: FontAwesome;
-			font-size: 18px;
-		}*/
-	}
-   .table th{
-      text-align: left;
-      background-color: $color6;
-      color: #fff;
-	  padding: 5px;
-   }
-    tbody td:first-child {
-      background-color: #f9f9f9;
-      font-family: 'Oxygen', sans-serif;
-   }
+.sortable-table{	
 
-   tbody tr:hover td
-   {
-      background-color: lighten($color7, 30);
-      color: #000;
-   }
-
- 	tbody tr td {
-		padding: 10px;
-		background-color: #FFF;
-		border-top-color: #DDD;
-		color: #222;
-		img{
-			width: 100%;
-			height: auto;
+   .table{
+		thead{
+			th{
+				cursor: pointer;
+				position: relative;
+				text-align: center;
+				min-height: 80px;
+				background-color: $color6;
+				color: #fff;
+				padding: 5px;			
+				line-height: 25px;
+				height: 80px;
+				border-bottom: 5px solid #ccc;
+			}				
+			th.sort-desc, th.sort-asc{
+					background-color: $color7;
+					border-bottom: 5px solid $color1;
+			}
 		}
-   }
-   .table th{
-      line-height: 25px;
-      height: 25px;
-      border-bottom: 5px solid #ccc;
-   }
-   .table th.sort-desc, .table th.sort-asc{
-        background-color: $color7;
-        border-bottom: 5px solid $color1;
+		tbody td:first-child {
+			background-color: #f9f9f9;
+			font-family: 'Oxygen', sans-serif;
+		}
+
+		tbody tr:hover td
+		{
+			background-color: lighten($color7, 30);
+			color: #000;
+		}
+
+		tbody tr td {
+			padding: 10px;
+			background-color: #FFF;
+			border-top-color: #DDD;
+			color: #222;			
+			img{
+				width: 100%;
+				height: auto;
+			}
+		}		
    }
    .search-box{
 	   padding: 10px 0px;
@@ -71,7 +61,7 @@
 		   float: left;
 	   }
 		select.page-select {
-			width : 70px;
+			width : 60px;
 		}
 		&:after{
 			content: "";

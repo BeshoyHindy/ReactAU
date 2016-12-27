@@ -15,13 +15,19 @@ class SortableTblPager extends React.Component{
 			
 		}
 		setCurrentPage(e){			
-			this.setPage(parseInt(e.target.value))
+			this.setPage(parseInt(e.target.value));
 		}
 		addPagge(){
-			this.setPage(this.state.currPage + 1)
+			if (this.state.currPage >= this.props.totalPage -1)
+				return;
+			
+			this.setPage(this.state.currPage + 1);
 		}
 		subPage(){
-			this.setPage(this.state.currPage - 1)
+			if (this.state.currPage < 1)
+				return;
+
+			this.setPage(this.state.currPage - 1);
 		}
 		setPage(i){
 			this.props.setCurrentPage(i);
@@ -43,26 +49,31 @@ class SortableTblPager extends React.Component{
 			);
 		}
 		render() {			
+			let nextDisableStyle = (this.state.currPage >= (this.props.totalPage -1));
+			let prevDisableStyle = (this.state.currPage < 1);
+
 			return (
 				<div className="form-group">
 					<div className="pager col-sm-6 col-xs-12">
-						<input type="button" className="btn btn-default" name="" value="上一頁"/>
+						<input type="button" className="btn btn-default" name="" disabled={prevDisableStyle} 
+							onClick={this.subPage} value="Prev" />
 						<select onChange={this.setCurrentPage} value={this.state.currPage} className="form-control page-select">
 							{
 								Array.from(new Array(this.props.totalPage), (x,i) => {return (<option key={i} value={i}>{i + 1}</option>);})
 							}		
 						</select>
-						<input type="button" className="btn btn-default" name="" value="下一頁"/>
-						<label htmlFor="rowsPerPage"> ，每頁顯示</label>
+						<input type="button" className="btn btn-default" name="" disabled={nextDisableStyle} 
+							onClick={this.addPagge} value="Next"/>
+						<label htmlFor="rowsPerPage"> ，display </label>
 						<select id="rowsPerPage" onChange={this.setRowsPerPage} value={this.state.rowPerPage} className="form-control page-select">
 							{
 								[5, 10, 20 ,50, 'All'].map((item,id) => {return (<option key={id} value={item}>{item}</option>);})
 							}		
 						</select>
-						<label>筆</label>
+						<label>rows per page</label>
 					</div>
 					<div className="desc col-sm-6 col-xs-12">
-						<div>第 {this.state.currPage + 1} 頁，共 {this.props.totalPage} 頁，{this.props.totalsCount} 筆{}</div>
+						<div>Page {this.state.currPage + 1} of totlas {this.props.totalPage}, totlas {this.props.totalsCount} rows</div>
 					</div>
 				</div>
 			);

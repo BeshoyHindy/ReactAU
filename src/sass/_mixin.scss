@@ -1,12 +1,12 @@
 @mixin inline-block-grace($w: 120px){
     width:$w;
-    @include inline-block();
+    display: inline-block;
     zoom:1;
     *display:inline;
 }
 
 @mixin min-height-grace($h){
-    @include min-height($h);
+    min-height: $h;
     height: auto !important;
     height: $h;
     min-height: $h;

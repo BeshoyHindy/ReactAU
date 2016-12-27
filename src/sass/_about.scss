@@ -24,9 +24,8 @@
   }
   padding: 20px;
   background-color: lighten($color7, 37);
-  @include border-radius(10px);
+  border-radius: 10px;
   border: 3px lighten($color7, 30) solid;
-  //@include box-shadow(2px 2px 10px #bbb);
   b{
     font-weight: 500;
   }

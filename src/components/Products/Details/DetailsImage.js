@@ -37,6 +37,7 @@ class DetailsImage extends React.Component{
 			let transitionName = this.props.productType==='ALARM'?"alarmProduct":"product";
 			let productImagesClass = "col-xs-12  product-images " + (this.props.productType==='ALARM'?"alarm-product-images":"");
 			let productImagesThumbClass = this.props.productType==='ALARM'?"alarm-product-thumbs":"product-thumbs";
+			let productImagesThumbClassWrap = this.props.productType==='ALARM'?"hidden-xs p-thumbs":"col-xs-12 hidden-xs p-thumbs";
 			let centerClass = this.props.productType==='ALARM'?"alarm-image":"row";
 			return (
 				<div className={centerClass}>
@@ -58,7 +59,7 @@ class DetailsImage extends React.Component{
 								}
 						</ReactCSSTransitionGroup>
 					</div>
-					<div className="col-xs-12 hidden-xs p-thumbs">
+					<div className={productImagesThumbClassWrap}>
 						<ul className={productImagesThumbClass}>
 							{
 								this.props.data.images && this.props.data.images.map( (item, id) => {

@@ -7,9 +7,6 @@
 .product-enter{
   top: -284px;
   opacity: 0;
-  -webkit-transition: 300ms ease-out all;
-  -moz-transition: 300ms ease-out all;
-  -o-transition: 300ms ease-out all;
   transition: 300ms ease-out all;
 }
 
@@ -21,9 +18,6 @@
 .product-leave {
 	top: 0;
   opacity: 1;
-  -webkit-transition: 300ms ease-out all;
-  -moz-transition: 300ms ease-out all;
-  -o-transition: 300ms ease-out all;
   transition: 300ms ease-out all;
 }
 
@@ -41,9 +35,6 @@
 .alarmProduct-enter{
   top: -400px;
   opacity: 0;
-  -webkit-transition: 300ms ease-out all;
-  -moz-transition: 300ms ease-out all;
-  -o-transition: 300ms ease-out all;
   transition: 300ms ease-out all;
 }
 
@@ -55,9 +46,6 @@
 .alarmProduct-leave {
 	top: 0;
   opacity: 1;
-  -webkit-transition: 300ms ease-out all;
-  -moz-transition: 300ms ease-out all;
-  -o-transition: 300ms ease-out all;
   transition: 300ms ease-out all;
 }
 

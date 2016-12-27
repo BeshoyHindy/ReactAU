@@ -28,7 +28,7 @@
       }
       a:hover {
         color: #fff;
-        @include box-shadow(#000 0 0 3px 1px inset);
+        box-shadow:#000 0 0 3px 1px inset;
         font-weight: normal;
       }
     }

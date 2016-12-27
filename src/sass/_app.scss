@@ -7,7 +7,7 @@
   color: #000;
   font-weight: 500;
   background-color: #fff;
-  @include box-shadow(2px 2px 8px #888);
+  box-shadow: 2px 2px 8px #888;
   border-top:8px $color6 solid;
   a{
     width: 100%;
@@ -44,15 +44,15 @@
     color: $color6;
     font-weight: 600;
     background-color: #eee;
-    @include border-radius(20px);
-    //@include box-shadow(#ccc 0 0 10px -5px inset);
+    border-radius: 20px;
+    //box-shadow(#ccc 0 0 10px -5px inset);
   }
   ul ul li.active{
     color: $color6;
     font-weight: 600;
     background-color: #eee;
-    @include border-radius(20px);
-    //@include box-shadow(#ccc 0 0 10px -5px inset);
+    border-radius: 20px;
+    //box-shadow(#ccc 0 0 10px -5px inset);
 	a{
 		color: $color6;
 	}
@@ -107,7 +107,7 @@ ul.specs dt {
   height: 30px;
   border: none;
   padding-left: 10px;
-  @include border-radius(15px);
+  border-radius: 15px;
   border: 2px solid $color6;
 }
 .products {
@@ -118,7 +118,7 @@ ul.specs dt {
     padding-top: 10px;
     //border-bottom: 4px $color6 solid;
     margin-bottom: 30px;
-    @include border-radius (0 0 10px 10px);
+    border-radius: 0 0 10px 10px;
     img{
       width: 100%;
     }
@@ -138,8 +138,8 @@ ul.specs dt {
       border-top: 1px #ccc solid;
       background-color: #fff;
       padding: 10px;
-      text-overflow : ellipsis;
-      @include border-radius (0 0 10px 10px);
+      text-overflow: ellipsis;
+      border-radius: 0 0 10px 10px;
     }
     .list{
       display: none;
@@ -152,7 +152,7 @@ ul.specs dt {
     .block{
       border: 1px $color6 solid;
       margin-top: -20px;
-      @include box-shadow(6px 2px 15px #777);
+      box-shadow: 6px 2px 15px #777;
       .title{
         background-color: lighten($color7, 30);
       }
@@ -180,7 +180,7 @@ ul.specs dt {
         text-align: center;
       }
     }
-    @include respond-to(xs) {
+    respond-to(xs) {
       .table {
         overflow-x: auto;
         display: block;

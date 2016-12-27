@@ -80,7 +80,7 @@
 		}
 		width: 100%;
 		font-family: 'Oswald', sans-serif;
-		@include text-shadow(3px 3px 6px #000);
+		text-shadow: 3px 3px 6px #000;
 		color: #fff;
 		font-size: 35px;
 	}
@@ -107,7 +107,7 @@
 			background-color: $color4;
 			padding: 15px 20px;
 			border: 2px rgba(255, 255, 255, 0.2) solid;
-			@include text-shadow(3px 3px 3px #000);
+			text-shadow: 3px 3px 3px #000;
 			//background-color: rgba(215, 139, 44, 0.3);
 		}
 	}
@@ -136,9 +136,9 @@
 		margin-left: 10px;
 		@include inline-block-grace(10px);
 		height: 10px;
-		@include border-radius(5px 5px 5px 5px);
+		border-radius: 5px 5px 5px 5px;
 		background-color:  #fff;
-		@include box-shadow(1px 1px 2px #999999);
+		box-shadow: 1px 1px 2px #999999;
 		cursor: pointer;
 		border: 1px solid #fff;
 	}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SortableTblPager} from './SortableTblPager'
+import {SortableTblPager} from './SortableTblPager';
 
 class SortableTbl extends React.Component{
 		constructor(props) {
@@ -69,7 +69,7 @@ class SortableTbl extends React.Component{
 			);
 		}
 		setCurrentPage(i){			
-			let index = parseInt(i)
+			let index = parseInt(i);
 			this.setState(
 				{
 					pagers: Object.assign({}, this.state.pagers, {curr: index}) 
@@ -77,7 +77,7 @@ class SortableTbl extends React.Component{
 			);
 		}
 		setRowsPerPage(i){			
-			let index = parseInt(i)
+			let index = parseInt(i);
 			this.setState(
 				{
 					pagers: Object.assign({}, this.state.pagers, {rowsPerPage: index}) 
@@ -180,7 +180,7 @@ class SortableTh extends React.Component{
 	}
 	render() {
 		return (
-			<th onClick={this.sort}> {this.props.children} <i className={this.state.sortCssClass} aria-hidden="true"/></th>
+			<th onClick={this.sort}> {this.props.children} <br/><i className={this.state.sortCssClass} aria-hidden="true"/></th>
 		);
 	}
 }
