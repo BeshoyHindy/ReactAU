@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link} from 'react-router';
 import ImageLoader from 'react-imageloader';
-import {routeBaseLink} from '../../Data/RouteData';
+import { Link } from 'react-router';
 
 const CustomDownloadTd = (props) => (
 	<td ><a className="download" href={props.data} target="_blank">Download </a></td>
@@ -25,38 +24,6 @@ const TblImageLoader = (props) => (
 TblImageLoader.propTypes = {
   data: React.PropTypes.string.isRequired,
 };
-
-
-const BaseProductTblImageComponent = (props) => (
-	<Link to={props.baseLink + props.rowData.id}>
-		<TblImageLoader {...props}/>
-	</Link>
-);
-BaseProductTblImageComponent.propTypes = {
-  baseLink: React.PropTypes.string.isRequired,
-  rowData:  React.PropTypes.object
-};
-
-const IntercomProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["INTERCOM"]}/>
-);
-
-const NvrProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["NVR"]}/>
-);
-const AlarmProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["ALARM"]}/>
-);
-const CctvProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["CCTV"]}/>
-
-);
-const DvrProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["DVR"]}/>
-);
-const KitProductTblImageComponent = (props) => (
-	<BaseProductTblImageComponent {...props} baseLink={routeBaseLink["KIT"]}/>
-);
 
 
 
@@ -130,6 +97,5 @@ Paragraph.propTypes = {
 };
 
 export { Breadcrumb , BigHeader , OrangeBoard, Paragraph, PureList, GoogleMap
-		, IntercomProductTblImageComponent, NvrProductTblImageComponent, AlarmProductTblImageComponent
-		, CctvProductTblImageComponent, DvrProductTblImageComponent, KitProductTblImageComponent
+		, TblImageLoader
 		, CustomDownloadTd};

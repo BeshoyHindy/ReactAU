@@ -16,7 +16,16 @@ git add .
 git commit -m "version 1 - without redux"
 git remote add origin git@github.com:Grace951/ReactAU.git
 git pull
+//create repository at github
 git push -f origin master
+
+//github page
+git subtree push --prefix <path/to/your/site> origin gh-pages
+git subtree push --prefix example/example2/dist origin gh-pages
+https://grace951.github.io/react-image-carousel/
+http://kbroman.org/simple_site/pages/independent_site.html
+http://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
+
 
 //branch
 git branch
@@ -124,3 +133,28 @@ npm run production
 
 //live reload
 npm run start
+
+
+
+//create a npm module
+npm set init.author.name "Ching-Ching Yeh"
+npm set init.author.email "learningg@gmail.com"
+npm set init.author.url "https://github.com/Grace951"
+npm adduser
+npm install git://github.com/Grace951/react-image-carousel.git
+
+	npm install . -g
+	npm ls -g
+	node
+	> var aa = require('react-image-carousel');
+
+npm publish
+
+// patch, update version
+git add .
+git commit -m "change dependencies"
+git push origin master
+npm version patch
+npm publish
+
+

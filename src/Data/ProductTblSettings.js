@@ -1,7 +1,5 @@
 import {Link} from 'react-router';
 import React from 'react';
-import {IntercomProductTblImageComponent, NvrProductTblImageComponent, AlarmProductTblImageComponent, CctvProductTblImageComponent
-	, DvrProductTblImageComponent, KitProductTblImageComponent} from '../components/Shared/Shared';
 
 const AlarmMetadata = [
 				{
@@ -9,7 +7,7 @@ const AlarmMetadata = [
 								"order": 1,
 								"locked": true,
 								"visible": true,
-								"customComponent": AlarmProductTblImageComponent,
+								"customComponent": '',
 								"displayName": "Image",
 								"sortable": false,
 								"cssClassName": "tblImage"
@@ -70,7 +68,7 @@ const KitMetadata = [
 								"order": 1,
 								"locked": true,
 								"visible": true,
-								"customComponent": KitProductTblImageComponent,
+								"customComponent": '',
 								"displayName": "Image",
 								"sortable": false,
 								"cssClassName": "tblImage"
@@ -145,7 +143,7 @@ const DvrMetadata = [
 								"order": 1,
 								"locked": true,
 								"visible": true,
-								"customComponent": DvrProductTblImageComponent,
+								"customComponent": '',
 								"displayName": "Image",
 								"sortable": false,
 								"cssClassName": "tblImage"
@@ -213,7 +211,7 @@ const CctvMetadata = [
 								"order": 1,
 								"locked": true,
 								"visible": true,
-								"customComponent": CctvProductTblImageComponent,
+								"customComponent": '',
 								"displayName": "Image",
 								"sortable": false,
 								"cssClassName": "tblImage"
@@ -295,7 +293,7 @@ const IntercomMetadata = [
 								"order": 1,
 								"locked": true,
 								"visible": true,
-								"customComponent": IntercomProductTblImageComponent,
+								"customComponent": '',
 								"displayName": "Image",
 								"sortable": false,
 								"cssClassName": "tblImage"

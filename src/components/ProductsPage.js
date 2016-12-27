@@ -60,8 +60,8 @@ class ProductsPage extends React.Component{
 			this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
 		}
 		componentDidUpdate (prevProps, prevState) {
-			let oldId = prevProps.params.product + prevProps.params.ProductsTbl;
-			let newId = this.props.params.product + this.props.params.ProductsTbl;
+			let oldId = prevProps.params.product;
+			let newId = this.props.params.product;
 			if (!oldId || newId !== oldId){
 				this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
 			}

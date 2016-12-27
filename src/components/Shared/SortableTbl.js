@@ -5,11 +5,13 @@ class SortableTbl extends React.Component{
 		constructor(props) {
 			super(props);
 			this.state = {
-				data: this.props.data || [],
-				asc: (this.props.dKey || []).reduce((acc, cur) =>{ return Object.assign({}, acc, {[cur]: null});}, {})
+				data: this.props.tblData || [],
+				asc: (this.props.dKey || []).reduce((acc, cur) =>{ return Object.assign({}, acc, {[cur]: null});}, {}),
+				filter: ""
 			};
 			//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
 			this.sortData = this.sortData.bind(this);
+			this.filter = this.filter.bind(this);
 		}
 
 		componentWillMount() {
@@ -18,32 +20,58 @@ class SortableTbl extends React.Component{
 		}
 		componentWillReceiveProps(nextProps) {
 			//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
-			if (nextProps.data !== this.state.data) {
-				this.setState({ data: nextProps.data });
+			if (nextProps.tblData !== this.state.data) {
+				this.setState({ data: nextProps.tblData });
 			}
 		}
 		componentDidUpdate (prevProps, prevState) {
 
 		}
+		filter(e){
+			let newData = this.props.tblData.filter((item)=>{
+				for (let key in item) {
+					let v = item[key].toString().toLowerCase();
+					if (v.indexOf(e.target.value.toLowerCase()) !== -1 ) {
+						return true;
+					}
+				}
+				return false;
+			});
+			this.setState({
+				filter: e.target.value,
+				data: newData
+			});
+		}
 		sortData(dKey, nAsc){
 			let newAsc = this.state.asc;
+			let newData = this.state.data;
+			newData.sort((a,b)=>{
+				if (a[dKey] === b[dKey])
+					return 0;
+				if (nAsc ? a[dKey] > b[dKey] : a[dKey] < b[dKey])
+					return 1;
+				if (nAsc ? a[dKey] < b[dKey] : a[dKey] > b[dKey])
+					return -1;
+				return 0;
+			});
 			for (let prop in newAsc) {
 				newAsc[prop] = null;
 			}
 			this.setState(
 				{
 					asc: Object.assign({}, newAsc, {[dKey]: nAsc}),
-					data: this.state.data.slice().sort((a,b)=>{
-						return nAsc? a[dKey] <= b[dKey]:a[dKey] > b[dKey];
-					})
+					data: newData
 				}
 			);
 		}
 		render() {
 			return (
-				<div className="download-tbl">
-					<div >
-						<table className="table table-hover table-striped sortable-table" >
+				<div className="table-responsive">
+					<div className="sortable-table">
+						<div className="search-box">
+							Search: <input className="search" type="text" name="" value={this.state.filter} placeholder="Filter Result" onChange={this.filter} />
+						</div>
+						<table className="table table-hover table-striped" >
 							<thead>
 							<tr>
 								{
@@ -59,7 +87,7 @@ class SortableTbl extends React.Component{
 							<tbody>
 							{
 								this.state.data && this.state.data.map( (item, id) => {
-									return <SortableTd key={id} data={item} dKey={this.props.dKey} customTd={this.props.customTd}/>;
+									return <SortableTd key={id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
 								})
 							}
 							</tbody>
@@ -70,7 +98,7 @@ class SortableTbl extends React.Component{
 		}
 }
 SortableTbl.propTypes = {
-	data: React.PropTypes.array,
+	tblData: React.PropTypes.array,
 	tHead: React.PropTypes.array,
 	dKey: React.PropTypes.array,
 	customTd: React.PropTypes.array
@@ -96,10 +124,10 @@ class SortableTh extends React.Component{
 				a = "fa fa-sort";
 			break;
 			case true:
-				a = "fa fa-sort-amount-desc";
+				a = "fa fa-sort-amount-asc";
 			break;
 			case false:
-				a = "fa fa-sort-amount-asc";
+				a = "fa fa-sort-amount-desc";
 			break;
 		}
 		//console.log(a);
@@ -124,12 +152,6 @@ SortableTh.propTypes = {
 };
 
 
-
-
-
-
-
-
 const SortableTd = (props) => {
 	let CustomTd = props.customTd;
 	return(
@@ -142,20 +164,20 @@ const SortableTd = (props) => {
 						.custd;
 
 				if (!CustomTd)
-					return (<td key={id} >{props.data[item]}</td>);
+					return (<td key={id} >{props.tdData[item]}</td>);
 
 				if (CustomTdComponent)	{
-					return (<CustomTdComponent key={id} data={props.data[item]} rowData={props.data}/>);
+					return (<CustomTdComponent key={id} {...props} tdData={props.tdData[item]} rowData={props.tdData}/>);
 				}
 
-				return (<td key={id} >{props.data[item]}</td>);
+				return (<td key={id} >{props.tdData[item]}</td>);
 			})
 		}
 		</tr>
 	);
 };
 SortableTd.propTypes = {
-	data: React.PropTypes.object,
+	tdData: React.PropTypes.object,
 	dKey: React.PropTypes.array,
 	customTd: React.PropTypes.array
 };

@@ -18,7 +18,9 @@ const DetailsTab = (props) => (
 		{
 			props.data.member && (
 				<TabPanel>
-					<SortableTbl data={props.data.member} tHead={["Description","Qty"]} dKey={["desc","qty"]} />
+					<div className="download-tbl">		
+						<SortableTbl tblData={props.data.member} tHead={["Description","Qty"]} dKey={["desc","qty"]} />
+					</div>
 				</TabPanel>
 			)
 		}
@@ -26,7 +28,9 @@ const DetailsTab = (props) => (
 		{
 			props.data.optional && (
 				<TabPanel>
-					<SortableTbl data={props.data.optional}  tHead={["Optional Member"]}  dKey={["desc"]} />
+					<div className="download-tbl">		
+						<SortableTbl tblData={props.data.optional}  tHead={["Optional Member"]}  dKey={["desc"]} />
+					</div>
 				</TabPanel>
 			)
 		}
@@ -42,10 +46,12 @@ const DetailsTab = (props) => (
 		{
 			props.data.docs && (
 				<TabPanel>
-					<SortableTbl data={props.data.docs}
-						tHead={["Description","Size(KB)","File Type","Download"]}
-						customTd={[{custd: CustomDownloadTd, keyItem: "src"}]}
-						dKey={["desc","size","filetype", "src"]} />
+					<div className="download-tbl">
+						<SortableTbl tblData={props.data.docs}
+							tHead={["Description","Size(KB)","File Type","Download"]}
+							customTd={[{custd: CustomDownloadTd, keyItem: "src"}]}
+							dKey={["desc","size","filetype", "src"]} />
+					</div>
 				</TabPanel>
 			)
 		}

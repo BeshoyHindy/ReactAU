@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 require('./sass/main.scss');
 require("font-awesome-sass-loader");
 require.context('./img', true, /\.?/);
@@ -17,7 +18,7 @@ import {AboutPage} from './components/AboutPage';
 import {ContactPage} from './components/ContactPage';
 import {ProductCategorySidebar, ProductIndexSidebar} from './components/Products/Sidebar/CategorySidebar';
 import ProductsPage, {ProductCategory} from './components/ProductsPage';
-import {ProductsTblPage} from './components/Products/ProductsTblPage';
+import ProductsTblPage from './components/Products/ProductsTblPage';
 import DetailsPage from './components/Products/DetailsPage';
 import { NavBar } from './components/header/NavBar';
 import { navData } from './Data/RouteData';
