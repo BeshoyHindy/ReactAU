@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { CommonDetails } from './Details/CommonDetails';
-//import * as detailActions from '../../actions/detailsActions';
+import * as detailActions from '../../actions/detailsActions';
 
 class DetailsPage extends React.Component
 {
@@ -14,7 +14,7 @@ class DetailsPage extends React.Component
 	componentWillMount() {
 	}
 	componentDidMount () {
-		//this.props.actions.loadDetails(this.props.params.id);
+		this.props.actions.loadDetails(this.props.params.id);
 	}
 	componentDidUpdate (prevProps, prevState) {
 	}
@@ -25,7 +25,7 @@ class DetailsPage extends React.Component
 }
 
 DetailsPage.propTypes = {
-	//actions: React.PropTypes.object.isRequired,
+	actions: React.PropTypes.object.isRequired,
 	detail:  React.PropTypes.object,
 	params:  React.PropTypes.object
 };
@@ -36,10 +36,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 
-// const mapDispatchToProps = (dispatch) => ({
-//     actions: bindActionCreators(detailActions, dispatch)
-// });
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(detailActions, dispatch)
+});
 
 
-export default connect(mapStateToProps)(DetailsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsPage);
 

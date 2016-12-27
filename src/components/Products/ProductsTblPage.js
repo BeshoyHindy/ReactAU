@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import {TblImageLoader} from '../Shared/Shared';
 import { SortableTbl }  from '../Shared/SortableTbl';
-import * as detailActions from '../../actions/detailsActions';
+//import * as detailActions from '../../actions/detailsActions';
 import { Metadata } from "../../Data/ProductTblSettings";
 import {routeBaseLink} from '../../Data/RouteData';
 
@@ -16,7 +16,7 @@ class BaseProductTblImageComponent extends React.Component
 		this.loadData = this.loadData.bind(this);
 	}
 	loadData(){
-		this.props.actions.loadDetails(this.props.rowData.id);
+		//this.props.actions.loadDetails(this.props.rowData.id);
 	}
 	render() {
 		return (	
@@ -63,14 +63,5 @@ ProductsTblPage.propTypes = {
 	products: React.PropTypes.array
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    products: ownProps.products,
-	productType: ownProps.productType
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(detailActions, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsTblPage);
+export default ProductsTblPage;
 

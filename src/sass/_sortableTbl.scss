@@ -65,4 +65,22 @@
 			border: 2px solid #c30;
 		}
    }
+   .pager{
+	   margin: 5px 0;
+	   >*{
+		   float: left;
+	   }
+		select.page-select {
+			width : 70px;
+		}
+		&:after{
+			content: "";
+			clear: both;
+			display: block;
+		}
+   }
+   .desc{
+   		margin: 5px 0;
+		text-align: right;
+   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {SortableTblPager} from './SortableTblPager'
 
 class SortableTbl extends React.Component{
 		constructor(props) {
@@ -7,11 +7,15 @@ class SortableTbl extends React.Component{
 			this.state = {
 				data: this.props.tblData || [],
 				asc: (this.props.dKey || []).reduce((acc, cur) =>{ return Object.assign({}, acc, {[cur]: null});}, {}),
-				filter: ""
+				filter: "",
+				pagers: { paging: this.props.paging, curr: 0, rowsPerPage: this.props.defaultRowsPerPage}
 			};
 			//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
 			this.sortData = this.sortData.bind(this);
 			this.filter = this.filter.bind(this);
+			this.setCurrentPage = this.setCurrentPage.bind(this);
+			this.setRowsPerPage = this.setRowsPerPage.bind(this);
+			
 		}
 
 		componentWillMount() {
@@ -64,16 +68,42 @@ class SortableTbl extends React.Component{
 				}
 			);
 		}
+		setCurrentPage(i){			
+			let index = parseInt(i)
+			this.setState(
+				{
+					pagers: Object.assign({}, this.state.pagers, {curr: index}) 
+				}
+			);
+		}
+		setRowsPerPage(i){			
+			let index = parseInt(i)
+			this.setState(
+				{
+					pagers: Object.assign({}, this.state.pagers, {rowsPerPage: index}) 
+				}
+			);
+		}		
 		render() {
+			let pageData = this.state.data;
+			let pagers = this.state.pagers;
+			let pagesCount = Math.floor(this.state.data.length / pagers.rowsPerPage) + 1;
+			if (pagers.paging){
+				pageData = pageData.slice(pagers.curr * pagers.rowsPerPage , (pagers.curr + 1) * pagers.rowsPerPage );				
+			}			
 			return (
 				<div className="table-responsive">
 					<div className="sortable-table">
 						<div className="search-box">
 							Search: <input className="search" type="text" name="" value={this.state.filter} placeholder="Filter Result" onChange={this.filter} />
-						</div>
+						</div>						
+						{
+							(pagers.paging)?<SortableTblPager curr={pagers.curr} totalPage={pagesCount} setCurrentPage={this.setCurrentPage} 
+												setRowsPerPage={this.setRowsPerPage} totalsCount={this.state.data.length} rowPerPage={pagers.rowsPerPage}/>:""
+						}
 						<table className="table table-hover table-striped" >
 							<thead>
-							<tr>
+							<tr>								
 								{
 									this.props.dKey.map((item, id) => {
 										return (
@@ -86,12 +116,12 @@ class SortableTbl extends React.Component{
 							</thead>
 							<tbody>
 							{
-								this.state.data && this.state.data.map( (item, id) => {
+								pageData.map( (item, id) => {
 									return <SortableTd key={id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
 								})
 							}
 							</tbody>
-						</table>
+						</table>						
 					</div>
 				</div>
 			);
@@ -101,10 +131,20 @@ SortableTbl.propTypes = {
 	tblData: React.PropTypes.array,
 	tHead: React.PropTypes.array,
 	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.array
+	customTd: React.PropTypes.array,
+	paging: React.PropTypes.bool,
+	defaultRowsPerPage: React.PropTypes.number
 };
 
 
+SortableTbl.defaultProps = {
+	tblData: [],
+	tHead: [],
+	dKey: [],
+	customTd: [],
+	paging: true,
+	defaultRowsPerPage: 5
+};
 
 
 
