@@ -14,6 +14,15 @@ class SortableTblPager extends React.Component{
 			this.setRowsPerPage = this.setRowsPerPage.bind(this);
 			
 		}
+		componentWillReceiveProps(nextProps) {
+			//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
+			if (nextProps.curr !== this.state.currPage) {
+				this.setState({ currPage: nextProps.curr });
+			}
+			if (nextProps.rowPerPage !== this.state.rowPerPage) {
+				this.setState({ rowPerPage: nextProps.rowPerPage });
+			}			
+		}		
 		setCurrentPage(e){			
 			this.setPage(parseInt(e.target.value));
 		}
@@ -49,8 +58,9 @@ class SortableTblPager extends React.Component{
 			);
 		}
 		render() {			
-			let nextDisableStyle = (this.state.currPage >= (this.props.totalPage -1));
-			let prevDisableStyle = (this.state.currPage < 1);
+			let nextDisableStyle = ((this.state.currPage + 1) >= (this.props.totalPage ));
+			let prevDisableStyle = ((this.state.currPage + 1 ) <= 1);
+			let rowPerPage = this.props.totalPage===1?"All":this.props.rowPerPage;
 
 			return (
 				<div className="form-group">
@@ -65,7 +75,7 @@ class SortableTblPager extends React.Component{
 						<input type="button" className="btn btn-default" name="" disabled={nextDisableStyle} 
 							onClick={this.addPagge} value="Next"/>
 						<label htmlFor="rowsPerPage"> ，display </label>
-						<select id="rowsPerPage" onChange={this.setRowsPerPage} value={this.state.rowPerPage} className="form-control page-select">
+						<select id="rowsPerPage" onChange={this.setRowsPerPage} value={rowPerPage} className="form-control page-select">
 							{
 								[5, 10, 20 ,50, 'All'].map((item,id) => {return (<option key={id} value={item}>{item}</option>);})
 							}		

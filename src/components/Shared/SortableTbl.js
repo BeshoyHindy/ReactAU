@@ -78,16 +78,21 @@ class SortableTbl extends React.Component{
 		}
 		setRowsPerPage(i){			
 			let index = parseInt(i);
+			let nCurr = this.state.pagers.curr;
+			let pagesCount = Math.ceil(this.state.data.length / index);
+			//console.log(this.state.pagers.curr, pagesCount, index);
+			if (this.state.pagers.curr >= pagesCount)
+				nCurr = pagesCount - 1;
 			this.setState(
 				{
-					pagers: Object.assign({}, this.state.pagers, {rowsPerPage: index}) 
+					pagers: Object.assign({}, this.state.pagers, {rowsPerPage: index, curr: nCurr}) 
 				}
 			);
 		}		
 		render() {
 			let pageData = this.state.data;
 			let pagers = this.state.pagers;
-			let pagesCount = Math.floor(this.state.data.length / pagers.rowsPerPage) + 1;
+			let pagesCount = Math.ceil(this.state.data.length / pagers.rowsPerPage);
 			if (pagers.paging){
 				pageData = pageData.slice(pagers.curr * pagers.rowsPerPage , (pagers.curr + 1) * pagers.rowsPerPage );				
 			}			
