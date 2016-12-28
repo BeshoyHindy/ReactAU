@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
 
 
-export {ProductIndex, ProductCategory, ProductsPage};
+export {ProductIndex, ProductCategory };
