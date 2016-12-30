@@ -1,1 +1,1 @@
-web: node tools/distServer.js
+web: node dist/server.generated.js
