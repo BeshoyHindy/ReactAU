@@ -1,8 +1,8 @@
 {
-  "presets": ["react", "es2015"],
+  "presets": [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
   "env": {
     "development": {
-      "presets": ["react-hmre"]
+      "plugins": ["react-hot-loader/babel", "transform-regenerator"]
     }
   }
 }

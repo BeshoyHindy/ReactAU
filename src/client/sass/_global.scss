@@ -1,0 +1,495 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "variable";
+@import "mixin";
+@import "reset";
+@import "app";
+
+@font-face{
+	font-family: SOSA;
+	src: url('/fonts/sosa-regular-webfont.eot');
+	src: url('/fonts/sosa-regular-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('/fonts/sosa-regular-webfont.ttf') format("truetype"),
+			 url('/fonts/sosa-regular-webfont.woff') format("font-woff"),
+			 url('/fonts/sosa-regular-webfont.svg') format("svg");
+
+}
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+body, p {
+	font-family: #{$font-p};
+	font-size: $fontsize-p;
+	line-height: 2.5;
+	@include min-height-grace(100%);
+	margin-bottom: 20px;
+	color: #666;
+}
+
+b{
+	color: #333;
+}
+
+img.center {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+}
+
+.imageloader.loaded {
+	img {
+		max-width:100%;
+	}
+}
+.download{
+	display: block;
+	width: 100%;
+}
+.loading-div{
+	width: 100%;
+	height: auto;
+	position: relative;
+	overflow: hidden;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	background-image: url("/img/ajax-loader.gif");
+}
+
+.ellipsis {
+	text-overflow: ellipsis;
+
+	/* Required for text-overflow to do anything */
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+h1{
+	font-family: 'Rajdhani', sans-serif;
+	font-weight: 600;
+	margin: 10px 20px;
+	color: #000;
+}
+h2, h3, h4, h5, h6{
+	color: #000;
+}
+html{
+	position: relative;
+	@include min-height-grace(100%);
+}
+.app-view{
+	float: right;
+}
+.search_product{
+	margin-bottom: 20px;
+}
+.btn-list{
+	line-height: 40px;
+	height: 40px;
+	width: 20px;
+	cursor: pointer;
+	font-size: 20px;
+	text-align: right;;
+	background-color: #fefefe;
+}
+.btn-list:hover{
+		color: $color6;
+}
+.breadcrumb{
+	box-shadow: #e9e9e9 0 0 30px 1px inset;
+	a{
+		color: #000;
+	}
+	a:hover{
+		font-weight: 600;
+	}
+}
+.bar-title
+{
+	color: #000;
+	box-shadow: 2px 2px 8px #888;
+	border-top:8px $color6 solid;
+}
+.note{
+	line-height: 20px;
+	margin: 0;
+	padding: 0;
+}
+
+.container{
+	@include respond-to('sm'){
+		width: 100%;
+		padding: 0 5px;
+	}
+	@include respond-to('md'){
+		width: 100%;
+		padding: 0 20px;
+	}
+}
+
+.borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
+		border: none;
+		margin: 0;
+		padding: 0 5px;
+}
+
+#article{
+	padding-bottom: $footer-height;
+	padding-top:$nav-height;
+	max-width: 1200px;
+	margin: 0 auto;
+	@include respond-to('sm'){
+		width: 100%;
+	}
+	@include respond-to('md'){
+		width: 100%;
+	}
+	@include respond-to('xs'){
+		width: 100%;
+		padding: $xs-nav-height 5px $footer-height 5px;
+		padding-top: $xs-nav-height;
+	}
+}
+
+img.responsive{
+		max-width: 100%;
+}
+.mail{
+	color: $color4;
+}
+.text_logo{
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 24px;
+	line-height: 50px;
+	color: #000;
+}
+.fa{
+	display: inline;
+}
+
+.clear{
+	width: 100%;
+	clear: both;
+}
+
+a {
+	color:#555;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+	color: $color1;
+	text-decoration: none;
+}
+
+.cont{
+
+}
+
+.gly{
+		font-family: $font-title;
+		font-weight: 600;
+		font-size: 46px;
+		line-height:  46px;
+		cursor: pointer;
+		text-align: center;
+		ul li{
+			@include inline-block-grace(40%);
+			height: 46px;
+		}
+		ul > li > a{
+			width: 100%;
+		}
+}
+
+.page-header{
+	@include respond-to(xs) {
+		small{
+			display: none;
+		}
+	}
+}
+.gly-center{
+		width:150px;
+		margin: 20px auto;
+		padding: 0;
+}
+
+
+
+
+/**************************************
+		 google custom search hack
+***************************************/
+.gsc-search-button,
+.gsc-search-button-v2{
+	box-sizing: content-box;
+}
+.gsc-control-cse, .gsc-input, .gsc-search-box{
+		margin: 0 !important;
+		padding: 0!important;
+		max-height: 100%!important;
+}
+
+.gsc-search-box, .gsc-control-cse{
+//  background: transparent!important;
+//  color: transparent!important;
+	border:0!important;
+}
+
+table.gsc-search-box td {
+	vertical-align: top!important;
+	max-height: 100%!important;
+}
+.gsib_a{
+		padding: 0 0 0 6px !important;
+}
+
+.gsc-input{
+	background-color: transparent!important;
+}
+
+.gsc-search-button{
+	vertical-align: top !important;
+	color: #fff!important;
+}
+
+.gsc-search-button, .gsc-search-button-v2{
+	margin-top: -1px !important;
+}
+.gsc-tabHeader,
+.gsc-inline-block,
+.gsc-tabhActive,
+.gs-snippet,
+.gsc-results,
+.gsc-webResult
+{
+	box-sizing: content-box;
+}
+
+.gsc-tabHeader
+, .gsc-inline-block
+, .gsc-tabhActive
+, .gs-snippet
+, .gsc-results
+, .gsc-webResult
+, .gsc-tabHeader
+, .gsc-inline-block
+, .gsc-tabhActive
+, .gs-snippet
+, .gsc-results
+, .gsc-webResult {
+	box-sizing: content-box;
+}
+
+.gsc-control-cse {
+	font-family: $font-title !important;
+}
+
+input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:focus {
+	border-color: transparent !important;
+	background-color: $gsc-color !important;
+}
+
+
+
+
+
+
+/*******************************************************************************
+ griddle
+*******************************************************************************/
+/*
+.griddle-container {
+		border: 1px solid #DDD;
+}
+
+.griddle .top-section {
+		clear: both;
+		display: table;
+		width: 100%;
+}
+
+.griddle .griddle-filter {
+		float: left;
+		width: 50%;
+		text-align: left;
+		color: #222;
+		min-height: 1px;
+}
+
+.griddle .griddle-settings-toggle {
+		float: left;
+		width: 50%;
+		text-align: right;
+		button{
+			height: 30px;
+			padding: 0 15px;
+			background: #eee;
+			color: $color6;
+			line-height: 26px;
+			font-weight: 600;
+			border-radius: 15px;
+			border: 1px solid #ddd;
+			font-size: 13px;
+		}
+}
+
+.griddle .griddle-settings {
+		background-color: #FFF;
+		border: 1px solid #DDD;
+		color: #222;
+		padding: 10px;
+		margin-bottom: 10px;
+}
+
+.griddle .griddle-settings .griddle-columns {
+		clear: both;
+		//display: table;
+		width: 100%;
+		border-bottom: 1px solid #EDEDED;
+		margin-bottom: 10px;
+}
+
+.griddle .griddle-settings .griddle-column-selection {
+		float: left;
+		width: 20%;
+
+}
+
+.griddle table {
+		//table-layout: fixed;
+}
+
+.griddle .table-responsive table {
+		//table-layout: fixed;
+}
+
+
+.griddle th {
+		background-color: $color6;
+		border-bottom: 1px solid #DDD;
+		padding: 5px;
+		background-color: #c30;
+		color: #fff;
+		line-height: 25px;
+		height: 50px;
+		cursor: pointer;
+		border-bottom: 10px solid #ccc;
+		span.fa{
+			padding-left: 10px;
+		}
+}
+
+.griddle td {
+		padding: 5px;
+		background-color: #FFF;
+		border-top-color: #DDD;
+		color: #222;
+		img{
+			width: 100%;
+			height: auto;
+		}
+}
+
+.griddle .footer-container {
+		padding: 0px;
+		background-color: #EDEDED;
+		border: 0px;
+		color: #222;
+}
+
+.griddle .griddle-previous, .griddle .griddle-page, .griddle .griddle-next {
+		float: left;
+		width: 33%;
+		min-height: 1px;
+		vertical-align: middle;
+		button{
+			height: 30px;
+			margin-left: 20px;
+			padding: 0 25px;
+			background: white;
+			color: $color6;
+			line-height: 26px;
+			font-weight: 600;
+			border-radius: 15px;
+			border: 1px solid #ddd;
+			font-size: 13px;
+		}
+}
+
+.griddle .griddle-page {
+		text-align: center;
+}
+
+.griddle .griddle-next {
+		text-align: right;
+}
+
+.griddle {
+	margin-top: 10px;
+	.top-section{
+		margin-bottom: 5px;
+		.griddle-filter{
+			.filter-container{
+				input{
+					width: 200px;
+					margin-left: 10px;
+					height: 30px;
+					border: none;
+					padding-left: 10px;
+					-moz-border-radius: 15px;
+					-webkit-border-radius: 15px;
+					border-radius: 15px;
+					border: 2px solid #c30;
+				}
+			}
+			.filter-container:before{
+				content: "Search Products:";
+				height: 30px;
+				margin-right: 20px;
+				display: block;
+				float: left;
+			}
+		}
+	}
+	th.tblImage{
+		width: 150px;
+		padding: 8px
+	}
+	td.tblImage{
+		width: 150px;
+		padding: 0
+	}
+	.griddle-container{
+		.griddle-body{
+			.table{
+				margin-bottom: 0;
+				.footer-container{
+					height: 40px;
+					line-height: 40px;
+				}
+			}
+		}
+	}
+
+}
+*/
+
+/****************************************************************************
+react-tabs
+*******************************************************************************/
+.ReactTabs__TabPanel{
+	border-left : 1px solid #aaa;
+	border-right : 1px solid #aaa;
+	border-bottom : 1px solid #aaa;
+	padding-top: 10px;
+}
+
+.react-tabs [role=tablist] {
+	margin : 0;
+}
