@@ -23704,7 +23704,7 @@ var requestHandler = __webpack_require__(91);
 
 var app = new express();
 
-var port = {"NODE_ENV":"production","BROWSER":false}.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 global.__CLIENT__ = false; // eslint-disable-line
 
