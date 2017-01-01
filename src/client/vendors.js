@@ -1,5 +1,5 @@
 require("react");
-require("babel-polyfill");
+// require("babel-polyfill");
 require("react-addons-css-transition-group");
 require("react-dom");
 require("react-redux");
@@ -9,8 +9,9 @@ require("react-router-redux");
 require("redux");
 require("redux-thunk");
 require("react-tabs");
-require("slick-carousel");
 require("react-slick");
 require("axios");
-require("webpack-hot-middleware");
-require("react-hot-loader");
+if (process.env.NODE_ENV !== "production"){
+	require("webpack-hot-middleware");
+	require("react-hot-loader");
+}

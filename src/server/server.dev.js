@@ -8,7 +8,7 @@ import open from 'open';
 
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
-import config from '../../webpack.config.dev';
+import config from '../../webpack/webpack.config.dev';
 
 import requestHandler from './requestHandler';
 
