@@ -93,6 +93,7 @@ git apply 1.patch --reject
 //heroku
 heroku run bash --app react-redux-demo-chingching
 heroku logs --app react-redux-demo-chingching
+heroku config:set NPM_CONFIG_PRODUCTION=false --app react-redux-demo-chingching
 
 //NPM
 // 按指示初始化 NPM 設定檔 package.json

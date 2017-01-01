@@ -16,9 +16,9 @@ var distPath = path.join(__dirname,  "dist");
 // 	inject: 'body'
 // });
 
-const GLOBALS = {
-	'process.env.NODE_ENV': JSON.stringify('production')
-};
+// const GLOBALS = {
+// 	'process.env.NODE_ENV': JSON.stringify('production')
+// };
 
 
 export default [
@@ -32,7 +32,7 @@ export default [
 			path: assetsPath,
 			publicPath: publicPath,
 			filename: 'bundle.js',
-			library: "[name]_[hash]"		
+			library: "[name]_[hash]"
 		},
 		plugins: [
 			new webpack.DefinePlugin({
@@ -44,7 +44,7 @@ export default [
 			__SERVER__: false,
 			__DEVELOPMENT__: false,
 			__DEVTOOLS__: false
-			}),				
+			}),
 			//HtmlWebpackPluginConfig,
 			// new webpack.DefinePlugin(GLOBALS),
 			new ExtractTextPlugin({
@@ -56,7 +56,7 @@ export default [
 			new webpack.DllReferencePlugin({
 				context: path.join(__dirname, "src" , "client"),
 				manifest: require("./dll/vendor-manifest.json")
-			}), 				
+			}),
 		],
 		module: {
 			rules: [
@@ -70,7 +70,7 @@ export default [
 					options: {
 						cacheDirectory: true,
 						babelrc: false,
-						presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],						
+						presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
 					},
 				},
 				{
@@ -105,7 +105,7 @@ export default [
 					test: /\.(jpe?g|png|gif|svg|ico)$/i,
 					include: [
 						path.resolve(__dirname, './src/client/img')
-					],				
+					],
 					loader: 'file-loader',
 					query: {
 						name: '[path][name].[ext]',
@@ -117,7 +117,7 @@ export default [
 					loader: 'file-loader',
 					include: [
 						path.resolve(__dirname, './src/client/json')
-					],					
+					],
 					query: {
 						name: '[path][name].[ext]',
 						context: path.resolve(__dirname, './src/client')
@@ -128,7 +128,7 @@ export default [
 					loader: 'file-loader',
 					include: [
 						path.resolve(__dirname, './src/client/json/docs')
-					],					
+					],
 					query: {
 						name: 'docs/[name].[ext]',
 						context: path.resolve(__dirname, './src/client/json/docs')
@@ -178,18 +178,16 @@ export default [
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify("production"),
-				BROWSER: false
-			},
+			'process.env.NODE_ENV': JSON.stringify("production"),
+			'process.env.BROWSER': false,
 			__CLIENT__: false,
 			__SERVER__: true,
 			__DEVELOPMENT__: false,
 			__DEVTOOLS__: false
-			}),				
+			}),
 			//HtmlWebpackPluginConfig,
-			new webpack.DefinePlugin(GLOBALS),				
-		],		
+			// new webpack.DefinePlugin(GLOBALS),
+		],
 		externals: /^[a-z\-0-9]+$/,
 		module: {
 			rules: [
@@ -224,6 +222,6 @@ export default [
 			errorDetails: true,
 			warnings: true,
 			publicPath: true
-		},		
+		},
 	}
-];	
+];
