@@ -1,1 +1,1 @@
-web: node dist/server.generated.js
+web: node server.generated.js

@@ -1,26 +1,39 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+var webpack = require('webpack');
+var path  = require( 'path');
+var ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
 //import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-
+var autoprefixer  = require( 'autoprefixer');
+var HappyPack  = require( 'happypack');
 /*
 var info = autoprefixer().info();
 console.log(info);
 */
 
-// let HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-// 	title: 'ChingChingTest',
-// 	template: path.resolve(__dirname, './src/client/index.html'),
-// 	filename: 'index.html',
-// 	inject: 'body'
-// });
+
 var projectRoot = process.cwd(); 
-var assetsPath = path.join(projectRoot,  "dist", "public");
-var publicPath = "/";
+var assetsPath = path.join(projectRoot,   "public", "build");
+var publicPath = "/build/";
+var distPath = projectRoot;
+
+var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss-loader']);
+
+function createHappyPlugin(id, loaders) {
+  return new HappyPack({
+    id: id,
+    loaders: loaders,
+    threadPool: happyThreadPool,
+
+    // disable happy caching with HAPPY_CACHE=0
+    cache: false,
+
+    // make happy more verbose with HAPPY_VERBOSE=1
+    verbose: true,
+  });
+}
 
 
-export default {
+var config = {
 	cache: true,
 	devtool: 'inline-eval-cheap-source-map',
 	context: process.cwd(),
@@ -49,7 +62,7 @@ export default {
 		}),
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		// new webpack.NoErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/main.css',
 			disable: false,
@@ -59,93 +72,149 @@ export default {
             context: path.join(projectRoot, "src" , "client"),
             manifest: require("../dll/vendor-manifest.json")
         }), 
+		createHappyPlugin('jsHappy',
+			[
+				{
+					path: 'babel-loader',
+					query: {
+						cacheDirectory: true,
+						presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
+						plugins: ['react-hot-loader/babel'],
+					}
+				}
+			]
+		),
+		// createHappyPlugin('sassHappy',
+		// 	[
+		// 		{ path: 'raw-loader'/*, query: { sourceMap: true, importLoaders: 2, localIdentName: '[name]__[local]__[hash:base64:5]' }*/ },
+		// 		{ path: 'resolve-url-loader' },
+		// 		{ path: 'postcss-loader' },
+		// 		{ path: 'sass-loader', query: {
+		// 					sourceMap: true,
+		// 					includePaths: [
+		// 						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+		// 						path.resolve(projectRoot, './src/client/sass/')
+		// 					]
+		// 			}
+		// 		}
+		// 	]
+		// )
 	],
 	module: {
 		rules: [
 			{
-				test: /(\.jsx)|(\.js)$/,
+				test: /(\.jsx)|(\.js)$/i,
 				exclude: /node_modules/,
-				loader: 'babel-loader',
+				loader: 'happypack/loader?id=jsHappy',
 				include: [
                     path.join(projectRoot, "src" , "client") //important for performance!
                 ],
-				options: {
-					cacheDirectory: true,
-					babelrc: false,
-					presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
-					plugins: ['react-hot-loader/babel'],
-				},
+				// options: {
+				// 	cacheDirectory: true,
+				// 	babelrc: false,
+				// 	presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
+				// 	plugins: ['react-hot-loader/babel'],
+				// },
 			},
+			// {
+			// 	test: /(\.sass|\.scss)$/i,
+			// 	loader:
+			// 		ExtractTextPlugin.extract({
+			// 			fallbackLoader: "style-loader",
+			// 			loader: 'happypack/loader?id=sassHappy'
+			// 		})
+			// },
 			{
 				test: /(\.sass|\.scss)$/,
 				loader:
 					ExtractTextPlugin.extract({
 						fallbackLoader: "style-loader",
 						loader: [
-							{ loader: 'css-loader', query: { sourceMap: true/*, importLoaders: 2, localIdentName: '[name]__[local]__[hash:base64:5]' */} },
+							{ loader: 'raw-loader'},
 							{ loader: 'resolve-url-loader' },
-							{ loader: 'postcss-loader' },
 							{ loader: 'sass-loader', query: {
-									 sourceMap: true,
-									 includePaths: [
-//									 	  path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-									 	  path.resolve(projectRoot, './src/client/sass/')
-									 ]
+									sourceMap: true,
+									includePaths: [
+								 		path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+										path.resolve(projectRoot, './src/client/sass/')
+									]
 								}
 							}
-							],
-						publicPath: '../'
+						],
 					})
+			},			
+			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=./fonts/[name].[ext]" },
+			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=./fonts/[name].[ext]" },
+			{
+				test: /\.gif$/i,
+				loader: 'url-loader',
+				include: [
+					path.join(projectRoot, "src" , "client", "img") 
+				],				
+				options: {
+					name: '[path]/[name].[ext]',
+					context: path.resolve(projectRoot, './src/client'),
+					limit:10000,
+					mimetype:'image/gif'
+				}
 			},
 			{
-				test: /\.(ttf|otf|eot|svg|woff(2)?)(\?\S*)?$/i,
-				loader: 'file-loader',
+				test: /\.jpg$/i,
+				loader: 'url-loader',
+				include: [
+					path.join(projectRoot, "src" , "client", "img") 
+				],				
+				options: {
+					name: '[path]/[name].[ext]',
+					context: path.resolve(projectRoot, './src/client'),
+					limit:10000,
+					mimetype:'image/jpg'
+				}
+			},
+			{
+				test: /\.png$/i,
+				loader: 'url-loader',
+				include: [
+					path.join(projectRoot, "src" , "client", "img") 
+				],				
+				options: {
+					name: '[path]/[name].[ext]',
+					context: path.resolve(projectRoot, './src/client'),
+					limit:10000,
+					mimetype:'image/png'
+				}
+			},
+			{
+				test: /\.svg$/i,
+				loader: 'url-loader',
+				include: [
+					path.join(projectRoot, "src" , "client") 
+				],				
 				options: {
 					name: 'fonts/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client/fonts')
+					context: path.resolve(projectRoot, './src/client/fonts'),
+					limit:26000,
+					mimetype:'image/svg+xml'
 				}
-			},
-			{
-				test: /\.(jpe?g|png|gif|svg|ico)$/i,
-				include: [
-                    path.resolve(projectRoot, './src/client/img')
-                ],				
-				loader: 'file-loader',
-				query: {
-					name: '[path][name].[ext]',
-					context: path.resolve(projectRoot, './src/client')
-				}
-			},
-			{
-				test: /\.json$/i,
-				loader: 'file-loader',
-				include: [
-                    path.resolve(projectRoot, './src/client/json')
-                ],					
-				query: {
-					name: '[path][name].[ext]',
-					context: path.resolve(projectRoot, './src/client')
-				}
-			},
-			{
-				test: /\.(pdf)$/i,
-				loader: 'file-loader',
-				include: [
-                    path.resolve(projectRoot, './src/client/json/docs')
-                ],					
-				query: {
-					name: 'docs/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client/json/docs')
-				}
-			}
+			},			
 		]
 	},
-    resolve: {
+    resolveLoader: {
 		modules: [
 		  path.resolve(projectRoot, "./src/client"),
 		  "node_modules"
 		],
-        unsafeCache : true
+    },	
+    resolve: {
+		modules: [
+			path.resolve(projectRoot, "./src/client"),
+			"node_modules"
+		],
+        unsafeCache : true,
+		// alias: {
+        //     "bootstrap-sass": "node_modules/bootstrap-sass/assets/stylesheets/bootstrap",
+		// 	"bootstrap-sass-font": "bootstrap-sass/assets/fonts/bootstrap/"
+        // }
     },
 	profile: true,
 	stats: {
@@ -164,3 +233,6 @@ export default {
 		publicPath: true
 	},
 };
+
+
+module.exports = config;

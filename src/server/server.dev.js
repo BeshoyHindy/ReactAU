@@ -30,7 +30,7 @@ app.use(hotMiddleware(compiler));
 delete process.env.BROWSER;
 
 const oneDay = 86400000;
-app.use( express.static(path.resolve(__dirname, '../../dist/public'), { maxAge: oneDay * 7 }));
+app.use( express.static(path.resolve(__dirname, '../../public'), { maxAge: oneDay * 7 }));
 
 // React application rendering
 app.use(requestHandler);

@@ -1,3 +1,5 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "variable";
 @import "mixin";
@@ -6,11 +8,11 @@
 
 @font-face{
 	font-family: SOSA;
-	src: url('/fonts/sosa-regular-webfont.eot');
-	src: url('/fonts/sosa-regular-webfont.eot?#iefix') format('embedded-opentype'),
-			 url('/fonts/sosa-regular-webfont.ttf') format("truetype"),
-			 url('/fonts/sosa-regular-webfont.woff') format("font-woff"),
-			 url('/fonts/sosa-regular-webfont.svg') format("svg");
+	src: url('./sosa-regular-webfont.eot');
+	src: url('./sosa-regular-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('./sosa-regular-webfont.ttf') format("truetype"),
+			 url('./sosa-regular-webfont.woff') format("font-woff"),
+			 url('./sosa-regular-webfont.svg') format("svg");
 
 }
 

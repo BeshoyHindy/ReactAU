@@ -8,13 +8,13 @@ var config = {
         vendor: [path.join(__dirname, "..","src", "client", "vendors.js")]
     },
     output: {
-        path: path.join(__dirname, "..","dist", "public","dll"),
+        path: path.join(__dirname, "..", "public","build"),
         filename: "dll.[name].js",
         library: "[name]"
     },
     plugins: [        
         new webpack.DllPlugin({
-            path: path.join(__dirname, "..", "dist","dll", "[name]-manifest.json"),
+            path: path.join(__dirname, "..", "dll", "[name]-manifest.json"),
             name: "[name]",
             context: path.resolve(__dirname, "../src/client")
         }),

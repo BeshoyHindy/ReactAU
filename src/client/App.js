@@ -3,8 +3,6 @@ import 'babel-polyfill';
 if (process.env.BROWSER) {
 	require ('./sass/main.scss');
 	require ("font-awesome-sass-loader");
-	require.context('./img', true, /\.?/);
-	require.context('./json', true, /\.?/);
 	require.context('./fonts', true, /\.?/);
 }
 

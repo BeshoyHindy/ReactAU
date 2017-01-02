@@ -5,9 +5,9 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
 var projectRoot = process.cwd(); 
-var assetsPath = path.join(projectRoot,  "dist", "public");
-var publicPath = "/";
-var distPath = path.join(projectRoot,  "dist");
+var assetsPath = path.join(projectRoot,   "public", "build");
+var publicPath = "/build/";
+var distPath = projectRoot;
 
 
 
@@ -69,7 +69,7 @@ export default [
 				sourceMap: false
 			}),
 			new webpack.optimize.CommonsChunkPlugin({
-				name: ['main', 'vendor'],
+				name: ['bundle', 'vendor'],
 				filename: '[name].js',
 				minChunks: Infinity
 			}),
@@ -111,50 +111,63 @@ export default [
 									}
 								}
 							],
-							publicPath: '../'
 						})
 				},
+				{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=./fonts/[name].[ext]" },
+				{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=./fonts/[name].[ext]" },
 				{
-					test: /\.(ttf|otf|eot|svg|woff(2)?)(\?\S*)?$/i,
-					loader: 'file-loader',
+					test: /\.gif$/i,
+					loader: 'url-loader',
+					include: [
+						path.join(projectRoot, "src" , "client", "img") 
+					],				
+					options: {
+						name: '[path]/[name].[ext]',
+						context: path.resolve(projectRoot, './src/client'),
+						limit:10000,
+						mimetype:'image/gif'
+					}
+				},
+				{
+					test: /\.jpg$/i,
+					loader: 'url-loader',
+					include: [
+						path.join(projectRoot, "src" , "client", "img") 
+					],				
+					options: {
+						name: '[path]/[name].[ext]',
+						context: path.resolve(projectRoot, './src/client'),
+						limit:10000,
+						mimetype:'image/jpg'
+					}
+				},
+				{
+					test: /\.png$/i,
+					loader: 'url-loader',
+					include: [
+						path.join(projectRoot, "src" , "client", "img") 
+					],				
+					options: {
+						name: '[path]/[name].[ext]',
+						context: path.resolve(projectRoot, './src/client'),
+						limit:10000,
+						mimetype:'image/png'
+					}
+				},
+				{
+					test: /\.svg$/i,
+					loader: 'url-loader',
+					include: [
+						path.join(projectRoot, "src" , "client") 
+					],				
 					options: {
 						name: 'fonts/[name].[ext]',
-						context: path.resolve(projectRoot, './src/client/fonts')
+						context: path.resolve(projectRoot, './src/client/fonts'),
+						limit:26000,
+						mimetype:'image/svg+xml'
 					}
-				},
-				{
-					test: /\.(jpe?g|png|gif|svg|ico)$/i,
-					include: [
-						path.resolve(projectRoot, './src/client/img')
-					],				
-					loader: 'file-loader',
-					query: {
-						name: '[path][name].[ext]',
-						context: path.resolve(projectRoot, './src/client')
-					}
-				},
-				{
-					test: /\.json$/i,
-					loader: 'file-loader',
-					include: [
-						path.resolve(projectRoot, './src/client/json')
-					],
-					query: {
-						name: '[path][name].[ext]',
-						context: path.resolve(projectRoot, './src/client')
-					}
-				},
-				{
-					test: /\.(pdf)$/i,
-					loader: 'file-loader',
-					include: [
-						path.resolve(projectRoot, './src/client/json/docs')
-					],
-					query: {
-						name: 'docs/[name].[ext]',
-						context: path.resolve(projectRoot, './src/client/json/docs')
-					}
-				}
+				},	
+				
 			]
 		},
 		resolve: {

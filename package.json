@@ -8,17 +8,17 @@
     "npm": ">=3.0 <5"
   },
   "scripts": {
-    "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open:src lint:watch",
+    "start": "npm-run-all --parallel open:src",
     "build:dll": "webpack  --verbose --colors --display-error-details --config=webpack/webpack.config.dll.js",
-    "open:src": "babel-watch src/server/server.dev.js",
+    "open:src": "babel-node src/server/server.dev.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter spec tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
     "prebuild": "",
     "build": "babel-node tools/build.prod.js",
-    "postbuild": "node dist/server.generated.js"
+    "postbuild": "node server.generated.js",
+    "stat": "webpack --progress --profile --json --config=webpack/webpack.config.dev.js > stats.json"
   },
   "author": "",
   "license": "ISC",
@@ -74,6 +74,7 @@
     "file-loader": "^0.9.0",
     "font-awesome": "^4.7.0",
     "font-awesome-sass-loader": "^1.0.3",
+    "happypack": "^3.0.2",
     "html-webpack-plugin": "^2.24.1",
     "image-webpack-loader": "^3.0.0",
     "jsdom": "^9.9.0",
@@ -83,6 +84,7 @@
     "node-sass": "^4.1.0",
     "npm-run-all": "^3.1.1",
     "postcss-loader": "^1.2.1",
+    "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.3.2",
     "react-hot-loader": "3.0.0-beta.6",
     "redux-devtools": "^3.3.1",
