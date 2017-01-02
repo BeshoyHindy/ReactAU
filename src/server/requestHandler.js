@@ -6,7 +6,6 @@ import { match, RouterContext, createMemoryHistory } from 'react-router';
 
 import createRoutes from '../client/route/index';
 import configureStore from '../client/store/configureStore';
-import renderFullPage from './generateHTML';
 
 function handleRender(req, res) 
 {
@@ -18,7 +17,10 @@ function handleRender(req, res)
 
 //   let location = createLocation(req.url);
   const location = req.url;
-
+  const venderJs =(process.env.NODE_ENV === 'production')
+  					? '/build/vendor.js'
+					: '/build/dll.vendor.js';
+					
   match({ routes, location }, (error, redirectLocation, renderProps) => {
 	if (redirectLocation) {
 		res.redirect(301, redirectLocation.pathname + redirectLocation.search);
@@ -32,7 +34,7 @@ function handleRender(req, res)
 				<RouterContext {...renderProps} />
 			</Provider>
 		);
-		res.status(200).send(renderFullPage(html,initialState))
+		res.render('index', { html, reduxState: initialState, venderJs });	
 	}});
 }
 

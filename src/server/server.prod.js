@@ -20,6 +20,7 @@ app.use(compression());
 delete process.env.BROWSER;
 
 var oneDay = 86400000;
+app.set('view engine', 'ejs');
 app.use( express.static(path.join(__dirname, './public'), { maxAge: oneDay * 7 }));
 app.use(requestHandler);
 

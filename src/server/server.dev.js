@@ -29,6 +29,7 @@ app.use(devMiddleware(compiler, {
 app.use(hotMiddleware(compiler));
 delete process.env.BROWSER;
 
+app.set('view engine', 'ejs');
 const oneDay = 86400000;
 app.use( express.static(path.resolve(__dirname, '../../public'), { maxAge: oneDay * 7 }));
 
