@@ -7,12 +7,17 @@ import { match, RouterContext, createMemoryHistory } from 'react-router';
 import createRoutes from '../client/route/index';
 import configureStore from '../client/store/configureStore';
 
+import { fetchComponentsData,
+         getMetaDataFromState,
+         detectLocale,
+         getIp
+	 } from './utils';
+
+
 function handleRender(req, res) 
 {
   const history = createMemoryHistory();
   const store = configureStore();
-  const initialState = store.getState()
-
   const routes = createRoutes(history);
 
 //   let location = createLocation(req.url);
@@ -29,13 +34,31 @@ function handleRender(req, res)
 	} else if (renderProps == null) {
 		res.status(404).render('404');
 	} else {
-		let html = renderToString(
-			<Provider store={store}>
-				<RouterContext {...renderProps} />
-			</Provider>
-		);
-		res.render('index', { html, reduxState: initialState, venderJs });	
-	}});
+	//	console.log(renderProps);
+		// fetchComponentsData({
+        //         dispatch   : store.dispatch,
+        //         components : renderProps.components,
+        //         params     : renderProps.params,
+        //         query      : renderProps.location.query
+        //     })
+            // .then(() => {
+				const initialState = store.getState()
+                const metaData = getMetaDataFromState({
+                    params : renderProps.params,
+                    query  : renderProps.location.query,
+                    route  : renderProps.routes[renderProps.routes.length - 1].path,
+                    state  : initialState
+                });
+
+				const componentHTML = renderToString(
+					<Provider store={store}>
+						<RouterContext {...renderProps} />
+					</Provider>
+				);
+				res.render('index', { componentHTML, reduxState: initialState, venderJs, metaData });	
+			// })
+		}
+	});
 }
 
 module.exports = handleRender;

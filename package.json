@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm-run-all --parallel open:src",
     "build:dll": "webpack  --verbose --colors --display-error-details --config=webpack/webpack.config.dll.js",
-    "open:src": "babel-node src/server/server.dev.js",
+    "open:src": "babel-watch src/server/server.dev.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter spec tools/testSetup.js \"src/**/*.test.js\"",
@@ -32,6 +32,7 @@
     "es6-promise": "^4.0.5",
     "express": "^4.14.0",
     "fs-extra": "^1.0.0",
+    "geoip-lite": "^1.1.8",
     "object-assign": "^4.1.0",
     "open": "0.0.5",
     "react": "^15.3.2",
@@ -46,6 +47,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "slick-carousel": "^1.6.0",
+    "strformat": "0.0.7",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {

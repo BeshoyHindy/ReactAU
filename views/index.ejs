@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Hi-Tech Digital CCTV</title>
+		<title><%= metaData.description %> - Hi-Tech Digital CCTV</title>
+		<meta name="description" content='<%= metaData.description %>'>
+		<meta property="og:title" content="<%= metaData.title %>" />
+		<meta property="og:site_name" content="<%= metaData.siteName %>"/>
+		<meta property="og:image" content="<%= metaData.image %>" />
+		<meta property="og:description" content="<%= metaData.description %>" />
+		<meta property="og:locale" content="en_US" />
 		<link href="https://fonts.googleapis.com/css?family=Lato|Oswald:400,700|Rajdhani|Ubuntu" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
 		<link rel="stylesheet" href="/build/css/main.css">
 	</head>
 	<body>
-		<div id="rootWrap"><%- html %></div>
+		<div id="rootWrap"><%- componentHTML %></div>
 		<script type="text/javascript" charset="utf-8">
 			 window.__REDUX_STATE__ = '<%= reduxState %>';
 		</script>	
