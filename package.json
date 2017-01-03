@@ -13,7 +13,6 @@
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",    
     "postbuild": "node server.generated.js",
-    "postinstall": "npm run build",
     "dev": "concurrently --kill-others \"npm run webpack-dev\" \"npm run lint:watch\"",
     "dev-server": "cross-env NODE_ENV=development nodemon --exec babel-node src/server/server.prod.js",
     "start": "cross-env NODE_ENV=production  babel-node src/server/server.prod.js",
