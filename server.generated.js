@@ -12167,7 +12167,8 @@ function createRoutes() {
 			),
 			_react2.default.createElement(_reactRouter.Route, { path: 'aboutus', component: _AboutPage.AboutPage }),
 			_react2.default.createElement(_reactRouter.Route, { path: 'contact', component: _ContactPage.ContactPage })
-		)
+		),
+		_react2.default.createElement(_reactRouter.Route, { path: '*', component: _index.NotFoundPage })
 	);
 }
 
@@ -23583,6 +23584,7 @@ app.set('view engine', 'ejs');
 
 //development hot reload
 if (false) {
+	app.use(_express2.default.static(_path2.default.resolve(__dirname, '../../public/build/dll.vendor.js')));
 	console.log('proxy from development dev server http://' + dev_server.host + ':' + dev_server.port + '.....');
 	var devServerProxy = _httpProxy2.default.createProxyServer();
 	app.use('/build', function (req, res) {

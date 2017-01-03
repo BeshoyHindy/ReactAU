@@ -45,7 +45,9 @@ var config = {
 	devtool: 'inline-eval-cheap-source-map',
 	context: process.cwd(),
 	entry: [
-		`webpack-hot-middleware/client?path=http://${dev_server.host}:${port}/__webpack_hmr`,
+		'react-hot-loader/patch',
+		//`webpack-hot-middleware/client?path=http://${dev_server.host}:${port}/__webpack_hmr`,
+		'webpack-hot-middleware/client?reload=true',
 		path.resolve(projectRoot, './src/client/index.js')
 	],
 	target: 'web',

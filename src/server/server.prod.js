@@ -28,6 +28,7 @@ app.set('view engine', 'ejs');
 
 //development hot reload
 if (process.env.NODE_ENV === "development"){
+	app.use( express.static(path.resolve(__dirname, '../../public/build/dll.vendor.js')));
 	console.log(`proxy from development dev server http://${dev_server.host}:${dev_server.port}.....`);
 	var devServerProxy = httpProxy.createProxyServer();
 	app.use('/build', (req, res) => {

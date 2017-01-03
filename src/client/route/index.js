@@ -26,6 +26,7 @@ export default function createRoutes(history = browserHistory) {
 				<Route path="aboutus" component={AboutPage} />
 				<Route path="contact" component={ContactPage} />
 			</Route>
+			<Route path="*" component={NotFoundPage} />
 		</Router>
 	);
 }
