@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 import config from '../../webpack/webpack.config.dev';
-import { api_server, web_server, development } from '../../.config/configuration';
+import {  web_server, development } from '../../.config/configuration';
 
 import requestHandler from './requestHandler';
 
@@ -27,7 +27,6 @@ delete process.env.BROWSER;
 
 
 const serverOptions = {
-  contentBase: `http://${host}:${port}/`,
   // quiet: true,
   // noInfo: true,
   hot: true,
@@ -35,30 +34,26 @@ const serverOptions = {
   lazy: false,
   publicPath: config.output.publicPath,
   historyApiFallback: true,
-  headers: { 'Access-Control-Allow-Origin': '*' },
+  headers: {
+              'Access-Control-Allow-Origin': '*' , 
+              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+              'Access-Control-Allow-Headers': 'X-Requested-With,content-typeE',
+              'Access-Control-Allow-Credentials': true
+          },
   stats: { colors: true },
 };
 
 let compiler = webpack(config);
 
-//app.use(compression());
-console.log(serverOptions);
+//console.log(serverOptions);
 app.use(devMiddleware(compiler, serverOptions));
 app.use(hotMiddleware(compiler));
 
-
-const oneDay = 86400000;
-app.use(compression());
-app.use(cookieParser());
-app.set('view engine', 'ejs');
-app.use( express.static(path.resolve(__dirname, '../../public'), { maxAge: oneDay * 7 }));
-app.use(requestHandler);
-
-app.listen(port, function(err) {
+app.listen(dev_server.port, function(err) {
 	if (err) {
 		console.log(err);
 	} else {
-		console.info(`Server listening on port ${port}!`);
+		console.info(`Server listening on port ${dev_server.port}!`);
 	}
 });
 

@@ -64,7 +64,7 @@ class SortableTblPager extends React.Component{
 
 			return (
 				<div className="form-group">
-					<div className="pager col-sm-6 col-xs-12">
+					<div className="pager col-sm-7 col-xs-12">
 						<input type="button" className="btn btn-default" name="" disabled={prevDisableStyle} 
 							onClick={this.subPage} value="Prev" />
 						<select onChange={this.setCurrentPage} value={this.state.currPage} className="form-control page-select">
@@ -82,7 +82,7 @@ class SortableTblPager extends React.Component{
 						</select>
 						<label>rows per page</label>
 					</div>
-					<div className="desc col-sm-6 col-xs-12">
+					<div className="desc col-sm-5 col-xs-12">
 						<div>Page {this.state.currPage + 1} of totlas {this.props.totalPage}, totlas {this.props.totalsCount} rows</div>
 					</div>
 				</div>

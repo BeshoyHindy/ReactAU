@@ -9,19 +9,22 @@ var info = autoprefixer().info();
 console.log(info);
 */
 
-import { web_server, development } from '../.config/configuration';
-const port = 3000;
-const host = web_server.http.host || 'localhost';
+import { development } from '../.config/configuration';
+
+
 const dev_server = development.webpack.development_server;
+const port = dev_server.port || 3002;
+const host = dev_server.host || 'localhost';
+
 
 var projectRoot = process.cwd();
 var assetsPath = path.join(projectRoot,   "public", "build");
-var publicPath = `http://${dev_server.host}:${port}/build/`;
+var publicPath = `http://${host}:${port}/build`;
 var distPath = projectRoot;
 
 var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 // HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss-loader']);
-
+console.log(assetsPath);
 function createHappyPlugin(id, loaders) {
   return new HappyPack({
     id: id,

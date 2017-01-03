@@ -3,6 +3,8 @@ var path  = require('path');
 var ExtractTextPlugin  = require('extract-text-webpack-plugin');
 // var HtmlWebpackPlugin  = require('html-webpack-plugin');
 var autoprefixer  = require('autoprefixer');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 var projectRoot = process.cwd(); 
 var assetsPath = path.join(projectRoot,   "public", "build");
@@ -76,7 +78,12 @@ var config = [
 				minimize: true,
 				debug: false
 			}),
-			new webpack.optimize.AggressiveMergingPlugin()
+			new webpack.optimize.AggressiveMergingPlugin(),
+			new CleanWebpackPlugin([ 'public/build'], {
+				root: projectRoot,
+				verbose: true, 
+				//exclude: ['shared.js']
+			})
 		],
 		module: {
 			rules: [

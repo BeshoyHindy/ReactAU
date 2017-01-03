@@ -8,15 +8,13 @@
     "npm": ">=3.0 <5"
   },
   "scripts": {
-	"build:dll": "webpack  --verbose --colors --display-error-details --config=webpack/webpack.config.dll.js",
-    "build": "webpack --verbose --colors --display-error-details --config=webpack/webpack.config.prod.js",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools",
-    "lint:watch": "npm run lint -- --watch",    
+    "build:dll": "webpack  --verbose --colors --display-error-details --config=webpack/webpack.config.dll.js",
+    "build": "cross-env NODE_ENV=production webpack --verbose --colors --display-error-details --config=webpack/webpack.config.prod.js",
     "postbuild": "node server.generated.js",
-    "dev": "concurrently --kill-others \"npm run webpack-dev\" \"npm run lint:watch\"",
+    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lint:watch": "npm run lint -- --watch",
+    "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run webpack-dev\" ",
     "dev-server": "cross-env NODE_ENV=development nodemon --exec babel-node src/server/server.prod.js",
-    "start": "cross-env NODE_ENV=production  babel-node src/server/server.prod.js",
-    "start-server": "cross-env NODE_ENV=production  babel-node src/server/server.prod.js",
     "webpack-dev": "cross-env NODE_ENV=development babel-node src/server/server.dev.js",
     "stat": "webpack --progress --profile --json --config=webpack/webpack.config.dev.js > stats.json"
   },
@@ -50,7 +48,6 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "serialize-javascript": "^1.3.0",
-    "slick-carousel": "^1.6.0",
     "strformat": "0.0.7",
     "whatwg-fetch": "^2.0.1"
   },
