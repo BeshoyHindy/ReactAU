@@ -1,7 +1,6 @@
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { SpecTbl }  from './Spec';

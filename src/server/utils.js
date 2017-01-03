@@ -8,13 +8,14 @@ import strformat   from 'strformat';
 // import clientConfig              from '../shared/config';
 // import { getSupportedLocales }   from '../shared/utils';
 
-export function fetchComponentsData({ dispatch, components, params, query  }) {
+export function fetchComponentsData({ dispatch, components, params, query, locale }) {
     const promises = components.map(current => {
+        //console.log(current);
 		if (!current)  return null;
         const component = current.WrappedComponent ? current.WrappedComponent : current;
-
+        
         return component.fetchData
-            ? component.fetchData({ dispatch, params, query })
+            ? component.fetchData({ dispatch, params, query, locale })
             : null;
     });
 
@@ -110,14 +111,14 @@ export function getIp(req) {
 }
 
 export function detectLocale(req) {
-    // Take locale passed by account
-    const passedLocale = (req.query.locale || req.cookies.locale || '').toLowerCase();
+    // // Take locale passed by account
+    // const passedLocale = (req.query.locale || req.cookies.locale || '').toLowerCase();
 
-    if (getSupportedLocales().indexOf(passedLocale) >= 0) {
-        return passedLocale;
-    }
+    // // if (getSupportedLocales().indexOf(passedLocale) >= 0) {
+    //     return passedLocale;
+    // // }
 
-    // Detect locale by ip
+    // // Detect locale by ip
     const ip = getIp(req);
     const geo = geoip.lookup(ip);
     const country = (geo && geo.country);

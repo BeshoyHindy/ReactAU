@@ -16,7 +16,7 @@
 	<body>
 		<div id="rootWrap"><%- componentHTML %></div>
 		<script type="text/javascript" charset="utf-8">
-			 window.__REDUX_STATE__ = '<%= reduxState %>';
+			 window.__REDUX_STATE__ = <%-JSON.stringify(reduxState)%>;
 		</script>	
 		<script src='<%= venderJs %>'></script>
 		<script src='/build/bundle.js'></script>

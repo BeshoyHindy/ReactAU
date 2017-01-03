@@ -181,7 +181,7 @@
       "id": 44,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/components/Tab.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/components/Tab.js": {
       "id": 45,
       "meta": {}
     },
@@ -586,7 +586,7 @@
       "id": 136,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/components/TabList.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/components/TabList.js": {
       "id": 137,
       "meta": {}
     },
@@ -1427,27 +1427,27 @@
       "id": 314,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/components/TabPanel.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/components/TabPanel.js": {
       "id": 315,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/components/Tabs.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/components/Tabs.js": {
       "id": 316,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/helpers/childrenPropType.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/helpers/childrenPropType.js": {
       "id": 317,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/helpers/styles.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/helpers/styles.js": {
       "id": 318,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/helpers/uuid.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/helpers/uuid.js": {
       "id": 319,
       "meta": {}
     },
-    "../../node_modules/react-tabs/lib/main.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/main.js": {
       "id": 320,
       "meta": {}
     },

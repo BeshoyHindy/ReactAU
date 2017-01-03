@@ -15,7 +15,9 @@ import { browserHistory } from 'react-router';
 import createRoutes from './route/index';
 import configureStore from './store/configureStore';
 
-const store = configureStore();
+const initialState = window.__REDUX_STATE__ || {};
+
+const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
 export default class App extends React.Component {

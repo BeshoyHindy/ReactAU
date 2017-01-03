@@ -8,7 +8,7 @@ require("react-imageloader");
 require("react-router-redux");
 require("redux");
 require("redux-thunk");
-require("react-tabs");
+require("react-tabs-isomorphic");
 require("react-slick");
 require("axios");
 if (process.env.NODE_ENV !== "production"){

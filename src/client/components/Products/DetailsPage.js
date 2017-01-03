@@ -2,30 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
+
 import { CommonDetails } from './Details/CommonDetails';
-import * as detailActions from '../../actions/detailsActions';
+// import * as detailActions from '../../actions/detailsActions';
+import { loadDetails } from '../../actions/detailsActions';
 
-class DetailsPage extends React.Component
-{
-	constructor(props) {
-		super(props);
-	}
-
-	componentWillMount() {
-	}
-	componentDidMount () {
-		this.props.actions.loadDetails(this.props.params.id);
-	}
-	componentDidUpdate (prevProps, prevState) {
-	}
-
-	render() {
-		return ( <CommonDetails {...this.props} data={this.props.detail} />);
-	}
-}
+const DetailsPage = (props) => {return ( <CommonDetails {...props} data={props.detail} />)};
 
 DetailsPage.propTypes = {
-	actions: React.PropTypes.object.isRequired,
+	// actions: React.PropTypes.object.isRequired,
 	detail:  React.PropTypes.object,
 	params:  React.PropTypes.object
 };
@@ -36,10 +22,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(detailActions, dispatch)
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     actions: bindActionCreators(detailActions, dispatch)
+// });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsPage);
+export default connect(mapStateToProps)(
+    connectDataFetchers(DetailsPage, [ loadDetails ])
+);
 

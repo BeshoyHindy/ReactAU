@@ -4,11 +4,12 @@ import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export const loadProductsSuccess = (products) => ({ type: types.LOAD_PRODUCTS_SUCCESS, products });
 
-export function loadProducts(ptype, subpType) {
+export function loadProducts(detail) {  
   return function(dispatch) {
     dispatch(beginAjaxCall());
-    return ProductApi.getAllProducts(ptype, subpType)
+    return ProductApi.getAllProducts(detail.params.product, detail.params.ProductsTbl)
       .then(products => {
+        //console.log('loadProducts success', products);
         dispatch(loadProductsSuccess(products));
       })
       .catch(error => {

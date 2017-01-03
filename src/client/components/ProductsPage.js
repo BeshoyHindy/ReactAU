@@ -3,12 +3,14 @@ import { bindActionCreators } from 'redux';
 import { Link} from 'react-router';
 import React from 'react';
 import axios from 'axios';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 
 import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
 import { Breadcrumb , BigHeader, Paragraph} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
-import * as productActions from '../actions/productsActions';
+//import * as productActions from '../actions/productsActions';
+import { loadProducts } from '../actions/productsActions';
 
 const ProductIndex = () => (
 	<div>
@@ -56,16 +58,16 @@ class ProductsP extends React.Component{
 			this.getProductContent = this.getProductContent.bind(this);
 			this.getProductSidebar = this.getProductSidebar.bind(this);
 		}
-		componentDidMount () {
-			this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
-		}
-		componentDidUpdate (prevProps, prevState) {
-			let oldId = prevProps.params.product;
-			let newId = this.props.params.product;
-			if (!oldId || newId !== oldId){
-				this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
-			}
-		}
+		// componentDidMount () {
+		// 	//this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
+		// }
+		// componentDidUpdate (prevProps, prevState) {
+		// 	let oldId = prevProps.params.product;
+		// 	let newId = this.props.params.product;
+		// 	if (!oldId || newId !== oldId){
+		// 		this.props.actions.loadProducts(this.props.params.product, this.props.params.ProductsTbl || "All");
+		// 	}
+		// }
 		getProductContent() {
 			if(!this.props.content){
 				return <ProductIndex/>;
@@ -85,8 +87,7 @@ class ProductsP extends React.Component{
 		getProductSidebar() {
 			if(!this.props.sidebar){
 				return <ProductIndexSidebar/>;
-			}
-
+			}			
 			let ProductSidebarComponentElement
 				= React.cloneElement(this.props.sidebar, {products: this.props.products, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
 			return ProductSidebarComponentElement;
@@ -121,10 +122,10 @@ ProductsP.propTypes = {
 	sidebar: React.PropTypes.node,
 	params:  React.PropTypes.object,
 	products:  React.PropTypes.array,
-	actions: React.PropTypes.object.isRequired
+	// actions: React.PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {	
   return {
     products: state.products
   };
@@ -134,5 +135,9 @@ const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(productActions, dispatch)
 });
 
-const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ProductsP)
+const ProductsPage = connect(mapStateToProps)(
+    connectDataFetchers(ProductsP, [ loadProducts ])
+);
+
+// const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ProductsP)
 export {ProductIndex, ProductCategory, ProductsPage };

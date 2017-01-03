@@ -6,10 +6,10 @@ export function loadDetailsSuccess(details) {
   return {type: types.LOAD_DETAILS_SUCCESS, details};
 }
 
-export function loadDetails(id) {
+export function loadDetails(detail) {
   return dispatch => {
     dispatch(beginAjaxCall());
-    return DetailApi.getAllDetails(id).then(details => {
+    return DetailApi.getAllDetails(detail.params.id).then(details => {
       dispatch(loadDetailsSuccess(details));
     }).catch(error => {
       throw(error);

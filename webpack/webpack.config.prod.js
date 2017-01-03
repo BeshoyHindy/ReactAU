@@ -1,8 +1,8 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
+var webpack  = require('webpack');
+var path  = require('path');
+var ExtractTextPlugin  = require('extract-text-webpack-plugin');
+// var HtmlWebpackPlugin  = require('html-webpack-plugin');
+var autoprefixer  = require('autoprefixer');
 
 var projectRoot = process.cwd(); 
 var assetsPath = path.join(projectRoot,   "public", "build");
@@ -10,8 +10,7 @@ var publicPath = "/build/";
 var distPath = projectRoot;
 
 
-
-export default [
+var config = [
 	{
 		name: "browser",
 		cache: false,
@@ -30,7 +29,7 @@ export default [
 				'react-imageloader',
 				'react-router-redux',
 				'redux-thunk',
-				'react-tabs',
+				'react-tabs-isomorphic',
 				'react-slick',
 				'axios'
 			]
@@ -228,3 +227,6 @@ export default [
 		},
 	}
 ];
+
+
+module.exports = config;

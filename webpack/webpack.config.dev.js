@@ -9,14 +9,18 @@ var info = autoprefixer().info();
 console.log(info);
 */
 
+import { web_server, development } from '../.config/configuration';
+const port = 3000;
+const host = web_server.http.host || 'localhost';
+const dev_server = development.webpack.development_server;
 
-var projectRoot = process.cwd(); 
+var projectRoot = process.cwd();
 var assetsPath = path.join(projectRoot,   "public", "build");
-var publicPath = "/build/";
+var publicPath = `http://${dev_server.host}:${port}/build/`;
 var distPath = projectRoot;
 
 var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
-HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss-loader']);
+// HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss-loader']);
 
 function createHappyPlugin(id, loaders) {
   return new HappyPack({
@@ -34,12 +38,11 @@ function createHappyPlugin(id, loaders) {
 
 
 var config = {
-	cache: true,
+	cache: false,
 	devtool: 'inline-eval-cheap-source-map',
 	context: process.cwd(),
 	entry: [
-		'react-hot-loader/patch',
-		'webpack-hot-middleware/client?reload=true',
+		`webpack-hot-middleware/client?path=http://${dev_server.host}:${port}/__webpack_hmr`,
 		path.resolve(projectRoot, './src/client/index.js')
 	],
 	target: 'web',
@@ -47,21 +50,21 @@ var config = {
 		path: assetsPath, // Note: Physical files are only output by the production build task `npm run build`.
 		publicPath: publicPath,
 		filename: 'bundle.js',
-        library: "[name]_[hash]"		
+		chunkFilename: '[name]-[chunkhash].js',
+        library: "[name]_[hash]"
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-		'process.env': {
-			BROWSER: true,
-			NODE_ENV: JSON.stringify('development')
-		},
-		__CLIENT__: true,
-		__SERVER__: false,
-		__DEVELOPMENT__: true,
-		__DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+			'process.env.NODE_ENV': JSON.stringify('development'),
+			'process.env.BROWSER': true,
+			__CLIENT__: true,
+			__SERVER__: false,
+			__DEVELOPMENT__: true,
+			__DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
 		}),
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.IgnorePlugin(/webpack-stats\.json$/),
 		// new webpack.NoErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/main.css',
@@ -71,7 +74,7 @@ var config = {
         new webpack.DllReferencePlugin({
             context: path.join(projectRoot, "src" , "client"),
             manifest: require("../dll/vendor-manifest.json")
-        }), 
+        }),
 		createHappyPlugin('jsHappy',
 			[
 				{
@@ -142,15 +145,15 @@ var config = {
 							}
 						],
 					})
-			},			
+			},
 			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=./fonts/[name].[ext]" },
 			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=./fonts/[name].[ext]" },
 			{
 				test: /\.gif$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img") 
-				],				
+					path.join(projectRoot, "src" , "client", "img")
+				],
 				options: {
 					name: '[path]/[name].[ext]',
 					context: path.resolve(projectRoot, './src/client'),
@@ -162,8 +165,8 @@ var config = {
 				test: /\.jpg$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img") 
-				],				
+					path.join(projectRoot, "src" , "client", "img")
+				],
 				options: {
 					name: '[path]/[name].[ext]',
 					context: path.resolve(projectRoot, './src/client'),
@@ -175,8 +178,8 @@ var config = {
 				test: /\.png$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img") 
-				],				
+					path.join(projectRoot, "src" , "client", "img")
+				],
 				options: {
 					name: '[path]/[name].[ext]',
 					context: path.resolve(projectRoot, './src/client'),
@@ -188,15 +191,15 @@ var config = {
 				test: /\.svg$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client") 
-				],				
+					path.join(projectRoot, "src" , "client")
+				],
 				options: {
 					name: 'fonts/[name].[ext]',
 					context: path.resolve(projectRoot, './src/client/fonts'),
 					limit:26000,
 					mimetype:'image/svg+xml'
 				}
-			},			
+			},
 		]
 	},
     resolveLoader: {
@@ -204,7 +207,7 @@ var config = {
 		  path.resolve(projectRoot, "./src/client"),
 		  "node_modules"
 		],
-    },	
+    },
     resolve: {
 		modules: [
 			path.resolve(projectRoot, "./src/client"),
