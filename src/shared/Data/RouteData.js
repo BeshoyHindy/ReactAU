@@ -12,11 +12,11 @@ const navData = [
 			{name: "KIT", link: "/products/KIT/All", desc: "Kit"},
 			{name: "NVR", link: "/products/NVR/All", desc: "NVR"},
 			{name: "CCTV", link: "/products/CCTV/All", desc: "CCTV Camera", sub:[
-					{name: "HD-SDI", link:"/products/NVR/HD-SDI", desc:"HD-SDI"},
-					{name: "HDTVI", link:"/products/NVR/HD-TVI", desc:"HD-TVI"},
-					{name: "AHD", link:"/products/NVR/AHD", desc:"AHD"},
-					{name: "Analog", link:"/products/NVR/Analog", desc:"Analog"},
-					{name: "IP", link:"/products/NVR/IP", desc:"IP"}
+					{name: "HD-SDI", link:"/products/CCTV/HD-SDI", desc:"HD-SDI"},
+					{name: "HDTVI", link:"/products/CCTV/HD-TVI", desc:"HD-TVI"},
+					{name: "AHD", link:"/products/CCTV/AHD", desc:"AHD"},
+					{name: "Analog", link:"/products/CCTV/Analog", desc:"Analog"},
+					{name: "IP", link:"/products/CCTV/IP", desc:"IP"}
 				]
 			},
 			{name: "ALARM", link: "/products/ALARM/All", desc: "Instrusion Alarm"},
