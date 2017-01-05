@@ -36,8 +36,6 @@ if (process.env.NODE_ENV === "development"){
 	app.use('/build', (req, res) => {
 		devServerProxy.web(req, res, { target: `http://${dev_server.host}:${dev_server.port}/build` });
 	});
-	// publicPath = '../../public';
-	//viewPath = "./view";
 }
 
 app.set('views', viewPath);

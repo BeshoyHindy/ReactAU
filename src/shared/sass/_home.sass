@@ -1,0 +1,241 @@
+.home-banner
+	height: $banner-height
+	+respond-to(xs) 
+		margin-top: 10px
+	
+	.banner
+		position: relative
+		height: $banner-height
+		overflow: hidden
+		margin: 0
+		padding: 0
+		+respond-to(xs) 
+			height: $banner-height - 100px
+		
+	
+
+
+.panel-body 
+	position:relative
+	margin: 0
+	padding: 0
+	height: $banner-height
+	width: 100%
+	.slick-initialized
+		height: $banner-height
+	
+	.banner1, .banner2, .banner3
+		margin: 0
+		padding: 0
+		width: 100%
+		height: $banner-height
+		position: relative
+		background-repeat: no-repeat
+		background-position: center center
+		background-size: cover
+	
+	.slick-dots 
+    bottom: 10px
+   
+	.banner1
+		background-image: url(/img/banner1.png)
+	
+	.banner2
+		background-image: url(/img/banner2.png)
+	
+	.banner3
+		background-image: url(/img/banner3.png)
+	
+	.bg
+		position: absolute
+		z-index: 1
+		width: 100%
+		height: 80px
+		+respond-to(xs) 
+			height: 60px	
+		background-color: rgba(215, 139, 44, 0.3)
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)"
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)
+	
+	.word
+		position: absolute
+		width: 100%
+		height: 100px
+		+respond-to(xs) 
+			right: 5px
+			width: 300px
+		
+	
+	h2, h3 
+		position: absolute
+		z-index: 3
+		top: 20px
+		left: 60px
+		+respond-to(xs) 
+			right: 10px
+		
+		width: 100%
+		font-family: 'Oswald', sans-serif
+		text-shadow: 3px 3px 6px #000
+		color: #fff
+		font-size: 35px
+	
+	h2 
+		text-align: left
+		+respond-to(xs) 
+			top: 10px
+			left: 10px
+		
+	
+	h3 
+		left: 300px
+		top: 40px
+		z-index: 2
+		font-family: 'Rajdhani', sans-serif
+		font-size: 20px
+		line-height: 20px
+		text-align: left
+		+respond-to(xs) 
+			left: 150px
+			top: 50px
+			width: 120px
+			//background-color: rgba(100, 70, 33, 0.5)
+			background-color: $color4
+			padding: 15px 20px
+			border: 2px rgba(255, 255, 255, 0.2) solid
+			text-shadow: 3px 3px 3px #000
+			//background-color: rgba(215, 139, 44, 0.3)
+		
+	
+	.banner1 h3 
+		left: 250px
+		+respond-to(xs) 
+			left: 150px
+		
+	
+	.banner3 h3 
+		left: 260px
+		+respond-to(xs) 
+			left: 150px
+			width: 130px
+			padding: 25px 20px
+		
+	
+
+.btn-switch
+	text-align: center
+	height: 20px
+	position: absolute
+	bottom: 15px
+	ul li
+		position: relative
+		margin-left: 10px
+		+inline-block-grace(10px)
+		height: 10px
+		border-radius: 5px 5px 5px 5px
+		background-color:  #fff
+		box-shadow: 1px 1px 2px #999999
+		cursor: pointer
+		border: 1px solid #fff
+	
+	.active
+		background-color:  #999
+	
+
+
+
+$footerHeight: 30px
+$thumbWidth: 120px
+$thumbHeight: 20px
+$carouselHeight: 250px
+$prevnextWidth: 50px
+
+.carousel
+	width: 100%
+	height: $carouselHeight
+	position: relative
+	overflow: hidden
+	.prev, .next
+		width: $prevnextWidth
+		height: $prevnextWidth
+		line-height: $prevnextWidth
+		font-size: 20px
+		text-align: center
+		position: absolute
+		top: calc(50% - #{$footerHeight / 2} - #{$prevnextWidth / 2})
+		z-index: 2
+		color: white
+		background-color: black
+		opacity: .6
+		border-radius: 50%
+		cursor: pointer
+		&:hover
+			background-color: white
+			color: black
+	.prev
+		left: -($prevnextWidth / 2)
+		&:before
+			content: "<"
+			position: absolute
+			right: 12px
+	.next
+		right: -($prevnextWidth / 2)
+		&:before
+			content: ">"
+			position: absolute
+			left: 12px
+	.carousel-main		
+		width: 100%
+		height: calc(100% - #{$footerHeight})
+		background-color: black
+		overflow: hidden
+		.carouselContent-enter 
+			opacity: 0.01
+		.carouselContent-enter.carouselContent-enter-active 
+			opacity: 1
+			transition: opacity .5s ease-in
+
+		.carouselContent-leave 
+			opacity: 1
+		.carouselContent-leave.carouselContent-leave-active 
+			opacity: 0.01
+			transition: opacity .5s ease-in
+
+		.carouselContent-appear 
+			opacity: 0.01
+		.carouselContent-appear.carouselContent-appear-active 
+			opacity: 1
+			transition: opacity .5s ease-in
+		span
+			width: 100%
+			height: 100%
+			display: block
+			text-align: center
+			img
+				max-width: 100%	
+				max-height: 100%
+	.carousel-footer
+		height: $footerHeight
+		background-color: #eee
+		display: flex
+		align-items: center
+		overflow: auto
+		margin: 0 auto
+		.box
+			margin: 0 auto
+			display: flex
+			.carousel-dot
+				width: 10px
+				height: 10px
+				background-color: black
+				border-radius: 50%
+				margin: 5px
+				cursor: pointer
+			.carousel-thumb
+				width: $thumbWidth
+				height: $thumbHeight
+				background-size: contain
+				background-position: center		
+				background-repeat: no-repeat	
+				margin: 5px
+				cursor: pointer

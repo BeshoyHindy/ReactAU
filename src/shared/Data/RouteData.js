@@ -10,14 +10,15 @@ const navData = [
 				]
 			},
 			{name: "KIT", link: "/products/KIT/All", desc: "Kit"},
-			{name: "NVR", link: "/products/NVR/All", desc: "NVR", sub:[
+			{name: "NVR", link: "/products/NVR/All", desc: "NVR"},
+			{name: "CCTV", link: "/products/CCTV/All", desc: "CCTV Camera", sub:[
 					{name: "HD-SDI", link:"/products/NVR/HD-SDI", desc:"HD-SDI"},
 					{name: "HDTVI", link:"/products/NVR/HD-TVI", desc:"HD-TVI"},
 					{name: "AHD", link:"/products/NVR/AHD", desc:"AHD"},
-					{name: "Analog", link:"/products/NVR/Analog", desc:"Analog"}
+					{name: "Analog", link:"/products/NVR/Analog", desc:"Analog"},
+					{name: "IP", link:"/products/NVR/IP", desc:"IP"}
 				]
 			},
-			{name: "CCTV", link: "/products/CCTV/All", desc: "CCTV Camera"},
 			{name: "ALARM", link: "/products/ALARM/All", desc: "Instrusion Alarm"},
 			{name: "INTERCOM", link: "/products/INTERCOM/All", desc: "Video Intercom"}
 		]},

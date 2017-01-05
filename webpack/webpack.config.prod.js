@@ -32,7 +32,6 @@ var config = [
 				'react-router-redux',
 				'redux-thunk',
 				'react-tabs-isomorphic',
-				'react-slick',
 				'axios'
 			]
 		},

@@ -9,7 +9,6 @@ require("react-router-redux");
 require("redux");
 require("redux-thunk");
 require("react-tabs-isomorphic");
-require("react-slick");
 require("axios");
 if (process.env.NODE_ENV !== "production"){
 	require("webpack-hot-middleware");
