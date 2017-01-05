@@ -87,7 +87,7 @@ class ProductsP extends React.Component{
 		getProductSidebar() {
 			if(!this.props.sidebar){
 				return <ProductIndexSidebar/>;
-			}			
+			}
 			let ProductSidebarComponentElement
 				= React.cloneElement(this.props.sidebar, {products: this.props.products, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
 			return ProductSidebarComponentElement;
@@ -125,15 +125,15 @@ ProductsP.propTypes = {
 	// actions: React.PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {	
+function mapStateToProps(state, ownProps) {
   return {
     products: state.products
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(productActions, dispatch)
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     actions: bindActionCreators(productActions, dispatch)
+// });
 
 const ProductsPage = connect(mapStateToProps)(
     connectDataFetchers(ProductsP, [ loadProducts ])

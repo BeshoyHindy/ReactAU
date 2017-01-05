@@ -20,24 +20,28 @@ delete process.env.BROWSER;
 
 const app = express();
 
-let publicPath = "./public";
+let publicPath = path.resolve( process.cwd(), "./public");
+let viewPath = path.resolve(process.cwd(), "./src/server/views");
 const oneDay = 86400000;
 app.use(compression());
 app.use(cookieParser());
+app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
+
 
 //development hot reload
 if (process.env.NODE_ENV === "development"){
-	app.use( express.static(path.resolve(__dirname, '../../public/build/dll.vendor.js')));
 	console.log(`proxy from development dev server http://${dev_server.host}:${dev_server.port}.....`);
-	var devServerProxy = httpProxy.createProxyServer();
+	let devServerProxy = httpProxy.createProxyServer();
 	app.use('/build', (req, res) => {
 		devServerProxy.web(req, res, { target: `http://${dev_server.host}:${dev_server.port}/build` });
 	});
-	publicPath = '../../public';
+	// publicPath = '../../public';
+	//viewPath = "./view";
 }
 
-app.use( '/', express.static(path.resolve(__dirname, publicPath), { maxAge: oneDay * 7 }));
+app.set('views', viewPath);
+app.use( express.static(publicPath, { maxAge: oneDay * 7 }));
 app.use(requestHandler);
 
 //console.log(path.join(__dirname, '../../dist/public'));

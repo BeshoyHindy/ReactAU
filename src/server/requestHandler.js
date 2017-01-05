@@ -5,8 +5,8 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext, createMemoryHistory } from 'react-router';
 import serializeJs  from 'serialize-javascript';
 
-import createRoutes from '../client/route/index';
-import configureStore from '../client/store/configureStore';
+import createRoutes from '../shared/route/index';
+import configureStore from '../shared/store/configureStore';
 
 import { fetchComponentsData,
          getMetaDataFromState,
@@ -24,7 +24,7 @@ function handleRender(req, res)
   const location = req.url;
   const venderJs =(process.env.NODE_ENV === 'production')
   					? '/build/vendor.js'
-					: '/build/dll.vendor.js';
+					: '/dll.vendor.js';
   const locale = detectLocale(req);
 					
   match({ routes, location }, (error, redirectLocation, renderProps) => {

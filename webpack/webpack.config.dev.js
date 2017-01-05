@@ -115,7 +115,8 @@ var config = {
 				exclude: /node_modules/,
 				loader: 'happypack/loader?id=jsHappy',
 				include: [
-                    path.join(projectRoot, "src" , "client") //important for performance!
+                    path.join(projectRoot, "src" , "client"),
+					path.join(projectRoot, "src" , "shared")
                 ],
 				// options: {
 				// 	cacheDirectory: true,
@@ -144,7 +145,7 @@ var config = {
 									sourceMap: true,
 									includePaths: [
 								 		path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-										path.resolve(projectRoot, './src/client/sass/')
+										path.resolve(projectRoot, './src/shared/sass/')
 									]
 								}
 							}
@@ -157,11 +158,11 @@ var config = {
 				test: /\.gif$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img")
+					path.join(projectRoot, "src" , "shared", "img")
 				],
 				options: {
 					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client'),
+					context: path.resolve(projectRoot, './src/shared'),
 					limit:10000,
 					mimetype:'image/gif'
 				}
@@ -170,11 +171,11 @@ var config = {
 				test: /\.jpg$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img")
+					path.join(projectRoot, "src" , "shared", "img")
 				],
 				options: {
 					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client'),
+					context: path.resolve(projectRoot, './src/shared'),
 					limit:10000,
 					mimetype:'image/jpg'
 				}
@@ -183,11 +184,11 @@ var config = {
 				test: /\.png$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client", "img")
+					path.join(projectRoot, "src" , "shared", "img")
 				],
 				options: {
 					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client'),
+					context: path.resolve(projectRoot, './src/shared'),
 					limit:10000,
 					mimetype:'image/png'
 				}
@@ -196,11 +197,11 @@ var config = {
 				test: /\.svg$/i,
 				loader: 'url-loader',
 				include: [
-					path.join(projectRoot, "src" , "client")
+					path.join(projectRoot, "src" , "shared")
 				],
 				options: {
 					name: 'fonts/[name].[ext]',
-					context: path.resolve(projectRoot, './src/client/fonts'),
+					context: path.resolve(projectRoot, './src/shared/fonts'),
 					limit:26000,
 					mimetype:'image/svg+xml'
 				}
@@ -209,13 +210,13 @@ var config = {
 	},
     resolveLoader: {
 		modules: [
-		  path.resolve(projectRoot, "./src/client"),
+		  path.resolve(projectRoot, "./src/shared"),
 		  "node_modules"
 		],
     },
     resolve: {
 		modules: [
-			path.resolve(projectRoot, "./src/client"),
+			path.resolve(projectRoot, "./src/shared"),
 			"node_modules"
 		],
         unsafeCache : true,

@@ -1,7 +1,7 @@
-import ReactHotLoader from './components/ReactHotLoader/index.js';
+import ReactHotLoader from '../shared/components/ReactHotLoader/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from '../shared/App';
 
 const rootEl = document.getElementById('rootWrap');
 
@@ -16,7 +16,7 @@ const renderApp = () => {
 
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
+  module.hot.accept('../shared/App', () => {
     renderApp();
   });
 }

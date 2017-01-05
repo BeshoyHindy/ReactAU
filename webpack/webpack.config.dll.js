@@ -8,7 +8,7 @@ var config = {
         vendor: [path.join(__dirname, "..","src", "client", "vendors.js")]
     },
     output: {
-        path: path.join(__dirname, "..", "public","build"),
+        path: path.join(__dirname, "..", "public"),
         filename: "dll.[name].js",
         library: "[name]"
     },
