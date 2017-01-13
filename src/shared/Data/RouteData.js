@@ -28,7 +28,7 @@ const navData = [
 
 const validProduct = ["DVR", "NVR", "KIT", "CCTV", "INTERCOM", "ALARM"];
 const validProductType = ["All", "HD-SDI", "HD-TVI", "AHD", "Analog", "IP"];
-const validProductBrand = ["Samsung", "iCATCH", "SNM", "DigiGuard", "BOSCH", "Futuro", "Honeywell", "KCE", "Secuzone", "Hikvision"];
+const validProductBrand = ["All", "Samsung", "iCATCH", "SNM", "DigiGuard", "BOSCH", "Futuro", "Honeywell", "KCE", "Secuzone", "Hikvision"];
 const routeBaseLink = validProduct.reduce(
 	(acc,cur) =>{ return Object.assign({}, acc, {[cur]: ("/products/" + cur + "/spec/") });}
 	, {}

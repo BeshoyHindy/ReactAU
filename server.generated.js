@@ -1873,7 +1873,7 @@ var navData = [{ name: "home", link: "/home", desc: "Home" }, { name: "products"
 
 var validProduct = ["DVR", "NVR", "KIT", "CCTV", "INTERCOM", "ALARM"];
 var validProductType = ["All", "HD-SDI", "HD-TVI", "AHD", "Analog", "IP"];
-var validProductBrand = ["Samsung", "iCATCH", "SNM", "DigiGuard", "BOSCH", "Futuro", "Honeywell", "KCE", "Secuzone", "Hikvision"];
+var validProductBrand = ["All", "Samsung", "iCATCH", "SNM", "DigiGuard", "BOSCH", "Futuro", "Honeywell", "KCE", "Secuzone", "Hikvision"];
 var routeBaseLink = validProduct.reduce(function (acc, cur) {
 	return Object.assign({}, acc, _defineProperty({}, cur, "/products/" + cur + "/spec/"));
 }, {});
@@ -3776,6 +3776,8 @@ module.exports =
 		http: 
 		{
 			host: 'https://node-api-server-chingching.herokuapp.com',
+			//host: 'http://localhost',
+			//port: 3003,
 			port: 443
 		}
 	},
@@ -10342,7 +10344,7 @@ var DetailApi = function () {
 				value: function getAllDetails(id) {
 						return (0, _axios2.default)({
 								method: 'get',
-								url: _configuration.api_server.http.host + '/json/details/' + id + '.json',
+								url: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/details/' + id,
 								dataType: 'JSON'
 						}).then(function (response) {
 								return response.data;
@@ -10391,13 +10393,14 @@ var ProductApi = function () {
 			//console.log('getAllProducts', ptype, subpType);
 			if (!(0, _RouteData.isvalidRoute)(ptype, subpType)) {
 				return new Promise(function (resolve, reject) {
-					console.log("invalid product type");
-					reject("invalid product type");
+					console.log("invalid product type", ptype, subpType);
+					reject("invalid product type", ptype, subpType);
 				});
 			}
+
 			return (0, _axios2.default)({
 				method: 'get',
-				url: _configuration.api_server.http.host + '/json/' + ptype + '.json',
+				url: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/category/' + ptype,
 				dataType: 'JSON'
 			}).then(function (response) {
 				//console.log('getAllProducts success ', response.data);

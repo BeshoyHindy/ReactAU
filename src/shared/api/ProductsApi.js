@@ -7,13 +7,14 @@ class ProductApi {
 		//console.log('getAllProducts', ptype, subpType);
 	if (!isvalidRoute(ptype, subpType)){
 		return new Promise((resolve, reject) => {
-			console.log("invalid product type");
-			reject("invalid product type");
+			console.log("invalid product type", ptype, subpType);
+			reject("invalid product type", ptype, subpType);
 		});
 	}
+
 	return axios({
 		method: 'get',
-		url: `${api_server.http.host}/json/${ptype}.json`,
+		url: `${api_server.http.host}:${api_server.http.port}/api/category/${ptype}`,
 		dataType: 'JSON'
 	}).then((response) => {
 		//console.log('getAllProducts success ', response.data);

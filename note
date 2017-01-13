@@ -22,10 +22,13 @@ git push -f origin master
 //github page
 git subtree push --prefix <path/to/your/site> origin gh-pages
 git subtree push --prefix example/example2/dist origin gh-pages
+git subtree push --prefix dist origin gh-pages
 https://grace951.github.io/react-image-carousel/
 http://kbroman.org/simple_site/pages/independent_site.html
 http://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
+// npm clean cache
+npm cache clean
 
 //branch
 git branch
@@ -135,7 +138,11 @@ npm run production
 //live reload
 npm run start
 
-
+//init config
+npmset init.author.name "Ching-Ching Yeh"
+npm get init.author.name
+npm config delete init.author.name
+設定值都存在 ~/.npmrc
 
 //create a npm module
 npm set init.author.name "Ching-Ching Yeh"
@@ -156,11 +163,45 @@ git add .
 git commit -m "change dependencies"
 git push origin master
 npm version patch
+npm version minor
+npm version major
 npm publish
 
+//release beta
+do it in pacjage.json manually
 
 Server Side Rendering
 https://github.com/remarkablemark/universal-react-tutorial
 https://www.youtube.com/watch?v=uDGR2k8Nfyc
 https://www.youtube.com/watch?v=8LM4p7l9YMY
 http://blog.koorchik.com/isomorphic-react/
+
+
+//npm ls
+npm ls -g --depth 0
+npm ls --dev
+npm ls --prod
+npm ls react
+npm rm react === npm uninstall react
+
+//npm i
+npm i underscore
+npm i underscore@1.8.9
+npm i underscore@1.8.9 --save --save-exact
+npm i underscore@1.8.x => latest patch version
+npm i underscore@">1.7.2"
+npm i underscore@">=1.7.2"
+npm i underscore@beta
+npm i underscore@latest
+npm info underscore
+npm view underscore versions
+
+
+//npm prune :移除掉 package.json 中沒有的
+npm prune
+
+//去看 GIT REPO
+npm repo underscore
+
+//upgrade npm
+npm i npm @latest

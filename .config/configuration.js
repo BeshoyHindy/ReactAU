@@ -5,6 +5,8 @@ module.exports =
 		http: 
 		{
 			host: 'https://node-api-server-chingching.herokuapp.com',
+			//host: 'http://localhost',
+			//port: 3003,
 			port: 443
 		}
 	},
