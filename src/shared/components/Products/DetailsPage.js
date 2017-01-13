@@ -18,7 +18,8 @@ DetailsPage.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => ({
-    detail: state.details
+    detail: state.details,
+	ajaxState: state.ajaxCallsInProgress
 });
 
 

@@ -35,6 +35,9 @@ BaseProductTblImageComponent.propTypes = {
 
 
 const ProductsTblPage = (props) =>{
+	if (props.ajaxState > 0) {
+		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
+	}
 	if ( !props.productType || !Metadata[props.productType] || props.products === []){
 		return (<div/>);
 	}else{
@@ -59,7 +62,8 @@ const ProductsTblPage = (props) =>{
 
 ProductsTblPage.propTypes = {
 	productType: React.PropTypes.string,
-	products: React.PropTypes.array
+	products: React.PropTypes.array,
+	ajaxState: React.PropTypes.number
 };
 
 export default ProductsTblPage;

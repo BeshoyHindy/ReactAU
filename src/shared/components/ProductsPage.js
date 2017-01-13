@@ -81,7 +81,7 @@ class ProductsP extends React.Component{
 				});
 			}
 			let ProductContentComponentElement
-				= React.cloneElement(this.props.content, {products: filtered, productType:this.props.params.product});
+				= React.cloneElement(this.props.content, {products: filtered, productType:this.props.params.product, ajaxState:this.props.ajaxState});
 			return ProductContentComponentElement;
 		}
 		getProductSidebar() {
@@ -127,7 +127,8 @@ ProductsP.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    products: state.products
+    products: state.products,
+	ajaxState: state.ajaxCallsInProgress
   };
 }
 

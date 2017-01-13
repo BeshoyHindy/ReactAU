@@ -1,13 +1,14 @@
-import { Link} from 'react-router';
 import React from 'react';
-import axios from 'axios';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { DetailsImage } from './DetailsImage';
 import { DetailsTab } from './DetailsTab';
 import { DetailsDesc } from './DetailsDesc';
 
 const CommonDetails = (props) => {
+	if (props.ajaxState > 0) {
+		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
+	}
+		
 	let detailsImage = {
 		name: (props.data && props.data.name) || '',
 		description: (props.data && props.data.description) || [],
@@ -58,7 +59,8 @@ const CommonDetails = (props) => {
 
 CommonDetails.propTypes = {
 	data: React.PropTypes.object,
-	params: React.PropTypes.object
+	params: React.PropTypes.object,
+	ajaxState: React.PropTypes.number
 };
 
 export {CommonDetails};

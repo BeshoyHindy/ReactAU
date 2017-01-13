@@ -6,7 +6,7 @@ export const loadProductsSuccess = (products) => ({ type: types.LOAD_PRODUCTS_SU
 
 export function loadProducts(detail) {  
   return function(dispatch) {
-    dispatch(beginAjaxCall());
+    dispatch(beginAjaxCall());    
     return ProductApi.getAllProducts(detail.params.product, detail.params.ProductsTbl)
       .then(products => {
         //console.log('loadProducts success', products);
