@@ -9,6 +9,9 @@ import {ProductsPage, ProductCategory} from '../components/ProductsPage';
 import ProductsTblPage from '../components/Products/ProductsTblPage';
 import DetailsPage from '../components/Products/DetailsPage';
 
+import AdminPage from '../components/AdminPage';
+import AdminEditProduct from '../components/admin/AdminEditProduct';
+
 import { Root,NotFoundPage} from '../components/index';
 
 export default function createRoutes(history = browserHistory) {
@@ -25,6 +28,10 @@ export default function createRoutes(history = browserHistory) {
 				</Route>
 				<Route path="aboutus" component={AboutPage} />
 				<Route path="contact" component={ContactPage} />
+				<Route path="admin" component={AdminPage} >				
+					<Route path="addproduct" component={AdminEditProduct} />
+					<Route path="editproduct:id" component={AdminEditProduct} />					
+				</Route>
 			</Route>
 			<Route path="*" component={NotFoundPage} />
 		</Router>

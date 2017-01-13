@@ -17,7 +17,8 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired
         };
 
-        static fetchData({ dispatch, params = {}, query = {}, locale }) {            
+        static fetchData({ dispatch, params = {}, query = {}, locale }) {          
+            //console.log("fetchData", actionCreators);  
             return Promise.all(
                 actionCreators.map(actionCreator => {                    
                     return actionCreator?(dispatch(actionCreator({ params, query, locale }))):null;

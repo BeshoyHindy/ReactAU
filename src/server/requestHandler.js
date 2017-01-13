@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext, createMemoryHistory } from 'react-router';
 import serializeJs  from 'serialize-javascript';
 
+
 import createRoutes from '../shared/route/index';
 import configureStore from '../shared/store/configureStore';
 
@@ -41,8 +42,8 @@ function handleRender(req, res)
                  components : renderProps.components,
                  params     : renderProps.params,
                  query      : renderProps.location.query
-             })
-             .then(() => {
+                })
+                .then(() => {
                 const reduxState = store.getState();
                 const metaData = getMetaDataFromState({
                     params : renderProps.params,
@@ -51,15 +52,15 @@ function handleRender(req, res)
                     route  : renderProps.routes[renderProps.routes.length - 1].path,
                     state  : reduxState
                 });
-               
-				const componentHTML = renderToString(
-					<Provider store={store}>
-						<RouterContext {...renderProps} />
-					</Provider>
-				);
-				res.render('index', { componentHTML, reduxState, venderJs, metaData });	
-			 })
-             .catch(error => {
+                
+                const componentHTML = renderToString(
+                    <Provider store={store}>
+                        <RouterContext {...renderProps} />
+                    </Provider>
+                );
+                res.render('index', { componentHTML, reduxState, venderJs, metaData });	
+                })
+                .catch(error => {
                 throw(error);
             });
 		}

@@ -2,7 +2,7 @@ import DetailApi from '../api/DetailsApi';
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
 
-export function loadDetailsSuccess(details) {
+function loadDetailsSuccess(details) {
   return {type: types.LOAD_DETAILS_SUCCESS, details};
 }
 

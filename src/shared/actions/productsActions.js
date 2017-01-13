@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import ProductApi from '../api/ProductsApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
-export const loadProductsSuccess = (products) => ({ type: types.LOAD_PRODUCTS_SUCCESS, products });
+const loadProductsSuccess = (products) => ({ type: types.LOAD_PRODUCTS_SUCCESS, products });
 
 export function loadProducts(detail) {  
   return function(dispatch) {

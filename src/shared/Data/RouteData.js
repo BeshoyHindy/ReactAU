@@ -23,7 +23,13 @@ const navData = [
 			{name: "INTERCOM", link: "/products/INTERCOM/All", desc: "Video Intercom"}
 		]},
 	{name: "aboutus", link: "/aboutus", desc: "About Us"},
-	{name: "contact", link: "/contact", desc: "Contact"}
+	{name: "contact", link: "/contact", desc: "Contact"},
+	{name: "admin", link: "/admin/addproduct", desc: "Admin"
+		, sub: [
+			{name: "addproduct", link: "/admin/addproduct", desc: "Add Product"},
+			{name: "editproduct", link: "/admin/editproduct", desc: "Edit Product"}
+		]}
+	
 ];
 
 const validProduct = ["DVR", "NVR", "KIT", "CCTV", "INTERCOM", "ALARM"];
