@@ -84,13 +84,18 @@ class AdminEditProductPage extends React.Component{
 			return;
 		}
 
-		this.setState({id: this.state.name.toLowerCase().trim()});
-		alert(JSON.stringify(this.state, null, '  '));
-		// return DetailApi.setProductDetails(this.state).then(details => {
-			
-		// }).catch(error => {
-		// 	throw(error);
-		// });
+		let details = Object.assign({}, this.state);
+		details.id = this.state.name.toLowerCase().trim();
+		for(let i in details) {
+			if ( details[i] == "" || details[i] === null || (typeof details[i] == "object" && isEmpty(details[i])) ) {
+			delete details[i];
+			}
+		}
+		DetailApi.setProductDetails(details).then(details => {
+			// console.log(details);
+		}).catch(error => {
+			throw(error);
+		});
 	}
 	getFormInput(id ){
 		switch(colDetail[id].type){

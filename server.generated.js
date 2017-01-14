@@ -3033,7 +3033,7 @@ module.exports =
 		http: 
 		{
 			host: 'https://node-api-server-chingching.herokuapp.com',
-			port: 443
+			port: 443,
 			// host: 'http://localhost',
 			// port: 3003,
 		}
@@ -12025,6 +12025,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _reactRedux = __webpack_require__(36);
@@ -12125,13 +12127,18 @@ var AdminEditProductPage = function (_React$Component) {
 				return;
 			}
 
-			this.setState({ id: this.state.name.toLowerCase().trim() });
-			alert(JSON.stringify(this.state, null, '  '));
-			// return DetailApi.setProductDetails(this.state).then(details => {
-
-			// }).catch(error => {
-			// 	throw(error);
-			// });
+			var details = Object.assign({}, this.state);
+			details.id = this.state.name.toLowerCase().trim();
+			for (var i in details) {
+				if (details[i] == "" || details[i] === null || _typeof(details[i]) == "object" && isEmpty(details[i])) {
+					delete details[i];
+				}
+			}
+			_DetailsApi2.default.setProductDetails(details).then(function (details) {
+				// console.log(details);
+			}).catch(function (error) {
+				throw error;
+			});
 		}
 	}, {
 		key: 'getFormInput',
