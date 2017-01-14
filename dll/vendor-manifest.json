@@ -1,7 +1,7 @@
 {
   "name": "vendor",
   "content": {
-    "../../node_modules/node-libs-browser/node_modules/process/browser.js": {
+    "../../node_modules/webpack/node_modules/process/browser.js": {
       "id": 0,
       "meta": {}
     },
@@ -89,39 +89,39 @@
       "id": 21,
       "meta": {}
     },
-    "../../node_modules/react-dom/lib/ReactInstanceMap.js": {
+    "../../node_modules/react-dom/lib/ReactReconciler.js": {
       "id": 22,
       "meta": {}
     },
-    "../../node_modules/react-dom/lib/ReactReconciler.js": {
+    "../../node_modules/react/lib/ReactElement.js": {
       "id": 23,
       "meta": {}
     },
-    "../../node_modules/react/lib/ReactElement.js": {
+    "../../node_modules/react/lib/reactProdInvariant.js": {
       "id": 24,
       "meta": {}
     },
-    "../../node_modules/react/lib/reactProdInvariant.js": {
+    "../../node_modules/fbjs/lib/emptyObject.js": {
       "id": 25,
       "meta": {}
     },
-    "../../node_modules/fbjs/lib/emptyObject.js": {
+    "../../node_modules/history/lib/LocationUtils.js": {
       "id": 26,
       "meta": {}
     },
-    "../../node_modules/history/lib/LocationUtils.js": {
+    "../../node_modules/react-dom/lib/DOMLazyTree.js": {
       "id": 27,
       "meta": {}
     },
-    "../../node_modules/react-dom/lib/DOMLazyTree.js": {
+    "../../node_modules/react-dom/lib/EventPluginHub.js": {
       "id": 28,
       "meta": {}
     },
-    "../../node_modules/react-dom/lib/EventPluginHub.js": {
+    "../../node_modules/react-dom/lib/EventPropagators.js": {
       "id": 29,
       "meta": {}
     },
-    "../../node_modules/react-dom/lib/EventPropagators.js": {
+    "../../node_modules/react-dom/lib/ReactInstanceMap.js": {
       "id": 30,
       "meta": {}
     },
@@ -512,7 +512,7 @@
         "wrapMapToPropsFunc"
       ]
     },
-    "../../node_modules/react-redux/es/utils/storeShape.js": {
+    "../../node_modules/react-redux/es/utils/Subscription.js": {
       "id": 121,
       "meta": {
         "harmonyModule": true
@@ -521,7 +521,7 @@
         "default"
       ]
     },
-    "../../node_modules/react-redux/es/utils/verifyPlainObject.js": {
+    "../../node_modules/react-redux/es/utils/storeShape.js": {
       "id": 122,
       "meta": {
         "harmonyModule": true
@@ -530,55 +530,60 @@
         "default"
       ]
     },
-    "../../node_modules/react-router-redux/lib/actions.js": {
+    "../../node_modules/react-redux/es/utils/verifyPlainObject.js": {
       "id": 123,
-      "meta": {}
+      "meta": {
+        "harmonyModule": true
+      },
+      "exports": [
+        "default"
+      ]
     },
-    "../../node_modules/react-router-redux/lib/reducer.js": {
+    "../../node_modules/react-router-redux/lib/actions.js": {
       "id": 124,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/Link.js": {
+    "../../node_modules/react-router-redux/lib/reducer.js": {
       "id": 125,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/PromiseUtils.js": {
+    "../../node_modules/react-router/lib/Link.js": {
       "id": 126,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/Redirect.js": {
+    "../../node_modules/react-router/lib/PromiseUtils.js": {
       "id": 127,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/RouterUtils.js": {
+    "../../node_modules/react-router/lib/Redirect.js": {
       "id": 128,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/createMemoryHistory.js": {
+    "../../node_modules/react-router/lib/RouterUtils.js": {
       "id": 129,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/createRouterHistory.js": {
+    "../../node_modules/react-router/lib/createMemoryHistory.js": {
       "id": 130,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/createTransitionManager.js": {
+    "../../node_modules/react-router/lib/createRouterHistory.js": {
       "id": 131,
       "meta": {}
     },
-    "../../node_modules/react-router/lib/useRouterHistory.js": {
+    "../../node_modules/react-router/lib/createTransitionManager.js": {
       "id": 132,
       "meta": {}
     },
-    "../../node_modules/react-tabs-isomorphic/lib/components/TabList.js": {
+    "../../node_modules/react-router/lib/useRouterHistory.js": {
       "id": 133,
       "meta": {}
     },
-    "../../node_modules/react/lib/KeyEscapeUtils.js": {
+    "../../node_modules/react-tabs-isomorphic/lib/components/TabList.js": {
       "id": 134,
       "meta": {}
     },
-    "../../node_modules/react/lib/ReactAddonsDOMDependencies.js": {
+    "../../node_modules/react/lib/KeyEscapeUtils.js": {
       "id": 135,
       "meta": {}
     },
@@ -1269,7 +1274,7 @@
         "connect"
       ]
     },
-    "../../node_modules/react-redux/es/utils/Subscription.js": {
+    "../../node_modules/react-redux/es/utils/shallowEqual.js": {
       "id": 278,
       "meta": {
         "harmonyModule": true
@@ -1278,120 +1283,115 @@
         "default"
       ]
     },
-    "../../node_modules/react-redux/es/utils/shallowEqual.js": {
-      "id": 279,
-      "meta": {
-        "harmonyModule": true
-      },
-      "exports": [
-        "default"
-      ]
-    },
     "../../node_modules/react-router-redux/lib/index.js": {
-      "id": 280,
+      "id": 279,
       "meta": {}
     },
     "../../node_modules/react-router-redux/lib/middleware.js": {
-      "id": 281,
+      "id": 280,
       "meta": {}
     },
     "../../node_modules/react-router-redux/lib/sync.js": {
-      "id": 282,
+      "id": 281,
       "meta": {}
     },
     "../../node_modules/react-router/lib/IndexLink.js": {
-      "id": 283,
+      "id": 282,
       "meta": {}
     },
     "../../node_modules/react-router/lib/IndexRedirect.js": {
-      "id": 284,
+      "id": 283,
       "meta": {}
     },
     "../../node_modules/react-router/lib/IndexRoute.js": {
-      "id": 285,
+      "id": 284,
       "meta": {}
     },
     "../../node_modules/react-router/lib/Route.js": {
-      "id": 286,
+      "id": 285,
       "meta": {}
     },
     "../../node_modules/react-router/lib/Router.js": {
-      "id": 287,
+      "id": 286,
       "meta": {}
     },
     "../../node_modules/react-router/lib/TransitionUtils.js": {
-      "id": 288,
+      "id": 287,
       "meta": {}
     },
     "../../node_modules/react-router/lib/applyRouterMiddleware.js": {
-      "id": 289,
+      "id": 288,
       "meta": {}
     },
     "../../node_modules/react-router/lib/browserHistory.js": {
-      "id": 290,
+      "id": 289,
       "meta": {}
     },
     "../../node_modules/react-router/lib/computeChangedRoutes.js": {
-      "id": 291,
+      "id": 290,
       "meta": {}
     },
     "../../node_modules/react-router/lib/getComponents.js": {
-      "id": 292,
+      "id": 291,
       "meta": {}
     },
     "../../node_modules/react-router/lib/getRouteParams.js": {
-      "id": 293,
+      "id": 292,
       "meta": {}
     },
     "../../node_modules/react-router/lib/hashHistory.js": {
-      "id": 294,
+      "id": 293,
       "meta": {}
     },
     "../../node_modules/react-router/lib/index.js": {
-      "id": 295,
+      "id": 294,
       "meta": {}
     },
     "../../node_modules/react-router/lib/isActive.js": {
-      "id": 296,
+      "id": 295,
       "meta": {}
     },
     "../../node_modules/react-router/lib/match.js": {
-      "id": 297,
+      "id": 296,
       "meta": {}
     },
     "../../node_modules/react-router/lib/matchRoutes.js": {
-      "id": 298,
+      "id": 297,
       "meta": {}
     },
     "../../node_modules/react-router/lib/withRouter.js": {
-      "id": 299,
+      "id": 298,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/components/TabPanel.js": {
-      "id": 300,
+      "id": 299,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/components/Tabs.js": {
-      "id": 301,
+      "id": 300,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/helpers/childrenPropType.js": {
-      "id": 302,
+      "id": 301,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/helpers/styles.js": {
-      "id": 303,
+      "id": 302,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/helpers/uuid.js": {
-      "id": 304,
+      "id": 303,
       "meta": {}
     },
     "../../node_modules/react-tabs-isomorphic/lib/main.js": {
-      "id": 305,
+      "id": 304,
       "meta": {}
     },
     "../../node_modules/react/lib/PooledClass.js": {
+      "id": 305,
+      "meta": {}
+    },
+    "../../node_modules/react/lib/ReactAddonsDOMDependencies.js": {
       "id": 306,
       "meta": {}
     },

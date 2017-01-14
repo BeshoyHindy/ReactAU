@@ -30,8 +30,9 @@ export default function createRoutes(history = browserHistory) {
 				<Route path="contact" component={ContactPage} />
 				<Route path="admin" component={AdminPage} >				
 					<Route path="addproduct" component={AdminEditProduct} />
-					<Route path="editproduct:id" component={AdminEditProduct} />					
+					<Route path="editproduct/:id" component={AdminEditProduct} />					
 				</Route>
+				<Route path="*" component={NotFoundPage} />
 			</Route>
 			<Route path="*" component={NotFoundPage} />
 		</Router>

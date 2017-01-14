@@ -12,7 +12,16 @@ class DetailApi {
 		return response.data;
 	});
   }
-
+  static setProductDetails(detail){
+		return axios({
+			method: 'post',
+			url: `${api_server.http.host}:${api_server.http.port}/api/details/${detail.id}`,
+			dataType: 'JSON'
+		})
+		.then( (response) => {
+			return response.data;
+		});
+	}
 }
 
 export default DetailApi;
