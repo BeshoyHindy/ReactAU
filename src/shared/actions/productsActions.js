@@ -18,4 +18,18 @@ export function loadProducts(detail) {
   };
 }
 
+export function loadProductList(product) {  
+  console.log(product);
+  return function(dispatch) {
+    dispatch(beginAjaxCall());    
+    return ProductApi.getAllProducts(product.cat, product.subType)
+      .then(products => {
+        //console.log('loadProducts success', products);
+        dispatch(loadProductsSuccess(products));
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+}
 

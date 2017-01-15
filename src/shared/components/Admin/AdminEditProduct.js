@@ -5,58 +5,23 @@ import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
 import { loadCategories } from '../../actions/adminActions';
 import DetailApi from '../../api/DetailsApi';
+import {colDetail} from '../../Data/General';
 
-let colDetail = [
-	{	desc: "Image File",		db:"imageUrl",		type: 3	}, 
-	{	desc: "Product Name",	db:"name",		type: 1	}, 
-	{	desc: "Brand",			db:"brand",		type: 1	},
-	{	desc: "Type",			db:"type",		type: 1	},
-	{	desc: "Channel",		db:"channel",		type: 4	}, 
-	{	desc: "Remote",			db:"remote",		type: 1	},
-	{	desc: "Backup",			db:"backup",		type: 1	},
-	{	desc: "HDD",			db:"HDD",		type: 1	},
-	{	desc: "Video Output",	db:"videoout",		type: 1	},
-	{	desc: "Compression",	db:"compression",		type: 1	},
-	{	desc: "Sensor",			db:"sensor",		type: 1	},
-	{	desc: "Resolution",		db:"resolution",		type: 1	},
-	{	desc: "Lens",			db:"lens",		type: 1	},
-	{	desc: "Feature",		db:"feature",		type: 1	},
-	{	desc: "Description",	db:"desc",		type: 2	}, 
-	{	desc: "PoE port",		db:"PoEport",		type: 4	}, 
-	{	desc: "IR",				db:"ir",		type: 1	},
-	{	desc: "Input/Output",	db:"io",		type: 1	}  
-];
-
+let initialStateDB = {cat : 1};
+for(let item of colDetail){
+	initialStateDB[item.db] = "";
+}
 
 class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = { 
-			cat:1 ,
-			imageUrl: "",
-			name: "",
-			brand: "",
-			type: "",
-			channel: "",
-			remote: "",
-			backup: "",
-			HDD: "",
-			videoout: "",
-			compression: "",
-			sensor: "",
-			resolution: "",
-			lens: "",
-			feature: "",
-			desc: "",
-			PoEport: "",
-			ir: "",
-			io: ""
-		}
+		this.state = initialStateDB;
 		this.setCategory = this.setCategory.bind(this);
 		this.submit = this.submit.bind(this);
 		this.setInput = this.setInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);		
 	}
+
 	setInput (e){
 		let props = {};
 		props[e.target.name] = e.target.value.trim() || "";
@@ -85,17 +50,20 @@ class AdminEditProductPage extends React.Component{
 		}
 
 		let details = Object.assign({}, this.state);
+
 		details.id = this.state.name.toLowerCase().trim();
 		for(let i in details) {
 			if ( details[i] == "" || details[i] === null || (typeof details[i] == "object" && isEmpty(details[i])) ) {
 			delete details[i];
 			}
 		}
+
 		DetailApi.setProductDetails(details).then(details => {
-			// console.log(details);
+			alert("success!!");
 		}).catch(error => {
 			throw(error);
 		});
+		this.setState(initialStateDB);
 	}
 	getFormInput(id ){
 		switch(colDetail[id].type){
@@ -126,8 +94,12 @@ class AdminEditProductPage extends React.Component{
 						/>);
 		}		
 	}
-	render () {		
+	render () {				
 		let {categories} = this.props;
+		if (this.props.ajaxState > 0 || !categories || categories.length ===0) {
+			return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
+		}	
+
 		let cat = categories.filter((item) => {return item._id===this.state.cat;})[0];		
 		return (
 		<form>

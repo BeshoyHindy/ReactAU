@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-
+import cloneDeep from 'lodash.clonedeep';
 import {TblImageLoader} from '../Shared/Shared';
 import { SortableTbl }  from '../Shared/SortableTbl';
 //import * as detailActions from '../../actions/detailsActions';
@@ -35,10 +35,12 @@ BaseProductTblImageComponent.propTypes = {
 
 
 const ProductsTblPage = (props) =>{
+	console.log(props);
 	if (props.ajaxState > 0) {
 		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
 	}
 	if ( !props.productType || !Metadata[props.productType] || props.products === []){
+		console.log(Metadata[props.productType]);
 		return (<div/>);
 	}else{
 		let col = [], tHead =[];
@@ -49,8 +51,17 @@ const ProductsTblPage = (props) =>{
 				tHead.push(item.displayName);
 			}
 		}
+		let data = cloneDeep(props.products)
+		for (let item of data) {
+			if (item.images && item.images[0]){
+				item.imageUrl= item.images[0];
+				delete item.images;
+			}
+		}
+		// console.log(Metadata[props.productType]);
+		// console.log(data);
 		return (
-			<SortableTbl tblData={props.products}
+			<SortableTbl tblData={data}
 				tHead={tHead}
 				customTd={[{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}]}
 				dKey={col} 

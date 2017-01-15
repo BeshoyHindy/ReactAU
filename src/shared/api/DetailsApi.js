@@ -16,7 +16,8 @@ class DetailApi {
 		return axios({
 			method: 'post',
 			url: `${api_server.http.host}:${api_server.http.port}/api/details/${detail.id}`,
-			dataType: 'JSON'
+			dataType: 'JSON',
+			data: detail
 		})
 		.then( (response) => {
 			return response.data;

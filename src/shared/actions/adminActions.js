@@ -1,4 +1,6 @@
 import AdminApi from '../api/AdminApi';
+import ProductApi from '../api/ProductsApi';
+
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
 
@@ -19,3 +21,4 @@ export function loadCategories() {
     });
   };
 }
+
