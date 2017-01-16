@@ -8,24 +8,15 @@ import { SortableTbl }  from '../Shared/SortableTbl';
 import { Metadata } from "../../Data/ProductTblSettings";
 import {routeBaseLink} from '../../Data/RouteData';
 
-class BaseProductTblImageComponent extends React.Component
+const BaseProductTblImageComponent = (props) =>
 {
-	constructor(props) {
-		super(props);
-		this.loadData = this.loadData.bind(this);
-	}
-	loadData(){
-		//this.props.actions.loadDetails(this.props.rowData.id);
-	}
-	render() {
-		return (	
-			<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} onClick={this.loadData}>
-				<Link to={routeBaseLink[this.props.productType] + this.props.rowData.id}>
-					<TblImageLoader data={this.props.rowData.imageUrl}/>
-				</Link>
-			</td>
-		);
-	}
+	return (	
+		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
+			<Link to={routeBaseLink[props.productType] + props.rowData.id}>
+				<TblImageLoader data={props.rowData.imageUrl}/>
+			</Link>
+		</td>
+	);
 }
 
 BaseProductTblImageComponent.propTypes = {
@@ -34,13 +25,20 @@ BaseProductTblImageComponent.propTypes = {
 };
 
 
+const BaseProductEditComponent = (props) =>
+{
+	return (	
+		<td >
+			<Link to={`${props.rowData.edit}${props.rowData.id}`}>
+				<input type="button" className="btn" value="Edit"/>
+			</Link>
+		</td>
+	);
+}
+
+
 const ProductsTblPage = (props) =>{
-	console.log(props);
-	if (props.ajaxState > 0) {
-		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
-	}
 	if ( !props.productType || !Metadata[props.productType] || props.products === []){
-		console.log(Metadata[props.productType]);
 		return (<div/>);
 	}else{
 		let col = [], tHead =[];
@@ -51,22 +49,34 @@ const ProductsTblPage = (props) =>{
 				tHead.push(item.displayName);
 			}
 		}
+
+		if(props.edit) {
+			tHead.push("Edit");
+			col.push("edit");
+		}
+
 		let data = cloneDeep(props.products)
 		for (let item of data) {
 			if (item.images && item.images[0]){
 				item.imageUrl= item.images[0];
 				delete item.images;
 			}
+			if(props.edit) 
+				item.edit = props.editBaseLink;
 		}
+
+		
 		// console.log(Metadata[props.productType]);
-		// console.log(data);
 		return (
-			<SortableTbl tblData={data}
-				tHead={tHead}
-				customTd={[{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}]}
-				dKey={col} 
-				productType={props.productType}
-				actions={props.actions}/>
+			<div className="loading-wrap">
+				<div className={`ajax-loading-big ${props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
+				<SortableTbl tblData={data}
+					tHead={tHead}
+					customTd={[{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}, {custd: BaseProductEditComponent, keyItem: "edit"}]}
+					dKey={col} 
+					productType={props.productType}
+					actions={props.actions}/>
+			</div>
 		);
 	}
 };

@@ -4,23 +4,32 @@ import React from 'react';
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
 import { loadCategories } from '../../actions/adminActions';
+import { loadDetails } from '../../actions/detailsActions';
+
 import DetailApi from '../../api/DetailsApi';
-import {colDetail} from '../../Data/General';
+import {productEditColDetail} from '../../Data/General';
 
 let initialStateDB = {cat : 1};
-for(let item of colDetail){
+for(let item of productEditColDetail){
 	initialStateDB[item.db] = "";
 }
 
 class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = initialStateDB;
+		this.state = (props.params.id == 0) ? initialStateDB: props.details;
 		this.setCategory = this.setCategory.bind(this);
 		this.submit = this.submit.bind(this);
 		this.setInput = this.setInput.bind(this);
-		this.getFormInput = this.getFormInput.bind(this);		
+		this.getFormInput = this.getFormInput.bind(this);
 	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props != nextProps){
+			this.setState((nextProps.params.id == 0) ? initialStateDB: nextProps.details);
+		}
+	}
+
+
 
 	setInput (e){
 		let props = {};
@@ -41,7 +50,7 @@ class AdminEditProductPage extends React.Component{
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
 		this.setState(props);
-	}	
+	}
 	submit (e){
 		e.preventDefault();
 		if (!this.state.name || !this.state.name.trim() || this.state.name.trim() === ""){
@@ -66,48 +75,53 @@ class AdminEditProductPage extends React.Component{
 		this.setState(initialStateDB);
 	}
 	getFormInput(id ){
-		switch(colDetail[id].type){
+		let details = this.state;
+		let item = productEditColDetail[id];
+		let inputValue = (!details || details === {} || !details[item.db])? "" : details[item.db];
+		let inputId = item.db;
+		let inputDesc = item.desc;
+		switch(item.type){
 			case 1: //text
-				return (<input type="text" name={colDetail[id].db} className="form-control" id={colDetail[id].db} 
-								placeholder={"Please Key In " + colDetail[id].desc} 
-								value={this.state[colDetail[id].db]}  onChange={this.setInput}
+				return (<input type="text" name={inputId} className="form-control" id={inputId}
+								placeholder={"Please Key In " + inputDesc}
+								value={inputValue}  onChange={this.setInput}
 						/>);
 			case 2: //textarea
-				return (<textarea name={colDetail[id].db} className="form-control" id={colDetail[id].db} 
-								placeholder={"Please Key In " + colDetail[id].desc} 
-								value={this.state[colDetail[id].db]}  onChange={this.setInput} rows="3"
+				return (<textarea name={inputId} className="form-control" id={inputId}
+								placeholder={"Please Key In " + inputDesc}
+								value={inputValue}  onChange={this.setInput} rows="3"
 						/>);
 			case 3: //file
-				return (<input type="file" name={colDetail[id].db} className="form-control" id={colDetail[id].db} 
-								placeholder={"Please Key In " + colDetail[id].desc} 
-								value={this.state[colDetail[id].db]}  onChange={this.setInput}
+				return (<input type="file" name={inputId} className="form-control" id={inputId}
+								placeholder={"Please Key In " + inputDesc}
+								value=""  onChange={this.setInput}
 						/>);
 			case 4: //number
-				return (<input type="number" name={colDetail[id].db} className="form-control" id={colDetail[id].db} 
-								placeholder={"Please Key In " + colDetail[id].desc} 
-								value={this.state[colDetail[id].db]}  onChange={this.setInput}
+				return (<input type="number" name={inputId} className="form-control" id={inputId}
+								placeholder={"Please Key In " + inputDesc}
+								value={inputValue}  onChange={this.setInput}
 						/>);
 			default: //text
-				return (<input type="text" name={colDetail[id].db} className="form-control" id={colDetail[id].db} 
-								placeholder={"Please Key In " + colDetail[id].desc} 
-								value={this.state[colDetail[id].db]}  onChange={this.setInput}
+				return (<input type="text" name={inputId} className="form-control" id={inputId}
+								placeholder={"Please Key In " + inputDesc}
+								value={inputValue}  onChange={this.setInput}
 						/>);
-		}		
+		}
 	}
-	render () {				
-		let {categories} = this.props;
+	render () {
+		let {categories, details} = this.props;
 		if (this.props.ajaxState > 0 || !categories || categories.length ===0) {
 			return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
-		}	
-
-		let cat = categories.filter((item) => {return item._id===this.state.cat;})[0];		
+		}
+// console.log(this.props.details);
+		let cat = categories.filter((item) => {return item._id===this.state.cat;})[0];
 		return (
 		<form>
 			<div className="container">
 				<div className="row">
 					<div className="col-lg-12">
 						<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"", desc:"Administration"}]}/>
-						<BigHeader smallTitle="">Add Products</BigHeader>
+						<BigHeader smallTitle="">{this.props.params.id ?"Edit":"Add"} Products</BigHeader>
 					</div>
 					<div className="col-xs-12">
 						<div className="form-group">
@@ -119,12 +133,12 @@ class AdminEditProductPage extends React.Component{
 									})
 								}
 							</select>
-						</div>						
+						</div>
 						{
-							cat.props.map((item,id)=>{ 
+							cat.props.map((item,id)=>{
 								return 	item? (
 												<div className="form-group"  key={id}>
-													<label htmlFor={colDetail[id].db}>{colDetail[id].desc}</label>
+													<label htmlFor={productEditColDetail[id].db}>{productEditColDetail[id].desc}</label>
 													{
 														this.getFormInput(id)
 													}
@@ -133,7 +147,7 @@ class AdminEditProductPage extends React.Component{
 											:"";
 								}
 							)
-						}					
+						}
 							<button className="btn btn-danger" onClick={this.submit}>Add</button>
 					</div>
 				</div>
@@ -146,19 +160,21 @@ class AdminEditProductPage extends React.Component{
 
 AdminEditProductPage.propTypes = {
 	categories: React.PropTypes.array,
-	ajaxState: React.PropTypes.number
+	ajaxState: React.PropTypes.number,
+	details: React.PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
 	//console.log("mapStateToProps", state);
   return {
     categories: state.categories,
+	details: state.details,
 	ajaxState: state.ajaxCallsInProgress
   };
 }
 
 const AdminEditProductPageWrap = connect(mapStateToProps)(
-    connectDataFetchers(AdminEditProductPage, [ loadCategories ])
+    connectDataFetchers(AdminEditProductPage, [ loadCategories, loadDetails ])
 );
 
 export default AdminEditProductPageWrap;
