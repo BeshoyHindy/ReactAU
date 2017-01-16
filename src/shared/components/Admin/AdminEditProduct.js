@@ -69,9 +69,9 @@ class AdminEditProductPage extends React.Component{
 
 		DetailApi.setProductDetails(details)
 		.then(details => {
-			alert("success!!");
 			let cat = this.props.categories.filter((item) => {return item._id===this.state.cat;})[0];
 			this.props.dispatch(loadProductList({cat: cat.categoryName || "DVR", subType:"All"}));
+			alert("success!!");
 			this.props.router.push(`/admin/productList/${cat.categoryName}`);
 		}).catch(error => {
 			throw(error);
