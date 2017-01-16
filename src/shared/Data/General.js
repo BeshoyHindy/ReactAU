@@ -1,4 +1,5 @@
 let productEditColDetail = [
+	{	desc: "ID",				db:"id",		type: 1	}, 
 	{	desc: "Image File",		db:"imageUrl",		type: 3	}, 
 	{	desc: "Product Name",	db:"name",		type: 1	}, 
 	{	desc: "Brand",			db:"brand",		type: 1	},

@@ -5,6 +5,7 @@ import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
 import { loadCategories } from '../../actions/adminActions';
 import { loadDetails } from '../../actions/detailsActions';
+import { loadProductList } from '../../actions/productsActions';
 
 import DetailApi from '../../api/DetailsApi';
 import {productEditColDetail} from '../../Data/General';
@@ -60,19 +61,22 @@ class AdminEditProductPage extends React.Component{
 
 		let details = Object.assign({}, this.state);
 
-		details.id = this.state.name.toLowerCase().trim();
 		for(let i in details) {
-			if ( details[i] == "" || details[i] === null || (typeof details[i] == "object" && isEmpty(details[i])) ) {
+			if ( details[i] == "" || details[i] === null || details[i] === {} || details[i] === [] ) {
 			delete details[i];
 			}
 		}
 
-		DetailApi.setProductDetails(details).then(details => {
+		DetailApi.setProductDetails(details)
+		.then(details => {
 			alert("success!!");
+			let cat = this.props.categories.filter((item) => {return item._id===this.state.cat;})[0];
+			this.props.dispatch(loadProductList({cat: cat.categoryName || "DVR", subType:"All"}));
+			this.props.router.push(`/admin/productList/${cat.categoryName}`);
 		}).catch(error => {
 			throw(error);
 		});
-		this.setState(initialStateDB);
+		// this.setState(initialStateDB);
 	}
 	getFormInput(id ){
 		let details = this.state;
@@ -80,32 +84,27 @@ class AdminEditProductPage extends React.Component{
 		let inputValue = (!details || details === {} || !details[item.db])? "" : details[item.db];
 		let inputId = item.db;
 		let inputDesc = item.desc;
+		let opts = {};
+        if (inputId === "id" && this.props.params.id != 0 ) {
+            opts['disabled'] = 'disabled';
+        }
+		opts['id'] = inputId;
+		opts['name'] = inputId;
+		opts['placeholder'] = `Please Key In ${inputDesc}`;
+		opts['value'] = inputValue;
+		opts['onChange'] = this.setInput;
+		opts['className'] = "form-control";
 		switch(item.type){
 			case 1: //text
-				return (<input type="text" name={inputId} className="form-control" id={inputId}
-								placeholder={"Please Key In " + inputDesc}
-								value={inputValue}  onChange={this.setInput}
-						/>);
+				return (<input type="text" value={inputValue}  {...opts}/>);
 			case 2: //textarea
-				return (<textarea name={inputId} className="form-control" id={inputId}
-								placeholder={"Please Key In " + inputDesc}
-								value={inputValue}  onChange={this.setInput} rows="3"
-						/>);
+				return (<textarea value={inputValue} rows="3" {...opts} />);
 			case 3: //file
-				return (<input type="file" name={inputId} className="form-control" id={inputId}
-								placeholder={"Please Key In " + inputDesc}
-								value=""  onChange={this.setInput}
-						/>);
+				return (<input type="file" value="" {...opts}/>);
 			case 4: //number
-				return (<input type="number" name={inputId} className="form-control" id={inputId}
-								placeholder={"Please Key In " + inputDesc}
-								value={inputValue}  onChange={this.setInput}
-						/>);
+				return (<input type="number" value={inputValue} {...opts}/>);
 			default: //text
-				return (<input type="text" name={inputId} className="form-control" id={inputId}
-								placeholder={"Please Key In " + inputDesc}
-								value={inputValue}  onChange={this.setInput}
-						/>);
+				return (<input type="text" value={inputValue} {...opts}/>);
 		}
 	}
 	render () {
@@ -113,7 +112,7 @@ class AdminEditProductPage extends React.Component{
 		if (this.props.ajaxState > 0 || !categories || categories.length ===0) {
 			return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
 		}
-// console.log(this.props.details);
+
 		let cat = categories.filter((item) => {return item._id===this.state.cat;})[0];
 		return (
 		<form>
@@ -148,7 +147,7 @@ class AdminEditProductPage extends React.Component{
 								}
 							)
 						}
-							<button className="btn btn-danger" onClick={this.submit}>Add</button>
+							<button className="btn btn-danger" onClick={this.submit}>Apply</button>
 					</div>
 				</div>
 			</div>
@@ -165,7 +164,6 @@ AdminEditProductPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	//console.log("mapStateToProps", state);
   return {
     categories: state.categories,
 	details: state.details,

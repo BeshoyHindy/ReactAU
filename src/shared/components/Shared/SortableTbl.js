@@ -95,7 +95,7 @@ class SortableTbl extends React.Component{
 			let pagesCount = Math.ceil(this.state.data.length / pagers.rowsPerPage);
 			if (pagers.paging){
 				pageData = pageData.slice(pagers.curr * pagers.rowsPerPage , (pagers.curr + 1) * pagers.rowsPerPage );				
-			}			
+			}	
 			return (
 				<div className="table-responsive">
 					<div className="sortable-table">

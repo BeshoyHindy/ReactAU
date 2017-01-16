@@ -12,11 +12,14 @@ import { browserHistory } from 'react-router';
 
 import createRoutes from './route/index';
 import configureStore from './store/configureStore';
+import { loadCategories } from './actions/adminActions';
 
 const initialState = window.__REDUX_STATE__ || {};
 
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
+
+store.dispatch(loadCategories);
 
 export default class App extends React.Component {
 	render() {

@@ -9,36 +9,35 @@ import DetailApi from '../../api/DetailsApi';
 import {productEditColDetail} from '../../Data/General';
 import ProductsTblPage from '../Products/ProductsTblPage';
 
-let initialStateDB = {cat : 1};
-for(let item of productEditColDetail){
-	initialStateDB[item.db] = "";
-}
-
 class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = initialStateDB;
+		let catindex = 1;
+		let {categories, params} = this.props;
+		if(params.cat && categories && categories.length > 0){
+		 	catindex = categories.filter( item => {return item.categoryName===params.cat})[0]._id;
+		}
+		this.state = {catId: catindex, productType: params.cat || "DVR"};
 		this.setCategory = this.setCategory.bind(this);
 	}
 	componentDidMount() {
-		let product ={cat: "DVR", subType:"All"};
+		let product ={cat: this.state.productType || "DVR", subType:"All"};
 		this.props.dispatch( loadProductList(product) );
 	}
 	setCategory (e){
 		let cindex = parseInt(e.target.value);
 		let props = {cat: cindex};
 		let {categories} = this.props;
-		let productType = categories && categories.length > 0 ? categories.filter( item => {return item._id===cindex})[0].categoryName : "DVR";
 		this.setState(props);
-		this.props.dispatch( loadProductList({cat: productType, subType:"All"}) );
+		this.props.dispatch( loadProductList({cat: this.state.productType, subType:"All"}) );
 	}
 	render () {
 		let {categories} = this.props;
 
 		let ProductList = <div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>;
-		let productType = categories && categories.length > 0 ? categories.filter( item => {return item._id===this.state.cat})[0].categoryName : "DVR";
 		if (this.props.products  && this.props.products.length > 0){
-			ProductList = <ProductsTblPage productType={productType}  ajaxState={this.props.ajaxState} products={this.props.products} edit={true} editBaseLink="/admin/productChange/"/>
+			ProductList = (<ProductsTblPage productType={this.state.productType}  ajaxState={this.props.ajaxState} products={this.props.products} 
+								edit={true} editBaseLink="/admin/productChange/" delete={true} router={this.props.router} />);
 		}
 		return (
 		<form>
@@ -51,7 +50,7 @@ class AdminEditProductPage extends React.Component{
 					<div className="col-xs-12">
 						<div className="form-group">
 							<label htmlFor="productCategory">Product Category</label>
-							<select className="form-control" id="productCategory" value={this.state.cat} onChange={this.setCategory}>
+							<select className="form-control" id="productCategory" value={this.state.catId} onChange={this.setCategory}>
 								{
 									categories.map( function(item, id){
 									return (<option key={id} value={item._id}> {item.categoryName}</option>);
@@ -82,7 +81,7 @@ function mapStateToProps(state, ownProps) {
   return {
    products: state.products,
     categories: state.categories,
-	ajaxState: state.ajaxCallsInProgress
+	ajaxState: state.ajaxCallsInProgress,
   };
 }
 

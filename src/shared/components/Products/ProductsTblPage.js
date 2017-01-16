@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import cloneDeep from 'lodash.clonedeep';
 import {TblImageLoader} from '../Shared/Shared';
@@ -7,6 +6,7 @@ import { SortableTbl }  from '../Shared/SortableTbl';
 //import * as detailActions from '../../actions/detailsActions';
 import { Metadata } from "../../Data/ProductTblSettings";
 import {routeBaseLink} from '../../Data/RouteData';
+import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 
 const BaseProductTblImageComponent = (props) =>
 {
@@ -30,11 +30,12 @@ const BaseProductEditComponent = (props) =>
 	return (	
 		<td >
 			<Link to={`${props.rowData.edit}${props.rowData.id}`}>
-				<input type="button" className="btn" value="Edit"/>
+				<input type="button" className="btn btn-warning" value="Edit"/>
 			</Link>
 		</td>
 	);
 }
+
 
 
 const ProductsTblPage = (props) =>{
@@ -54,6 +55,10 @@ const ProductsTblPage = (props) =>{
 			tHead.push("Edit");
 			col.push("edit");
 		}
+		if(props.delete) {
+			tHead.push("Delete");
+			col.push("delete");
+		}
 
 		let data = cloneDeep(props.products)
 		for (let item of data) {
@@ -63,6 +68,8 @@ const ProductsTblPage = (props) =>{
 			}
 			if(props.edit) 
 				item.edit = props.editBaseLink;
+			if(props.delete) 
+				item.edit = "";
 		}
 
 		
@@ -72,10 +79,16 @@ const ProductsTblPage = (props) =>{
 				<div className={`ajax-loading-big ${props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
 				<SortableTbl tblData={data}
 					tHead={tHead}
-					customTd={[{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}, {custd: BaseProductEditComponent, keyItem: "edit"}]}
+					customTd={[
+								{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}, 
+								{custd: BaseProductEditComponent, keyItem: "edit"},
+								{custd: BaseProductDeleteComponent, keyItem: "delete"}								
+								]}
 					dKey={col} 
 					productType={props.productType}
-					actions={props.actions}/>
+					actions={props.actions}
+					router={props.router}
+					params={props.params}/>
 			</div>
 		);
 	}

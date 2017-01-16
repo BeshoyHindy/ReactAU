@@ -9,7 +9,6 @@ export function loadProducts(detail) {
     dispatch(beginAjaxCall());    
     return ProductApi.getAllProducts(detail.params.product, detail.params.ProductsTbl)
       .then(products => {
-        //console.log('loadProducts success', products);
         dispatch(loadProductsSuccess(products));
       })
       .catch(error => {
@@ -19,12 +18,10 @@ export function loadProducts(detail) {
 }
 
 export function loadProductList(product) {  
-  console.log(product);
   return function(dispatch) {
     dispatch(beginAjaxCall());    
     return ProductApi.getAllProducts(product.cat, product.subType)
       .then(products => {
-        //console.log('loadProducts success', products);
         dispatch(loadProductsSuccess(products));
       })
       .catch(error => {
