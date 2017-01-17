@@ -3,6 +3,9 @@ import React from 'react';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
+
+import AdminEditInputArray from "./AdminEditInputArray";
+import AdminEditImageArray from "./AdminEditImageArray";
 import { loadCategories } from '../../actions/adminActions';
 import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
@@ -23,30 +26,30 @@ class AdminEditProductPage extends React.Component{
 		this.submit = this.submit.bind(this);
 		this.setInput = this.setInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);
+		this.setDataArray = this.setDataArray.bind(this);
+
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
 			this.setState((nextProps.params.id == 0) ? initialStateDB: nextProps.details);
 		}
 	}
+	setDataArray(field, data){
 
-
-
+		let props = {};
+		props[field] = data;
+		this.setState(props);
+	}
 	setInput (e){
 		let props = {};
 		props[e.target.name] = e.target.value.trim() || "";
 		this.setState(props);
 	}
-	setImage (e){
-		let file = e.target.files[0];
-		let reader = new FileReader();
-		reader.onload = function (){
-			this.setState({
-				image: reader.result
-			});
-		}.bind(this);
-		reader.readAsDataURL(file);
+	setImageArray(field, data){
 
+// 		let props = {};
+// 		props[field] = data;
+// 		this.setState(props);
 	}
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
@@ -109,11 +112,12 @@ class AdminEditProductPage extends React.Component{
 	}
 	render () {
 		let {categories, details} = this.props;
-		if (this.props.ajaxState > 0 || !categories || categories.length ===0) {
+		if (this.props.ajaxState > 0 || !categories || categories.length ===0 || Object.keys(this.state).length === 0) {
 			return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
 		}
 
-		let cat = categories.filter((item) => {return item._id===this.state.cat;})[0];
+		let cat = categories.filter((item) => {return item._id===this.state.cat ;})[0];
+
 		return (
 		<form>
 			<div className="container">
@@ -133,21 +137,42 @@ class AdminEditProductPage extends React.Component{
 								}
 							</select>
 						</div>
-						{
-							cat.props.map((item,id)=>{
-								return 	item? (
-												<div className="form-group"  key={id}>
-													<label htmlFor={productEditColDetail[id].db}>{productEditColDetail[id].desc}</label>
-													{
-														this.getFormInput(id)
-													}
-												</div>
-											)
-											:"";
-								}
-							)
-						}
-							<button className="btn btn-danger" onClick={this.submit}>Apply</button>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12 col-md-6">
+						<div className="form-group">
+							<label>Images	</label>
+							<AdminEditImageArray data={this.state.images} field="images" setImage={this.setImageArray}  setData={this.setDataArray}/>
+						</div>
+					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="form-group">
+							<label>Description</label>
+							<AdminEditInputArray data={this.state.description} field="description" setData={this.setDataArray}/>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					{
+						cat.props.map((item,id)=>{
+							return 	item && productEditColDetail[id].db !== "imageUrl"
+									? (
+										<div   key={id} className={`col-xs-12 ${productEditColDetail[id].db === "desc"?'':'col-sm-6 col-lg-4'}`}>
+										<div className="form-group">
+											<label htmlFor={productEditColDetail[id].db}>{productEditColDetail[id].desc}</label>
+											{
+												this.getFormInput(id)
+											}
+										</div>
+										</div>
+									)
+									:"";
+							}
+						)
+					}
+					<div className="col-xs-12">
+						<button className="btn btn-danger" onClick={this.submit}>Apply</button>
 					</div>
 				</div>
 			</div>

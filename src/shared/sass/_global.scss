@@ -35,8 +35,38 @@ b{
 	color: #333;
 }
 
+.upload-image-list-wrap{
+	display: flex;
+	flex-wrap:wrap;
+}
+
+.upload-image-list{
+	position: relative;
+	max-width: 50%;
+}
+.upload-image{
+	margin: 2px;
+	width:calc(100% - 4px);
+}
+.upload-image-delete{
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top:4px;
+	right:4px;
+	display: block;
+	font-size: 18px;
+	line-height: 15px;
+	text-align: center;
+	color:#fff;
+	background-color:#000;
+	z-index:3;
+	border-radius:50%;
+	cursor: pointer;
+	border: 2px solid #fff;
+}
 .loading-wrap{
-	position: relative;	
+	position: relative;
 	min-height: 600px;
 }
 .ajax-loading{
@@ -64,7 +94,7 @@ b{
 .fade-show{
 	visibility: visible;
 	opacity : 1;
-    // transition: opacity .2s linear;    
+    // transition: opacity .2s linear;
 }
 .fade-hide{
 	visibility: hidden;

@@ -10,7 +10,7 @@ import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 
 const BaseProductTblImageComponent = (props) =>
 {
-	return (	
+	return (
 		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
 			<Link to={routeBaseLink[props.productType] + props.rowData.id}>
 				<TblImageLoader data={props.rowData.imageUrl}/>
@@ -27,7 +27,7 @@ BaseProductTblImageComponent.propTypes = {
 
 const BaseProductEditComponent = (props) =>
 {
-	return (	
+	return (
 		<td >
 			<Link to={`${props.rowData.edit}${props.rowData.id}`}>
 				<input type="button" className="btn btn-warning" value="Edit"/>
@@ -66,13 +66,13 @@ const ProductsTblPage = (props) =>{
 				item.imageUrl= item.images[0];
 				delete item.images;
 			}
-			if(props.edit) 
+			if(props.edit)
 				item.edit = props.editBaseLink;
-			if(props.delete) 
-				item.edit = "";
+			if(props.delete)
+				item.delete = "";
 		}
 
-		
+
 		// console.log(Metadata[props.productType]);
 		return (
 			<div className="loading-wrap">
@@ -80,11 +80,11 @@ const ProductsTblPage = (props) =>{
 				<SortableTbl tblData={data}
 					tHead={tHead}
 					customTd={[
-								{custd: BaseProductTblImageComponent, keyItem: "imageUrl"}, 
+								{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
 								{custd: BaseProductEditComponent, keyItem: "edit"},
-								{custd: BaseProductDeleteComponent, keyItem: "delete"}								
+								{custd: BaseProductDeleteComponent, keyItem: "delete"}
 								]}
-					dKey={col} 
+					dKey={col}
 					productType={props.productType}
 					actions={props.actions}
 					router={props.router}

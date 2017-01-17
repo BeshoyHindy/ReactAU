@@ -8,14 +8,15 @@ function loadDetailsSuccess(details) {
 
 export function loadDetails(detail) {
   return dispatch => {
+    dispatch(beginAjaxCall());
     if (!detail.params.id || detail.params.id == 0){
         return new Promise(
           function(resolve, reject) {
-              resolve({});
+			dispatch(loadDetailsSuccess({}));
+			resolve({});
           }
       );
     }
-    dispatch(beginAjaxCall());
     return DetailApi.getAllDetails(detail.params.id).then(details => {
       dispatch(loadDetailsSuccess(details));
     }).catch(error => {

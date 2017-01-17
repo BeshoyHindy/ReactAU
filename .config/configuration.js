@@ -1,8 +1,8 @@
-module.exports = 
+module.exports =
 {
 	api_server:
 	{
-		http: 
+		http:
 		{
 			host: 'https://node-api-server-chingching.herokuapp.com',
 			port: 443,
@@ -10,9 +10,9 @@ module.exports =
 			// port: 3003,
 		}
 	},
-	web_server: 
+	web_server:
 	{
-		http: 
+		http:
 		{
 			host: 'localhost',
 			port: process.env.PORT || 3000,
