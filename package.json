@@ -34,7 +34,7 @@
     "fs-extra": "^1.0.0",
     "geoip-lite": "^1.1.8",
     "http-proxy": "^1.16.2",
-    "loadash": "0.0.1",
+    "immutability-helper": "^2.1.1",
     "object-assign": "^4.1.0",
     "open": "0.0.5",
     "react": "^15.3.2",
@@ -104,7 +104,7 @@
     "style-loader": "^0.13.1",
     "stylelint-webpack-plugin": "^0.4.2",
     "url-loader": "^0.5.7",
-    "webpack": "2.2.0-rc.3",
+    "webpack": "^2.2.0",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2"
   }

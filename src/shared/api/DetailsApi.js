@@ -14,7 +14,6 @@ class DetailApi {
 		.catch(function (error) {
 			console.log(error);
 			return error.data;
-
 		});
 
   }

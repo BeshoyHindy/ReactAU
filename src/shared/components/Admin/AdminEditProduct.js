@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import update from 'immutability-helper';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
 
-import AdminEditInputArray from "./AdminEditInputArray";
-import AdminEditImageArray from "./AdminEditImageArray";
+import AdminEditBasicTab from "./AdminEditBasicTab";
+import AdminEditSpecTab from "./AdminEditSpecTab";
 import { loadCategories } from '../../actions/adminActions';
 import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
@@ -13,56 +15,78 @@ import { loadProductList } from '../../actions/productsActions';
 import DetailApi from '../../api/DetailsApi';
 import {productEditColDetail} from '../../Data/General';
 
-let initialStateDB = {cat : 1};
+let initialStateDB = {
+	cat : 1,
+	description: [],
+	spec: [],
+	images: [],
+	docs: [],
+	member: [],
+	optinal: []
+};
 for(let item of productEditColDetail){
 	initialStateDB[item.db] = "";
 }
 
+let idCounter = 0;
+const generateIds = () => `custom-id-${idCounter++}`
+
 class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = (props.params.id == 0) ? initialStateDB: props.details;
-		this.setCategory = this.setCategory.bind(this);
+		this.state = {
+				details : (props.params.id == 0) ? initialStateDB: props.details,
+				selectedTab : 0
+			};
 		this.submit = this.submit.bind(this);
-		this.setInput = this.setInput.bind(this);
-		this.getFormInput = this.getFormInput.bind(this);
-		this.setDataArray = this.setDataArray.bind(this);
+		this.setBasic = this.setBasic.bind(this);
+		this.setSpec = this.setSpec.bind(this);
 
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
-			this.setState((nextProps.params.id == 0) ? initialStateDB: nextProps.details);
+			this.setState({details:nextProps.details});
 		}
 	}
-	setDataArray(field, data){
+	setBasic(field, data){
+		const newState  = update(this.state, {
+			details: {
+				[field]:{$set: data}
+			}
+		});		
+		this.setState(newState);
+	}
+	setSpec(tabId, data){
+		if (this.props.details.member )
+			tabId++;
+		if (this.props.details.optinal )
+			tabId++;
 
-		let props = {};
-		props[field] = data;
-		this.setState(props);
-	}
-	setInput (e){
-		let props = {};
-		props[e.target.name] = e.target.value.trim() || "";
-		this.setState(props);
-	}
-	setImageArray(field, data){
-
-// 		let props = {};
-// 		props[field] = data;
-// 		this.setState(props);
-	}
-	setCategory (e){
-		let props = {cat: parseInt(e.target.value)};
-		this.setState(props);
+		const newState  = update(this.state, {
+			selectedTab : {$set: tabId},
+			details: {
+				spec:{
+					[data.id]:{
+						members:{
+							[data.subId]:{
+								[data.subField]:{$set: data.value}
+							}
+						}
+					}
+				}
+			}
+		});
+		// nSpec[data.id].members[data.subId][data.subField] = data.value;
+		this.setState(newState);
 	}
 	submit (e){
 		e.preventDefault();
-		if (!this.state.name || !this.state.name.trim() || this.state.name.trim() === ""){
+		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
 			alert("Please key in product name...");
 			return;
 		}
 
-		let details = Object.assign({}, this.state);
+		let details = Object.assign({}, this.state.details);
 
 		for(let i in details) {
 			if ( details[i] == "" || details[i] === null || details[i] === {} || details[i] === [] ) {
@@ -72,111 +96,90 @@ class AdminEditProductPage extends React.Component{
 
 		DetailApi.setProductDetails(details)
 		.then(details => {
-			let cat = this.props.categories.filter((item) => {return item._id===this.state.cat;})[0];
+			let cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0];
 			this.props.dispatch(loadProductList({cat: cat.categoryName || "DVR", subType:"All"}));
+
+			let actionData ={};
+			actionData.params = Object.assign({},this.props.params);
+			this.props.dispatch(loadDetails(actionData));
+			
 			alert("success!!");
-			this.props.router.push(`/admin/productList/${cat.categoryName}`);
+			if((this.props.params.id == 0))
+				this.props.router.push(`/admin/productList/${cat.categoryName}`);
 		}).catch(error => {
 			throw(error);
 		});
-		// this.setState(initialStateDB);
-	}
-	getFormInput(id ){
-		let details = this.state;
-		let item = productEditColDetail[id];
-		let inputValue = (!details || details === {} || !details[item.db])? "" : details[item.db];
-		let inputId = item.db;
-		let inputDesc = item.desc;
-		let opts = {};
-        if (inputId === "id" && this.props.params.id != 0 ) {
-            opts['disabled'] = 'disabled';
-        }
-		opts['id'] = inputId;
-		opts['name'] = inputId;
-		opts['placeholder'] = `Please Key In ${inputDesc}`;
-		opts['value'] = inputValue;
-		opts['onChange'] = this.setInput;
-		opts['className'] = "form-control";
-		switch(item.type){
-			case 1: //text
-				return (<input type="text" value={inputValue}  {...opts}/>);
-			case 2: //textarea
-				return (<textarea value={inputValue} rows="3" {...opts} />);
-			case 3: //file
-				return (<input type="file" value="" {...opts}/>);
-			case 4: //number
-				return (<input type="number" value={inputValue} {...opts}/>);
-			default: //text
-				return (<input type="text" value={inputValue} {...opts}/>);
-		}
 	}
 	render () {
-		let {categories, details} = this.props;
-		if (this.props.ajaxState > 0 || !categories || categories.length ===0 || Object.keys(this.state).length === 0) {
-			return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
-		}
-
-		let cat = categories.filter((item) => {return item._id===this.state.cat ;})[0];
-
+		let {categories, details,params} = this.props;
 		return (
+	<div className="loading-wrap">
+		<div className={`ajax-loading-big ${(this.props.ajaxState > 0 || !categories || categories.length ===0 )?'fade-show':'fade-hide'}`} >
+			<img src="/img/ajax-loader.gif" alt=""/>
+		</div>
 		<form>
-			<div className="container">
-				<div className="row">
-					<div className="col-lg-12">
-						<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"", desc:"Administration"}]}/>
-						<BigHeader smallTitle="">{this.props.params.id ?"Edit":"Add"} Products</BigHeader>
-					</div>
-					<div className="col-xs-12">
-						<div className="form-group">
-							<label htmlFor="productCategory">Product Category</label>
-							<select className="form-control" id="productCategory" value={this.state.cat} onChange={this.setCategory}>
-								{
-									categories.map( function(item, id){
-									return (<option key={id} value={item._id}> {item.categoryName}</option>);
-									})
-								}
-							</select>
-						</div>
-					</div>
+			<div className="row">
+				<div className="col-xs-12">
+					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:this.props.params.id !=0 ?"Edit Product":"Add Product"}]}/>
+					<BigHeader smallTitle="">{this.props.params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
 				</div>
-				<div className="row">
-					<div className="col-xs-12 col-md-6">
-						<div className="form-group">
-							<label>Images	</label>
-							<AdminEditImageArray data={this.state.images} field="images" setImage={this.setImageArray}  setData={this.setDataArray}/>
-						</div>
-					</div>
-					<div className="col-xs-12 col-md-6">
-						<div className="form-group">
-							<label>Description</label>
-							<AdminEditInputArray data={this.state.description} field="description" setData={this.setDataArray}/>
-						</div>
-					</div>
+			</div>
+			<div className="row">
+				<div className="col-xs-12">
+					<button className="btn btn-danger" onClick={this.submit}>Apply Change</button>
 				</div>
-				<div className="row">
-					{
-						cat.props.map((item,id)=>{
-							return 	item && productEditColDetail[id].db !== "imageUrl"
-									? (
-										<div   key={id} className={`col-xs-12 ${productEditColDetail[id].db === "desc"?'':'col-sm-6 col-lg-4'}`}>
-										<div className="form-group">
-											<label htmlFor={productEditColDetail[id].db}>{productEditColDetail[id].desc}</label>
-											{
-												this.getFormInput(id)
-											}
-										</div>
-										</div>
-									)
-									:"";
-							}
-						)
-					}
-					<div className="col-xs-12">
-						<button className="btn btn-danger" onClick={this.submit}>Apply</button>
-					</div>
+			</div>
+			<div className="row">
+				<div className="col-xs-12">
+					<Tabs selectedIndex={this.state.selectedTab}	generateIdsFn={generateIds}>
+						<TabList>
+							{	<Tab>Basic Settings</Tab>  }
+							{	(this.state.details.cat===2 ) && (<Tab>Standard Package</Tab> ) }
+							{	(this.state.details.cat===2 ) && (<Tab>Optinal Package</Tab> ) }
+							{	(	<Tab>Specification</Tab> ) }
+							{	(	<Tab>Download</Tab> ) }
+						</TabList>
+
+						<TabPanel>
+							<AdminEditBasicTab details={this.state.details} params={this.props.params} setData={this.setBasic} categories={categories}/>
+						</TabPanel>
+
+						{
+							(this.state.details.cat===2 ) && (
+								<TabPanel>
+
+								</TabPanel>
+							)
+						}
+
+						{
+							(this.state.details.cat===2 ) && (
+								<TabPanel>
+
+								</TabPanel>
+							)
+						}
+
+						{
+							(
+								<TabPanel>
+									<AdminEditSpecTab tabId={1} spec={this.state.details.spec} setData={this.setSpec}/>
+								</TabPanel>
+							)
+						}
+
+						{
+							(
+								<TabPanel>
+
+								</TabPanel>
+							)
+						}
+					</Tabs>
 				</div>
 			</div>
 		</form>
+	</div>		
 		);
 	}
 }

@@ -20,7 +20,7 @@ export function loadProducts(detail) {
 export function loadProductList(product) {  
   return function(dispatch) {
     dispatch(beginAjaxCall());    
-    return ProductApi.getAllProducts(product.cat, product.subType)
+    return ProductApi.getAllProducts(product.params.cat, 'All')
       .then(products => {
         dispatch(loadProductsSuccess(products));
       })

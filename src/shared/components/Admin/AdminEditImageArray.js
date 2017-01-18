@@ -31,7 +31,10 @@ class AdminEditImageArray extends React.Component{
 	}
 	deleteInsertImage(e){
 		let id = parseInt(e.target.getAttribute("data-id"));
-		let nImgs=[...this.state.images.slice( 0, id) ,...this.state.images.slice( id+1, this.state.images.length)];
+		let nImgs=[
+					...this.state.images.slice( 0, id) ,
+					...this.state.images.slice( id+1, this.state.images.length)
+			];
 		this.setState({images: nImgs});
 		this.props.setImage(this.props.field, nImgs);
 	}
@@ -49,7 +52,7 @@ class AdminEditImageArray extends React.Component{
 				<li>
 					<div className="upload-image-list-wrap">
 					{
-						this.state.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><span className="upload-image-delete" data-id={id} onClick={this.deleteImage}> x </span><img className='upload-image' src={item}/></div> :"")
+						this.state.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><i className="fa fa-close upload-image-delete" data-id={id} onClick={this.deleteImage}/> <img className='upload-image' src={item}/></div> :"")
 					}
 					</div>
 				</li>
@@ -58,7 +61,7 @@ class AdminEditImageArray extends React.Component{
 					<input type="file" accept='image/*' className="form-control" multiple value="" onChange={this.changeImage}/>
 					<div className="upload-image-list-wrap">
 					{
-						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><span className="upload-image-delete" data-id={id} onClick={this.deleteInsertImage}> x </span><img className='upload-image' src={item}/></div> )
+						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item}/></div> )
 					}
 					</div>
 				</li>
@@ -68,5 +71,8 @@ class AdminEditImageArray extends React.Component{
 	}
 }
 
+AdminEditImageArray.defaultProps = {
+	data: []
+};
 
 export default AdminEditImageArray;
