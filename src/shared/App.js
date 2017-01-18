@@ -19,8 +19,6 @@ const initialState = window.__REDUX_STATE__ || {};
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
-store.dispatch(loadCategories);
-
 export default class App extends React.Component {
 	render() {
 		return (

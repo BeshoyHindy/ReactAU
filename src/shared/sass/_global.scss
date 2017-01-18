@@ -34,7 +34,12 @@ body, p {
 b{
 	color: #333;
 }
-
+.add-botton{
+	position: absolute;
+	top:50%;
+	margin-top: -16px;	
+	right:-50px;
+}
 .admin-edit-tabwrap{
 	padding:0 20px;
 }

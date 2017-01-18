@@ -2,20 +2,23 @@ import React from 'react';
 import { isEmptyObject } from "../Shared/Shared";
 import update from 'immutability-helper';
 
+let initItem = {
+				name:"",
+				details: ""
+			};
+
 class AdminEditSpecBlock extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
 			group: props.group,
-			newItem :{
-				name:"",
-				details: ""
-			}
+			newItem :initItem
 		};
 		this.setInput = this.setInput.bind(this);
-		this.addItem = this.addItem.bind(this);
+		this.addNewItem = this.addNewItem.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);		
 		this.deleteGroup = this.deleteGroup.bind(this);		
+		this.setNewItemInput = this.setNewItemInput.bind(this);		
 		// console.log("AdminEditSpecBlock, constructors", this.state);
 	}
 	componentWillReceiveProps(nextProps) {
@@ -46,22 +49,47 @@ class AdminEditSpecBlock extends React.Component{
 		);			
 		this.props.setGroup( this.props.gid, newGroup);
 	}
-	addItem(e){
+	deleteGroup(e){
+		this.props.deleteGroup( this.props.gid);
+	}
+	addNewItem(e){
+		if(!this.state.newItem.name){
+			alert("Please Key In The Field Name!!");
+			return;
+		}
 		const newGroup  = update(this.state.group, {
 			members: {$push: [this.state.newItem]}}
 		);
 		this.props.setGroup( this.props.gid, newGroup);
+		this.setState((state, props) => { return { newItem :initItem }});
 	}
-	deleteGroup(e){
-		this.props.deleteGroup( this.props.gid);
+	setNewItemInput (e){
+		let subField = e.target.getAttribute("data-subField");
+		let value = e.target.value.trim() || "";
+		const newItem  = update(this.state.newItem, {		
+			[subField]:{$set: value}
+		});	
+		this.setState((state, props) => { return { newItem }});
 	}		
 	render () {				
 		let {group, gid} = this.props;
+		let {newItem} = this.state;
 		return (
 			<tbody>
 				<tr>
 				<td colSpan="2">{group.name}</td>
 				<td className="td-delete-item"><i className="fa fa-close icon-item delete-item delete-item-left" data-id={gid} onClick={this.deleteGroup}/>	</td>
+				</tr>
+				<tr >
+					<td style={{width:"30%"}}>
+						<input type="text" value={newItem.name} onChange={this.setNewItemInput} className="form-control" data-subField="name" />
+					</td>
+					<td>
+						<input type="text" value={newItem.details} onChange={this.setNewItemInput} className="form-control" data-subField="details" />													
+					</td>
+					<td className="td-delete-item">
+						<input type="button" className="btn btn-warning" value="Add Item" onClick={this.addNewItem}/>
+					</td>
 				</tr>
 				{
 					group.members.map((v, id) => {

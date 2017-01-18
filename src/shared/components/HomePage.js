@@ -1,5 +1,9 @@
 import Carousel from './shared/Carousel';
 import React from 'react';
+import { connect } from 'react-redux';
+
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { loadCategories } from '../actions/adminActions';
 
 const Child1 = (props) => (
 	<div className="banner1 my-switch-animation">
@@ -51,6 +55,4 @@ const HomePage = (props) => {
 HomePage.propTypes = {
 };
 
-
-
-export {HomePage};
+export default connect()(connectDataFetchers(HomePage, [ loadCategories ]));

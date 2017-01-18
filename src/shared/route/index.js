@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Route, IndexRoute, IndexLink, browserHistory } from 'react-router';
 
-import {HomePage} from '../components/HomePage';
-import {AboutPage} from '../components/AboutPage';
-import {ContactPage} from '../components/ContactPage';
+import HomePage from '../components/HomePage';
+import AboutPage from '../components/AboutPage';
+import ContactPage from '../components/ContactPage';
 import {ProductCategorySidebar, ProductIndexSidebar} from '../components/Products/Sidebar/CategorySidebar';
 import {ProductsPage, ProductCategory} from '../components/ProductsPage';
 import ProductsTblPage from '../components/Products/ProductsTblPage';

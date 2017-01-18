@@ -5,10 +5,12 @@ class AdminEditInputArray extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [...this.props.data, ""]
+			data: [...this.props.data],
+			newData :""
 		};
+		this.changeNewInputs = this.changeNewInputs.bind(this);
 		this.changeInputs = this.changeInputs.bind(this);
-		this.addInputs = this.addInputs.bind(this);
+		this.addNewData = this.addNewData.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 	}
 	componentWillReceiveProps(nextProps) {
@@ -24,8 +26,12 @@ class AdminEditInputArray extends React.Component{
 		this.setState( {data: nData });
 		this.props.setData(this.props.field, nData);
 	}
-	addInputs(){
-		this.setState( {data: [...this.state.data, ""] });
+	changeNewInputs(e){
+		let newData = e.target.value;
+		this.setState( {newData});
+	}
+	addNewData(){
+		this.setState( {data: [...this.state.data, this.state.newData] , newData:""});
 	}
 	deleteItem(e){
 		let id = parseInt(e.target.getAttribute("data-id"));
@@ -37,6 +43,9 @@ class AdminEditInputArray extends React.Component{
 		return (
 		<div>
 			<ul className="fa-ul ul-delete-item">
+				<li ><input type="text" className="form-control" value={this.state.newData} onChange={this.changeNewInputs}/>
+					<input type="button" className="btn btn-warning add-botton" value="Add" onClick={this.addNewData}/>
+				</li>
 				{
 					this.state.data.map((item,id)=>{
 						return (
@@ -46,9 +55,6 @@ class AdminEditInputArray extends React.Component{
 						);
 					})
 				}
-				<li>
-					<input type="button" className="btn btn-warning" value="Add Item" onClick={this.addInputs}/>
-				</li>
 			</ul>
 		</div>
 		);
