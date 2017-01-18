@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
-import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
+import { Breadcrumb , BigHeader, OrangeBoard, isEmptyObject} from "../Shared/Shared";
 
 import AdminEditBasicTab from "./AdminEditBasicTab";
 import AdminEditSpecTab from "./AdminEditSpecTab";
@@ -38,45 +38,61 @@ class AdminEditProductPage extends React.Component{
 				details : (props.params.id == 0) ? initialStateDB: props.details,
 				selectedTab : 0
 			};
+		// console.log("AdminEditProductPage, constructors", this.state);
 		this.submit = this.submit.bind(this);
+		this.setTab = this.setTab.bind(this);
 		this.setBasic = this.setBasic.bind(this);
-		this.setSpec = this.setSpec.bind(this);
-
+		this.delArrayMember = this.delArrayMember.bind(this);
+		this.setArrayMember = this.setArrayMember.bind(this);
+		this.addArrayMember = this.addArrayMember.bind(this);
 	}
+	componentDidMount() {
+		
+	}	
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
-			this.setState({details:nextProps.details});
+			let {details} = nextProps;
+			this.setState({details: isEmptyObject(details)?initialStateDB:details});
+			// console.log("AdminEditProductPage, componentWillReceiveProps", isEmptyObject(details)?details:initialStateDB);
 		}
 	}
-	setBasic(field, data){
-		const newState  = update(this.state, {
-			details: {
-				[field]:{$set: data}
-			}
-		});		
-		this.setState(newState);
-	}
-	setSpec(tabId, data){
+	setTab(tabId){
+		tabId = parseInt(tabId);
 		if (this.props.details.member )
 			tabId++;
 		if (this.props.details.optinal )
 			tabId++;
-
+		return tabId;
+	}
+	setBasic(tabId, data){
+		tabId = parseInt(tabId);		
 		const newState  = update(this.state, {
 			selectedTab : {$set: tabId},
 			details: {
-				spec:{
-					[data.id]:{
-						members:{
-							[data.subId]:{
-								[data.subField]:{$set: data.value}
-							}
-						}
-					}
-				}
+				[data.field]:{$set: data.value}
 			}
 		});
-		// nSpec[data.id].members[data.subId][data.subField] = data.value;
+		this.setState(newState);
+	}
+	delArrayMember(tabId, field, id){
+		const newState  = update(this.state, {
+			selectedTab : {$set: this.setTab(tabId)},
+			details: {[field]:{$splice: [[id, 1]]}}
+		});
+		this.setState(newState);
+	}
+	addArrayMember(tabId, field, data){
+		const newState  = update(this.state, {
+			selectedTab : {$set: this.setTab(tabId)},
+			details: {[field]: {$push: [data]}}}
+		);
+		this.setState(newState);
+	}
+	setArrayMember(tabId, field, data){		
+		const newState  = update(this.state, {
+			selectedTab : {$set: this.setTab(tabId)},
+			details: {[field]: {$set: data}}}
+		);
 		this.setState(newState);
 	}
 	submit (e){
@@ -141,7 +157,7 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details} params={this.props.params} setData={this.setBasic} categories={categories}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={0} params={this.props.params} setData={this.setBasic} categories={categories}/>
 						</TabPanel>
 
 						{
@@ -163,7 +179,8 @@ class AdminEditProductPage extends React.Component{
 						{
 							(
 								<TabPanel>
-									<AdminEditSpecTab tabId={1} spec={this.state.details.spec} setData={this.setSpec}/>
+									<AdminEditSpecTab tabId={1} spec={this.state.details.spec} field="spec" delArrayMember={this.delArrayMember}  
+											setData={this.setSpecInput} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)
 						}

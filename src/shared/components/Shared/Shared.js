@@ -96,6 +96,12 @@ Paragraph.propTypes = {
   children: React.PropTypes.node
 };
 
+const isEmptyObject = (obj) => Object.keys(obj).length === 0 && obj.constructor === Object;
+
+const  deleteArrayMember = (array, id) => [...array.slice( 0, id) ,...array.slice( id + 1, array.length)];
+
 export { Breadcrumb , BigHeader , OrangeBoard, Paragraph, PureList, GoogleMap
 		, TblImageLoader
-		, CustomDownloadTd};
+		, CustomDownloadTd
+		,isEmptyObject
+		,deleteArrayMember};

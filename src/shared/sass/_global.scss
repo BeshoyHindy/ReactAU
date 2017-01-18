@@ -38,12 +38,47 @@ b{
 .admin-edit-tabwrap{
 	padding:0 20px;
 }
-.delete-item{
+.ul-delete-item{
+	padding-right: 2.14286em ;
+	margin-left: 0 !important;
+}
+.icon-item:before{
+	line-height: 25px;
+}
+.icon-item{
+	width: 25px;
+	height: 25px;	
+	position: absolute;
+	top:50%;
+	margin-top: -12px;	
+	display: block;
 	cursor:pointer;
+	color:#fff;
+	text-align: center;	
+	border-radius:50%;	
+	// border: 2px solid #fff;	
+	z-index:3;
+}
+.add-item{
+	left:50%;	
+	margin-left:-12px;	
 	color:#000;
 }
+.delete-item{
+	right:-29px;
+	background-color:#000;	
+}
+.td-delete-item{
+	width: 50px;
+	position: relative;
+}
+.delete-item.delete-item-left{
+	left:50%;	
+	margin-left:-12px;
+}
+
 .delete-item:hover{
-	color:red;
+	background-color:red;
 }
 .upload-image-list-wrap{
 	display: flex;
@@ -59,27 +94,10 @@ b{
 	width:calc(100% - 4px);
 }
 .upload-image-delete{
-	width: 25px;
-	height: 25px;
-	position: absolute;
 	top:4px;
-	right:4px;
-	display: block;
-	text-align: center;
-	color:#fff;
-	background-color:#000;
-	z-index:3;
-	border-radius:50%;
-	cursor: pointer;
-	border: 2px solid #fff;
+	right:4px;	
+}
 
-}
-.upload-image-delete:before{
-	line-height: 20px;
-}
-.upload-image-delete:hover{
-	background-color:red;
-}
 .loading-wrap{
 	width: 100%;
 	position: relative;

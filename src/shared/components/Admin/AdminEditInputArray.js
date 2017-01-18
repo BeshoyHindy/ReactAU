@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { isEmptyObject} from "../Shared/Shared";
 
 class AdminEditInputArray extends React.Component{
 	constructor(props) {
@@ -11,6 +11,12 @@ class AdminEditInputArray extends React.Component{
 		this.addInputs = this.addInputs.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props != nextProps){
+			let {data} = nextProps;
+			this.setState({data: isEmptyObject(data)?[]:data});
+		}		
+	}	
 	changeInputs(e){
 		let index = parseInt(e.target.name);
 		let nData = [...this.state.data];
@@ -30,12 +36,12 @@ class AdminEditInputArray extends React.Component{
 	render () {
 		return (
 		<div>
-			<ul className="fa-ul">
+			<ul className="fa-ul ul-delete-item">
 				{
 					this.state.data.map((item,id)=>{
 						return (
 							<li key={id} ><input type="text" className="form-control" value={item} name={id} onChange={this.changeInputs}/>
-								<i className="fa-li fa fa-close delete-item" data-id={id} onClick={this.deleteItem}/>
+								<i className="fa fa-close icon-item delete-item" data-id={id} onClick={this.deleteItem}/>
 							</li>
 						);
 					})

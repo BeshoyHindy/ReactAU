@@ -2,9 +2,12 @@ import React from 'react';
 import AdminEditInputArray from "./AdminEditInputArray";
 import AdminEditImageArray from "./AdminEditImageArray";
 import {productEditColDetail} from '../../Data/General';
+import { isEmptyObject, deleteArrayMember} from "../Shared/Shared";
 
 let initialStateDB = {
 	cat : 1,
+	images: [],
+	description: []
 };
 for(let item of productEditColDetail){
 	initialStateDB[item.db] = "";
@@ -14,36 +17,39 @@ for(let item of productEditColDetail){
 class AdminEditBasicTab extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = (props.params.id == 0) ? initialStateDB: props.details;
+		this.state = props.details;
+		// console.log("AdminEditBasicTab, constructors", this.state);
 		this.setCategory = this.setCategory.bind(this);
 		this.setBasicInput = this.setBasicInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);
 		this.setDataArray = this.setDataArray.bind(this);
+		
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
-			this.setState((nextProps.params.id == 0) ? initialStateDB: nextProps.details);
-		}
+			let {details} = nextProps;
+			this.setState(isEmptyObject(details)?initialStateDB:details);
+			// console.log("AdminEditBasicTab, componentWillReceiveProps", isEmptyObject(details)?initialStateDB:details);
+		}		
 	}
-	setDataArray(field, data){
-
+	setDataArray(field, value){
 		let props = {};
-		props[field] = data;
+		props[field] = value;
 		this.setState(props);
-		this.props.setData(field, data);
+		this.props.setData(this.props.tabId, {field, value});
 	}
 	setBasicInput (e){
 		let props = {};
 		props[e.target.name] = e.target.value.trim() || "";
 		this.setState(props);
-		this.props.setData(e.target.name, props[e.target.name]);
+		this.props.setData(this.props.tabId, {field: e.target.name, value: props[e.target.name]});
 	}
 	setImageArray(field, data){
 	}
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
 		this.setState(props);
-		this.props.setData("cat", props.cat);
+		this.props.setData(this.props.tabId, {field: "cat", value: props.cat});
 	}
 	getFormInput(id ){
 		let details = this.state;
@@ -63,9 +69,9 @@ class AdminEditBasicTab extends React.Component{
 		opts['className'] = "form-control";
 		switch(item.type){
 			case 1: //text
-				return (<input type="text" value={inputValue}  {...opts}/>);
+				return (<input type="text" value={this.state[item.db]}  {...opts}/>);
 			case 2: //textarea
-				return (<textarea value={inputValue} rows="3" {...opts}/>);
+				return (<textarea value={this.state[item.db]} rows="3" {...opts}/>);
 			case 3: //file
 				return (<input type="file" value="" {...opts}/>);
 			case 4: //number

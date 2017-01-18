@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { isEmptyObject} from "../Shared/Shared";
 
 class AdminEditImageArray extends React.Component{
 	constructor(props) {
@@ -12,6 +12,12 @@ class AdminEditImageArray extends React.Component{
 		this.deleteInsertImage = this.deleteInsertImage.bind(this);
 		this.deleteImage = this.deleteImage.bind(this);
 	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props != nextProps){
+			let {data} = nextProps;
+			this.setState({data: isEmptyObject(data)?[]:data});
+		}		
+	}		
 	changeImage(e){
 		let files = e.target.files;
 		let nImgs=[...this.state.images];
@@ -52,7 +58,7 @@ class AdminEditImageArray extends React.Component{
 				<li>
 					<div className="upload-image-list-wrap">
 					{
-						this.state.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><i className="fa fa-close upload-image-delete" data-id={id} onClick={this.deleteImage}/> <img className='upload-image' src={item}/></div> :"")
+						this.state.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteImage}/> <img className='upload-image' src={item}/></div> :"")
 					}
 					</div>
 				</li>
@@ -61,7 +67,7 @@ class AdminEditImageArray extends React.Component{
 					<input type="file" accept='image/*' className="form-control" multiple value="" onChange={this.changeImage}/>
 					<div className="upload-image-list-wrap">
 					{
-						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item}/></div> )
+						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item}/></div> )
 					}
 					</div>
 				</li>
