@@ -13,6 +13,7 @@ import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
 
 import DetailApi from '../../api/DetailsApi';
+import FileApi from '../../api/FileApi';
 import {productEditColDetail} from '../../Data/General';
 
 let initialStateDB = {
@@ -36,7 +37,9 @@ class AdminEditProductPage extends React.Component{
 		super(props);
 		this.state = {
 				details : (props.params.id == 0) ? initialStateDB: props.details,
-				selectedTab : 0
+				selectedTab : 0,
+				newImages: [],
+				newDocs: [],
 			};
 		// console.log("AdminEditProductPage, constructors", this.state);
 		this.submit = this.submit.bind(this);
@@ -45,6 +48,7 @@ class AdminEditProductPage extends React.Component{
 		this.delArrayMember = this.delArrayMember.bind(this);
 		this.setArrayMember = this.setArrayMember.bind(this);
 		this.addArrayMember = this.addArrayMember.bind(this);
+		this.setNewFiles = this.setNewFiles.bind(this);
 	}
 	componentDidMount() {
 		
@@ -95,6 +99,10 @@ class AdminEditProductPage extends React.Component{
 		);
 		this.setState(newState);
 	}
+	setNewFiles(field, data){		
+		const newState  = update(this.state, {[field]: {$set: data}});
+		this.setState(newState);
+	}
 	submit (e){
 		e.preventDefault();
 		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
@@ -109,15 +117,20 @@ class AdminEditProductPage extends React.Component{
 			delete details[i];
 			}
 		}
+console.log(this.state.newImages, this.state.newDocs);
 
 		DetailApi.setProductDetails(details)
 		.then(details => {
-			let cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0];
-			this.props.dispatch(loadProductList({cat: cat.categoryName || "DVR", subType:"All"}));
-
+ 			return FileApi.upLoadImages(this.state.details._id, this.state.newImages);
+		})
+		.then(details => {
 			let actionData ={};
 			actionData.params = Object.assign({},this.props.params);
 			this.props.dispatch(loadDetails(actionData));
+
+			actionData.params.cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
+			this.props.dispatch(loadProductList(actionData));
+
 			
 			alert("success!!");
 			if((this.props.params.id == 0))
@@ -133,7 +146,7 @@ class AdminEditProductPage extends React.Component{
 		<div className={`ajax-loading-big ${(this.props.ajaxState > 0 || !categories || categories.length ===0 )?'fade-show':'fade-hide'}`} >
 			<img src="/img/ajax-loader.gif" alt=""/>
 		</div>
-		<form>
+		<form encType="multipart/form-data">
 			<div className="row">
 				<div className="col-xs-12">
 					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:this.props.params.id !=0 ?"Edit Product":"Add Product"}]}/>
@@ -157,7 +170,8 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={0} params={this.props.params} setData={this.setBasic} categories={categories}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={0} params={this.props.params} setData={this.setBasic} setNewFiles={this.setNewFiles}
+												fileField="newImages" categories={categories}/>
 						</TabPanel>
 
 						{

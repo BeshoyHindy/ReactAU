@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser';
 import request from 'request';
 
 import requestHandler from './requestHandler';
-import { web_server ,development } from '../../.config/configuration';
+import { api_server, web_server ,development } from '../../.config/configuration';
 
 const port = web_server.http.port || 3000;
 const host = web_server.http.host || 'localhost';
@@ -38,9 +38,17 @@ if (process.env.NODE_ENV === "development"){
 	});
 }
 
+console.log(`api server proxy http://${api_server.http.host}:${api_server.http.port}/`);
+let apiServerProxy = httpProxy.createProxyServer();
+app.use('/api', (req, res) => {
+	apiServerProxy.web(req, res, { target: `${api_server.http.host}:${api_server.http.port}` });
+});
+
+
 app.set('views', viewPath);
 app.use( express.static(publicPath, { maxAge: oneDay * 7 }));
 app.use(requestHandler);
+
 
 //console.log(path.join(__dirname, '../../dist/public'));
 app.listen(port, function(err) {

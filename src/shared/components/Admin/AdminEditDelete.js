@@ -11,7 +11,7 @@ class BaseProductDeleteComponent extends React.Component{
 		this.deleteItem = this.deleteItem.bind(this);
 	}
 	deleteItem(){
-		DetailApi.deleteProduct(this.props.rowData.id).then( ret => {
+		DetailApi.deleteProduct(this.props.rowData._id).then( ret => {
 			this.props.actions.loadProductList({cat: this.props.productType || "DVR", subType:"All"});
 			alert(`Success!! Product [${ret.name}] has been deleted`);			
 		}).catch(error => {

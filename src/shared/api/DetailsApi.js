@@ -20,7 +20,7 @@ class DetailApi {
   static setProductDetails(detail){
 		return axios({
 			method: 'post',
-			url: `${api_server.http.host}:${api_server.http.port}/api/details/${detail.id}`,
+			url: `${api_server.http.host}:${api_server.http.port}/api/details/${detail._id}`,
 			dataType: 'JSON',
 			data: detail
 		})

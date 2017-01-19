@@ -12,7 +12,7 @@ const BaseProductTblImageComponent = (props) =>
 {
 	return (
 		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
-			<Link to={routeBaseLink[props.productType] + props.rowData.id}>
+			<Link to={routeBaseLink[props.productType] + props.rowData._id}>
 				<TblImageLoader data={props.rowData.imageUrl}/>
 			</Link>
 		</td>
@@ -29,7 +29,7 @@ const BaseProductEditComponent = (props) =>
 {
 	return (
 		<td >
-			<Link to={`${props.rowData.edit}${props.rowData.id}`}>
+			<Link to={`${props.rowData.edit}${props.rowData._id}`}>
 				<input type="button" className="btn btn-warning" value="Edit"/>
 			</Link>
 		</td>

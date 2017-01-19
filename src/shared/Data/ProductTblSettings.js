@@ -54,7 +54,7 @@ const AlarmMetadata = [
 								"sortable": true,
 								"displayName": "Video Output"
 				}, {
-								"columnName": "id",
+								"columnName": "_id",
 								"order": 8,
 								"locked": true,
 								"visible": false,
@@ -129,7 +129,7 @@ const KitMetadata = [
 								"sortable": true,
 								"displayName": "Video Output"
 				}, {
-								"columnName": "id",
+								"columnName": "_id",
 								"order": 10,
 								"locked": true,
 								"visible": false,
@@ -197,7 +197,7 @@ const DvrMetadata = [
 								"sortable": true,
 								"displayName": "Video Output"
 				}, {
-								"columnName": "id",
+								"columnName": "_id",
 								"order": 9,
 								"locked": true,
 								"visible": false,
@@ -279,7 +279,7 @@ const CctvMetadata = [
 								"sortable": true,
 								"displayName": "Indoor Outdoor"
 				}, {
-								"columnName": "id",
+								"columnName": "_id",
 								"order": 11,
 								"locked": true,
 								"visible": false,
@@ -319,7 +319,7 @@ const IntercomMetadata = [
 								"sortable": true,
 								"displayName": "Description"
 				}, {
-								"columnName": "id",
+								"columnName": "_id",
 								"order": 5,
 								"locked": true,
 								"visible": false,

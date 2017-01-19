@@ -24,15 +24,21 @@ class AdminEditImageArray extends React.Component{
 		let nData=[...this.state.data];
 
 		for(let id in files){
-			let reader = new FileReader();
 			let file = files[id];
-			reader.onload = (e) => {
-				nImgs.push(e.target.result);
-				nData.push( `/img/products/${file.name}`);
-				this.setState({images: nImgs, data: nData});
-				this.props.setImage(this.props.field, nImgs);
-			};
-			reader.readAsDataURL(file);
+			if (file && file.type && file.type.match('image.*')) {
+				let reader = new FileReader();
+				reader.onload = (e) => {
+					nImgs.push({
+						data_uri: e.target.result,
+						filename: file.name,
+						filetype: file.type
+					});
+					nData.push( `/img/products/${file.name}`);
+					this.setState({images: nImgs, data: nData});
+					this.props.setNewImages(nImgs);
+				};
+				reader.readAsDataURL(file);
+			}
 		}
 	}
 	deleteInsertImage(e){
@@ -42,7 +48,7 @@ class AdminEditImageArray extends React.Component{
 					...this.state.images.slice( id+1, this.state.images.length)
 			];
 		this.setState({images: nImgs});
-		this.props.setImage(this.props.field, nImgs);
+		this.props.setNewImages(nImgs);
 	}
 	deleteImage(e){
 		let id = parseInt(e.target.getAttribute("data-id"));
@@ -67,7 +73,7 @@ class AdminEditImageArray extends React.Component{
 					<input type="file" accept='image/*' className="form-control" multiple value="" onChange={this.changeImage}/>
 					<div className="upload-image-list-wrap">
 					{
-						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item}/></div> )
+						this.state.images.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item.data_uri}/></div> )
 					}
 					</div>
 				</li>

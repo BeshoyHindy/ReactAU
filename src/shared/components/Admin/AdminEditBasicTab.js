@@ -23,6 +23,7 @@ class AdminEditBasicTab extends React.Component{
 		this.setBasicInput = this.setBasicInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);
 		this.setDataArray = this.setDataArray.bind(this);
+		this.setNewImages = this.setNewImages.bind(this);
 		
 	}
 	componentWillReceiveProps(nextProps) {
@@ -44,7 +45,8 @@ class AdminEditBasicTab extends React.Component{
 		this.setState(props);
 		this.props.setData(this.props.tabId, {field: e.target.name, value: props[e.target.name]});
 	}
-	setImageArray(field, data){
+	setNewImages(data){
+		this.props.setNewFiles(this.props.fileField, data);
 	}
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
@@ -58,7 +60,7 @@ class AdminEditBasicTab extends React.Component{
 		let inputId = item.db;
 		let inputDesc = item.desc;
 		let opts = {};
-        if (inputId === "id" && this.props.params.id != 0 ) {
+        if (inputId === "_id" && this.props.params.id != 0 ) {
             opts['disabled'] = 'disabled';
         }
 		opts['id'] = inputId;
@@ -126,7 +128,7 @@ class AdminEditBasicTab extends React.Component{
 					<div className="col-xs-12 col-md-6">
 						<div className="form-group">
 							<label>Images	</label>
-							<AdminEditImageArray data={this.state.images} field="images" setImage={this.setImageArray}  setData={this.setDataArray}/>
+							<AdminEditImageArray data={this.state.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray}/>
 						</div>
 					</div>
 					<div className="col-xs-12 col-md-6">
