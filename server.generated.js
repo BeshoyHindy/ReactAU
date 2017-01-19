@@ -27609,19 +27609,36 @@ app.set('view engine', 'ejs');
 
 //development hot reload
 if (false) {
-	(function () {
-		console.log('proxy from development dev server http://' + dev_server.host + ':' + dev_server.port + '.....');
-		var devServerProxy = _httpProxy2.default.createProxyServer();
-		app.use('/build', function (req, res) {
-			devServerProxy.web(req, res, { target: 'http://' + dev_server.host + ':' + dev_server.port + '/build' });
-		});
-	})();
+  (function () {
+    console.log('proxy from development dev server http://' + dev_server.host + ':' + dev_server.port + '.....');
+    var devServerProxy = _httpProxy2.default.createProxyServer();
+    app.use('/build', function (req, res) {
+      devServerProxy.web(req, res, { target: 'http://' + dev_server.host + ':' + dev_server.port + '/build' });
+    });
+  })();
 }
 
-console.log('api server proxy http://' + _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/');
-var apiServerProxy = _httpProxy2.default.createProxyServer();
-app.use('/api', function (req, res) {
-	apiServerProxy.web(req, res, { target: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port });
+// use httpProxy will rejected by heroku, use manually instead
+console.log('redirect to api server:' + _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/');
+app.use('/api', function (req, res, next) {
+  var method = void 0,
+      r = void 0;
+  method = req.method.toLowerCase().replace(/delete/, "del");
+  var path = req.url.replace(/^\/api/, "");
+  switch (method) {
+    case "get":
+      // case "post":
+      // case "del":
+      // case "put":
+      r = _request2.default[method]({
+        uri: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/' + path,
+        json: req.body
+      });
+      break;
+    default:
+      return res.send("invalid method");
+  }
+  return req.pipe(r).pipe(res);
 });
 
 app.set('views', viewPath);
@@ -27630,11 +27647,11 @@ app.use(_requestHandler2.default);
 
 //console.log(path.join(__dirname, '../../dist/public'));
 app.listen(port, function (err) {
-	if (err) {
-		console.log(err);
-	} else {
-		console.info('Server listening on port ' + port + '!');
-	}
+  if (err) {
+    console.log(err);
+  } else {
+    console.info('Server listening on port ' + port + '!');
+  }
 });
 
 /***/ })
