@@ -41,7 +41,6 @@ class AdminEditProductPage extends React.Component{
 				newImages: [],
 				newDocs: [],
 			};
-		// console.log("AdminEditProductPage, constructors", this.state);
 		this.submit = this.submit.bind(this);
 		this.setTab = this.setTab.bind(this);
 		this.setBasic = this.setBasic.bind(this);
@@ -54,8 +53,7 @@ class AdminEditProductPage extends React.Component{
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
 			let {details} = nextProps;
-			this.setState({details: isEmptyObject(details)?initialStateDB:details});
-			// console.log("AdminEditProductPage, componentWillReceiveProps", isEmptyObject(details)?details:initialStateDB);
+			this.setState({details: isEmptyObject(details)?initialStateDB:details});			
 		}
 	}
 	setTab(tabId){
@@ -97,10 +95,11 @@ class AdminEditProductPage extends React.Component{
 		);
 		this.setState(newState);
 	}
-	setNewFiles(field, data){		
+	setNewFiles(field, data){	
 		const newState  = update(this.state, {[field]: {$set: data}});
 		this.setState(newState);
 	}
+	
 	submit (e){
 		e.preventDefault();
 		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
@@ -118,13 +117,13 @@ class AdminEditProductPage extends React.Component{
 
 		var formData = new FormData();
 
+		let nData = details.images;
 		let fileList = this.state.newImages;
-		for(var x=0;x<fileList.length;x++) {
-			formData.append('file'+x, fileList[x]);    
-			console.log('appended a file');
+		for(let item of fileList) {
+			formData.append('uploadImages', item.file);
+			nData.push( `/api/img/products/${item.file.name}`);
 		}
 
-//http://stackoverflow.com/questions/23219033/show-a-progress-on-multiple-file-upload-jquery-ajax
 		DetailApi.setProductDetails(details)
 		.then(details => {
  			 return FileApi.upLoadImages(this.state.details._id, formData);
@@ -137,7 +136,7 @@ class AdminEditProductPage extends React.Component{
 
 			actionData.params.cat = cat;
 			this.props.dispatch(loadProductList(actionData));
-
+			this.setState({newImages: []});
 			
 			alert("success!!");
 			if((this.props.params.id == 0))
@@ -177,7 +176,7 @@ class AdminEditProductPage extends React.Component{
 
 						<TabPanel>
 							<AdminEditBasicTab details={this.state.details}  tabId={0} params={this.props.params} setData={this.setBasic} setNewFiles={this.setNewFiles}
-												fileField="newImages" categories={categories}/>
+												fileField="newImages" categories={categories} newImages={this.state.newImages}/>
 						</TabPanel>
 
 						{

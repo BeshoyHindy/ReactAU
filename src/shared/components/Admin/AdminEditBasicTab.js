@@ -128,7 +128,8 @@ class AdminEditBasicTab extends React.Component{
 					<div className="col-xs-12 col-md-6">
 						<div className="form-group">
 							<label>Images	</label>
-							<AdminEditImageArray data={this.state.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray}/>
+							<AdminEditImageArray data={this.state.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray} 
+									 newImages={this.props.newImages}/>
 						</div>
 					</div>
 					<div className="col-xs-12 col-md-6">
