@@ -275,7 +275,7 @@ module.exports = require("object-assign");
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMProperty = __webpack_require__(26);
+var DOMProperty = __webpack_require__(27);
 var ReactDOMComponentFlags = __webpack_require__(77);
 
 var invariant = __webpack_require__(0);
@@ -472,7 +472,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactImageloader = __webpack_require__(32);
+var _reactImageloader = __webpack_require__(33);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -488,7 +488,7 @@ var CustomDownloadTd = function CustomDownloadTd(props) {
 		null,
 		_react2.default.createElement(
 			'a',
-			{ className: 'download', href: props.data, target: '_blank' },
+			{ className: 'download', href: props.tdData, target: '_blank' },
 			'Download '
 		)
 	);
@@ -789,7 +789,7 @@ var _prodInvariant = __webpack_require__(3),
 var CallbackQueue = __webpack_require__(75);
 var PooledClass = __webpack_require__(16);
 var ReactFeatureFlags = __webpack_require__(187);
-var ReactReconciler = __webpack_require__(29);
+var ReactReconciler = __webpack_require__(30);
 var Transaction = __webpack_require__(39);
 
 var invariant = __webpack_require__(0);
@@ -1987,6 +1987,45 @@ module.exports = require("axios");
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports) {
+
+module.exports =
+{
+	api_server:
+	{
+		http:
+		{
+			host: 'https://node-api-server-chingching.herokuapp.com',
+			port: 443,
+			// host: 'http://localhost',
+			// port: 3003,
+		}
+	},
+	web_server:
+	{
+		http:
+		{
+			host: 'localhost',
+			port: process.env.PORT || 3000,
+		}
+	},
+	session_secret_keys: ['chingchingyeh'],
+	development:
+	{
+		webpack:
+		{
+			development_server:
+			{
+				host: 'localhost',
+				port: 3002
+			}
+		}
+	}
+}
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2030,7 +2069,7 @@ exports.isvalidRoute = isvalidRoute;
 exports.routeBaseLink = routeBaseLink;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2078,7 +2117,7 @@ function loadCategories() {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2103,7 +2142,7 @@ if (false) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2226,7 +2265,7 @@ DOMLazyTree.queueText = queueText;
 module.exports = DOMLazyTree;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2441,7 +2480,7 @@ var DOMProperty = {
 module.exports = DOMProperty;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2724,7 +2763,7 @@ var EventPluginHub = {
 module.exports = EventPluginHub;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2740,7 +2779,7 @@ module.exports = EventPluginHub;
 
 
 
-var EventPluginHub = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(28);
 var EventPluginUtils = __webpack_require__(48);
 
 var accumulateInto = __webpack_require__(86);
@@ -2863,7 +2902,7 @@ var EventPropagators = {
 module.exports = EventPropagators;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3036,7 +3075,7 @@ var ReactReconciler = {
 module.exports = ReactReconciler;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3100,7 +3139,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3194,49 +3233,10 @@ var React = {
 module.exports = React;
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-imageloader");
-
-/***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports =
-{
-	api_server:
-	{
-		http:
-		{
-			host: 'https://node-api-server-chingching.herokuapp.com',
-			port: 443,
-			// host: 'http://localhost',
-			// port: 3003,
-		}
-	},
-	web_server:
-	{
-		http:
-		{
-			host: 'localhost',
-			port: process.env.PORT || 3000,
-		}
-	},
-	session_secret_keys: ['chingchingyeh'],
-	development:
-	{
-		webpack:
-		{
-			development_server:
-			{
-				host: 'localhost',
-				port: 3002
-			}
-		}
-	}
-}
-
+module.exports = require("react-imageloader");
 
 /***/ }),
 /* 34 */
@@ -3304,7 +3304,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _configuration = __webpack_require__(33);
+var _configuration = __webpack_require__(22);
 
 var _axios = __webpack_require__(21);
 
@@ -3713,7 +3713,7 @@ exports.default = {
 
 
 
-var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticUIEvent = __webpack_require__(31);
 var ViewportMetrics = __webpack_require__(85);
 
 var getEventModifierState = __webpack_require__(57);
@@ -4359,7 +4359,7 @@ module.exports = shallowEqual;
 
 
 
-var DOMLazyTree = __webpack_require__(25);
+var DOMLazyTree = __webpack_require__(26);
 var Danger = __webpack_require__(164);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInstrumentation = __webpack_require__(9);
@@ -5171,7 +5171,7 @@ module.exports = KeyEscapeUtils;
 
 var _prodInvariant = __webpack_require__(3);
 
-var React = __webpack_require__(31);
+var React = __webpack_require__(32);
 var ReactPropTypesSecret = __webpack_require__(193);
 
 var invariant = __webpack_require__(0);
@@ -6568,7 +6568,7 @@ var _prodInvariant = __webpack_require__(20);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
 var canDefineProperty = __webpack_require__(97);
-var emptyObject = __webpack_require__(24);
+var emptyObject = __webpack_require__(25);
 var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
@@ -7187,9 +7187,9 @@ var _axios = __webpack_require__(21);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _RouteData = __webpack_require__(22);
+var _RouteData = __webpack_require__(23);
 
-var _configuration = __webpack_require__(33);
+var _configuration = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7254,7 +7254,7 @@ var _SortableTbl = __webpack_require__(36);
 
 var _ProductTblSettings = __webpack_require__(65);
 
-var _RouteData = __webpack_require__(22);
+var _RouteData = __webpack_require__(23);
 
 var _AdminEditDelete = __webpack_require__(117);
 
@@ -7424,7 +7424,7 @@ var _axios = __webpack_require__(21);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _RouteData = __webpack_require__(22);
+var _RouteData = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7616,7 +7616,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactImageloader = __webpack_require__(32);
+var _reactImageloader = __webpack_require__(33);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -8136,7 +8136,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(26);
+var DOMProperty = __webpack_require__(27);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInstrumentation = __webpack_require__(9);
 
@@ -10737,7 +10737,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _configuration = __webpack_require__(33);
+var _configuration = __webpack_require__(22);
 
 var _axios = __webpack_require__(21);
 
@@ -10780,10 +10780,12 @@ exports.default = AdminApi;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _configuration = __webpack_require__(22);
 
 var _axios = __webpack_require__(21);
 
@@ -10794,41 +10796,44 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var FileApi = function () {
-	function FileApi() {
-		_classCallCheck(this, FileApi);
-	}
-
-	_createClass(FileApi, null, [{
-		key: 'upLoadImages',
-		value: function upLoadImages(id, data) {
-			return (0, _axios2.default)({
-				method: 'post',
-				url: '/file/images/' + id,
-				data: data
-			}).then(function (response) {
-				return response.data;
-			}).catch(function (error) {
-				console.log(error);
-				return error.data;
-			});
+		function FileApi() {
+				_classCallCheck(this, FileApi);
 		}
-	}, {
-		key: 'upLoadDocs',
-		value: function upLoadDocs(id, data) {
-			return (0, _axios2.default)({
-				method: 'post',
-				url: '/file/docs/' + id,
-				data: data
-			}).then(function (response) {
-				return response.data;
-			}).catch(function (error) {
-				console.log(error);
-				return error.data;
-			});
-		}
-	}]);
 
-	return FileApi;
+		_createClass(FileApi, null, [{
+				key: 'upLoadImages',
+				value: function upLoadImages(id, data) {
+						var config = {
+								onUploadProgress: function onUploadProgress(progressEvent) {
+										var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+										console.log("---------", percentCompleted);
+								}
+						};
+
+						return _axios2.default.post(_configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/file/images/' + id, data, config).then(function (response) {
+								return response.data;
+						}).catch(function (error) {
+								console.log(error);
+								return error.data;
+						});
+				}
+		}, {
+				key: 'upLoadDocs',
+				value: function upLoadDocs(id, data) {
+						return (0, _axios2.default)({
+								method: 'post',
+								url: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/docs/' + id,
+								data: data
+						}).then(function (response) {
+								return response.data;
+						}).catch(function (error) {
+								console.log(error);
+								return error.data;
+						});
+				}
+		}]);
+
+		return FileApi;
 }();
 
 exports.default = FileApi;
@@ -10850,7 +10855,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactImageloader = __webpack_require__(32);
+var _reactImageloader = __webpack_require__(33);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -10858,7 +10863,7 @@ var _connectDataFetchers = __webpack_require__(15);
 
 var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
 
-var _adminActions = __webpack_require__(23);
+var _adminActions = __webpack_require__(24);
 
 var _AboutData = __webpack_require__(111);
 
@@ -11186,7 +11191,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(10);
 
-var _reactImageloader = __webpack_require__(32);
+var _reactImageloader = __webpack_require__(33);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -11196,7 +11201,7 @@ var _connectDataFetchers = __webpack_require__(15);
 
 var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
 
-var _adminActions = __webpack_require__(23);
+var _adminActions = __webpack_require__(24);
 
 var _Shared = __webpack_require__(6);
 
@@ -11379,7 +11384,7 @@ var _connectDataFetchers = __webpack_require__(15);
 
 var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
 
-var _adminActions = __webpack_require__(23);
+var _adminActions = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11507,7 +11512,7 @@ var _CategorySidebar = __webpack_require__(69);
 
 var _Shared = __webpack_require__(6);
 
-var _RouteData = __webpack_require__(22);
+var _RouteData = __webpack_require__(23);
 
 var _ProductTblSettings = __webpack_require__(65);
 
@@ -11907,7 +11912,7 @@ var _Spec = __webpack_require__(43);
 
 var _SortableTbl = __webpack_require__(36);
 
-var _reactImageloader = __webpack_require__(32);
+var _reactImageloader = __webpack_require__(33);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -12409,8 +12414,8 @@ var AdminEditBasicTab = function (_React$Component) {
 		}
 	}, {
 		key: "setNewImages",
-		value: function setNewImages(data) {
-			this.props.setNewFiles(this.props.fileField, data);
+		value: function setNewImages(images) {
+			this.props.setNewFiles(this.props.fileField, images);
 		}
 	}, {
 		key: "setCategory",
@@ -12534,7 +12539,8 @@ var AdminEditBasicTab = function (_React$Component) {
 								null,
 								"Images "
 							),
-							_react2.default.createElement(_AdminEditImageArray2.default, { data: this.state.images, field: "images", setNewImages: this.setNewImages, setData: this.setDataArray })
+							_react2.default.createElement(_AdminEditImageArray2.default, { data: this.state.images, field: "images", setNewImages: this.setNewImages, setData: this.setDataArray,
+								newImages: this.props.newImages })
 						)
 					),
 					_react2.default.createElement(
@@ -12602,33 +12608,26 @@ var AdminEditImageArray = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (AdminEditImageArray.__proto__ || Object.getPrototypeOf(AdminEditImageArray)).call(this, props));
 
-		_this.state = {
-			data: _this.props.data,
-			images: []
-		};
 		_this.changeImage = _this.changeImage.bind(_this);
 		_this.deleteInsertImage = _this.deleteInsertImage.bind(_this);
 		_this.deleteImage = _this.deleteImage.bind(_this);
+
 		return _this;
 	}
 
 	_createClass(AdminEditImageArray, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
 		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			if (this.props != nextProps) {
-				var data = nextProps.data;
-
-				this.setState({ data: (0, _Shared.isEmptyObject)(data) ? [] : data });
-			}
-		}
+		value: function componentWillReceiveProps(nextProps) {}
 	}, {
 		key: 'changeImage',
 		value: function changeImage(e) {
 			var _this2 = this;
 
 			var files = e.target.files;
-			var nImgs = [].concat(_toConsumableArray(this.state.images));
-			var nData = [].concat(_toConsumableArray(this.state.data));
+			var nImgs = [].concat(_toConsumableArray(this.props.newImages));
 
 			var _loop = function _loop(id) {
 				var file = files[id];
@@ -12637,11 +12636,8 @@ var AdminEditImageArray = function (_React$Component) {
 					reader.onload = function (e) {
 						nImgs.push({
 							data_uri: e.target.result,
-							filename: file.name,
-							filetype: file.type
+							file: file
 						});
-						nData.push('/img/products/' + file.name);
-						_this2.setState({ images: nImgs, data: nData });
 						_this2.props.setNewImages(nImgs);
 					};
 					reader.readAsDataURL(file);
@@ -12656,16 +12652,14 @@ var AdminEditImageArray = function (_React$Component) {
 		key: 'deleteInsertImage',
 		value: function deleteInsertImage(e) {
 			var id = parseInt(e.target.getAttribute("data-id"));
-			var nImgs = [].concat(_toConsumableArray(this.state.images.slice(0, id)), _toConsumableArray(this.state.images.slice(id + 1, this.state.images.length)));
-			this.setState({ images: nImgs });
-			this.props.setNewImages(nImgs);
+			var nImgFile = [].concat(_toConsumableArray(this.props.newImages.slice(0, id)), _toConsumableArray(this.props.newImages.slice(id + 1, this.props.newImages.length)));
+			this.props.setNewImages(nImgFile);
 		}
 	}, {
 		key: 'deleteImage',
 		value: function deleteImage(e) {
 			var id = parseInt(e.target.getAttribute("data-id"));
-			var nImgs = [].concat(_toConsumableArray(this.state.data.slice(0, id)), _toConsumableArray(this.state.data.slice(id + 1, this.state.data.length)));
-			this.setState({ data: nImgs });
+			var nImgs = [].concat(_toConsumableArray(this.props.data.slice(0, id)), _toConsumableArray(this.props.data.slice(id + 1, this.props.data.length)));
 			this.props.setData(this.props.field, nImgs);
 		}
 	}, {
@@ -12677,53 +12671,57 @@ var AdminEditImageArray = function (_React$Component) {
 				'div',
 				null,
 				_react2.default.createElement(
-					'ul',
-					{ className: 'fa-ul' },
+					'form',
+					{ method: 'post', name: 'photo', id: 'imageuploadform' },
 					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement('i', { className: 'fa-li fa fa-check-square' }),
-						'\u5DF2\u4E0A\u50B3\u4E4B\u5716\u6A94'
-					),
-					_react2.default.createElement(
-						'li',
-						null,
+						'ul',
+						{ className: 'fa-ul' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'upload-image-list-wrap' },
-							this.state.data.map(function (item, id) {
-								return id < _this3.props.data.length ? _react2.default.createElement(
-									'div',
-									{ key: id, className: 'upload-image-list' },
-									_react2.default.createElement('i', { className: 'fa fa-close icon-item delete-item upload-image-delete', 'data-id': id, onClick: _this3.deleteImage }),
-									' ',
-									_react2.default.createElement('img', { className: 'upload-image', src: item })
-								) : "";
-							})
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement('i', { className: 'fa-li fa fa-check-square' }),
-						'\u6B32\u65B0\u4E0A\u50B3\u4E4B\u6A94\u6848'
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement('input', { type: 'file', accept: 'image/*', className: 'form-control', multiple: true, value: '', onChange: this.changeImage }),
+							'li',
+							null,
+							_react2.default.createElement('i', { className: 'fa-li fa fa-check-square' }),
+							'\u5DF2\u4E0A\u50B3\u4E4B\u5716\u6A94'
+						),
 						_react2.default.createElement(
-							'div',
-							{ className: 'upload-image-list-wrap' },
-							this.state.images.map(function (item, id) {
-								return _react2.default.createElement(
-									'div',
-									{ key: id, className: 'upload-image-list' },
-									_react2.default.createElement('i', { className: 'fa fa-close icon-item delete-item upload-image-delete', 'data-id': id, onClick: _this3.deleteInsertImage }),
-									' ',
-									_react2.default.createElement('img', { className: 'upload-image', src: item.data_uri })
-								);
-							})
+							'li',
+							null,
+							_react2.default.createElement(
+								'div',
+								{ className: 'upload-image-list-wrap' },
+								this.props.data.map(function (item, id) {
+									return id < _this3.props.data.length ? _react2.default.createElement(
+										'div',
+										{ key: id, className: 'upload-image-list' },
+										_react2.default.createElement('i', { className: 'fa fa-close icon-item delete-item upload-image-delete', 'data-id': id, onClick: _this3.deleteImage }),
+										' ',
+										_react2.default.createElement('img', { className: 'upload-image', src: item })
+									) : "";
+								})
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement('i', { className: 'fa-li fa fa-check-square' }),
+							'\u6B32\u65B0\u4E0A\u50B3\u4E4B\u6A94\u6848'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement('input', { type: 'file', accept: 'image/*', className: 'form-control', id: 'uploadImages', name: 'uploadImages', multiple: true, value: '', onChange: this.changeImage }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'upload-image-list-wrap' },
+								this.props.newImages.map(function (item, id) {
+									return _react2.default.createElement(
+										'div',
+										{ key: id, className: 'upload-image-list' },
+										_react2.default.createElement('i', { className: 'fa fa-close icon-item delete-item upload-image-delete', 'data-id': id, onClick: _this3.deleteInsertImage }),
+										' ',
+										_react2.default.createElement('img', { className: 'upload-image', src: item.data_uri })
+									);
+								})
+							)
 						)
 					)
 				)
@@ -12899,7 +12897,7 @@ var _AdminEditSpecTab = __webpack_require__(132);
 
 var _AdminEditSpecTab2 = _interopRequireDefault(_AdminEditSpecTab);
 
-var _adminActions = __webpack_require__(23);
+var _adminActions = __webpack_require__(24);
 
 var _detailsActions = __webpack_require__(66);
 
@@ -12978,7 +12976,6 @@ var AdminEditProductPage = function (_React$Component) {
 			newImages: [],
 			newDocs: []
 		};
-		// console.log("AdminEditProductPage, constructors", this.state);
 		_this.submit = _this.submit.bind(_this);
 		_this.setTab = _this.setTab.bind(_this);
 		_this.setBasic = _this.setBasic.bind(_this);
@@ -12990,16 +12987,12 @@ var AdminEditProductPage = function (_React$Component) {
 	}
 
 	_createClass(AdminEditProductPage, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {}
-	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
 			if (this.props != nextProps) {
 				var details = nextProps.details;
 
 				this.setState({ details: (0, _Shared.isEmptyObject)(details) ? initialStateDB : details });
-				// console.log("AdminEditProductPage, componentWillReceiveProps", isEmptyObject(details)?details:initialStateDB);
 			}
 		}
 	}, {
@@ -13069,22 +13062,53 @@ var AdminEditProductPage = function (_React$Component) {
 					delete details[i];
 				}
 			}
-			console.log(this.state.newImages, this.state.newDocs);
+
+			var formData = new FormData();
+
+			var nData = details.images;
+			var fileList = this.state.newImages;
+			var _iteratorNormalCompletion2 = true;
+			var _didIteratorError2 = false;
+			var _iteratorError2 = undefined;
+
+			try {
+				for (var _iterator2 = fileList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+					var item = _step2.value;
+
+					formData.append('uploadImages', item.file);
+					nData.push('/api/img/products/' + item.file.name);
+				}
+			} catch (err) {
+				_didIteratorError2 = true;
+				_iteratorError2 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion2 && _iterator2.return) {
+						_iterator2.return();
+					}
+				} finally {
+					if (_didIteratorError2) {
+						throw _iteratorError2;
+					}
+				}
+			}
 
 			_DetailsApi2.default.setProductDetails(details).then(function (details) {
-				return _FileApi2.default.upLoadImages(_this2.state.details._id, _this2.state.newImages);
+				return _FileApi2.default.upLoadImages(_this2.state.details._id, formData);
 			}).then(function (details) {
 				var actionData = {};
+				var cat = _this2.props.categories.filter(function (item) {
+					return item._id === _this2.state.details.cat;
+				})[0].categoryName;
 				actionData.params = Object.assign({}, _this2.props.params);
 				_this2.props.dispatch((0, _detailsActions.loadDetails)(actionData));
 
-				actionData.params.cat = _this2.props.categories.filter(function (item) {
-					return item._id === _this2.state.details.cat;
-				})[0].categoryName;
+				actionData.params.cat = cat;
 				_this2.props.dispatch((0, _productsActions.loadProductList)(actionData));
+				_this2.setState({ newImages: [] });
 
 				alert("success!!");
-				if (_this2.props.params.id == 0) _this2.props.router.push('/admin/productList/' + cat.categoryName);
+				if (_this2.props.params.id == 0) _this2.props.router.push('/admin/productList/' + cat);
 			}).catch(function (error) {
 				throw error;
 			});
@@ -13106,89 +13130,85 @@ var AdminEditProductPage = function (_React$Component) {
 					_react2.default.createElement('img', { src: '/img/ajax-loader.gif', alt: '' })
 				),
 				_react2.default.createElement(
-					'form',
-					{ encType: 'multipart/form-data' },
+					'div',
+					{ className: 'row' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'col-xs-12' },
+						_react2.default.createElement(_Shared.Breadcrumb, { linkPair: [{ link: "Home", desc: "Home" }, { link: "/admin/productChange/0", desc: "Administration" }, { link: "", desc: this.props.params.id != 0 ? "Edit Product" : "Add Product" }] }),
 						_react2.default.createElement(
-							'div',
-							{ className: 'col-xs-12' },
-							_react2.default.createElement(_Shared.Breadcrumb, { linkPair: [{ link: "Home", desc: "Home" }, { link: "/admin/productChange/0", desc: "Administration" }, { link: "", desc: this.props.params.id != 0 ? "Edit Product" : "Add Product" }] }),
-							_react2.default.createElement(
-								_Shared.BigHeader,
-								{ smallTitle: '' },
-								this.props.params.id != 0 ? 'Edit Product - ' + details.name : "Add Product"
-							)
+							_Shared.BigHeader,
+							{ smallTitle: '' },
+							this.props.params.id != 0 ? 'Edit Product - ' + details.name : "Add Product"
 						)
-					),
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'row' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'col-xs-12' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'col-xs-12' },
-							_react2.default.createElement(
-								'button',
-								{ className: 'btn btn-danger', onClick: this.submit },
-								'Apply Change'
-							)
+							'button',
+							{ className: 'btn btn-danger', onClick: this.submit },
+							'Apply Change'
 						)
-					),
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'row' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'col-xs-12' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'col-xs-12' },
+							_reactTabsIsomorphic.Tabs,
+							{ selectedIndex: this.state.selectedTab, generateIdsFn: generateIds },
 							_react2.default.createElement(
-								_reactTabsIsomorphic.Tabs,
-								{ selectedIndex: this.state.selectedTab, generateIdsFn: generateIds },
+								_reactTabsIsomorphic.TabList,
+								null,
 								_react2.default.createElement(
-									_reactTabsIsomorphic.TabList,
+									_reactTabsIsomorphic.Tab,
 									null,
-									_react2.default.createElement(
-										_reactTabsIsomorphic.Tab,
-										null,
-										'Basic Settings'
-									),
-									this.state.details.cat === 2 && _react2.default.createElement(
-										_reactTabsIsomorphic.Tab,
-										null,
-										'Standard Package'
-									),
-									this.state.details.cat === 2 && _react2.default.createElement(
-										_reactTabsIsomorphic.Tab,
-										null,
-										'Optinal Package'
-									),
-									_react2.default.createElement(
-										_reactTabsIsomorphic.Tab,
-										null,
-										'Specification'
-									),
-									_react2.default.createElement(
-										_reactTabsIsomorphic.Tab,
-										null,
-										'Download'
-									)
+									'Basic Settings'
+								),
+								this.state.details.cat === 2 && _react2.default.createElement(
+									_reactTabsIsomorphic.Tab,
+									null,
+									'Standard Package'
+								),
+								this.state.details.cat === 2 && _react2.default.createElement(
+									_reactTabsIsomorphic.Tab,
+									null,
+									'Optinal Package'
 								),
 								_react2.default.createElement(
-									_reactTabsIsomorphic.TabPanel,
+									_reactTabsIsomorphic.Tab,
 									null,
-									_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: this.props.params, setData: this.setBasic, setNewFiles: this.setNewFiles,
-										fileField: 'newImages', categories: categories })
+									'Specification'
 								),
-								this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
-								this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
 								_react2.default.createElement(
-									_reactTabsIsomorphic.TabPanel,
+									_reactTabsIsomorphic.Tab,
 									null,
-									_react2.default.createElement(_AdminEditSpecTab2.default, { tabId: 1, spec: this.state.details.spec, field: 'spec', delArrayMember: this.delArrayMember,
-										setData: this.setSpecInput, addArrayMember: this.addArrayMember, setArrayMember: this.setArrayMember })
-								),
-								_react2.default.createElement(_reactTabsIsomorphic.TabPanel, null)
-							)
+									'Download'
+								)
+							),
+							_react2.default.createElement(
+								_reactTabsIsomorphic.TabPanel,
+								null,
+								_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: this.props.params, setData: this.setBasic, setNewFiles: this.setNewFiles,
+									fileField: 'newImages', categories: categories, newImages: this.state.newImages })
+							),
+							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
+							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
+							_react2.default.createElement(
+								_reactTabsIsomorphic.TabPanel,
+								null,
+								_react2.default.createElement(_AdminEditSpecTab2.default, { tabId: 1, spec: this.state.details.spec, field: 'spec', delArrayMember: this.delArrayMember,
+									setData: this.setSpecInput, addArrayMember: this.addArrayMember, setArrayMember: this.setArrayMember })
+							),
+							_react2.default.createElement(_reactTabsIsomorphic.TabPanel, null)
 						)
 					)
 				)
@@ -13688,7 +13708,7 @@ var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
 
 var _Shared = __webpack_require__(6);
 
-var _adminActions = __webpack_require__(23);
+var _adminActions = __webpack_require__(24);
 
 var _productsActions = __webpack_require__(34);
 
@@ -13979,7 +13999,7 @@ var _reactRouter = __webpack_require__(10);
 
 var _NavBar = __webpack_require__(134);
 
-var _RouteData = __webpack_require__(22);
+var _RouteData = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17195,7 +17215,7 @@ module.exports = AutoFocusUtils;
 
 
 
-var EventPropagators = __webpack_require__(28);
+var EventPropagators = __webpack_require__(29);
 var ExecutionEnvironment = __webpack_require__(7);
 var FallbackCompositionState = __webpack_require__(167);
 var SyntheticCompositionEvent = __webpack_require__(205);
@@ -17799,8 +17819,8 @@ module.exports = CSSPropertyOperations;
 
 
 
-var EventPluginHub = __webpack_require__(27);
-var EventPropagators = __webpack_require__(28);
+var EventPluginHub = __webpack_require__(28);
+var EventPropagators = __webpack_require__(29);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(11);
@@ -18127,7 +18147,7 @@ module.exports = ChangeEventPlugin;
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(25);
+var DOMLazyTree = __webpack_require__(26);
 var ExecutionEnvironment = __webpack_require__(7);
 
 var createNodesFromMarkup = __webpack_require__(150);
@@ -18209,7 +18229,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(28);
+var EventPropagators = __webpack_require__(29);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticMouseEvent = __webpack_require__(38);
 
@@ -18414,7 +18434,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(26);
+var DOMProperty = __webpack_require__(27);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -18631,7 +18651,7 @@ module.exports = HTMLDOMPropertyConfig;
 
 
 
-var ReactReconciler = __webpack_require__(29);
+var ReactReconciler = __webpack_require__(30);
 
 var instantiateReactComponent = __webpack_require__(89);
 var KeyEscapeUtils = __webpack_require__(49);
@@ -18828,20 +18848,20 @@ module.exports = ReactComponentBrowserEnvironment;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
-var React = __webpack_require__(31);
+var React = __webpack_require__(32);
 var ReactComponentEnvironment = __webpack_require__(52);
 var ReactCurrentOwner = __webpack_require__(17);
 var ReactErrorUtils = __webpack_require__(53);
 var ReactInstanceMap = __webpack_require__(54);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactNodeTypes = __webpack_require__(191);
-var ReactReconciler = __webpack_require__(29);
+var ReactReconciler = __webpack_require__(30);
 
 if (false) {
   var checkReactTypeSpec = require('./checkReactTypeSpec');
 }
 
-var emptyObject = __webpack_require__(24);
+var emptyObject = __webpack_require__(25);
 var invariant = __webpack_require__(0);
 var shallowEqual = __webpack_require__(44);
 var shouldUpdateReactComponent = __webpack_require__(92);
@@ -19739,11 +19759,11 @@ var _prodInvariant = __webpack_require__(3),
 
 var AutoFocusUtils = __webpack_require__(160);
 var CSSPropertyOperations = __webpack_require__(162);
-var DOMLazyTree = __webpack_require__(25);
+var DOMLazyTree = __webpack_require__(26);
 var DOMNamespaces = __webpack_require__(46);
-var DOMProperty = __webpack_require__(26);
+var DOMProperty = __webpack_require__(27);
 var DOMPropertyOperations = __webpack_require__(76);
-var EventPluginHub = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(28);
 var EventPluginRegistry = __webpack_require__(47);
 var ReactBrowserEventEmitter = __webpack_require__(51);
 var ReactDOMComponentFlags = __webpack_require__(77);
@@ -20778,7 +20798,7 @@ module.exports = ReactDOMContainerInfo;
 
 var _assign = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(25);
+var DOMLazyTree = __webpack_require__(26);
 var ReactDOMComponentTree = __webpack_require__(5);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -21165,7 +21185,7 @@ module.exports = ReactDOMInput;
 
 var _assign = __webpack_require__(4);
 
-var React = __webpack_require__(31);
+var React = __webpack_require__(32);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMSelect = __webpack_require__(78);
 
@@ -21543,7 +21563,7 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
 var DOMChildrenOperations = __webpack_require__(45);
-var DOMLazyTree = __webpack_require__(25);
+var DOMLazyTree = __webpack_require__(26);
 var ReactDOMComponentTree = __webpack_require__(5);
 
 var escapeTextContentForBrowser = __webpack_require__(40);
@@ -22130,7 +22150,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var EventPluginHub = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(28);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -22355,8 +22375,8 @@ module.exports = ReactFeatureFlags;
 
 
 
-var DOMProperty = __webpack_require__(26);
-var EventPluginHub = __webpack_require__(27);
+var DOMProperty = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(28);
 var EventPluginUtils = __webpack_require__(48);
 var ReactComponentEnvironment = __webpack_require__(52);
 var ReactEmptyComponent = __webpack_require__(80);
@@ -22456,7 +22476,7 @@ var ReactInstanceMap = __webpack_require__(54);
 var ReactInstrumentation = __webpack_require__(9);
 
 var ReactCurrentOwner = __webpack_require__(17);
-var ReactReconciler = __webpack_require__(29);
+var ReactReconciler = __webpack_require__(30);
 var ReactChildReconciler = __webpack_require__(169);
 
 var emptyFunction = __webpack_require__(8);
@@ -22907,7 +22927,7 @@ module.exports = ReactMultiChild;
 
 var _prodInvariant = __webpack_require__(3);
 
-var React = __webpack_require__(31);
+var React = __webpack_require__(32);
 
 var invariant = __webpack_require__(0);
 
@@ -23375,17 +23395,17 @@ module.exports = ReactServerBatchingStrategy;
 
 var _prodInvariant = __webpack_require__(3);
 
-var React = __webpack_require__(31);
+var React = __webpack_require__(32);
 var ReactDOMContainerInfo = __webpack_require__(173);
 var ReactDefaultBatchingStrategy = __webpack_require__(79);
 var ReactInstrumentation = __webpack_require__(9);
 var ReactMarkupChecksum = __webpack_require__(189);
-var ReactReconciler = __webpack_require__(29);
+var ReactReconciler = __webpack_require__(30);
 var ReactServerBatchingStrategy = __webpack_require__(196);
 var ReactServerRenderingTransaction = __webpack_require__(83);
 var ReactUpdates = __webpack_require__(11);
 
-var emptyObject = __webpack_require__(24);
+var emptyObject = __webpack_require__(25);
 var instantiateReactComponent = __webpack_require__(89);
 var invariant = __webpack_require__(0);
 
@@ -23939,7 +23959,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(28);
+var EventPropagators = __webpack_require__(29);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInputSelection = __webpack_require__(82);
@@ -24139,7 +24159,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(3);
 
 var EventListener = __webpack_require__(71);
-var EventPropagators = __webpack_require__(28);
+var EventPropagators = __webpack_require__(29);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticAnimationEvent = __webpack_require__(203);
 var SyntheticClipboardEvent = __webpack_require__(204);
@@ -24150,7 +24170,7 @@ var SyntheticMouseEvent = __webpack_require__(38);
 var SyntheticDragEvent = __webpack_require__(206);
 var SyntheticTouchEvent = __webpack_require__(210);
 var SyntheticTransitionEvent = __webpack_require__(211);
-var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticUIEvent = __webpack_require__(31);
 var SyntheticWheelEvent = __webpack_require__(212);
 
 var emptyFunction = __webpack_require__(8);
@@ -24537,7 +24557,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticUIEvent = __webpack_require__(31);
 
 /**
  * @interface FocusEvent
@@ -24620,7 +24640,7 @@ module.exports = SyntheticInputEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticUIEvent = __webpack_require__(31);
 
 var getEventCharCode = __webpack_require__(56);
 var getEventKey = __webpack_require__(216);
@@ -24709,7 +24729,7 @@ module.exports = SyntheticKeyboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(30);
+var SyntheticUIEvent = __webpack_require__(31);
 
 var getEventModifierState = __webpack_require__(57);
 
@@ -25866,7 +25886,7 @@ var ReactElement = __webpack_require__(19);
 var ReactPropTypeLocationNames = __webpack_require__(96);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var emptyObject = __webpack_require__(24);
+var emptyObject = __webpack_require__(25);
 var invariant = __webpack_require__(0);
 var warning = __webpack_require__(2);
 
@@ -27221,7 +27241,7 @@ var _assign = __webpack_require__(4);
 var ReactComponent = __webpack_require__(62);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var emptyObject = __webpack_require__(24);
+var emptyObject = __webpack_require__(25);
 
 /**
  * Base class helpers for the updating state of a component.
@@ -27586,7 +27606,7 @@ var _requestHandler = __webpack_require__(101);
 
 var _requestHandler2 = _interopRequireDefault(_requestHandler);
 
-var _configuration = __webpack_require__(33);
+var _configuration = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27624,12 +27644,12 @@ app.use('/api', function (req, res, next) {
   var method = void 0,
       r = void 0;
   method = req.method.toLowerCase().replace(/delete/, "del");
-  var path = req.url.replace(/^\/api/, "");
+  var path = req.url.replace(/^\/api\//, "");
   switch (method) {
     case "get":
-      // case "post":
-      // case "del":
-      // case "put":
+    case "post":
+    case "del":
+    case "put":
       r = _request2.default[method]({
         uri: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/' + path,
         json: req.body
