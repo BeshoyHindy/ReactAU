@@ -1317,6 +1317,9 @@ var AJAX_CALL_ERROR = exports.AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';
 var LOAD_PRODUCTS_SUCCESS = exports.LOAD_PRODUCTS_SUCCESS = 'LOAD_PRODUCTS_SUCCESS';
 var LOAD_DETAILS_SUCCESS = exports.LOAD_DETAILS_SUCCESS = 'LOAD_DETAILS_SUCCESS';
 
+var LOAD_IMAGES_SUCCESS = exports.LOAD_IMAGES_SUCCESS = 'LOAD_IMAGES_SUCCESS';
+var LOAD_DETAILS_PROGESS = exports.LOAD_DETAILS_PROGESS = 'LOAD_DETAILS_PROGESS';
+
 var GET_CATEGORIES_SUCCESS = exports.GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS';
 
 /***/ }),
@@ -3335,12 +3338,13 @@ var DetailApi = function () {
 		}
 	}, {
 		key: 'setProductDetails',
-		value: function setProductDetails(detail) {
+		value: function setProductDetails(detail, progress) {
 			return (0, _axios2.default)({
 				method: 'post',
 				url: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/details/' + detail._id,
 				dataType: 'JSON',
-				data: detail
+				data: detail,
+				onUploadProgress: progress
 			}).then(function (response) {
 				return response.data;
 			}).catch(function (error) {
@@ -10802,14 +10806,7 @@ var FileApi = function () {
 
 		_createClass(FileApi, null, [{
 				key: 'upLoadImages',
-				value: function upLoadImages(id, data) {
-						var config = {
-								onUploadProgress: function onUploadProgress(progressEvent) {
-										var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
-										console.log("---------", percentCompleted);
-								}
-						};
-
+				value: function upLoadImages(id, data, config) {
 						return _axios2.default.post(_configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/file/images/' + id, data, config).then(function (response) {
 								return response.data;
 						}).catch(function (error) {
@@ -10819,12 +10816,8 @@ var FileApi = function () {
 				}
 		}, {
 				key: 'upLoadDocs',
-				value: function upLoadDocs(id, data) {
-						return (0, _axios2.default)({
-								method: 'post',
-								url: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/docs/' + id,
-								data: data
-						}).then(function (response) {
+				value: function upLoadDocs(id, data, config) {
+						return _axios2.default.post(_configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/file/docs/' + id, data, config).then(function (response) {
 								return response.data;
 						}).catch(function (error) {
 								console.log(error);
@@ -12932,6 +12925,17 @@ var initialStateDB = {
 	member: [],
 	optinal: []
 };
+
+var initialImageUpload = {
+	progress: 0,
+	newData: []
+};
+
+var initialDocsUpload = {
+	progress: 0,
+	newData: []
+};
+
 var _iteratorNormalCompletion = true;
 var _didIteratorError = false;
 var _iteratorError = undefined;
@@ -12973,7 +12977,9 @@ var AdminEditProductPage = function (_React$Component) {
 		_this.state = {
 			details: props.params.id == 0 ? initialStateDB : props.details,
 			selectedTab: 0,
-			newImages: [],
+			imagesUpload: initialImageUpload,
+			filesUpload: initialDocsUpload,
+			detailPostProgress: 0,
 			newDocs: []
 		};
 		_this.submit = _this.submit.bind(_this);
@@ -12983,6 +12989,9 @@ var AdminEditProductPage = function (_React$Component) {
 		_this.setArrayMember = _this.setArrayMember.bind(_this);
 		_this.addArrayMember = _this.addArrayMember.bind(_this);
 		_this.setNewFiles = _this.setNewFiles.bind(_this);
+		_this.imageFileProgress = _this.imageFileProgress.bind(_this);
+		_this.docsFileProgress = _this.docsFileProgress.bind(_this);
+		_this.detailProgress = _this.detailProgress.bind(_this);
 		return _this;
 	}
 
@@ -13041,8 +13050,28 @@ var AdminEditProductPage = function (_React$Component) {
 	}, {
 		key: 'setNewFiles',
 		value: function setNewFiles(field, data) {
-			var newState = (0, _immutabilityHelper2.default)(this.state, _defineProperty({}, field, { $set: data }));
+			var newState = (0, _immutabilityHelper2.default)(this.state, _defineProperty({}, field, { newData: { $set: data } }));
 			this.setState(newState);
+		}
+	}, {
+		key: 'imageFileProgress',
+		value: function imageFileProgress(progressEvent) {
+			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+			var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: percentCompleted } } });
+			this.setState(newState);
+		}
+	}, {
+		key: 'docsFileProgress',
+		value: function docsFileProgress(progressEvent) {
+			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+			var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: percentCompleted } } });
+			this.setState(newState);
+		}
+	}, {
+		key: 'detailProgress',
+		value: function detailProgress(progressEvent) {
+			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+			this.setState({ detailPostProgress: percentCompleted });
 		}
 	}, {
 		key: 'submit',
@@ -13065,36 +13094,51 @@ var AdminEditProductPage = function (_React$Component) {
 
 			var formData = new FormData();
 
+			this.setState({ detailPostProgress: 1 });
 			var nData = details.images;
-			var fileList = this.state.newImages;
-			var _iteratorNormalCompletion2 = true;
-			var _didIteratorError2 = false;
-			var _iteratorError2 = undefined;
+			var fileList = this.state.imagesUpload.newData;
+			if (fileList.length) {
+				var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: 1 } } });
+				this.setState(newState);
+				var _iteratorNormalCompletion2 = true;
+				var _didIteratorError2 = false;
+				var _iteratorError2 = undefined;
 
-			try {
-				for (var _iterator2 = fileList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-					var item = _step2.value;
-
-					formData.append('uploadImages', item.file);
-					nData.push('/api/img/products/' + item.file.name);
-				}
-			} catch (err) {
-				_didIteratorError2 = true;
-				_iteratorError2 = err;
-			} finally {
 				try {
-					if (!_iteratorNormalCompletion2 && _iterator2.return) {
-						_iterator2.return();
+					for (var _iterator2 = fileList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+						var item = _step2.value;
+
+						formData.append('uploadImages', item.file);
+						nData.push('/api/img/products/' + item.file.name);
 					}
+				} catch (err) {
+					_didIteratorError2 = true;
+					_iteratorError2 = err;
 				} finally {
-					if (_didIteratorError2) {
-						throw _iteratorError2;
+					try {
+						if (!_iteratorNormalCompletion2 && _iterator2.return) {
+							_iterator2.return();
+						}
+					} finally {
+						if (_didIteratorError2) {
+							throw _iteratorError2;
+						}
 					}
 				}
 			}
 
-			_DetailsApi2.default.setProductDetails(details).then(function (details) {
-				return _FileApi2.default.upLoadImages(_this2.state.details._id, formData);
+			var imgFileconfig = {
+				onUploadProgress: this.imageFileProgress
+			};
+			var docsFileconfig = {
+				onUploadProgress: this.docsFileProgress
+			};
+
+			_DetailsApi2.default.setProductDetails(details, this.detailProgress).then(function (details) {
+				_this2.setState({ detailPostProgress: 0 });
+				if (fileList.length) return _FileApi2.default.upLoadImages(_this2.state.details._id, formData, imgFileconfig);
+
+				return {};
 			}).then(function (details) {
 				var actionData = {};
 				var cat = _this2.props.categories.filter(function (item) {
@@ -13105,12 +13149,13 @@ var AdminEditProductPage = function (_React$Component) {
 
 				actionData.params.cat = cat;
 				_this2.props.dispatch((0, _productsActions.loadProductList)(actionData));
-				_this2.setState({ newImages: [] });
+				_this2.setState({ imagesUpload: initialImageUpload, detailPostProgress: 0 });
 
-				alert("success!!");
+				// alert("success!!");
 				if (_this2.props.params.id == 0) _this2.props.router.push('/admin/productList/' + cat);
 			}).catch(function (error) {
-				throw error;
+				alert(error);
+				// throw(error);
 			});
 		}
 	}, {
@@ -13120,14 +13165,25 @@ var AdminEditProductPage = function (_React$Component) {
 			    categories = _props.categories,
 			    details = _props.details,
 			    params = _props.params;
+			var _state = this.state,
+			    imagesUpload = _state.imagesUpload,
+			    filesUpload = _state.filesUpload,
+			    detailPostProgress = _state.detailPostProgress;
+
+			var showAjaxLoading = imagesUpload.progress || detailPostProgress || filesUpload.progress || this.props.ajaxState > 0 || !categories || categories.length === 0;
 
 			return _react2.default.createElement(
 				'div',
 				{ className: 'loading-wrap' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'ajax-loading-big ' + (this.props.ajaxState > 0 || !categories || categories.length === 0 ? 'fade-show' : 'fade-hide') },
-					_react2.default.createElement('img', { src: '/img/ajax-loader.gif', alt: '' })
+					{ className: 'ajax-loading-big ' + (showAjaxLoading ? 'fade-show' : 'fade-hide') },
+					_react2.default.createElement('img', { src: '/img/ajax-loader.gif', alt: '' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'ajax-loading-progress' },
+						detailPostProgress ? 'Apply Change... ' + detailPostProgress + ' % ' : imagesUpload.progress ? 'Uploading Images Files... ' + imagesUpload.progress + ' % ' : filesUpload.progress ? 'Uploading Docs Files... ' + filesUpload.progress + ' % ' : "Done !!"
+					)
 				),
 				_react2.default.createElement(
 					'div',
@@ -13135,11 +13191,11 @@ var AdminEditProductPage = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'col-xs-12' },
-						_react2.default.createElement(_Shared.Breadcrumb, { linkPair: [{ link: "Home", desc: "Home" }, { link: "/admin/productChange/0", desc: "Administration" }, { link: "", desc: this.props.params.id != 0 ? "Edit Product" : "Add Product" }] }),
+						_react2.default.createElement(_Shared.Breadcrumb, { linkPair: [{ link: "Home", desc: "Home" }, { link: "/admin/productChange/0", desc: "Administration" }, { link: "", desc: params.id != 0 ? "Edit Product" : "Add Product" }] }),
 						_react2.default.createElement(
 							_Shared.BigHeader,
 							{ smallTitle: '' },
-							this.props.params.id != 0 ? 'Edit Product - ' + details.name : "Add Product"
+							params.id != 0 ? 'Edit Product - ' + details.name : "Add Product"
 						)
 					)
 				),
@@ -13197,8 +13253,8 @@ var AdminEditProductPage = function (_React$Component) {
 							_react2.default.createElement(
 								_reactTabsIsomorphic.TabPanel,
 								null,
-								_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: this.props.params, setData: this.setBasic, setNewFiles: this.setNewFiles,
-									fileField: 'newImages', categories: categories, newImages: this.state.newImages })
+								_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: params, setData: this.setBasic, setNewFiles: this.setNewFiles,
+									fileField: 'imagesUpload', categories: categories, newImages: imagesUpload.newData })
 							),
 							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
 							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),

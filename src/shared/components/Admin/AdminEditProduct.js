@@ -25,6 +25,17 @@ let initialStateDB = {
 	member: [],
 	optinal: []
 };
+
+let initialImageUpload = {					
+	progress: 0,
+	newData: []
+};
+
+let initialDocsUpload = {					
+	progress: 0,
+	newData: []
+};
+
 for(let item of productEditColDetail){
 	initialStateDB[item.db] = "";
 }
@@ -38,7 +49,9 @@ class AdminEditProductPage extends React.Component{
 		this.state = {
 				details : (props.params.id == 0) ? initialStateDB: props.details,
 				selectedTab : 0,
-				newImages: [],
+				imagesUpload: initialImageUpload,
+				filesUpload: initialDocsUpload, 
+				detailPostProgress: 0,
 				newDocs: [],
 			};
 		this.submit = this.submit.bind(this);
@@ -48,6 +61,9 @@ class AdminEditProductPage extends React.Component{
 		this.setArrayMember = this.setArrayMember.bind(this);
 		this.addArrayMember = this.addArrayMember.bind(this);
 		this.setNewFiles = this.setNewFiles.bind(this);
+		this.imageFileProgress = this.imageFileProgress.bind(this);
+		this.docsFileProgress = this.docsFileProgress.bind(this);
+		this.detailProgress = this.detailProgress.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -96,10 +112,23 @@ class AdminEditProductPage extends React.Component{
 		this.setState(newState);
 	}
 	setNewFiles(field, data){	
-		const newState  = update(this.state, {[field]: {$set: data}});
+		const newState  = update(this.state, {[field]: {newData:{$set: data}}});
 		this.setState(newState);
 	}
-	
+	imageFileProgress(progressEvent) {
+		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		const newState  = update(this.state, {imagesUpload: {progress:{$set: percentCompleted}}});
+		this.setState(newState);
+	}
+	docsFileProgress(progressEvent) {
+		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		const newState  = update(this.state, {imagesUpload: {progress:{$set: percentCompleted}}});
+		this.setState(newState);
+	}
+	detailProgress(progressEvent) {
+		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		this.setState({detailPostProgress: percentCompleted});
+	}
 	submit (e){
 		e.preventDefault();
 		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
@@ -117,16 +146,32 @@ class AdminEditProductPage extends React.Component{
 
 		var formData = new FormData();
 
+		this.setState({detailPostProgress: 1});
 		let nData = details.images;
-		let fileList = this.state.newImages;
-		for(let item of fileList) {
-			formData.append('uploadImages', item.file);
-			nData.push( `/api/img/products/${item.file.name}`);
+		let fileList = this.state.imagesUpload.newData;
+		if (fileList.length){
+			const newState  = update(this.state, {imagesUpload: {progress:{$set: 1}}});
+			this.setState(newState);
+			for(let item of fileList) {
+				formData.append('uploadImages', item.file);
+				nData.push( `/api/img/products/${item.file.name}`);
+			}
 		}
 
-		DetailApi.setProductDetails(details)
+		let imgFileconfig = {
+			onUploadProgress: this.imageFileProgress
+		};
+		let docsFileconfig = {
+			onUploadProgress: this.docsFileProgress
+		};
+
+		DetailApi.setProductDetails(details, this.detailProgress)
 		.then(details => {
- 			 return FileApi.upLoadImages(this.state.details._id, formData);
+			this.setState({detailPostProgress: 0});
+			if (fileList.length) 
+				return FileApi.upLoadImages(this.state.details._id, formData, imgFileconfig);
+
+			return {};
 		})
 		.then(details => {
 			let actionData ={};
@@ -136,26 +181,42 @@ class AdminEditProductPage extends React.Component{
 
 			actionData.params.cat = cat;
 			this.props.dispatch(loadProductList(actionData));
-			this.setState({newImages: []});
+			this.setState({imagesUpload: initialImageUpload, detailPostProgress: 0});
 			
-			alert("success!!");
+			// alert("success!!");
 			if((this.props.params.id == 0))
 				this.props.router.push(`/admin/productList/${cat}`);
 		}).catch(error => {
-			throw(error);
+			alert(error);
+			// throw(error);
 		});
 	}
 	render () {
+
 		let {categories, details,params} = this.props;
+		let {imagesUpload, filesUpload,detailPostProgress} = this.state;
+		let showAjaxLoading = (imagesUpload.progress || detailPostProgress || filesUpload.progress
+							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
+		
 		return (
 	<div className="loading-wrap">
-		<div className={`ajax-loading-big ${(this.props.ajaxState > 0 || !categories || categories.length ===0 )?'fade-show':'fade-hide'}`} >
+		<div className={`ajax-loading-big ${showAjaxLoading?'fade-show':'fade-hide'}`} >
 			<img src="/img/ajax-loader.gif" alt=""/>
+			<div className="ajax-loading-progress">
+				{	(detailPostProgress )
+						? `Apply Change... ${detailPostProgress} % ` 
+						:(imagesUpload.progress )
+							? `Uploading Images Files... ${imagesUpload.progress} % ` 
+							:  (filesUpload.progress )
+								? `Uploading Docs Files... ${filesUpload.progress} % ` 
+								: "Done !!"
+				}</div>
 		</div>
 			<div className="row">
 				<div className="col-xs-12">
-					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:this.props.params.id !=0 ?"Edit Product":"Add Product"}]}/>
-					<BigHeader smallTitle="">{this.props.params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
+					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
+																		{link:"", desc:params.id !=0 ?"Edit Product":"Add Product"}]}/>
+					<BigHeader smallTitle="">{params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
 				</div>
 			</div>
 			<div className="row">
@@ -175,8 +236,8 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={0} params={this.props.params} setData={this.setBasic} setNewFiles={this.setNewFiles}
-												fileField="newImages" categories={categories} newImages={this.state.newImages}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} setNewFiles={this.setNewFiles}
+												fileField="imagesUpload" categories={categories} newImages={imagesUpload.newData}/>
 						</TabPanel>
 
 						{
