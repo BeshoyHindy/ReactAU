@@ -50,9 +50,7 @@ class AdminEditProductPage extends React.Component{
 		this.addArrayMember = this.addArrayMember.bind(this);
 		this.setNewFiles = this.setNewFiles.bind(this);
 	}
-	componentDidMount() {
-		
-	}	
+
 	componentWillReceiveProps(nextProps) {
 		if (this.props != nextProps){
 			let {details} = nextProps;
@@ -114,27 +112,36 @@ class AdminEditProductPage extends React.Component{
 
 		for(let i in details) {
 			if ( details[i] == "" || details[i] === null || details[i] === {} || details[i] === [] ) {
-			delete details[i];
+				delete details[i];
 			}
 		}
-console.log(this.state.newImages, this.state.newDocs);
 
+		var formData = new FormData();
+
+		let fileList = this.state.newImages;
+		for(var x=0;x<fileList.length;x++) {
+			formData.append('file'+x, fileList[x]);    
+			console.log('appended a file');
+		}
+
+//http://stackoverflow.com/questions/23219033/show-a-progress-on-multiple-file-upload-jquery-ajax
 		DetailApi.setProductDetails(details)
 		.then(details => {
- 			return FileApi.upLoadImages(this.state.details._id, this.state.newImages);
+ 			 return FileApi.upLoadImages(this.state.details._id, formData);
 		})
 		.then(details => {
 			let actionData ={};
+			let cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
 			actionData.params = Object.assign({},this.props.params);
 			this.props.dispatch(loadDetails(actionData));
 
-			actionData.params.cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
+			actionData.params.cat = cat;
 			this.props.dispatch(loadProductList(actionData));
 
 			
 			alert("success!!");
 			if((this.props.params.id == 0))
-				this.props.router.push(`/admin/productList/${cat.categoryName}`);
+				this.props.router.push(`/admin/productList/${cat}`);
 		}).catch(error => {
 			throw(error);
 		});
@@ -146,7 +153,6 @@ console.log(this.state.newImages, this.state.newDocs);
 		<div className={`ajax-loading-big ${(this.props.ajaxState > 0 || !categories || categories.length ===0 )?'fade-show':'fade-hide'}`} >
 			<img src="/img/ajax-loader.gif" alt=""/>
 		</div>
-		<form encType="multipart/form-data">
 			<div className="row">
 				<div className="col-xs-12">
 					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:this.props.params.id !=0 ?"Edit Product":"Add Product"}]}/>
@@ -209,7 +215,7 @@ console.log(this.state.newImages, this.state.newDocs);
 					</Tabs>
 				</div>
 			</div>
-		</form>
+
 	</div>		
 		);
 	}

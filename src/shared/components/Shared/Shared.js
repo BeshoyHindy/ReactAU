@@ -3,7 +3,7 @@ import ImageLoader from 'react-imageloader';
 import { Link } from 'react-router';
 
 const CustomDownloadTd = (props) => (
-	<td ><a className="download" href={props.data} target="_blank">Download </a></td>
+	<td ><a className="download" href={props.tdData} target="_blank">Download </a></td>
 );
 CustomDownloadTd.propTypes = {
 	data: React.PropTypes.string,

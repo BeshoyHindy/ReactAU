@@ -43,12 +43,12 @@ console.log(`redirect to api server:${api_server.http.host}:${api_server.http.po
 app.use('/api', function(req, res, next) {
   let method, r;
   method = req.method.toLowerCase().replace(/delete/,"del");
-  let path = req.url.replace(/^\/api/,"");
+  let path = req.url.replace(/^\/api\//,"");
   switch (method) {
     case "get":
-    // case "post":
-    // case "del":
-    // case "put":
+    case "post":
+    case "del":
+    case "put":
       r = request[method]({
         uri: `${api_server.http.host}:${api_server.http.port}/${path}`,
         json: req.body

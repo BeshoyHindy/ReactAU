@@ -45,8 +45,8 @@ class AdminEditBasicTab extends React.Component{
 		this.setState(props);
 		this.props.setData(this.props.tabId, {field: e.target.name, value: props[e.target.name]});
 	}
-	setNewImages(data){
-		this.props.setNewFiles(this.props.fileField, data);
+	setNewImages(images){
+		this.props.setNewFiles(this.props.fileField, images);
 	}
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
