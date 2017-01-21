@@ -147,14 +147,13 @@ class AdminEditProductPage extends React.Component{
 		var formData = new FormData();
 
 		this.setState({detailPostProgress: 1});
-		let nData = details.images;
 		let fileList = this.state.imagesUpload.newData;
 		if (fileList.length){
+			formData.append('id', details._id);
 			const newState  = update(this.state, {imagesUpload: {progress:{$set: 1}}});
 			this.setState(newState);
 			for(let item of fileList) {
 				formData.append('uploadImages', item.file);
-				nData.push( `/api/img/products/${item.file.name}`);
 			}
 		}
 
@@ -206,9 +205,9 @@ class AdminEditProductPage extends React.Component{
 				{	(detailPostProgress )
 						? `Apply Change... ${detailPostProgress} % ` 
 						:(imagesUpload.progress )
-							? `Uploading Images Files... ${imagesUpload.progress} % ` 
+							? `Upload Images Files... ${imagesUpload.progress} % ` 
 							:  (filesUpload.progress )
-								? `Uploading Docs Files... ${filesUpload.progress} % ` 
+								? `Upload Docs Files... ${filesUpload.progress} % ` 
 								: "Done !!"
 				}</div>
 		</div>

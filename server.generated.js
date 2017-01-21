@@ -13095,9 +13095,9 @@ var AdminEditProductPage = function (_React$Component) {
 			var formData = new FormData();
 
 			this.setState({ detailPostProgress: 1 });
-			var nData = details.images;
 			var fileList = this.state.imagesUpload.newData;
 			if (fileList.length) {
+				formData.append('id', details._id);
 				var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: 1 } } });
 				this.setState(newState);
 				var _iteratorNormalCompletion2 = true;
@@ -13109,7 +13109,6 @@ var AdminEditProductPage = function (_React$Component) {
 						var item = _step2.value;
 
 						formData.append('uploadImages', item.file);
-						nData.push('/api/img/products/' + item.file.name);
 					}
 				} catch (err) {
 					_didIteratorError2 = true;
@@ -13182,7 +13181,7 @@ var AdminEditProductPage = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'ajax-loading-progress' },
-						detailPostProgress ? 'Apply Change... ' + detailPostProgress + ' % ' : imagesUpload.progress ? 'Uploading Images Files... ' + imagesUpload.progress + ' % ' : filesUpload.progress ? 'Uploading Docs Files... ' + filesUpload.progress + ' % ' : "Done !!"
+						detailPostProgress ? 'Apply Change... ' + detailPostProgress + ' % ' : imagesUpload.progress ? 'Upload Images Files... ' + imagesUpload.progress + ' % ' : filesUpload.progress ? 'Upload Docs Files... ' + filesUpload.progress + ' % ' : "Done !!"
 					)
 				),
 				_react2.default.createElement(
