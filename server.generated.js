@@ -10809,9 +10809,6 @@ var FileApi = function () {
 				value: function upLoadImages(id, data, config) {
 						return _axios2.default.post(_configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/file/images/' + id, data, config).then(function (response) {
 								return response.data;
-						}).catch(function (error) {
-								console.log(error);
-								return error.data;
 						});
 				}
 		}, {
@@ -10819,9 +10816,6 @@ var FileApi = function () {
 				value: function upLoadDocs(id, data, config) {
 						return _axios2.default.post(_configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/api/file/docs/' + id, data, config).then(function (response) {
 								return response.data;
-						}).catch(function (error) {
-								console.log(error);
-								return error.data;
 						});
 				}
 		}]);
@@ -12369,12 +12363,12 @@ var AdminEditBasicTab = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (AdminEditBasicTab.__proto__ || Object.getPrototypeOf(AdminEditBasicTab)).call(this, props));
 
 		_this.state = props.details;
-		// console.log("AdminEditBasicTab, constructors", this.state);
 		_this.setCategory = _this.setCategory.bind(_this);
 		_this.setBasicInput = _this.setBasicInput.bind(_this);
 		_this.getFormInput = _this.getFormInput.bind(_this);
 		_this.setDataArray = _this.setDataArray.bind(_this);
 		_this.setNewImages = _this.setNewImages.bind(_this);
+		_this.deleteArrayMember = _this.deleteArrayMember.bind(_this);
 
 		return _this;
 	}
@@ -12392,10 +12386,12 @@ var AdminEditBasicTab = function (_React$Component) {
 	}, {
 		key: "setDataArray",
 		value: function setDataArray(field, value) {
-			var props = {};
-			props[field] = value;
-			this.setState(props);
 			this.props.setData(this.props.tabId, { field: field, value: value });
+		}
+	}, {
+		key: "deleteArrayMember",
+		value: function deleteArrayMember(field, id) {
+			this.props.delArrayMember(this.props.tabId, field, id);
 		}
 	}, {
 		key: "setBasicInput",
@@ -12533,7 +12529,7 @@ var AdminEditBasicTab = function (_React$Component) {
 								"Images "
 							),
 							_react2.default.createElement(_AdminEditImageArray2.default, { data: this.state.images, field: "images", setNewImages: this.setNewImages, setData: this.setDataArray,
-								newImages: this.props.newImages })
+								newImages: this.props.newImages, deleteArrayMember: this.deleteArrayMember })
 						)
 					),
 					_react2.default.createElement(
@@ -12652,8 +12648,7 @@ var AdminEditImageArray = function (_React$Component) {
 		key: 'deleteImage',
 		value: function deleteImage(e) {
 			var id = parseInt(e.target.getAttribute("data-id"));
-			var nImgs = [].concat(_toConsumableArray(this.props.data.slice(0, id)), _toConsumableArray(this.props.data.slice(id + 1, this.props.data.length)));
-			this.props.setData(this.props.field, nImgs);
+			this.props.deleteArrayMember(this.props.field, id);
 		}
 	}, {
 		key: 'render',
@@ -12977,8 +12972,11 @@ var AdminEditProductPage = function (_React$Component) {
 		_this.state = {
 			details: props.params.id == 0 ? initialStateDB : props.details,
 			selectedTab: 0,
-			imagesUpload: initialImageUpload,
-			filesUpload: initialDocsUpload,
+			upload: {
+				images: initialImageUpload,
+				docs: initialDocsUpload
+			},
+			delete: { images: [], docs: [] },
 			detailPostProgress: 0,
 			newDocs: []
 		};
@@ -12989,9 +12987,9 @@ var AdminEditProductPage = function (_React$Component) {
 		_this.setArrayMember = _this.setArrayMember.bind(_this);
 		_this.addArrayMember = _this.addArrayMember.bind(_this);
 		_this.setNewFiles = _this.setNewFiles.bind(_this);
-		_this.imageFileProgress = _this.imageFileProgress.bind(_this);
-		_this.docsFileProgress = _this.docsFileProgress.bind(_this);
+		_this.fileProgress = _this.fileProgress.bind(_this);
 		_this.detailProgress = _this.detailProgress.bind(_this);
+		_this.processFileUploadDelete = _this.processFileUploadDelete.bind(_this);
 		return _this;
 	}
 
@@ -13025,11 +13023,16 @@ var AdminEditProductPage = function (_React$Component) {
 	}, {
 		key: 'delArrayMember',
 		value: function delArrayMember(tabId, field, id) {
-			var newState = (0, _immutabilityHelper2.default)(this.state, {
+			var newCfg = {
 				selectedTab: { $set: this.setTab(tabId) },
 				details: _defineProperty({}, field, { $splice: [[id, 1]] })
-			});
-			this.setState(newState);
+			};
+
+			if (field == "docs" || field == "images") {
+				newCfg.delete = _defineProperty({}, field, { $push: [this.state.details[field][id]] });
+			}
+
+			this.setState((0, _immutabilityHelper2.default)(this.state, newCfg));
 		}
 	}, {
 		key: 'addArrayMember',
@@ -13050,21 +13053,16 @@ var AdminEditProductPage = function (_React$Component) {
 	}, {
 		key: 'setNewFiles',
 		value: function setNewFiles(field, data) {
-			var newState = (0, _immutabilityHelper2.default)(this.state, _defineProperty({}, field, { newData: { $set: data } }));
+			console.log(data);
+			var newState = (0, _immutabilityHelper2.default)(this.state, { upload: _defineProperty({}, field, { newData: { $set: data } }) });
 			this.setState(newState);
 		}
 	}, {
-		key: 'imageFileProgress',
-		value: function imageFileProgress(progressEvent) {
+		key: 'fileProgress',
+		value: function fileProgress(progressEvent, field) {
 			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
-			var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: percentCompleted } } });
-			this.setState(newState);
-		}
-	}, {
-		key: 'docsFileProgress',
-		value: function docsFileProgress(progressEvent) {
-			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
-			var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: percentCompleted } } });
+			this.setState({ detailPostProgress: 0 });
+			var newState = (0, _immutabilityHelper2.default)(this.state, { upload: _defineProperty({}, field, { progress: { $set: percentCompleted } }) });
 			this.setState(newState);
 		}
 	}, {
@@ -13072,6 +13070,50 @@ var AdminEditProductPage = function (_React$Component) {
 		value: function detailProgress(progressEvent) {
 			var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
 			this.setState({ detailPostProgress: percentCompleted });
+		}
+	}, {
+		key: 'processFileUploadDelete',
+		value: function processFileUploadDelete(field) {
+			var AddList = this.state.upload[field].newData;
+			var delList = this.state.delete[field];
+			var total = (AddList.length || 0) + (delList.length || 0);
+			if (!total) return null;
+
+			var formData = new FormData();
+			formData.append('id', this.state.details._id);
+			var newState = (0, _immutabilityHelper2.default)(this.state, { upload: _defineProperty({}, field, { progress: { $set: 1 } }) });
+			this.setState(newState);
+
+			if (AddList.length) {
+				var _iteratorNormalCompletion2 = true;
+				var _didIteratorError2 = false;
+				var _iteratorError2 = undefined;
+
+				try {
+					for (var _iterator2 = AddList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+						var item = _step2.value;
+
+						formData.append('upload_' + field, item.file);
+					}
+				} catch (err) {
+					_didIteratorError2 = true;
+					_iteratorError2 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion2 && _iterator2.return) {
+							_iterator2.return();
+						}
+					} finally {
+						if (_didIteratorError2) {
+							throw _iteratorError2;
+						}
+					}
+				}
+			}
+
+			delList.length && formData.append('del_' + field, JSON.stringify(delList));
+
+			return formData;
 		}
 	}, {
 		key: 'submit',
@@ -13095,50 +13137,29 @@ var AdminEditProductPage = function (_React$Component) {
 			var formData = new FormData();
 
 			this.setState({ detailPostProgress: 1 });
-			var fileList = this.state.imagesUpload.newData;
-			if (fileList.length) {
-				formData.append('id', details._id);
-				var newState = (0, _immutabilityHelper2.default)(this.state, { imagesUpload: { progress: { $set: 1 } } });
-				this.setState(newState);
-				var _iteratorNormalCompletion2 = true;
-				var _didIteratorError2 = false;
-				var _iteratorError2 = undefined;
-
-				try {
-					for (var _iterator2 = fileList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-						var item = _step2.value;
-
-						formData.append('uploadImages', item.file);
-					}
-				} catch (err) {
-					_didIteratorError2 = true;
-					_iteratorError2 = err;
-				} finally {
-					try {
-						if (!_iteratorNormalCompletion2 && _iterator2.return) {
-							_iterator2.return();
-						}
-					} finally {
-						if (_didIteratorError2) {
-							throw _iteratorError2;
-						}
-					}
-				}
-			}
 
 			var imgFileconfig = {
-				onUploadProgress: this.imageFileProgress
+				onUploadProgress: function onUploadProgress(p) {
+					return _this2.fileProgress(p, "images");
+				}
 			};
 			var docsFileconfig = {
-				onUploadProgress: this.docsFileProgress
+				onUploadProgress: function onUploadProgress(p) {
+					return _this2.FileProgress(p, "docs");
+				}
 			};
 
 			_DetailsApi2.default.setProductDetails(details, this.detailProgress).then(function (details) {
-				_this2.setState({ detailPostProgress: 0 });
-				if (fileList.length) return _FileApi2.default.upLoadImages(_this2.state.details._id, formData, imgFileconfig);
+				var formData = _this2.processFileUploadDelete("images");
+				if (formData) return _FileApi2.default.upLoadImages(_this2.state.details._id, formData, imgFileconfig);
 
 				return {};
 			}).then(function (details) {
+				var formData = _this2.processFileUploadDelete("docs");
+				if (formData) return _FileApi2.default.upLoadDocs(_this2.state.details._id, formData, docsFileconfig);
+
+				return {};
+			}).then(function (e) {
 				var actionData = {};
 				var cat = _this2.props.categories.filter(function (item) {
 					return item._id === _this2.state.details.cat;
@@ -13148,13 +13169,15 @@ var AdminEditProductPage = function (_React$Component) {
 
 				actionData.params.cat = cat;
 				_this2.props.dispatch((0, _productsActions.loadProductList)(actionData));
-				_this2.setState({ imagesUpload: initialImageUpload, detailPostProgress: 0 });
-
-				// alert("success!!");
+				_this2.setState({ upload: { images: initialImageUpload, docs: initialDocsUpload },
+					delete: { images: [], docs: [] },
+					detailPostProgress: 0 });
 				if (_this2.props.params.id == 0) _this2.props.router.push('/admin/productList/' + cat);
 			}).catch(function (error) {
-				alert(error);
-				// throw(error);
+				alert("Process Fail: Error Message:" + error.data);
+				_this2.setState({ upload: { images: initialImageUpload, docs: initialDocsUpload },
+					delete: { images: [], docs: [] },
+					detailPostProgress: 0 });
 			});
 		}
 	}, {
@@ -13165,11 +13188,10 @@ var AdminEditProductPage = function (_React$Component) {
 			    details = _props.details,
 			    params = _props.params;
 			var _state = this.state,
-			    imagesUpload = _state.imagesUpload,
-			    filesUpload = _state.filesUpload,
+			    upload = _state.upload,
 			    detailPostProgress = _state.detailPostProgress;
 
-			var showAjaxLoading = imagesUpload.progress || detailPostProgress || filesUpload.progress || this.props.ajaxState > 0 || !categories || categories.length === 0;
+			var showAjaxLoading = upload.images.progress || upload.docs.progress || detailPostProgress || this.props.ajaxState > 0 || !categories || categories.length === 0;
 
 			return _react2.default.createElement(
 				'div',
@@ -13181,7 +13203,7 @@ var AdminEditProductPage = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'ajax-loading-progress' },
-						detailPostProgress ? 'Apply Change... ' + detailPostProgress + ' % ' : imagesUpload.progress ? 'Upload Images Files... ' + imagesUpload.progress + ' % ' : filesUpload.progress ? 'Upload Docs Files... ' + filesUpload.progress + ' % ' : "Done !!"
+						detailPostProgress ? 'Apply Change... ' + detailPostProgress + ' % ' : upload.images.progress ? 'Upload Images Files... ' + upload.images.progress + ' % ' : upload.docs.progress ? 'Upload Docs Files... ' + upload.docs.progress + ' % ' : "Done !!"
 					)
 				),
 				_react2.default.createElement(
@@ -13252,8 +13274,8 @@ var AdminEditProductPage = function (_React$Component) {
 							_react2.default.createElement(
 								_reactTabsIsomorphic.TabPanel,
 								null,
-								_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: params, setData: this.setBasic, setNewFiles: this.setNewFiles,
-									fileField: 'imagesUpload', categories: categories, newImages: imagesUpload.newData })
+								_react2.default.createElement(_AdminEditBasicTab2.default, { details: this.state.details, tabId: 0, params: params, setData: this.setBasic, delArrayMember: this.delArrayMember, setNewFiles: this.setNewFiles,
+									fileField: 'images', categories: categories, newImages: upload.images.newData })
 							),
 							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),
 							this.state.details.cat === 2 && _react2.default.createElement(_reactTabsIsomorphic.TabPanel, null),

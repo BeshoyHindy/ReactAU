@@ -18,12 +18,12 @@ class AdminEditBasicTab extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = props.details;
-		// console.log("AdminEditBasicTab, constructors", this.state);
 		this.setCategory = this.setCategory.bind(this);
 		this.setBasicInput = this.setBasicInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);
 		this.setDataArray = this.setDataArray.bind(this);
 		this.setNewImages = this.setNewImages.bind(this);
+		this.deleteArrayMember = this.deleteArrayMember.bind(this);
 		
 	}
 	componentWillReceiveProps(nextProps) {
@@ -34,11 +34,11 @@ class AdminEditBasicTab extends React.Component{
 		}		
 	}
 	setDataArray(field, value){
-		let props = {};
-		props[field] = value;
-		this.setState(props);
 		this.props.setData(this.props.tabId, {field, value});
 	}
+	deleteArrayMember(field, id){
+		this.props.delArrayMember(this.props.tabId, field, id);
+	}	
 	setBasicInput (e){
 		let props = {};
 		props[e.target.name] = e.target.value.trim() || "";
@@ -129,7 +129,7 @@ class AdminEditBasicTab extends React.Component{
 						<div className="form-group">
 							<label>Images	</label>
 							<AdminEditImageArray data={this.state.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray} 
-									 newImages={this.props.newImages}/>
+									newImages={this.props.newImages} deleteArrayMember={this.deleteArrayMember}/>
 						</div>
 					</div>
 					<div className="col-xs-12 col-md-6">

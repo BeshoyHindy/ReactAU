@@ -47,13 +47,16 @@ class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-				details : (props.params.id == 0) ? initialStateDB: props.details,
-				selectedTab : 0,
-				imagesUpload: initialImageUpload,
-				filesUpload: initialDocsUpload, 
-				detailPostProgress: 0,
-				newDocs: [],
-			};
+			details : (props.params.id == 0) ? initialStateDB: props.details,
+			selectedTab : 0,
+			upload:{
+				images: initialImageUpload,
+				docs: initialDocsUpload, 
+			},
+			delete:{images: [], docs:[]},
+			detailPostProgress: 0,
+			newDocs: [],
+		};
 		this.submit = this.submit.bind(this);
 		this.setTab = this.setTab.bind(this);
 		this.setBasic = this.setBasic.bind(this);
@@ -61,9 +64,9 @@ class AdminEditProductPage extends React.Component{
 		this.setArrayMember = this.setArrayMember.bind(this);
 		this.addArrayMember = this.addArrayMember.bind(this);
 		this.setNewFiles = this.setNewFiles.bind(this);
-		this.imageFileProgress = this.imageFileProgress.bind(this);
-		this.docsFileProgress = this.docsFileProgress.bind(this);
+		this.fileProgress = this.fileProgress.bind(this);
 		this.detailProgress = this.detailProgress.bind(this);
+		this.processFileUploadDelete = this.processFileUploadDelete.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -91,11 +94,16 @@ class AdminEditProductPage extends React.Component{
 		this.setState(newState);
 	}
 	delArrayMember(tabId, field, id){
-		const newState  = update(this.state, {
-			selectedTab : {$set: this.setTab(tabId)},
-			details: {[field]:{$splice: [[id, 1]]}}
-		});
-		this.setState(newState);
+		let newCfg = {
+				selectedTab : {$set: this.setTab(tabId)},
+				details: {[field]:{$splice: [[id, 1]]}}
+			};
+
+		if (field == "docs" || field =="images"){
+			newCfg.delete=  {[field]:{$push: [this.state.details[field][id]]}};
+		}
+
+		this.setState(update(this.state, newCfg));		
 	}
 	addArrayMember(tabId, field, data){
 		const newState  = update(this.state, {
@@ -112,23 +120,42 @@ class AdminEditProductPage extends React.Component{
 		this.setState(newState);
 	}
 	setNewFiles(field, data){	
-		const newState  = update(this.state, {[field]: {newData:{$set: data}}});
+		console.log(data);
+		const newState  = update(this.state, {upload:{[field]: {newData:{$set: data}}}});
 		this.setState(newState);
 	}
-	imageFileProgress(progressEvent) {
-		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-		const newState  = update(this.state, {imagesUpload: {progress:{$set: percentCompleted}}});
-		this.setState(newState);
-	}
-	docsFileProgress(progressEvent) {
-		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-		const newState  = update(this.state, {imagesUpload: {progress:{$set: percentCompleted}}});
+	fileProgress(progressEvent, field) {
+		let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		this.setState({detailPostProgress: 0});
+		const newState  = update(this.state, {upload:{[field]:{progress:{$set: percentCompleted}}}});
 		this.setState(newState);
 	}
 	detailProgress(progressEvent) {
-		var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
 		this.setState({detailPostProgress: percentCompleted});
 	}
+	processFileUploadDelete(field){
+		let AddList = this.state.upload[field].newData;
+		let delList = this.state.delete[field];
+		let total = (AddList.length || 0) + (delList.length || 0);
+		if (!total)
+			return null;
+
+		let formData = new FormData();
+		formData.append('id', this.state.details._id);
+		const newState  = update(this.state, {upload:{[field]: {progress:{$set: 1}}}});
+		this.setState(newState);			
+	
+		if (AddList.length){
+			for(let item of AddList) {
+				formData.append(`upload_${field}`, item.file);
+			}
+		}
+	
+		(delList.length) && formData.append(`del_${field}`, JSON.stringify(delList));
+		
+		return formData;
+	}	
 	submit (e){
 		e.preventDefault();
 		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
@@ -144,35 +171,33 @@ class AdminEditProductPage extends React.Component{
 			}
 		}
 
-		var formData = new FormData();
+		let formData = new FormData();
 
 		this.setState({detailPostProgress: 1});
-		let fileList = this.state.imagesUpload.newData;
-		if (fileList.length){
-			formData.append('id', details._id);
-			const newState  = update(this.state, {imagesUpload: {progress:{$set: 1}}});
-			this.setState(newState);
-			for(let item of fileList) {
-				formData.append('uploadImages', item.file);
-			}
-		}
-
+		
 		let imgFileconfig = {
-			onUploadProgress: this.imageFileProgress
+			onUploadProgress: (p) => this.fileProgress(p, "images")
 		};
 		let docsFileconfig = {
-			onUploadProgress: this.docsFileProgress
+			onUploadProgress: (p) => this.FileProgress(p, "docs")
 		};
 
 		DetailApi.setProductDetails(details, this.detailProgress)
 		.then(details => {
-			this.setState({detailPostProgress: 0});
-			if (fileList.length) 
+			let formData = this.processFileUploadDelete("images");
+			if (formData) 
 				return FileApi.upLoadImages(this.state.details._id, formData, imgFileconfig);
 
 			return {};
 		})
 		.then(details => {
+			let formData = this.processFileUploadDelete("docs");
+			if (formData) 
+				return FileApi.upLoadDocs(this.state.details._id, formData, docsFileconfig);
+
+			return {};
+		})		
+		.then( e => {
 			let actionData ={};
 			let cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
 			actionData.params = Object.assign({},this.props.params);
@@ -180,21 +205,23 @@ class AdminEditProductPage extends React.Component{
 
 			actionData.params.cat = cat;
 			this.props.dispatch(loadProductList(actionData));
-			this.setState({imagesUpload: initialImageUpload, detailPostProgress: 0});
-			
-			// alert("success!!");
+			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
+								delete: {images: [], docs: []},
+								detailPostProgress: 0});
 			if((this.props.params.id == 0))
 				this.props.router.push(`/admin/productList/${cat}`);
 		}).catch(error => {
-			alert(error);
-			// throw(error);
+			alert("Process Fail: Error Message:" + error.data);
+			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
+								delete: {images: [], docs: []},
+								detailPostProgress: 0});
 		});
 	}
 	render () {
 
 		let {categories, details,params} = this.props;
-		let {imagesUpload, filesUpload,detailPostProgress} = this.state;
-		let showAjaxLoading = (imagesUpload.progress || detailPostProgress || filesUpload.progress
+		let {upload, detailPostProgress} = this.state;
+		let showAjaxLoading = (upload.images.progress || upload.docs.progress || detailPostProgress  
 							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
 		
 		return (
@@ -204,10 +231,10 @@ class AdminEditProductPage extends React.Component{
 			<div className="ajax-loading-progress">
 				{	(detailPostProgress )
 						? `Apply Change... ${detailPostProgress} % ` 
-						:(imagesUpload.progress )
-							? `Upload Images Files... ${imagesUpload.progress} % ` 
-							:  (filesUpload.progress )
-								? `Upload Docs Files... ${filesUpload.progress} % ` 
+						:(upload.images.progress )
+							? `Upload Images Files... ${upload.images.progress} % ` 
+							:  (upload.docs.progress )
+								? `Upload Docs Files... ${upload.docs.progress} % ` 
 								: "Done !!"
 				}</div>
 		</div>
@@ -235,8 +262,8 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} setNewFiles={this.setNewFiles}
-												fileField="imagesUpload" categories={categories} newImages={imagesUpload.newData}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} setNewFiles={this.setNewFiles}
+												fileField="images" categories={categories} newImages={upload.images.newData}/>
 						</TabPanel>
 
 						{

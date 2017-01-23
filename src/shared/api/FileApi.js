@@ -9,10 +9,6 @@ class FileApi {
 						config)
 				.then( (response) => {
 						return response.data;
-				})
-				.catch(function (error) {
-						console.log(error);
-						return error.data;
 				});
   }  
   static upLoadDocs(id, data, config) {
@@ -22,10 +18,6 @@ class FileApi {
 						config)
 				.then( (response) => {
 						return response.data;
-				})
-				.catch(function (error) {
-						console.log(error);
-						return error.data;
 				});
   }    
 }

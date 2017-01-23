@@ -42,8 +42,7 @@ class AdminEditImageArray extends React.Component{
 	}
 	deleteImage(e){
 		let id = parseInt(e.target.getAttribute("data-id"));
-		let nImgs=[...this.props.data.slice( 0, id) ,...this.props.data.slice( id+1, this.props.data.length)];
-		this.props.setData(this.props.field, nImgs);
+		this.props.deleteArrayMember(this.props.field, id);
 	}
 	
 	render () {
