@@ -19,7 +19,10 @@ class ProductApi {
 	}).then((response) => {
 		//console.log('getAllProducts success ', response.data);
 		return response.data;
-	});
+	}).catch(function (error) {
+			let err = new ajaxErr(error);
+			throw(err);
+		});
   }
 }
 

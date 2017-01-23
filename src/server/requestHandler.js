@@ -61,7 +61,10 @@ function handleRender(req, res)
                 res.render('index', { componentHTML, reduxState, venderJs, metaData });	
                 })
                 .catch(error => {
-                throw(error);
+                    console.log(error);
+                    res.status(500).json({
+                        err:error.message
+                    });
             });
 		}
 	});

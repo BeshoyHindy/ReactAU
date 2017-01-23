@@ -8,6 +8,7 @@ import { Breadcrumb , BigHeader, OrangeBoard, isEmptyObject} from "../Shared/Sha
 
 import AdminEditBasicTab from "./AdminEditBasicTab";
 import AdminEditSpecTab from "./AdminEditSpecTab";
+import AdminEditDocsTab from "./AdminEditDocsTab";
 import { loadCategories } from '../../actions/adminActions';
 import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
@@ -55,7 +56,6 @@ class AdminEditProductPage extends React.Component{
 			},
 			delete:{images: [], docs:[]},
 			detailPostProgress: 0,
-			newDocs: [],
 		};
 		this.submit = this.submit.bind(this);
 		this.setTab = this.setTab.bind(this);
@@ -119,9 +119,11 @@ class AdminEditProductPage extends React.Component{
 		);
 		this.setState(newState);
 	}
-	setNewFiles(field, data){	
-		console.log(data);
-		const newState  = update(this.state, {upload:{[field]: {newData:{$set: data}}}});
+	setNewFiles(tabId, field, data){	
+		const newState  = update(this.state, {
+								selectedTab : {$set: this.setTab(tabId)},
+								upload:{[field]: {newData:{$set: data}}}}
+						);
 		this.setState(newState);
 	}
 	fileProgress(progressEvent, field) {
@@ -179,7 +181,7 @@ class AdminEditProductPage extends React.Component{
 			onUploadProgress: (p) => this.fileProgress(p, "images")
 		};
 		let docsFileconfig = {
-			onUploadProgress: (p) => this.FileProgress(p, "docs")
+			onUploadProgress: (p) => this.fileProgress(p, "docs")
 		};
 
 		DetailApi.setProductDetails(details, this.detailProgress)
@@ -211,7 +213,8 @@ class AdminEditProductPage extends React.Component{
 			if((this.props.params.id == 0))
 				this.props.router.push(`/admin/productList/${cat}`);
 		}).catch(error => {
-			alert("Process Fail: Error Message:" + error.data);
+			alert("Process Fail, Error Message: " + error.err);
+			console.log(error);
 			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
 								delete: {images: [], docs: []},
 								detailPostProgress: 0});
@@ -262,8 +265,8 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} setNewFiles={this.setNewFiles}
-												fileField="images" categories={categories} newImages={upload.images.newData}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
+												setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
 						</TabPanel>
 
 						{
@@ -294,7 +297,8 @@ class AdminEditProductPage extends React.Component{
 						{
 							(
 								<TabPanel>
-
+									<AdminEditDocsTab  tabId={2} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
+											fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)
 						}

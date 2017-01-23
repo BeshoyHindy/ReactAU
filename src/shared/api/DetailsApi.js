@@ -1,4 +1,5 @@
 import { api_server } from '../../../.config/configuration';
+import {ajaxErr} from '../lib/ajax';
 import axios from 'axios';
 
 class DetailApi {
@@ -12,9 +13,9 @@ class DetailApi {
 			return response.data;
 		})
 		.catch(function (error) {
-			console.log(error);
-			return error.data;
-		});
+			let err = new ajaxErr(error);
+			throw(err);
+		});;;
 
   }
   static setProductDetails(detail, progress){
@@ -29,8 +30,9 @@ class DetailApi {
 			return response.data;
 		})
 		.catch(function (error) {
-			return error.data;
-		});
+			let err = new ajaxErr(error);
+			throw(err);
+		});;;
 	}
 
 	static deleteProduct(id) {
@@ -43,8 +45,9 @@ class DetailApi {
 			return response.data;
 		})
 		.catch(function (error) {
-			return error.data;
-		});
+			let err = new ajaxErr(error);
+			throw(err);
+		});;;
 	
   }
 }
