@@ -1,5 +1,4 @@
 import React from 'react';
-import { isEmptyObject } from "../Shared/Shared";
 import update from 'immutability-helper';
 
 let initItem = {
@@ -11,7 +10,6 @@ class AdminEditSpecBlock extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			group: props.group,
 			newItem :initItem
 		};
 		this.setInput = this.setInput.bind(this);
@@ -22,17 +20,12 @@ class AdminEditSpecBlock extends React.Component{
 		// console.log("AdminEditSpecBlock, constructors", this.state);
 	}
 	componentWillReceiveProps(nextProps) {
-		if (this.props != nextProps){
-			let {group} = nextProps;
-			this.setState({group: isEmptyObject(group)?[]:group});
-			// console.log("AdminEditSpecBlock, componentWillReceiveProps", !isEmptyObject(group)?group:[]);
-		}		
 	}
 	setInput (e){
 		let subId = parseInt(e.target.getAttribute("data-subId"));
 		let subField = e.target.getAttribute("data-subField");
 		let value = e.target.value.trim() || "";
-		const newGroup  = update(this.state.group, {
+		const newGroup  = update(this.props.group, {
 			members:{
 				[subId]:{
 					[subField]:{$set: value}
@@ -44,7 +37,7 @@ class AdminEditSpecBlock extends React.Component{
 	}
 	deleteItem(e){
 		let subId = parseInt(e.target.getAttribute("data-subId"));
-		const newGroup  = update(this.state.group, {
+		const newGroup  = update(this.props.group, {
 			members: {$splice: [[subId, 1]]}}
 		);			
 		this.props.setGroup( this.props.gid, newGroup);
@@ -57,11 +50,10 @@ class AdminEditSpecBlock extends React.Component{
 			alert("Please Key In The Field Name!!");
 			return;
 		}
-		const newGroup  = update(this.state.group, {
+		const newGroup  = update(this.props.group, {
 			members: {$push: [this.state.newItem]}}
 		);
 		this.props.setGroup( this.props.gid, newGroup);
-		this.setState((state, props) => { return { newItem :initItem }});
 	}
 	setNewItemInput (e){
 		let subField = e.target.getAttribute("data-subField");

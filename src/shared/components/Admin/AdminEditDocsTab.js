@@ -1,18 +1,9 @@
 import React from 'react';
 import update from 'immutability-helper';
 
-import { isEmptyObject } from "../Shared/Shared";
 import AdminEditSpecBlock from "./AdminEditSpecBlock";
 import { SortableTbl }  from '../Shared/SortableTbl';
-
-
-const CustomDel = (props) => (
-	<td className="td-delete-item"><i className="fa fa-close icon-item delete-item delete-item-rigth" data-id={props.rowData.id} onClick={props.delItem.bind(null, props.rowData.id)}/></td>
-);
-CustomDel.propTypes = {
-	data: React.PropTypes.string,
-	rowData: React.PropTypes.object
-};
+import {CustomDel} from "./SortabletblCustomInput.js";
 
 class AdminEditDocsTab extends React.Component{
 	constructor(props) {
@@ -24,8 +15,8 @@ class AdminEditDocsTab extends React.Component{
 	componentWillReceiveProps(nextProps) {
 	
 	}
-	delItem(id){
-		this.props.delArrayMember(this.props.tabId, this.props.field, parseInt(id)-1);
+	delItem(e){
+		this.props.delArrayMember(this.props.tabId, this.props.field, parseInt(e.target.getAttribute("data-id"))-1);
 	}
 	changeDocs(e){
 		let files = e.target.files;

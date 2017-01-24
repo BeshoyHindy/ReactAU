@@ -9,9 +9,12 @@ import { Breadcrumb , BigHeader, OrangeBoard, isEmptyObject} from "../Shared/Sha
 import AdminEditBasicTab from "./AdminEditBasicTab";
 import AdminEditSpecTab from "./AdminEditSpecTab";
 import AdminEditDocsTab from "./AdminEditDocsTab";
+import AdminEditStdPkgTab from "./AdminEditStdPkgTab";
+import AdminEditOptTab from "./AdminEditOptTab";
 import { loadCategories } from '../../actions/adminActions';
 import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
+import AdminEditInputArray from "./AdminEditInputArray";
 
 import DetailApi from '../../api/DetailsApi';
 import FileApi from '../../api/FileApi';
@@ -76,12 +79,12 @@ class AdminEditProductPage extends React.Component{
 		}
 	}
 	setTab(tabId){
-		tabId = parseInt(tabId);
-		if (this.props.details.member )
-			tabId++;
-		if (this.props.details.optinal )
-			tabId++;
-		return tabId;
+		// tabId = parseInt(tabId);
+		// if (this.props.details.member )
+		// 	tabId++;
+		// if (this.props.details.optinal )
+		// 	tabId++;
+		return parseInt(tabId);
 	}
 	setBasic(tabId, data){
 		tabId = parseInt(tabId);		
@@ -226,7 +229,7 @@ class AdminEditProductPage extends React.Component{
 		let {upload, detailPostProgress} = this.state;
 		let showAjaxLoading = (upload.images.progress || upload.docs.progress || detailPostProgress  
 							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
-		
+		let tabId=0;
 		return (
 	<div className="loading-wrap">
 		<div className={`ajax-loading-big ${showAjaxLoading?'fade-show':'fade-hide'}`} >
@@ -265,14 +268,15 @@ class AdminEditProductPage extends React.Component{
 						</TabList>
 
 						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={0} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
-												setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
+							<AdminEditBasicTab details={this.state.details}  tabId={tabId++} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
+												addArrayMember={this.addArrayMember} setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
 						</TabPanel>
 
 						{
 							(this.state.details.cat===2 ) && (
 								<TabPanel>
-
+									<AdminEditStdPkgTab tabId={tabId++} member={this.state.details.member} field="member" delArrayMember={this.delArrayMember}  
+											addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)
 						}
@@ -280,7 +284,8 @@ class AdminEditProductPage extends React.Component{
 						{
 							(this.state.details.cat===2 ) && (
 								<TabPanel>
-
+									<AdminEditOptTab tabId={tabId++} member={this.state.details.optional} field="optional" delArrayMember={this.delArrayMember}  
+											addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)
 						}
@@ -288,7 +293,7 @@ class AdminEditProductPage extends React.Component{
 						{
 							(
 								<TabPanel>
-									<AdminEditSpecTab tabId={1} spec={this.state.details.spec} field="spec" delArrayMember={this.delArrayMember}  
+									<AdminEditSpecTab tabId={tabId++} spec={this.state.details.spec} field="spec" delArrayMember={this.delArrayMember}  
 											setData={this.setSpecInput} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)
@@ -297,7 +302,7 @@ class AdminEditProductPage extends React.Component{
 						{
 							(
 								<TabPanel>
-									<AdminEditDocsTab  tabId={2} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
+									<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
 											fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 								</TabPanel>
 							)

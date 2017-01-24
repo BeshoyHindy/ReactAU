@@ -2,7 +2,7 @@ import React from 'react';
 import AdminEditInputArray from "./AdminEditInputArray";
 import AdminEditImageArray from "./AdminEditImageArray";
 import {productEditColDetail} from '../../Data/General';
-import { isEmptyObject, deleteArrayMember} from "../Shared/Shared";
+import { deleteArrayMember} from "../Shared/Shared";
 
 let initialStateDB = {
 	cat : 1,
@@ -17,21 +17,16 @@ for(let item of productEditColDetail){
 class AdminEditBasicTab extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = props.details;
 		this.setCategory = this.setCategory.bind(this);
 		this.setBasicInput = this.setBasicInput.bind(this);
 		this.getFormInput = this.getFormInput.bind(this);
 		this.setDataArray = this.setDataArray.bind(this);
 		this.setNewImages = this.setNewImages.bind(this);
 		this.deleteArrayMember = this.deleteArrayMember.bind(this);
+		this.addArrayMember = this.addArrayMember.bind(this);
 		
 	}
 	componentWillReceiveProps(nextProps) {
-		if (this.props != nextProps){
-			let {details} = nextProps;
-			this.setState(isEmptyObject(details)?initialStateDB:details);
-			// console.log("AdminEditBasicTab, componentWillReceiveProps", isEmptyObject(details)?initialStateDB:details);
-		}		
 	}
 	setDataArray(field, value){
 		this.props.setData(this.props.tabId, {field, value});
@@ -39,10 +34,12 @@ class AdminEditBasicTab extends React.Component{
 	deleteArrayMember(field, id){
 		this.props.delArrayMember(this.props.tabId, field, id);
 	}	
+	addArrayMember(field, data){
+		this.props.addArrayMember(this.props.tabId, field, data);
+	}	
 	setBasicInput (e){
 		let props = {};
 		props[e.target.name] = e.target.value.trim() || "";
-		this.setState(props);
 		this.props.setData(this.props.tabId, {field: e.target.name, value: props[e.target.name]});
 	}
 	setNewImages(images){
@@ -50,11 +47,10 @@ class AdminEditBasicTab extends React.Component{
 	}
 	setCategory (e){
 		let props = {cat: parseInt(e.target.value)};
-		this.setState(props);
 		this.props.setData(this.props.tabId, {field: "cat", value: props.cat});
 	}
 	getFormInput(id ){
-		let details = this.state;
+		let details = this.props.details;
 		let item = productEditColDetail[id];
 		let inputValue = (!details || details === {} || !details[item.db])? "" : details[item.db];
 		let inputId = item.db;
@@ -71,9 +67,9 @@ class AdminEditBasicTab extends React.Component{
 		opts['className'] = "form-control";
 		switch(item.type){
 			case 1: //text
-				return (<input type="text" value={this.state[item.db]}  {...opts}/>);
+				return (<input type="text" value={this.props.details[item.db]}  {...opts}/>);
 			case 2: //textarea
-				return (<textarea value={this.state[item.db]} rows="3" {...opts}/>);
+				return (<textarea value={this.props.details[item.db]} rows="3" {...opts}/>);
 			case 3: //file
 				return (<input type="file" value="" {...opts}/>);
 			case 4: //number
@@ -84,7 +80,7 @@ class AdminEditBasicTab extends React.Component{
 	}
 	render () {
 		let {categories, details} = this.props;
-		let cat = categories.filter((item) => {return item._id===this.state.cat ;})[0];
+		let cat = categories.filter((item) => {return item._id===details.cat ;})[0];
 
 		let categoryOpts = {};
 		if (this.props.params.id != 0 ) {
@@ -96,7 +92,7 @@ class AdminEditBasicTab extends React.Component{
 					<div className="col-xs-12">
 						<div className="form-group">
 							<label htmlFor="productCategory">Product Category</label>
-							<select className="form-control" id="productCategory" value={this.state.cat} {...categoryOpts} onChange={this.setCategory}>
+							<select className="form-control" id="productCategory" value={details.cat} {...categoryOpts} onChange={this.setCategory}>
 								{
 									categories.map( function(item, id){
 									return (<option key={id} value={item._id}> {item.categoryName}</option>);
@@ -128,14 +124,15 @@ class AdminEditBasicTab extends React.Component{
 					<div className="col-xs-12 col-md-6">
 						<div className="form-group">
 							<label>Images	</label>
-							<AdminEditImageArray data={this.state.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray} 
+							<AdminEditImageArray data={this.props.details.images} field="images" setNewImages={this.setNewImages} setData={this.setDataArray} 
 									newImages={this.props.newImages} deleteArrayMember={this.deleteArrayMember}/>
 						</div>
 					</div>
 					<div className="col-xs-12 col-md-6">
 						<div className="form-group">
 							<label>Description</label>
-							<AdminEditInputArray data={this.state.description} field="description" setData={this.setDataArray}/>
+							<AdminEditInputArray data={this.props.details.description} field="description" setData={this.setDataArray}  
+									deleteArrayMember={this.deleteArrayMember} addArrayMember={this.addArrayMember}/>
 						</div>
 					</div>
 				</div>

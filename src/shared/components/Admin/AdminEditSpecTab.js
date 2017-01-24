@@ -1,5 +1,4 @@
 import React from 'react';
-import { isEmptyObject } from "../Shared/Shared";
 import AdminEditSpecBlock from "./AdminEditSpecBlock";
 import update from 'immutability-helper';
 
@@ -16,7 +15,6 @@ class AdminEditSpecTab extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			spec: props.spec, 
 			newGroup: initGroup,
 			newItem :initItem
 		};
@@ -30,29 +28,26 @@ class AdminEditSpecTab extends React.Component{
 		// console.log("AdminEditSpecTab, constructors", this.state);
 	}
 	componentWillReceiveProps(nextProps) {
-		if (this.props != nextProps){
-			let {spec} = nextProps;
-			this.setState({spec: isEmptyObject(spec)?[]:spec});
-			// console.log("AdminEditSpecTab, componentWillReceiveProps", !isEmptyObject(spec)?spec:[]);
-		}		
 	}
 	addGroup(e){
 		if(!this.state.newGroup.name){
 			alert("Please Key In The Name of Group Name!!");
 			return;
-		}		
-		this.props.addArrayMember(this.props.tabId, this.props.field, this.state.newGroup);
-		this.setState((state, props) => { return { newGroup: initGroup }});
-		
+		}
+		this.props.addArrayMember(this.props.tabId, this.props.field, this.state.newGroup);	
+		this.setState({
+			newGroup: initGroup,
+			newItem :initItem
+		})
 	}
 	deleteGroup(gid ){
-		const newSpec  = update(this.state.spec, {
+		const newSpec  = update(this.props.spec, {
 			$splice: [[gid, 1]]}
 		);			
 		this.props.setArrayMember(this.props.tabId, this.props.field, newSpec);
 	}
 	setGroup (gid , data ){
-		const newSpec  = update(this.state.spec, {
+		const newSpec  = update(this.props.spec, {
 			[gid]:{$set: data}
 		});	
 		this.props.setArrayMember(this.props.tabId, this.props.field, newSpec);
@@ -97,7 +92,8 @@ class AdminEditSpecTab extends React.Component{
 		this.setState((state, props) => { return { newItem }});
 	}	
 	render () {
-		let { spec, newGroup, newItem} = this.state;
+		let { newGroup, newItem} = this.state;
+		let { spec} = this.props;
 		return (
 		<div className="admin-edit-tabwrap">
 			<div id="p-spec">

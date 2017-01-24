@@ -212,7 +212,7 @@ const SortableTd = (props) => {
 					return (<td key={id} >{props.tdData[item]}</td>);
 
 				if (CustomTdComponent)	{
-					return (<CustomTdComponent key={id} {...props} tdData={props.tdData[item]} rowData={props.tdData}/>);
+					return (<CustomTdComponent key={id} {...props} tdData={props.tdData[item]} field={item} rowData={props.tdData}/>);
 				}
 
 				return (<td key={id} >{props.tdData[item]}</td>);

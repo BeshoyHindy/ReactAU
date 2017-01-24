@@ -1,5 +1,4 @@
 import React from 'react';
-import { isEmptyObject} from "../Shared/Shared";
 
 class AdminEditImageArray extends React.Component{
 	constructor(props) {

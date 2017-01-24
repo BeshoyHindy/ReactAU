@@ -1,11 +1,9 @@
 import React from 'react';
-import { isEmptyObject} from "../Shared/Shared";
 
 class AdminEditInputArray extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [...this.props.data],
 			newData :""
 		};
 		this.changeNewInputs = this.changeNewInputs.bind(this);
@@ -14,16 +12,11 @@ class AdminEditInputArray extends React.Component{
 		this.deleteItem = this.deleteItem.bind(this);
 	}
 	componentWillReceiveProps(nextProps) {
-		if (this.props != nextProps){
-			let {data} = nextProps;
-			this.setState({data: isEmptyObject(data)?[]:data});
-		}		
 	}	
 	changeInputs(e){
 		let index = parseInt(e.target.name);
-		let nData = [...this.state.data];
+		let nData = [...this.props.data];
 		nData[index] = e.target.value;
-		this.setState( {data: nData });
 		this.props.setData(this.props.field, nData);
 	}
 	changeNewInputs(e){
@@ -31,15 +24,15 @@ class AdminEditInputArray extends React.Component{
 		this.setState( {newData});
 	}
 	addNewData(){
-		this.setState( {data: [...this.state.data, this.state.newData] , newData:""});
+		this.setState( { newData:""});		
+		this.props.addArrayMember(this.props.field, this.state.newData);
 	}
 	deleteItem(e){
 		let id = parseInt(e.target.getAttribute("data-id"));
-		let nData=[...this.state.data.slice( 0, id) ,...this.state.data.slice( id+1, this.state.data.length)];
-		this.setState({data: nData});
-		this.props.setData(this.props.field, nData);
+		this.props.deleteArrayMember(this.props.field, id);
 	}
 	render () {
+
 		return (
 		<div>
 			<ul className="fa-ul ul-delete-item">
@@ -47,7 +40,7 @@ class AdminEditInputArray extends React.Component{
 					<input type="button" className="btn btn-warning add-botton" value="Add" onClick={this.addNewData}/>
 				</li>
 				{
-					this.state.data.map((item,id)=>{
+					this.props.data && this.props.data.map((item,id)=>{
 						return (
 							<li key={id} ><input type="text" className="form-control" value={item} name={id} onChange={this.changeInputs}/>
 								<i className="fa fa-close icon-item delete-item" data-id={id} onClick={this.deleteItem}/>
