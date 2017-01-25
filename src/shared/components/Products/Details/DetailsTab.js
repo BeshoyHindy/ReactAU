@@ -12,14 +12,14 @@ const DetailsTab = (props) => {
 	return (
 		<Tabs selectedIndex={0}	generateIdsFn={generateIds}>
 			<TabList>
-				{	props.data.member && (	<Tab>Standard Package</Tab> ) }
-				{	props.data.optional && (<Tab>Optinal Package</Tab> ) }
+				{	(props.data.cat===2 ) && props.data.member && (	<Tab>Standard Package</Tab> ) }
+				{	(props.data.cat===2 ) && props.data.optional && (<Tab>Optinal Package</Tab> ) }
 				{	props.data.spec && (	<Tab>Specification</Tab> ) }
 				{	props.data.docs && (	<Tab>Download</Tab> ) }
 			</TabList>
 
 			{
-				props.data.member && (
+				(props.data.cat===2 ) && props.data.member && (
 					<TabPanel>
 						<div className="download-tbl">		
 							<SortableTbl tblData={props.data.member} tHead={["Description","Qty"]} dKey={["desc","qty"]} />
@@ -29,7 +29,7 @@ const DetailsTab = (props) => {
 			}
 
 			{
-				props.data.optional && (
+				(props.data.cat===2 ) && props.data.optional && (
 					<TabPanel>
 						<div className="download-tbl">		
 							<SortableTbl tblData={props.data.optional}  tHead={["Optional Member"]}  dKey={["desc"]} />

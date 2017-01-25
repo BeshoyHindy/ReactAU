@@ -224,7 +224,7 @@ class AdminEditProductPage extends React.Component{
 		});
 	}
 	render () {
-
+		idCounter = 0;
 		let {categories, details,params} = this.props;
 		let {upload, detailPostProgress} = this.state;
 		let showAjaxLoading = (upload.images.progress || upload.docs.progress || detailPostProgress  

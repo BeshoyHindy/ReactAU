@@ -24,7 +24,9 @@ class AdminEditProductPage extends React.Component{
 	}
 	render () {
 		let {categories} = this.props;
-		let cat = categories.filter((item) => {return item.categoryName===this.props.params.cat ;})[0]._id;
+		let cat = 1, t = categories.filter((item) => {return item.categoryName===this.props.params.cat ;});
+		if (t && t[0])
+			cat = t[0]._id || 1 ;
 
 	return (
 	<div className="loading-wrap">
