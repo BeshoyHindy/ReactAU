@@ -1,14 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { NavBar } from '../components/header/NavBar';
 import { navData } from '../Data/RouteData';
+import * as actions from '../actions/authAction';
 
 class Root extends React.Component{
-		constructor(props) {
-			super(props);
-			this.state = {
-			};
-		}
+	constructor(props) {
+		super(props);
+		this.logout = this.logout.bind(this);
+	}
 	componentDidMount() {
 		let cx = '010537077688859157203:be4kn89v_sy';
 		let gcse = document.createElement('script');
@@ -21,7 +22,9 @@ class Root extends React.Component{
 		gcsecc.innerHTML = "";
 		document.getElementById("search").appendChild(gcsecc);
 	}
-
+	logout(){
+		this.props.userSignOut();
+	}
 	render() {
 		return (
 	<div>
@@ -29,7 +32,14 @@ class Root extends React.Component{
 			<div className="container">
 				<div className="banner">
 						<Link to="/home"> <h1><b>Hi-Tech</b> <span style={{ fontWeight: 500 }} > Digital CCTV</span></h1></Link>
-						<p>for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733</p>
+						<p>
+							for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733
+						</p>
+						<div className="signin"> 
+							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}></i>							
+							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"></i></Link>
+							<Link to="/signin"><i className="fa fa-user signin-icon" aria-hidden="true" ></i></Link>
+						</div>
 						<span id="BTN" className="bar"><i className="fa fa-bars"/></span>
 						<div id="search" className="search"/>
 				</div>
@@ -48,8 +58,8 @@ class Root extends React.Component{
 		);
 	}
 }
-
 const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
 
+Root = connect(null, actions)(Root);
 
 export { Root, NotFoundPage};

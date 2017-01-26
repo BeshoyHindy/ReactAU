@@ -46,6 +46,7 @@
     "react-router-redux": "^4.0.7",
     "react-tabs-isomorphic": "^0.8.2",
     "redux": "^3.6.0",
+    "redux-form": "^6.4.3",
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
     "serialize-javascript": "^1.3.0",

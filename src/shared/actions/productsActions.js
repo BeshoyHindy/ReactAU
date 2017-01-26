@@ -12,6 +12,7 @@ export function loadProducts(detail) {
         dispatch(loadProductsSuccess(products));
       })
       .catch(error => {
+        dispatch(ajaxCallError()); 
         throw(error);
       });
   };
@@ -25,6 +26,7 @@ export function loadProductList(product) {
         dispatch(loadProductsSuccess(products));
       })
       .catch(error => {
+        dispatch(ajaxCallError()); 
         throw(error);
       });
   };

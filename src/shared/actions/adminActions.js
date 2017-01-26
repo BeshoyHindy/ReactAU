@@ -2,7 +2,7 @@ import AdminApi from '../api/AdminApi';
 import ProductApi from '../api/ProductsApi';
 
 import * as types from './actionTypes';
-import {beginAjaxCall} from './ajaxStatusActions';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 function loadCategoriesSuccess(categories) {
   return {type: types.GET_CATEGORIES_SUCCESS, categories};
@@ -10,13 +10,11 @@ function loadCategoriesSuccess(categories) {
 
 export function loadCategories() {
   return dispatch => {
-    //console.log("action creator loadCategories");
     dispatch(beginAjaxCall());
     return AdminApi.getAllCategories().then(categories => {
-      //console.log("loadCategories()", categories)
       dispatch(loadCategoriesSuccess(categories));
     }).catch(error => {
-      //console.log(error)
+      dispatch(ajaxCallError()); 
       throw(error);
     });
   };

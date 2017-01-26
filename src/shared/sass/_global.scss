@@ -34,7 +34,23 @@ body, p {
 b{
 	color: #333;
 }
+.error{
+	color:red;
+}
+.error:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\F06A';
+    margin-right: 5px;
+}
 
+.warning{
+	color:yellow;
+}
 .loading-wrap{
 	width: 100%;
 	position: relative;
