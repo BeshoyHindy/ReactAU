@@ -9,6 +9,10 @@ function authReducer(state = initialState.auth, action) {
       return {user: action.user, error:"", success:true};
     case types.SIGN_UP_USER_FAIL:
       return {user: {}, error:action.error, success:false};
+    case types.USER_CHANGE_PROFILE_SUCCESS:
+      return {user: action.user, error:"", success:true};
+    case types.USER_CHANGE_PROFILE_FAIL:
+      return {user: {}, error:action.error, success:false};
     case types.USER_SIGN_OUT:
       return {user: {}, error:"", success:false};
     default:

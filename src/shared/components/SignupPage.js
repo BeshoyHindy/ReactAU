@@ -1,4 +1,4 @@
-import { connect, bindActionCreators } from 'react-redux';
+import { connect  } from 'react-redux';
 import React from 'react';
 import {  Field, reduxForm } from 'redux-form';
 
@@ -25,7 +25,7 @@ class SignupPage extends React.Component {
 	}	
   handleFormSubmit(values) {
     // Call action creator to sign up the user!
-		let {email, password} = values;
+		let {email, password} = values;		
 		this.props.dispatch(actions.userSignup({email, password}));
   }
 
@@ -54,12 +54,17 @@ class SignupPage extends React.Component {
 						</div>
 						<div className="panel-body sign-up">
 							<form onSubmit={handleSubmit(this.handleFormSubmit)}>
-	  							<Field name="email" component={renderField} type="email" label="E-Mail"/>
+								<div className="col-lg-12">
+									<Field name="email" component={renderField} type="email" label="E-Mail"/>
 									<Field name="password" component={renderField} type="password" label="Password" />
 									<Field name="passwordConfirm" component={renderField} type="password" label="Confirm Password"/>
-									{this.renderAlert()}
-								<div>
-									<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
+								</div>
+								<div className="col-lg-12">									
+										{this.renderAlert()}
+									<hr/>
+									<div>
+										<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -105,7 +110,7 @@ function mapStateToProps(state) {
 SignupPage = reduxForm({
   form: 'signup',
   validate,                // <--- validation function given to redux-form
-}, mapStateToProps )(SignupPage);
+})(SignupPage);
 
 
 export default SignupPage = connect(mapStateToProps, actions)(SignupPage);

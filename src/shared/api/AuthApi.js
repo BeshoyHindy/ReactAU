@@ -18,6 +18,7 @@ class AuthApi {
 			throw(err);
 		});
 	}
+
   static userSignin(user){
 		return axios({
 			method: 'post',

@@ -64,11 +64,16 @@ class SigninPage extends React.Component {
 						</div>
 						<div className="panel-body sign-up">
 							<form onSubmit={handleSubmit(this.handleFormSubmit)}>
-	  							<Field name="email" component={renderField} type="email" label="E-Mail"/>
-								<Field name="password" component={renderField} type="password" label="Password" />
-								{this.renderAlert()}
-								<div>
-									<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
+								<div className="col-lg-12">
+									<Field name="email" component={renderField} type="email" label="E-Mail"/>
+									<Field name="password" component={renderField} type="password" label="Password" />
+								</div>
+								<div className="col-lg-12">
+									{this.renderAlert()}
+									<hr/>
+									<div>
+										<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
+									</div>
 								</div>
 							</form>
 						</div>

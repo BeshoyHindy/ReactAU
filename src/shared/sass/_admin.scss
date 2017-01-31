@@ -77,6 +77,29 @@
 }
 
 
+.add-user-panel{
+	margin: 0 auto;
+	.panel-heading{
+		background-color: $color4;
+	}
+	.panel-title{
+		height: 60px;
+		padding-left: 55px;
+		font-size: 26px;
+		font-weight: 650;
+		line-height: 80px;
+		color: #fff;
+	}
+	.sign-up{
+		height: auto;
+		padding: 10px 70px 20px;
+		.submit-btn{
+			float: right;
+			margin-left: 10px;
+		}
+	}
+}
+
 
 .admin-docs-tbl{
 	padding: 20px;

@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard, isEmptyObject} from "./Shared/Shared";
 import { loadCategories } from '../actions/adminActions';
+import EditUserTab from './editUserTab.js';
 
 let idCounter = 0;
 const generateIds = () => `custom-id-${idCounter++}`
@@ -35,15 +36,9 @@ class UserPage extends React.Component{
 	
 	render () {
 		let tabId=0;
-		let {ajaxState, auth} = this.props;
+		let {auth} = this.props;
 		return (
-	<div className="loading-wrap">
-		<div className={`ajax-loading-big ${((ajaxState > 0) || (!auth.success)) ?'fade-show':'fade-hide'}`} >
-			<img src="/img/ajax-loader.gif" alt=""/>
-			<div className="ajax-loading-progress">
-				Processing....
-			</div>
-		</div>
+		<div>
 			<div className="row">
 				<div className="col-xs-12">
 					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>
@@ -68,15 +63,15 @@ class UserPage extends React.Component{
 										</tr>
 										<tr>
 											<td>User Name</td>
-											<td>{auth.user.profile && auth.user.profile.username}</td>
+											<td>{auth.user && auth.user.profile && auth.user.profile.username}</td>
 										</tr>
 										<tr>
 											<td>User E-Mail</td>
-											<td>{auth.user.email }</td>
+											<td>{auth.user && auth.user.email }</td>
 										</tr>
 										<tr>
 											<td>User Total Purchase </td>
-											<td>{auth.user.data && auth.user.data.totalValue}</td>
+											<td>{auth.user && auth.user.data && auth.user.data.totalValue}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -84,7 +79,7 @@ class UserPage extends React.Component{
 						</TabPanel>
 
 						<TabPanel>
-							
+							<EditUserTab></EditUserTab>
 						</TabPanel>
 
 					</Tabs>

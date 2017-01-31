@@ -16,7 +16,7 @@ export function userSignup(user) {
     return AuthApi.userSignup(user).then(user => {
         dispatch(signupUserSuccess(user.details));
         // - Save the JWT token
-        localStorage.setItem('token', user.token);
+        localStorage.setItem('cctv-token', user.token);
         // - redirect to the route '/feature'
         browserHistory.push('/user');
     }).catch(error => {
@@ -30,7 +30,7 @@ export function userSignin(user) {
     return AuthApi.userSignin(user).then(user => {
         dispatch(signupUserSuccess(user.details));
         // - Save the JWT token
-        localStorage.setItem('token', user.token);
+        localStorage.setItem('cctv-token', user.token);
         // - redirect to the route '/feature'
         browserHistory.push('/user');
     }).catch(error => {

@@ -16,7 +16,7 @@ import { loadDetails } from '../../actions/detailsActions';
 import { loadProductList } from '../../actions/productsActions';
 import AdminEditInputArray from "./AdminEditInputArray";
 
-import DetailApi from '../../api/DetailsApi';
+import AdminApi from '../../api/AdminApi';
 import FileApi from '../../api/FileApi';
 import {productEditColDetail} from '../../Data/General';
 
@@ -180,25 +180,21 @@ class AdminEditProductPage extends React.Component{
 
 		this.setState({detailPostProgress: 1});
 		
-		let imgFileconfig = {
-			onUploadProgress: (p) => this.fileProgress(p, "images")
-		};
-		let docsFileconfig = {
-			onUploadProgress: (p) => this.fileProgress(p, "docs")
-		};
-
-		DetailApi.setProductDetails(details, this.detailProgress)
+		let imgFileUploadProgress = (p) => this.fileProgress(p, "images");
+		let docsFileUploadProgress = (p) => this.fileProgress(p, "docs");
+		let token = localStorage.getItem('token');
+		AdminApi.setProductDetails(details, this.detailProgress, token)
 		.then(details => {
 			let formData = this.processFileUploadDelete("images");
 			if (formData) 
-				return FileApi.upLoadImages(this.state.details._id, formData, imgFileconfig);
+				return FileApi.upLoadImages(this.state.details._id, formData, imgFileUploadProgress, token);
 
 			return {};
 		})
 		.then(details => {
 			let formData = this.processFileUploadDelete("docs");
 			if (formData) 
-				return FileApi.upLoadDocs(this.state.details._id, formData, docsFileconfig);
+				return FileApi.upLoadDocs(this.state.details._id, formData, docsFileUploadProgress, token);
 
 			return {};
 		})		

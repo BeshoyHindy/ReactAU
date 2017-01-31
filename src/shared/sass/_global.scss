@@ -34,6 +34,28 @@ body, p {
 b{
 	color: #333;
 }
+.dropzone-single{
+	margin: 0 auto;
+	position: relative;
+	width: 200px;
+	height: 200px;
+	border: 1px dashed #999;
+	padding: 20px;
+}
+
+.dropzone-single-preview{
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top: 0;
+	left: 0;
+}
+
+
+.active-dropzone{
+	background-color: #d0ffc9;
+}
+
 .error{
 	color:red;
 }

@@ -27,7 +27,8 @@ const navData = [
 	{name: "admin", link: "/admin/productChange/0", desc: "Admin"
 		, sub: [
 			{name: "productChange", link: "/admin/productChange/0", desc: "Add Product"},
-			{name: "editproduct", link: "/admin/productList/DVR", desc: "Edit Product"}
+			{name: "editproduct", link: "/admin/productList/DVR", desc: "Edit Product"},
+			{name: "addUser", link: "/admin/addUser", desc: "Add User"}
 		]}
 	
 ];
