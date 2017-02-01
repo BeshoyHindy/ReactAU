@@ -19,26 +19,22 @@ class UserPage extends React.Component{
 		};
 		this.setTab = this.setTab.bind(this);
 	}
-	componentDidMount() {
-		if (!this.props.auth.success){
-			this.props.router.push(`/signin`);	
-		}
-	}	
-	componentWillReceiveProps(nextProps) {
-		if (!this.props.auth.success){
-			this.props.router.push(`/signin`);	
-		}
-	}	
 	setTab(tabId){
 		let t = parseInt(tabId);
 		this.setState({selectedTab:t});		
 	}
 	
 	render () {
-		let tabId=0;
+		idCounter=0;
 		let {auth} = this.props;
 		return (
-		<div>
+	<div className="loading-wrap">
+		<div className={`ajax-loading-big ${(!auth.success) ?'fade-show':'fade-hide'}`} >
+			<img src="/img/ajax-loader.gif" alt=""/>
+			<div className="ajax-loading-progress">
+				loading....
+			</div>
+		</div>	
 			<div className="row">
 				<div className="col-xs-12">
 					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>
@@ -93,14 +89,12 @@ class UserPage extends React.Component{
 
 
 UserPage.propTypes = {
-	ajaxState: React.PropTypes.number,
 	user:  React.PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
 	auth: state.auth,
-	ajaxState: state.ajaxCallsInProgress
   };
 }
 

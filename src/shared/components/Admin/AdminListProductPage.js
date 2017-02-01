@@ -77,7 +77,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const AdminListProductPageWrap = connect(mapStateToProps)(
-    connectDataFetchers(AdminEditProductPage, [ loadCategories , loadProductList])
+    connectDataFetchers(AdminEditProductPage, [ loadProductList])
 );
 
 export default AdminListProductPageWrap;

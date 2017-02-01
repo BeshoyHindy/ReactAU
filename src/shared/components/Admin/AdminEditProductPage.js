@@ -182,19 +182,18 @@ class AdminEditProductPage extends React.Component{
 		
 		let imgFileUploadProgress = (p) => this.fileProgress(p, "images");
 		let docsFileUploadProgress = (p) => this.fileProgress(p, "docs");
-		let token = localStorage.getItem('token');
-		AdminApi.setProductDetails(details, this.detailProgress, token)
+		AdminApi.setProductDetails(details, this.detailProgress )
 		.then(details => {
 			let formData = this.processFileUploadDelete("images");
 			if (formData) 
-				return FileApi.upLoadImages(this.state.details._id, formData, imgFileUploadProgress, token);
+				return FileApi.upLoadImages(this.state.details._id, formData, imgFileUploadProgress);
 
 			return {};
 		})
 		.then(details => {
 			let formData = this.processFileUploadDelete("docs");
 			if (formData) 
-				return FileApi.upLoadDocs(this.state.details._id, formData, docsFileUploadProgress, token);
+				return FileApi.upLoadDocs(this.state.details._id, formData, docsFileUploadProgress );
 
 			return {};
 		})		
@@ -328,7 +327,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const AdminEditProductPageWrap = connect(mapStateToProps)(
-    connectDataFetchers(AdminEditProductPage, [ loadCategories, loadDetails ])
+    connectDataFetchers(AdminEditProductPage, [ loadDetails ])
 );
 
 export default AdminEditProductPageWrap;

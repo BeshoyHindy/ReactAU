@@ -16,7 +16,7 @@ export function userSignup(user) {
     return AuthApi.userSignup(user).then(user => {
         dispatch(signupUserSuccess(user.details));
         // - Save the JWT token
-        localStorage.setItem('cctv-token', user.token);
+        localStorage.setItem('token', user.token);
         // - redirect to the route '/feature'
         browserHistory.push('/user');
     }).catch(error => {
@@ -30,11 +30,44 @@ export function userSignin(user) {
     return AuthApi.userSignin(user).then(user => {
         dispatch(signupUserSuccess(user.details));
         // - Save the JWT token
-        localStorage.setItem('cctv-token', user.token);
+        localStorage.setItem('token', user.token);
         // - redirect to the route '/feature'
         browserHistory.push('/user');
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
+    });
+  };
+}
+export function userCheckAuth() {
+  return dispatch => {
+    let token = "";
+    if (process.env.BROWSER ){
+      token = localStorage.getItem('token');
+    }
+
+    return AuthApi.userCheckAuth( token ).then(user => {
+        dispatch(signupUserSuccess(user.details));
+    }).catch(error => {
+        dispatch(signupUserFail(error.err));      
+        browserHistory.push('/signin');
+    });
+  };
+}
+export function userCheckAdmin() {
+  return dispatch => {
+    let token = "";
+    if (process.env.BROWSER ){
+      token = localStorage.getItem('token');
+    }
+
+    return AuthApi.userCheckAuth( token ).then(user => {
+      if(!user.details || !user.details.accessRight || user.details.accessRight !== 8)
+          browserHistory.push('/unauthorized');
+
+      dispatch(signupUserSuccess(user.details));
+    }).catch(error => {
+        dispatch(signupUserFail(error.err));      
+        browserHistory.push('/signin');
     });
   };
 }

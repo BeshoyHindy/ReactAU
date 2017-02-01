@@ -15,6 +15,7 @@ class editUserTab extends React.Component {
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
+		this.fileProgress = this.fileProgress.bind(this);
 	}	
 	handleFormSubmit(values) {
 		let imgFileUploadProgress = (p) => this.fileProgress(p);
@@ -51,7 +52,7 @@ class editUserTab extends React.Component {
 		<div className={`ajax-loading-big ${((this.state.upload > 0) || (!auth.success)) ?'fade-show':'fade-hide'}`} >
 			<img src="/img/ajax-loader.gif" alt=""/>
 			<div className="ajax-loading-progress">
-				Processing....
+				Processing....{this.state.upload}%
 			</div>
 		</div>		
 		<div className="well">
@@ -119,11 +120,12 @@ function mapStateToProps(state, ownProps) {
 		picture: (state.auth.user && state.auth.user.profile && state.auth.user.profile.picture) || '',
 	},	
 	auth: state.auth,
+	errorMessage: state.auth.error
   };
 }
 
 editUserTab = reduxForm({
-  form: 'signup',
+  form: 'edituser',
   validate,                // <--- validation function given to redux-form
 })(editUserTab);
 

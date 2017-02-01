@@ -17,7 +17,7 @@ import AdminEditProductPage from '../components/admin/AdminEditProductPage';
 import AdminListProductPage from '../components/admin/AdminListProductPage';
 import AddUserPage from '../components/admin/AddUserPage';
 
-import { Root,NotFoundPage} from '../components/index';
+import { Root,NotFoundPage, UnauthorizedPage} from '../components/index';
 
 export default function createRoutes(history = browserHistory) {
 	return (
@@ -27,7 +27,7 @@ export default function createRoutes(history = browserHistory) {
 				<Route path="home" component={HomePage} />
 				<Route path="signin" component={SigninPage} />
 				<Route path="signup" component={SignupPage} />
-				<Route path="user" component={UserPage} />
+				<Route authorize={['normal']} path="user" component={UserPage} />
 				<Route path="home" component={HomePage} />
 				<Route path="products" component={ProductsPage}>
 					<Route path=":product" components={{ content: ProductCategory, sidebar: ProductCategorySidebar }}>
@@ -37,11 +37,12 @@ export default function createRoutes(history = browserHistory) {
 				</Route>
 				<Route path="aboutus" component={AboutPage} />
 				<Route path="contact" component={ContactPage} />
-				<Route path="admin" component={AdminPage} >				
+				<Route authorize={['normal','admin']} path="admin" component={AdminPage} >				
 					<Route path="productChange/:id" component={AdminEditProductPage} />
 					<Route path="productList/:cat" component={AdminListProductPage} />					
 					<Route path="addUser" component={AddUserPage} />					
 				</Route>
+				<Route path="unauthorized" component={UnauthorizedPage} />
 				<Route path="*" component={NotFoundPage} />
 			</Route>
 			<Route path="*" component={NotFoundPage} />

@@ -11,31 +11,43 @@ import  {renderField, renderSelectField, renderDropzoneInput} from "../Shared/re
 class AddUserPage extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			upload:0,
+			errorMessage: "",
+			success: false
+		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
+		this.fileProgress = this.fileProgress.bind(this);
 	}	
 	handleFormSubmit(values) {
-    // Call action creator to sign up the user!
-		let user = {};
-		user.email =  values.email;		
-		user.password =  values.password;		
-		user.accessRight =  values.accessRight;		
-		user.profile.username =  values.username;		
-		user.profile.picture =  values.picture;		
-		AdminApi.addUser(user)			
+		let FileUploadProgress = (p) => this.fileProgress(p);
+		let formData = new FormData();
+		formData.append('password', values.password);
+		formData.append('email', values.email);
+		formData.append('username', values.username);
+		formData.append('accessRight', values.accessRight);
+		if (values.picture){
+			formData.append('upload_picture', values.picture[0]);
+		}
+		this.setState({upload: 1});
+
+		AdminApi.addUser(formData, FileUploadProgress)
 		.then( e => {
-			alert("Add Success");
+			this.setState({	upload: 0, errorMessage:"", success: true});			
 		}).catch(error => {
-			alert("Process Fail, Error Message: " + error.err);
-			console.log(error);
+			this.setState({	upload: 0, errorMessage: "Process Fail, Error Message: " + error.err, success: false});
 		});
 	}
-
+	fileProgress(progressEvent) {
+		let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+		this.setState({upload: percentCompleted});
+	}
 	renderAlert() {
-		if (this.props.errorMessage) {
+		if (this.state.errorMessage || this.state.success) {
 			return (
-				<div className="alert alert-danger">
-				<strong>Oops!</strong> {this.props.errorMessage}
+				<div className={`alert ${this.state.success?"alert-success":"alert-danger"}`}>
+				{this.state.success?"Success !!":(<div><strong>Oops!</strong> { this.state.errorMessage} !!</div>)}
 				</div>
 			);
 		}
@@ -66,7 +78,7 @@ class AddUserPage extends React.Component {
 									<Field name="password" component={renderField} type="password" label="Password"  require={true}/>
 									<Field name="passwordConfirm" component={renderField} type="password" label="Confirm Password" require={true}/>
 									<Field name="accessRight" component={renderSelectField}  label="User Type" 
-											options={[{value:"normal", text:"Normal User"}, {value:"admin", text:"Administrator"}]} />
+											options={[{value:"0", text:"Normal User"}, {value:"8", text:"Administrator"}]} />
 								</div>
 								<div className="col-lg-12">
 									{this.renderAlert()}
@@ -113,12 +125,9 @@ AddUserPage.propTypes = {
 
 
 AddUserPage = reduxForm({
-  form: 'signup',
+  form: 'adduser',
   validate,                // <--- validation function given to redux-form
 })(AddUserPage);
 
-
-export default AddUserPage = connect()(
-    connectDataFetchers(AddUserPage, [ loadCategories ])
-);
+export default AddUserPage;
 

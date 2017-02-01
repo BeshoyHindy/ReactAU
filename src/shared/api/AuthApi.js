@@ -19,6 +19,21 @@ class AuthApi {
 		});
 	}
 
+  static userCheckAuth( token){
+		return axios({
+			method: 'get',
+			url: `${api_server.http.host}:${api_server.http.port}/api/checkAuth`,
+			dataType: 'JSON',
+			headers: {'authorization': token},
+		})
+		.then( (response) => {
+			return response.data;
+		})
+		.catch(function (error) {
+			let err = new ajaxErr(error);
+			throw(err);
+		});
+	}
   static userSignin(user){
 		return axios({
 			method: 'post',
@@ -34,7 +49,6 @@ class AuthApi {
 			throw(err);
 		});
 	}
-
 }
 
 

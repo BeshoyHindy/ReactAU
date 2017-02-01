@@ -58,8 +58,23 @@ class Root extends React.Component{
 		);
 	}
 }
-const NotFoundPage = (props) => (	<h1> Page Not Found </h1>);
 
+const NotFoundPage = (props) 	=> (
+		<div className="row">
+			<div className="col-xs-12">
+				<h1 className="center-page"> Page Not Found </h1>
+			</div>
+		</div>
+	);
+
+const UnauthorizedPage = (props) 	=> (
+		<div className="row">
+			<div className="col-xs-12">
+				<h1 className="center-page"> Unauthorized </h1>
+			</div>
+		</div>
+	);
+	
 Root = connect(null, actions)(Root);
 
-export { Root, NotFoundPage};
+export { Root, NotFoundPage, UnauthorizedPage};

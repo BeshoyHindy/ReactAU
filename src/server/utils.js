@@ -8,14 +8,14 @@ import strformat   from 'strformat';
 // import clientConfig              from '../shared/config';
 // import { getSupportedLocales }   from '../shared/utils';
 
-export function fetchComponentsData({ dispatch, components, params, query, locale }) {
+export function fetchComponentsData({ dispatch, components, params, query, locale, route }) {
     const promises = components.map(current => {
         //console.log(current);
 		if (!current)  return null;
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         
         return component.fetchData
-            ? component.fetchData({ dispatch, params, query, locale })
+            ? component.fetchData({ dispatch, params, query, locale, route })
             : null;
     });
 

@@ -1,5 +1,10 @@
 import React, { PropTypes } from 'react';
-//import Promise from 'bluebird';
+import _map from "lodash/fp/map";
+import _flattenDeep from "lodash/fp/flattenDeep";
+import _flow from "lodash/fp/flow";
+import _filter from "lodash/fp/filter";
+
+import * as actions from '../actions/authAction';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
 
@@ -17,15 +22,27 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired
         };
 
-        static fetchData({ dispatch, params = {}, query = {}, locale }) {          
+        static fetchData({ dispatch, params = {}, query = {}, locale , route= []}) {          
             //console.log("fetchData", actionCreators);  
-            return Promise.all(
-                actionCreators.map(actionCreator => {                    
+            let promiseArray = actionCreators.map(actionCreator => {                    
                     return actionCreator?(dispatch(actionCreator({ params, query, locale }))):null;
-                })
-            );
-        }
+                });       
 
+            if (process.env.BROWSER && route.authorize && route.authorize.length){
+                promiseArray.concat( route.authorize.map( role => {
+                    switch (role) {
+                        case "admin":
+                            return dispatch(actions.userCheckAdmin());
+                        case "normal":
+                            return dispatch(actions.userCheckAuth());
+                        default:
+                            return null;
+                    }
+                } ));
+            }
+
+            return Promise.all( promiseArray );
+        }
         componentDidUpdate(prevProps) {
             const { location } = this.props;
             const { location: prevLocation } = prevProps;
@@ -39,7 +56,28 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
 
         componentDidMount() {
-            if (!IS_FIRST_MOUNT_AFTER_LOAD) {
+            if (IS_FIRST_MOUNT_AFTER_LOAD) {
+                let {dispatch, routes} = this.props; 
+                const routeRoles = _flow(
+                    _filter(item => item.authorize), // access to custom attribute
+                    _map(item => item.authorize),
+                    _flattenDeep,                    
+                )(routes);
+
+                if (process.env.BROWSER && routeRoles && routeRoles.length){
+                    let promiseArray =  routeRoles.map( role => {
+                        switch (role) {
+                            case "admin":
+                                return dispatch(actions.userCheckAdmin());
+                            case "normal":
+                                return dispatch(actions.userCheckAuth());
+                            default:
+                                return null;
+                        }
+                    } );
+                    Promise.all( promiseArray );
+                }
+            }else{
                 this._fetchDataOnClient();
             }
 
@@ -54,7 +92,8 @@ export default function connectDataFetchers(Component, actionCreators) {
                 locale,
                 dispatch : this.props.dispatch,
                 params   : this.props.params,
-                query    : this.props.location.query
+                query    : this.props.location.query,
+                route    : this.props.route
             });
         }
 

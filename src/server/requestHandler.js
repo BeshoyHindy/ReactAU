@@ -36,12 +36,13 @@ function handleRender(req, res)
 	} else if (renderProps == null) {
 		res.status(404).render('404');
 	} else {
-		//console.log(renderProps);
+		// console.log(renderProps.routes[renderProps.routes.length - 1]);
 		 fetchComponentsData({
                  dispatch   : store.dispatch,
                  components : renderProps.components,
                  params     : renderProps.params,
-                 query      : renderProps.location.query
+                 query      : renderProps.location.query,
+                 route      : renderProps.routes[renderProps.routes.length - 1]
                 })
                 .then(() => {
                 const reduxState = store.getState();

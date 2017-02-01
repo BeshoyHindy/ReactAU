@@ -19,13 +19,14 @@ class AdminApi {
 		});
   }
 
-  static addUser(user, token){
+  static addUser(user , progress ){
 		return axios({
 			method: 'post',
 			url: `${api_server.http.host}:${api_server.http.port}/api/add_user`,
 			dataType: 'JSON',
 			data: user,
-			headers: {'authorization': token}
+			headers: {'authorization': localStorage.getItem('token')},
+			onUploadProgress: progress
 		})
 		.then( (response) => {
 			return response.data;
@@ -35,12 +36,12 @@ class AdminApi {
 			throw(err);
 		});
 	}  
-	static deleteProduct(id, token) {
+	static deleteProduct(id ) {
     return axios({
 			method: 'delete',
 			url: `${api_server.http.host}:${api_server.http.port}/api/details/${id}`,
 			dataType: 'JSON',
-			headers: {'authorization': token}
+			headers: {'authorization': localStorage.getItem('token')}
 		})
 		.then( (response) => {
 			return response.data;
@@ -51,13 +52,13 @@ class AdminApi {
 		});
 	
   }
-  static setProductDetails(detail, progress, token){
+  static setProductDetails(detail, progress ){
 		return axios({
 			method: 'post',
 			url: `${api_server.http.host}:${api_server.http.port}/api/details/${detail._id}`,
 			dataType: 'JSON',
 			data: detail,
-			headers: {'authorization': token},
+			headers: {'authorization': localStorage.getItem('token')},
 			onUploadProgress: progress
 		})
 		.then( (response) => {
