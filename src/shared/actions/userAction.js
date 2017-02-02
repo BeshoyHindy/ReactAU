@@ -19,4 +19,15 @@ export function userChangeProfile(formData, upload) {
     });
   };
 }
+export function setUserProductRate(data) {
+  return dispatch => {
+    dispatch(beginAjaxCall());    
+    return UserApi.setUserProductRate(data, localStorage.getItem('token')).then(data => {
+        dispatch(signupUserSuccess(data.user));
+        dispatch({type: types.LOAD_DETAILS_SUCCESS, details: data.details});
+    }).catch(error => {
+        dispatch(signupUserFail(error.err));      
+    });
+  };
+}
 

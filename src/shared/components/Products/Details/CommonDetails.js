@@ -48,7 +48,7 @@ let CommonDetails = (props) => {
 						<DetailsImage data={detailsImage} productType={props.params.product}/>
 					</div>
 					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">										
-						<DetailsDesc data={descData} auth={props.auth} />
+						<DetailsDesc data={descData}/>
 					</div>
 				</div>
 				<DetailsTab data={tabData}/>

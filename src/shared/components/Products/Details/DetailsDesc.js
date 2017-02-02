@@ -10,7 +10,7 @@ const DetailsDesc = (props) => {
 	return (
 		<div>
 			<h1>{props.data.name}</h1>
-			<Rating stars={props.data.stars}/>					
+			<Rating/>
 			<div className="p-desc-detail">
 				<ul className="fa-ul">
 					{props.data.description && props.data.description.map( (item, id) => {

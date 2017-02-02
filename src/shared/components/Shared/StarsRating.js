@@ -23,6 +23,7 @@ class StarsRating extends React.Component{
     handleClick(idx, evt){
         this.state.rating = idx + 1;
         this.forceUpdate();
+		this.props.rate(idx + 1);
     }
 	render(){
     	var stars = [];
