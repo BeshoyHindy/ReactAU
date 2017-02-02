@@ -3,5 +3,6 @@ export default {
   products: [],
   categories: [],
   ajaxCallsInProgress: 0,
-  auth: { user:{}, error:"", success: false}
+  auth: { user:{}, error:"", success: false},
+  modal: {open: false}
 };

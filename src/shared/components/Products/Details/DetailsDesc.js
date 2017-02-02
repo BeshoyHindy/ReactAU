@@ -2,6 +2,7 @@ import React from 'react';
 import { SpecTbl }  from './Spec';
 import { SortableTbl }  from '../../Shared/SortableTbl';
 import {CustomDownloadTd} from '../../Shared/Shared';
+import  Rating  from './Rating';
 
 
 const DetailsDesc = (props) => {
@@ -9,6 +10,7 @@ const DetailsDesc = (props) => {
 	return (
 		<div>
 			<h1>{props.data.name}</h1>
+			<Rating stars={props.data.stars}/>					
 			<div className="p-desc-detail">
 				<ul className="fa-ul">
 					{props.data.description && props.data.description.map( (item, id) => {

@@ -6,16 +6,7 @@ import * as actions from '../actions/authAction';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb } from "./Shared/Shared";
-
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type} className="form-control"/>
-      {touched && ((error && <span className="error">{error}</span>) || (warning && <span className="warning">{warning}</span>))}
-    </div>
-  </div>
-)
+import  {renderField} from "./Shared/renderReduxForm";
 
 class SigninPage extends React.Component {
 	constructor(props) {
@@ -36,7 +27,7 @@ class SigninPage extends React.Component {
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
 			let {email, password} = values;
-			this.props.userSignin({email, password});
+			this.props.userSignin({email, password}, this.props.location.pathname);
 	}
 
 	renderAlert() {

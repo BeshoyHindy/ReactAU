@@ -4,7 +4,7 @@ import { DetailsImage } from './DetailsImage';
 import { DetailsTab } from './DetailsTab';
 import { DetailsDesc } from './DetailsDesc';
 
-const CommonDetails = (props) => {
+let CommonDetails = (props) => {
 	if (props.ajaxState > 0) {
 		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
 	}
@@ -30,7 +30,7 @@ const CommonDetails = (props) => {
 		return (
 			<div className="product-detail">
 				<div className="row">
-					<div className="col-xs-12 product-desc  alarm-product-desc">
+					<div className="col-xs-12 product-desc  alarm-product-desc">						
 						<DetailsDesc data={descData}/>
 					</div>
 					<div id="product-top" className="col-xs-12">
@@ -39,7 +39,7 @@ const CommonDetails = (props) => {
 				</div>
 				<DetailsTab data={tabData}/>
 			</div>
-			);
+		);
 	}else{
 		return (
 			<div className="product-detail">
@@ -47,15 +47,15 @@ const CommonDetails = (props) => {
 					<div id="product-top" className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
 						<DetailsImage data={detailsImage} productType={props.params.product}/>
 					</div>
-					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">
-						<DetailsDesc data={descData}/>
+					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">										
+						<DetailsDesc data={descData} auth={props.auth} />
 					</div>
 				</div>
 				<DetailsTab data={tabData}/>
 			</div>
-			);
+		);
 	}
-};
+}
 
 CommonDetails.propTypes = {
 	data: React.PropTypes.object,

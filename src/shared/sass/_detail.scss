@@ -70,6 +70,16 @@ table.p-spec, table.p-stdpkg{
     }
     .product-desc{
       margin-bottom: 30px;
+      .rate{
+        padding-left: 10px;
+        overflow: hidden;
+        .rated{
+          float: left;
+        }
+        .rating{
+          float: right;
+        }
+      }
     }
 	.alarm-product-desc{
 		margin-bottom: 0;

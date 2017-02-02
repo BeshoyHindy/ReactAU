@@ -13,13 +13,15 @@ const DetailsPage = (props) => {return ( <CommonDetails {...props} data={props.d
 DetailsPage.propTypes = {
 	// actions: React.PropTypes.object.isRequired,
 	detail:  React.PropTypes.object,
+	auth:  React.PropTypes.object,
 	params:  React.PropTypes.object
 };
 
 
 const mapStateToProps = (state, ownProps) => ({
     detail: state.details,
-	ajaxState: state.ajaxCallsInProgress
+	ajaxState: state.ajaxCallsInProgress,
+	auth: state.auth,
 });
 
 

@@ -1,8 +1,12 @@
 import { browserHistory } from 'react-router';
+import _map from "lodash/fp/map";
+import _flattenDeep from "lodash/fp/flattenDeep";
+import _flow from "lodash/fp/flow";
+import _filter from "lodash/fp/filter";
 
 import AuthApi from '../api/AuthApi';
 import * as types from './actionTypes';
-
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 function signupUserSuccess(user) {
   return {type: types.SIGN_UP_USER_SUCCESS, user};
@@ -13,6 +17,7 @@ function signupUserFail(error) {
 
 export function userSignup(user) {
   return dispatch => {
+    dispatch(beginAjaxCall());
     return AuthApi.userSignup(user).then(user => {
         dispatch(signupUserSuccess(user.details));
         // - Save the JWT token
@@ -25,14 +30,15 @@ export function userSignup(user) {
   };
 }
 
-export function userSignin(user) {
+export function userSignin(user,routePath) {
   return dispatch => {
+    dispatch(beginAjaxCall());
     return AuthApi.userSignin(user).then(user => {
         dispatch(signupUserSuccess(user.details));
-        // - Save the JWT token
         localStorage.setItem('token', user.token);
-        // - redirect to the route '/feature'
-        browserHistory.push('/user');
+        if (process.env.BROWSER && routePath ==='/signin'){
+            browserHistory.push('/user');
+        }
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
     });
@@ -40,6 +46,7 @@ export function userSignin(user) {
 }
 export function userCheckAuth() {
   return dispatch => {
+    dispatch(beginAjaxCall());    
     let token = "";
     if (process.env.BROWSER ){
       token = localStorage.getItem('token');
@@ -55,6 +62,7 @@ export function userCheckAuth() {
 }
 export function userCheckAdmin() {
   return dispatch => {
+    dispatch(beginAjaxCall());    
     let token = "";
     if (process.env.BROWSER ){
       token = localStorage.getItem('token');
@@ -73,8 +81,16 @@ export function userCheckAdmin() {
 }
 
 
-export function userSignOut() {
+export function userSignOut(routes) {
    localStorage.removeItem('token');
-   browserHistory.push('/home');
+		const routeRoles = _flow(
+			_filter(item => item.authorize), // access to custom attribute
+			_map(item => item.authorize),
+			_flattenDeep,                    
+		)(routes);		
+
+		if (process.env.BROWSER && routeRoles && routeRoles.length){
+	      browserHistory.push('/home');
+		}   
    return {type: types.USER_SIGN_OUT};
 }
