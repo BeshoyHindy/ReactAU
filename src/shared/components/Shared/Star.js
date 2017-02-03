@@ -9,7 +9,7 @@ let Star = (props) => {
 	}
 	return (
 		<i onMouseOver={props.onMouseOver} onMouseOut={props.onMouseOut} onClick={props.onClick} 
-			className={r} style={{color: "#ffd700", cursor: "pointer"}}/>
+			className={r} style={{color: "#ffd700"}}/>
 	);
 };
 Star.propTypes = {

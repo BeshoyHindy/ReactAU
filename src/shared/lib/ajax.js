@@ -18,7 +18,8 @@ class ajaxErr {
 			// Something happened in setting up the request that triggered an Error
 			//  console.log('axioErr', axioErr.message);
 		} else {
-			err = axioErr
+			err = axioErr;
+			// console.log(axioErr);
 		}
 		this.err = err;
 	}

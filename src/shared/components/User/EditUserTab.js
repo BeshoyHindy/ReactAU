@@ -3,9 +3,9 @@ import React from 'react';
 import {  Field, reduxForm } from 'redux-form';
 import Dropzone from 'react-dropzone';
 
-import * as actions from '../actions/userAction';
-import  {renderField, renderSelectField, renderDropzoneInput} from "./Shared/renderReduxForm";
-import FileApi from '../api/FileApi';
+import * as actions from '../../actions/userAction';
+import  {renderField, renderSelectField, renderDropzoneInput} from "../Shared/renderReduxForm";
+import FileApi from '../../api/FileApi';
 
 class editUserTab extends React.Component {
 	constructor(props) {

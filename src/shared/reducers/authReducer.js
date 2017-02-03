@@ -15,6 +15,8 @@ function authReducer(state = initialState.auth, action) {
       return {user: {}, error:action.error, success:false};
     case types.USER_SIGN_OUT:
       return {user: {}, error:"", success:false};
+    case types.UPDATE_USER_DATA:
+      return {user: Object.assign({}, state, {data: action.data}), error:"", success:true};
     default:
       return state;
   }

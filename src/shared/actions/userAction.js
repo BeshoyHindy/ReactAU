@@ -21,12 +21,11 @@ export function userChangeProfile(formData, upload) {
 }
 export function setUserProductRate(data) {
   return dispatch => {
-    dispatch(beginAjaxCall());    
     return UserApi.setUserProductRate(data, localStorage.getItem('token')).then(data => {
-        dispatch(signupUserSuccess(data.user));
-        dispatch({type: types.LOAD_DETAILS_SUCCESS, details: data.details});
+        dispatch({type: types.UPDATE_USER_DATA, data: data.user_data});
+        dispatch({type: types.UPDATE_STAR_RATE, stars: data.product_stars});
     }).catch(error => {
-        dispatch(signupUserFail(error.err));      
+        //dispatch(signupUserFail(error.err));      
     });
   };
 }

@@ -40,6 +40,7 @@ export function userSignin(user,routePath) {
             browserHistory.push('/user');
         }
     }).catch(error => {
+		// console.log(error);
         dispatch(signupUserFail(error.err));      
     });
   };

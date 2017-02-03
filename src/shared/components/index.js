@@ -154,7 +154,7 @@ const validate = values => {
 		errors.password = 'Please enter a password';
 	}
 
-	return errors
+	return errors;
 }
 
 function mapStateToProps(state) {

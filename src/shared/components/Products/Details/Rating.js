@@ -22,13 +22,21 @@ class Rating extends React.Component{
 	}
 	render(){
 		let {stars, auth, id} = this.props;
+		let c = Math.round((stars.totalStars / stars.voteCount) * 100) / 100;
+		c = isNaN(c)?0:c; 
+
 		let rate = <input type="button" className="btn btn-warning rating" value="Rate it" onClick={this.signin}/>;
-		if (auth && auth.success )
-			rate = <StarsRating id={id} rate={this.rate}/>;
+		if (auth && auth.success ){
+			let nRate = auth.user.data.rate.filter(function (rate) {
+				return rate.productId === id;
+			})[0];
+			let userRate = (nRate && nRate.rate) || 0;			
+			rate = <StarsRating id={id} rate={this.rate} initRate={userRate}/>;
+		}
 
     	return (
 			<div className="rate">
-				<StarsRated count={Math.round((stars.totalStars / stars.voteCount) * 100) / 100} voteCount={stars.voteCount}/>
+				<StarsRated pretitle="Avg Rate:" count={c} voteCount={stars.voteCount}/>
 				{rate}
 			</div>
 		);
