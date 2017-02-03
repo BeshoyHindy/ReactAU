@@ -24,7 +24,7 @@ PID.propTypes = {
 	tdData:  React.PropTypes.string.isRequired,
 };
 
-const Rate = (props) =>
+const Fav = (props) =>
 {
 	return (
 		<td >
@@ -33,7 +33,7 @@ const Rate = (props) =>
 	);
 }
 
-Rate.propTypes = {
+Fav.propTypes = {
 	rowData: React.PropTypes.object.isRequired,
 	tdData:  React.PropTypes.number.isRequired,
 };
@@ -41,26 +41,26 @@ Rate.propTypes = {
 let FavoriteProductTab = (props) => {
 	let {user,categories} = props;
 	let data = [];
-	if (user.data && user.data.rate && categories){
-		data = user.data.rate.map((item)=> { 
+	if (user.data && user.data.favorite && categories){
+		data = user.data.favorite.map((item)=> { 
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
-			return {pid: item.productId, rate: item.rate, cat}
+			return {pid: item.productId, fav: 1, cat}
 		});
 	}
 	return (
 		<div className="user-info">
 			{ 
-				user.data && user.data.rate && categories &&
+				user.data && user.data.favorite && categories &&
 				<div> 
 					<BigHeader smallTitle="">My Favorite Products</BigHeader>
 					<SortableTbl categories={categories} tblData={data}
 						tHead={ [  "Product ID", "Product Type", "Favorite"]}
 						customTd={[
 									{custd: PID, keyItem: "pid"},
-									{custd: Rate, keyItem: "rate"},
+									{custd: Fav, keyItem: "fav"},
 								]}
-						dKey={["pid", "cat", "rate"]}/>		
+						dKey={["pid", "cat", "fav"]}/>		
 				</div>
 			}
 		</div>

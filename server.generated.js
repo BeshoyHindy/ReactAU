@@ -18299,7 +18299,7 @@ PID.propTypes = {
 	tdData: _react2.default.PropTypes.string.isRequired
 };
 
-var Rate = function Rate(props) {
+var Fav = function Fav(props) {
 	return _react2.default.createElement(
 		'td',
 		null,
@@ -18307,7 +18307,7 @@ var Rate = function Rate(props) {
 	);
 };
 
-Rate.propTypes = {
+Fav.propTypes = {
 	rowData: _react2.default.PropTypes.object.isRequired,
 	tdData: _react2.default.PropTypes.number.isRequired
 };
@@ -18317,19 +18317,19 @@ var FavoriteProductTab = function FavoriteProductTab(props) {
 	    categories = props.categories;
 
 	var data = [];
-	if (user.data && user.data.rate && categories) {
-		data = user.data.rate.map(function (item) {
+	if (user.data && user.data.favorite && categories) {
+		data = user.data.favorite.map(function (item) {
 			var cat = categories.filter(function (catItem) {
 				return catItem._id === parseInt(item.cat);
 			});
 			cat = cat && cat.length > 0 && cat[0].categoryName || "Unknown";
-			return { pid: item.productId, rate: item.rate, cat: cat };
+			return { pid: item.productId, fav: 1, cat: cat };
 		});
 	}
 	return _react2.default.createElement(
 		'div',
 		{ className: 'user-info' },
-		user.data && user.data.rate && categories && _react2.default.createElement(
+		user.data && user.data.favorite && categories && _react2.default.createElement(
 			'div',
 			null,
 			_react2.default.createElement(
@@ -18339,8 +18339,8 @@ var FavoriteProductTab = function FavoriteProductTab(props) {
 			),
 			_react2.default.createElement(_SortableTbl.SortableTbl, { categories: categories, tblData: data,
 				tHead: ["Product ID", "Product Type", "Favorite"],
-				customTd: [{ custd: PID, keyItem: "pid" }, { custd: Rate, keyItem: "rate" }],
-				dKey: ["pid", "cat", "rate"] })
+				customTd: [{ custd: PID, keyItem: "pid" }, { custd: Fav, keyItem: "fav" }],
+				dKey: ["pid", "cat", "fav"] })
 		)
 	);
 };
