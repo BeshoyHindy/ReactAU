@@ -29,33 +29,31 @@ class AdminEditProductPage extends React.Component{
 			cat = t[0]._id || 1 ;
 
 	return (
-	<div className="loading-wrap">
-		<div className={`ajax-loading-big ${(!this.props.products || this.props.products.length <= 0)?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
 		<form>
-				<div className="row">
-					<div className="col-lg-12">
-						<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
-						<BigHeader smallTitle="">Edit Products</BigHeader>
-					</div>
-					<div className="col-xs-12">
-						<div className="form-group">
-							<label htmlFor="productCategory">Product Category</label>
-							<select className="form-control" id="productCategory" value={cat} onChange={this.setCategory}>
-								{
-									categories.map( function(item, id){
-									return (<option key={id} value={item._id}> {item.categoryName}</option>);
-									})
-								}
-							</select>
-						</div>
-					</div>
-					<div className="col-xs-12">
-						<ProductsTblPage productType={this.props.params.cat}  ajaxState={this.props.ajaxState} products={this.props.products} 
-								edit={true} editBaseLink="/admin/productChange/" delete={true} router={this.props.router} />
+			<div className="row">
+				<div className="col-lg-12">
+					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
+					<BigHeader smallTitle="">Edit Products</BigHeader>
+				</div>
+				<div className="col-xs-12">
+					<div className="form-group">
+						<label htmlFor="productCategory">Product Category</label>
+						<select className="form-control" id="productCategory" value={cat} onChange={this.setCategory}>
+							{
+								categories.map( function(item, id){
+								return (<option key={id} value={item._id}> {item.categoryName}</option>);
+								})
+							}
+						</select>
 					</div>
 				</div>
+				<div className="col-xs-12">
+					<ProductsTblPage productType={this.props.params.cat}  ajaxState={this.props.ajaxState} products={this.props.products} 
+							edit={true} editBaseLink="/admin/productChange/" delete={true} router={this.props.router} />
+				</div>
+			</div>
 		</form>
-	</div>		
+		
 		);
 	}
 }

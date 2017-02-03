@@ -3,13 +3,14 @@ import { SpecTbl }  from './Spec';
 import { SortableTbl }  from '../../Shared/SortableTbl';
 import {CustomDownloadTd} from '../../Shared/Shared';
 import  Rating  from './Rating';
+import  Favorite  from './Favorite';
 
 
 const DetailsDesc = (props) => {
 
 	return (
 		<div>
-			<h1>{props.data.name}</h1>
+			<h1>{props.data.name} <Favorite/></h1>
 			<Rating/>
 			<div className="p-desc-detail">
 				<ul className="fa-ul">

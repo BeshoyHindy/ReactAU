@@ -54,10 +54,28 @@ export function userCheckAuth() {
     }
 
     return AuthApi.userCheckAuth( token ).then(user => {
+		localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
-        browserHistory.push('/signin');
+        dispatch({type: types.CHANGE_MODAL, modal:{open:true}});      
+        // browserHistory.push('/signin');
+    });
+  };
+}
+export function userReAuth() {
+  return dispatch => {
+    dispatch(beginAjaxCall());    
+    let token = "";
+    if (process.env.BROWSER ){
+      token = localStorage.getItem('token');
+    }
+
+    return AuthApi.userCheckAuth( token ).then(user => {
+		localStorage.setItem('token', user.token);
+        dispatch(signupUserSuccess(user.details));
+    }).catch(error => {
+        dispatch(signupUserFail(error.err));
     });
   };
 }
@@ -73,25 +91,27 @@ export function userCheckAdmin() {
       if(!user.details || !user.details.accessRight || user.details.accessRight !== 8)
           browserHistory.push('/unauthorized');
 
-      dispatch(signupUserSuccess(user.details));
+		localStorage.setItem('token', user.token);
+		dispatch(signupUserSuccess(user.details));
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
-        browserHistory.push('/signin');
+        // browserHistory.push('/signin');
+		dispatch({type: types.CHANGE_MODAL, modal:{open:true}});  
     });
   };
 }
 
 
 export function userSignOut(routes) {
-   localStorage.removeItem('token');
-		const routeRoles = _flow(
-			_filter(item => item.authorize), // access to custom attribute
-			_map(item => item.authorize),
-			_flattenDeep,                    
-		)(routes);		
+	localStorage.removeItem('token');
+	const routeRoles = _flow(
+		_filter(item => item.authorize), // access to custom attribute
+		_map(item => item.authorize),
+		_flattenDeep                 
+	)(routes).filter((item) => {return item==="admin" || item==="normal";});		
 
-		if (process.env.BROWSER && routeRoles && routeRoles.length){
-	      browserHistory.push('/home');
-		}   
-   return {type: types.USER_SIGN_OUT};
+	if (process.env.BROWSER && routeRoles && routeRoles.length){
+		browserHistory.push('/home');
+	}   
+	return {type: types.USER_SIGN_OUT};
 }

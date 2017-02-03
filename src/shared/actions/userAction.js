@@ -29,4 +29,14 @@ export function setUserProductRate(data) {
     });
   };
 }
+export function setUserFavorite(data) {
+  return dispatch => {
+    return UserApi.setUserFavorite(data, localStorage.getItem('token')).then(data => {
+        dispatch({type: types.UPDATE_USER_FAVORITE, data: data.user_data});
+        dispatch({type: types.UPDATE_PRODUCT_FAVORITE, favorite: data.product_favorite});
+    }).catch(error => {
+        //dispatch(signupUserFail(error.err));      
+    });
+  };
+}
 

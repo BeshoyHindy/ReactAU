@@ -36,7 +36,21 @@ class UserApi {
 			throw(err);
 		});
 	}
-  
+  static setUserFavorite(data, token){
+		return axios({
+			method: 'post',
+			url: `${api_server.http.host}:${api_server.http.port}/api/account/favorite/${data.id}`,
+			dataType: 'JSON',
+			data: {love: data.love},
+			headers: {'authorization': token}
+		}).then( (response) => {
+				return response.data;
+		})
+		.catch(function (error) {
+			let err = new ajaxErr(error);
+			throw(err);
+		});
+	}
 }
 
 

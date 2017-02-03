@@ -20,7 +20,8 @@ class SigninPage extends React.Component {
 		}
 	}	
 	componentWillReceiveProps(nextProps) {
-		if (this.props.auth.success){
+		console.log(nextProps.auth.success)
+		if (nextProps.auth.success){
 			this.props.router.push(`/user`);	
 		}
 	}	  

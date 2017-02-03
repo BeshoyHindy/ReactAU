@@ -70,6 +70,12 @@ table.p-spec, table.p-stdpkg{
     }
     .product-desc{
       margin-bottom: 30px;
+	  h1{
+	  	 .favorite{
+			font-size: 18px;
+			float: right;
+		 }
+	  }
       .rate{
         padding-left: 10px;
         overflow: hidden;

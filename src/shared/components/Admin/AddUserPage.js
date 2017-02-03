@@ -56,44 +56,39 @@ class AddUserPage extends React.Component {
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-
-	<div className="container">
-		<div className="row">
-			<div className="col-lg-12 ">
-				<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
-																		{link:"/admin/addUser", desc:"Add User"}]} />
-				<div className="well">
-					<div className="panel panel-danger add-user-panel">
-						<div className="panel-heading">
-							<h3 className="panel-title">Add User</h3>
-						</div>
-						<div className="panel-body sign-up">
-							<form onSubmit={handleSubmit(this.handleFormSubmit)}>
-								<div className="col-lg-6 ">
-									<Field name="picture" component={renderDropzoneInput} label="Add a picture"/>
-									<Field name="username" component={renderField} type="text" label="User Name"/>									
+		<div className="col-lg-12 ">
+			<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
+																	{link:"/admin/addUser", desc:"Add User"}]} />
+			<div className="well">
+				<div className="panel panel-danger add-user-panel">
+					<div className="panel-heading">
+						<h3 className="panel-title">Add User</h3>
+					</div>
+					<div className="panel-body sign-up">
+						<form onSubmit={handleSubmit(this.handleFormSubmit)}>
+							<div className="col-lg-6 ">
+								<Field name="picture" component={renderDropzoneInput} label="Add a picture"/>
+								<Field name="username" component={renderField} type="text" label="User Name"/>									
+							</div>
+							<div className="col-lg-6 ">
+								<Field name="email" component={renderField} type="email" label="E-Mail" require={true}/>
+								<Field name="password" component={renderField} type="password" label="Password"  require={true}/>
+								<Field name="passwordConfirm" component={renderField} type="password" label="Confirm Password" require={true}/>
+								<Field name="accessRight" component={renderSelectField}  label="User Type" 
+										options={[{value:"0", text:"Normal User"}, {value:"8", text:"Administrator"}]} />
+							</div>
+							<div className="col-lg-12">
+								{this.renderAlert()}
+								<hr/>
+								<div>
+									<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
 								</div>
-								<div className="col-lg-6 ">
-									<Field name="email" component={renderField} type="email" label="E-Mail" require={true}/>
-									<Field name="password" component={renderField} type="password" label="Password"  require={true}/>
-									<Field name="passwordConfirm" component={renderField} type="password" label="Confirm Password" require={true}/>
-									<Field name="accessRight" component={renderSelectField}  label="User Type" 
-											options={[{value:"0", text:"Normal User"}, {value:"8", text:"Administrator"}]} />
-								</div>
-								<div className="col-lg-12">
-									{this.renderAlert()}
-									<hr/>
-									<div>
-										<button type="submit" disabled={pristine || submitting} className="btn btn-warning submit-btn">Submit</button>
-									</div>
-								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	)}
 }
 

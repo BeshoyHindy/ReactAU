@@ -27,9 +27,8 @@ export default function createRoutes(history = browserHistory) {
 				<Route path="home" component={HomePage} />
 				<Route path="signin" component={SigninPage} />
 				<Route path="signup" component={SignupPage} />
-				<Route authorize={['normal']} path="user" component={UserPage} />
-				<Route path="home" component={HomePage} />
-				<Route path="products" component={ProductsPage}>
+				<Route path="user" authorize={['normal']} component={UserPage} />
+				<Route path="products" authorize={['reAuth']} component={ProductsPage}>
 					<Route path=":product" components={{ content: ProductCategory, sidebar: ProductCategorySidebar }}>
 						<Route path="spec/:id" component={DetailsPage} />
 						<Route path=":ProductsTbl" component={ProductsTblPage} />
@@ -37,7 +36,7 @@ export default function createRoutes(history = browserHistory) {
 				</Route>
 				<Route path="aboutus" component={AboutPage} />
 				<Route path="contact" component={ContactPage} />
-				<Route authorize={['normal','admin']} path="admin" component={AdminPage} >				
+				<Route path="admin" authorize={['normal','admin']} component={AdminPage} >				
 					<Route path="productChange/:id" component={AdminEditProductPage} />
 					<Route path="productList/:cat" component={AdminListProductPage} />					
 					<Route path="addUser" component={AddUserPage} />					

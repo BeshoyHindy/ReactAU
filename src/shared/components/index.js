@@ -34,6 +34,7 @@ class Root extends React.Component{
 		this.handleCloseModal = this.handleCloseModal.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
+		this.goToSignUp = this.goToSignUp.bind(this);
 	}
   
 	handleOpenModal () {
@@ -50,6 +51,9 @@ class Root extends React.Component{
 		// Call action creator to sign up the user!
 		let {email, password} = values;
 		this.props.userSignin({email, password},this.props.pathname);
+	}
+	goToSignUp(values) {
+		this.props.router.push('/signup');
 	}
 
 	componentDidMount() {

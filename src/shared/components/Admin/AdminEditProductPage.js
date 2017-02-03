@@ -239,73 +239,72 @@ class AdminEditProductPage extends React.Component{
 								: "Done !!"
 				}</div>
 		</div>
-			<div className="row">
-				<div className="col-xs-12">
-					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
-																		{link:"", desc:params.id !=0 ?"Edit Product":"Add Product"}]}/>
-					<BigHeader smallTitle="">{params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
-				</div>
+		<div className="row">
+			<div className="col-xs-12">
+				<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
+																	{link:"", desc:params.id !=0 ?"Edit Product":"Add Product"}]}/>
+				<BigHeader smallTitle="">{params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
 			</div>
-			<div className="row">
-				<div className="col-xs-12">
-					<button className="btn btn-danger" onClick={this.submit}>Apply Change</button>
-				</div>
+		</div>
+		<div className="row">
+			<div className="col-xs-12">
+				<button className="btn btn-danger" onClick={this.submit}>Apply Change</button>
 			</div>
-			<div className="row">
-				<div className="col-xs-12">
-					<Tabs selectedIndex={this.state.selectedTab}	generateIdsFn={generateIds}>
-						<TabList>
-							{	<Tab>Basic Settings</Tab>  }
-							{	(this.state.details.cat===2 ) && (<Tab>Standard Package</Tab> ) }
-							{	(this.state.details.cat===2 ) && (<Tab>Optinal Package</Tab> ) }
-							{	(	<Tab>Specification</Tab> ) }
-							{	(	<Tab>Download</Tab> ) }
-						</TabList>
+		</div>
+		<div className="row">
+			<div className="col-xs-12">
+				<Tabs selectedIndex={this.state.selectedTab}	generateIdsFn={generateIds}>
+					<TabList>
+						{	<Tab>Basic Settings</Tab>  }
+						{	(this.state.details.cat===2 ) && (<Tab>Standard Package</Tab> ) }
+						{	(this.state.details.cat===2 ) && (<Tab>Optinal Package</Tab> ) }
+						{	(	<Tab>Specification</Tab> ) }
+						{	(	<Tab>Download</Tab> ) }
+					</TabList>
 
-						<TabPanel>
-							<AdminEditBasicTab details={this.state.details}  tabId={tabId++} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
-												addArrayMember={this.addArrayMember} setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
-						</TabPanel>
+					<TabPanel>
+						<AdminEditBasicTab details={this.state.details}  tabId={tabId++} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
+											addArrayMember={this.addArrayMember} setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
+					</TabPanel>
 
-						{
-							(this.state.details.cat===2 ) && (
-								<TabPanel>
-									<AdminEditStdPkgTab tabId={tabId++} member={this.state.details.member} field="member" delArrayMember={this.delArrayMember}  
-											addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
-								</TabPanel>
-							)
-						}
+					{
+						(this.state.details.cat===2 ) && (
+							<TabPanel>
+								<AdminEditStdPkgTab tabId={tabId++} member={this.state.details.member} field="member" delArrayMember={this.delArrayMember}  
+										addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
+							</TabPanel>
+						)
+					}
 
-						{
-							(this.state.details.cat===2 ) && (
-								<TabPanel>
-									<AdminEditOptTab tabId={tabId++} member={this.state.details.optional} field="optional" delArrayMember={this.delArrayMember}  
-											addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
-								</TabPanel>
-							)
-						}
+					{
+						(this.state.details.cat===2 ) && (
+							<TabPanel>
+								<AdminEditOptTab tabId={tabId++} member={this.state.details.optional} field="optional" delArrayMember={this.delArrayMember}  
+										addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
+							</TabPanel>
+						)
+					}
 
-						{
-							(
-								<TabPanel>
-									<AdminEditSpecTab tabId={tabId++} spec={this.state.details.spec} field="spec" delArrayMember={this.delArrayMember}  
-											setData={this.setSpecInput} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
-								</TabPanel>
-							)
-						}
+					{
+						(
+							<TabPanel>
+								<AdminEditSpecTab tabId={tabId++} spec={this.state.details.spec} field="spec" delArrayMember={this.delArrayMember}  
+										setData={this.setSpecInput} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
+							</TabPanel>
+						)
+					}
 
-						{
-							(
-								<TabPanel>
-									<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
-											fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
-								</TabPanel>
-							)
-						}
-					</Tabs>
-				</div>
+					{
+						(
+							<TabPanel>
+								<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
+										fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
+							</TabPanel>
+						)
+					}
+				</Tabs>
 			</div>
-
+		</div>
 	</div>		
 		);
 	}

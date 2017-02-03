@@ -35,6 +35,8 @@ export default function connectDataFetchers(Component, actionCreators) {
                             return dispatch(actions.userCheckAdmin());
                         case "normal":
                             return dispatch(actions.userCheckAuth());
+                        case "reAuth":
+                            return dispatch(actions.userReAuth());
                         default:
                             return null;
                     }
@@ -71,6 +73,8 @@ export default function connectDataFetchers(Component, actionCreators) {
                                 return dispatch(actions.userCheckAdmin());
                             case "normal":
                                 return dispatch(actions.userCheckAuth());
+                            case "reAuth":
+                                return dispatch(actions.userReAuth());
                             default:
                                 return null;
                         }

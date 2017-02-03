@@ -4,10 +4,12 @@ import update from 'immutability-helper';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { Breadcrumb , BigHeader, OrangeBoard, isEmptyObject} from "./Shared/Shared";
+import { Breadcrumb} from "./Shared/Shared";
 import { loadCategories } from '../actions/adminActions';
 import EditUserTab from './User/EditUserTab.js';
 import UserProfileTab from './User/UserProfileTab.js';
+import RatedProductTab from './User/RatedProductTab.js';
+import FavoriteProductTab from './User/FavoriteProductTab.js';
 
 let idCounter = 0;
 const generateIds = () => `custom-id-${idCounter++}`
@@ -32,8 +34,7 @@ class UserPage extends React.Component{
 		<div>
 			<div className="row">
 				<div className="col-xs-12">
-					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>
-					<BigHeader smallTitle="">User Profile</BigHeader>
+					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>					
 				</div>
 			</div>
 			<div className="row">
@@ -47,8 +48,10 @@ class UserPage extends React.Component{
 						</div>	
 						<Tabs selectedIndex={this.state.selectedTab}	generateIdsFn={generateIds}>
 							<TabList>
-								<Tab>User Profile</Tab> 
+								<Tab>Basic Info</Tab> 
 								<Tab>Edit Profile</Tab> 
+								<Tab>Rated Products</Tab> 
+								<Tab>Favorited Products</Tab> 
 							</TabList>
 
 							<TabPanel>
@@ -57,6 +60,14 @@ class UserPage extends React.Component{
 
 							<TabPanel>
 								<EditUserTab/>
+							</TabPanel>
+
+							<TabPanel>
+								<RatedProductTab/>
+							</TabPanel>
+
+							<TabPanel>
+								<FavoriteProductTab/>
 							</TabPanel>
 
 						</Tabs>

@@ -9,6 +9,8 @@ function detailsReducer(state = initialState.details, action) {
       return action.details;
     case types.UPDATE_STAR_RATE:
       return Object.assign({}, state, {stars: action.stars});
+    case types.UPDATE_PRODUCT_FAVORITE:
+      return Object.assign({}, state, {favorite: action.favorite});
     default:
       return state;
   }
