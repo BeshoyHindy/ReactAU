@@ -98,6 +98,13 @@ heroku run bash --app react-redux-demo-chingching
 heroku logs --app react-redux-demo-chingching
 heroku config:set NPM_CONFIG_PRODUCTION=false --app react-redux-demo-chingching
 
+heroku git:clone -a node-api-server-chingching
+cd node-api-server-chingching
+git add .
+git commit -am "make it better"
+git push heroku master
+
+
 //NPM
 // 按指示初始化 NPM 設定檔 package.json
 npm init

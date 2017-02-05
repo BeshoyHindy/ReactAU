@@ -71,5 +71,5 @@ function handleRender(req, res)
 	});
 }
 
-module.exports = handleRender;
+export default handleRender;
 

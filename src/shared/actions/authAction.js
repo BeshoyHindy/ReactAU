@@ -34,17 +34,34 @@ export function userSignin(user,routePath) {
   return dispatch => {
     dispatch(beginAjaxCall());
     return AuthApi.userSignin(user).then(user => {
-        dispatch(signupUserSuccess(user.details));
         localStorage.setItem('token', user.token);
-        if (process.env.BROWSER && routePath ==='/signin'){
-            browserHistory.push('/user');
-        }
+        dispatch(signupUserSuccess(user.details));
+		dispatch({type: types.CHANGE_MODAL, modal:{open:false}}); 
+        // if (process.env.BROWSER && routePath ==='/signin'){
+        //     browserHistory.push('/user');
+        // }
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
     });
   };
 }
+
+
+export function userSocialLoginClient(data) {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return AuthApi.userSocialLoginClient(data).then(user => {
+        localStorage.setItem('token', user.token);
+        dispatch(signupUserSuccess(user.details));
+		dispatch({type: types.CHANGE_MODAL, modal:{open:false}}); 
+    }).catch(error => {
+		console.log(error);
+        dispatch(signupUserFail(error.err));      
+    });
+  };
+}
+
 export function userCheckAuth() {
   return dispatch => {
     dispatch(beginAjaxCall());    

@@ -8,6 +8,7 @@ import httpProxy from 'http-proxy';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import request from 'request';
+import cors from 'cors';
 
 import requestHandler from './requestHandler';
 import { api_server, web_server ,development } from '../../.config/configuration';
@@ -27,7 +28,7 @@ app.use(compression());
 app.use(cookieParser());
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
-
+app.use(cors());
 
 //development hot reload
 if (process.env.NODE_ENV === "development"){
