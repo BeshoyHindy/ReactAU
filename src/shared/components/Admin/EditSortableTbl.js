@@ -47,12 +47,12 @@ class EditSortableTbl extends React.Component{
 		const newItem  = update(this.state.newItem, {		
 			[field]:{$set: value}
 		});	
-		this.setState((state, props) => { return { newItem }});
+		this.setState((state, props) => { return { newItem };});
 	}		
 	render () {
 		let { newItem} = this.state;
 		let nItem = this.props.pass.newItems;
-		let tblData = this.props.member.map((item, id)=>{item.id=id+1; return item});
+		let tblData = this.props.member.map((item, id)=>{item.id=id+1; return item;});
 		return (	
 <div>
 	<ul>
@@ -60,11 +60,11 @@ class EditSortableTbl extends React.Component{
 			<table className="table table-striped table-bordered table-hover p-spec">
 				<tbody >
 					<tr>
-						{nItem.map((item, id)=> {return <td key={id}>{item.desc}</td>})}						
+						{nItem.map((item, id)=> {return <td key={id}>{item.desc}</td>;})}						
 						<td>Add Item</td>
 					</tr>
 					<tr>
-						{nItem.map((item, id)=> {return <td key={id}><input type={item.inputType} value={newItem[item.field]} name={item.field} onChange={this.setNewItemInput} className="form-control"/></td>})}	
+						{nItem.map((item, id)=> {return <td key={id}><input type={item.inputType} value={newItem[item.field]} name={item.field} onChange={this.setNewItemInput} className="form-control"/></td>;})}	
 						<td ><input type="button" className="btn btn-warning" value="Add Item" onClick={this.addNewItem}/></td>
 					</tr>
 				</tbody>

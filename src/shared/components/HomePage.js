@@ -1,4 +1,4 @@
-import Carousel from './shared/Carousel';
+import Carousel from './Shared/Carousel';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -50,7 +50,7 @@ const HomePage = (props) => {
 		</div>
 	</div>
 	);
-}
+};
 
 HomePage.propTypes = {
 };

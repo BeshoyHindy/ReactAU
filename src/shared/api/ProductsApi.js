@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {isvalidRoute} from '../Data/RouteData';
 import { api_server } from '../../../.config/configuration';
+import {ajaxErr} from '../lib/ajax';
 
 class ProductApi {
   static getAllProducts(ptype, subpType) {

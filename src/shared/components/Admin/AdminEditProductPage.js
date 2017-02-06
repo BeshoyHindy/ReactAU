@@ -45,7 +45,7 @@ for(let item of productEditColDetail){
 }
 
 let idCounter = 0;
-const generateIds = () => `custom-id-${idCounter++}`
+const generateIds = () => `custom-id-${idCounter++}`;
 
 class AdminEditProductPage extends React.Component{
 	constructor(props) {

@@ -38,7 +38,7 @@ class AdminEditSpecTab extends React.Component{
 		this.setState({
 			newGroup: initGroup,
 			newItem :initItem
-		})
+		});
 	}
 	deleteGroup(gid ){
 		const newSpec  = update(this.props.spec, {
@@ -89,7 +89,7 @@ class AdminEditSpecTab extends React.Component{
 		const newItem  = update(this.state.newItem, {		
 			[subField]:{$set: value}
 		});	
-		this.setState((state, props) => { return { newItem }});
+		this.setState((state, props) => { return { newItem };});
 	}	
 	render () {
 		let { newGroup, newItem} = this.state;
@@ -131,10 +131,9 @@ class AdminEditSpecTab extends React.Component{
 					</tbody>
 					{					
 					spec && spec.map( (item, id) => {
-						return <AdminEditSpecBlock key={id} gid={id} group={item} addItem={this.addItem} 
+						return (<AdminEditSpecBlock key={id} gid={id} group={item} addItem={this.addItem} 
 													deleteGroup={this.deleteGroup} 
-													setGroup={this.setGroup}
-													deleteGroup={this.deleteGroup}/>;
+													setGroup={this.setGroup}/>);
 					})
 				}
 				</table>

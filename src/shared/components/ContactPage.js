@@ -95,6 +95,6 @@ const ContactPage = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default connect()(connectDataFetchers(ContactPage, [ loadCategories ]));

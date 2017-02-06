@@ -9,7 +9,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
       {touched && ((error && <span className="error">{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </div>
   </div>
-)
+);
 const renderSelectField = ({ input, label, type, options, meta: { touched, error, warning } }) => (
   <div>
     <label>{label}</label>
@@ -20,7 +20,7 @@ const renderSelectField = ({ input, label, type, options, meta: { touched, error
       {touched && ((error && <span className="error">{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </div>
   </div>
-)
+);
 const renderDropzoneInput = ({input, field, label, src, meta: { touched, error, warning } }) => {
   const files = input.value;
   return (
@@ -44,7 +44,7 @@ const renderDropzoneInput = ({input, field, label, src, meta: { touched, error, 
     </div>
 </div>
   );
-}
+};
 
 
 export {renderField, renderSelectField, renderDropzoneInput};

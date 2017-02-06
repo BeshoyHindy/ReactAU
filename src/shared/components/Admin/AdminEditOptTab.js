@@ -13,7 +13,7 @@ let tHead=["ID","Description","Delete"];
 let dKey=["id","desc","del"];
 let newItems =[
 	{desc: "Description", inputType:"text", field:"desc"}
-]
+];
 
 let pass = {initItem, customTd, tHead, dKey, newItems};
 

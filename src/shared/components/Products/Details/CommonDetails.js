@@ -55,7 +55,7 @@ let CommonDetails = (props) => {
 			</div>
 		);
 	}
-}
+};
 
 CommonDetails.propTypes = {
 	data: React.PropTypes.object,

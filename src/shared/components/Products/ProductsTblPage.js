@@ -17,7 +17,7 @@ const BaseProductTblImageComponent = (props) =>
 			</Link>
 		</td>
 	);
-}
+};
 
 BaseProductTblImageComponent.propTypes = {
 	rowData:  React.PropTypes.object,
@@ -34,7 +34,7 @@ const BaseProductEditComponent = (props) =>
 			</Link>
 		</td>
 	);
-}
+};
 
 
 
@@ -60,7 +60,7 @@ const ProductsTblPage = (props) =>{
 			col.push("delete");
 		}
 
-		let data = cloneDeep(props.products)
+		let data = cloneDeep(props.products);
 		for (let item of data) {
 			if (item.images && item.images[0]){
 				item.imageUrl= item.images[0];

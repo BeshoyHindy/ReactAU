@@ -6,7 +6,7 @@ import DevTools from '../components/Shared/DevTools';
 
 function configureStore(initialState) {
 	if (process.env.BROWSER) {
-		return createStore(
+		let store = createStore(
 			rootReducer,
 			initialState,
 			compose(
@@ -19,6 +19,13 @@ function configureStore(initialState) {
 					)
 				) 
 		);	
+		
+		if(process.env.NODE_ENV == 'development' && module.hot) {
+			module.hot.accept('../reducers', () => {
+				store.replaceReducer(require('../reducers').default);
+			});
+		}
+		return store;
 	}
 	else{
 		return createStore(
@@ -28,5 +35,7 @@ function configureStore(initialState) {
 		);
 	}
 }
+
+
 
 module.exports =  configureStore;

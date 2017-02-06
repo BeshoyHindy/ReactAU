@@ -34,7 +34,7 @@ class Rating extends React.Component{
 			rate = <StarsRating id={id} rate={this.rate} initRate={userRate}/>;
 		}
 
-    	return (
+		return (
 			<div className="rate">
 				<StarsRated pretitle="Avg Rate:" count={c} voteCount={stars.voteCount}/>
 				{rate}

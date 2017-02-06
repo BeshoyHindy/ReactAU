@@ -12,6 +12,6 @@ let StarsRated = (props) => {
 		<Star key={i} selected={selected} half={half}/>);
 	}
 	return (<div  className="rated">{pretitle} {stars} ({count}) {voteCount} </div>);
-}
+};
 
 export default StarsRated;

@@ -26,10 +26,10 @@ class StarsRating extends React.Component{
 		this.props.rate(idx + 1);
 	}
 	render(){
-		var stars = [];
-		for(var i = 0 ; i < 5; i++){
-			var rating = this.state.hoverAt != null ? this.state.hoverAt : this.state.rating;
-			var selected = (i < rating);
+		let stars = [];
+		for(let i = 0 ; i < 5; i++){
+			let rating = this.state.hoverAt != null ? this.state.hoverAt : this.state.rating;
+			let selected = (i < rating);
 			stars.push(
 			<Star key={i} selected={selected} style={{cursor: "pointer"}}
 				onMouseOver={this.handleMouseOver.bind(this, i)}

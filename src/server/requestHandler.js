@@ -13,7 +13,7 @@ import { fetchComponentsData,
          getMetaDataFromState,
          detectLocale,
          getIp
-	 } from './utils';
+	} from './utils';
 
 
 function handleRender(req, res) 
@@ -24,7 +24,7 @@ function handleRender(req, res)
 
   const location = req.url;
   const venderJs =(process.env.NODE_ENV === 'production')
-  					? '/build/vendor.js'
+					? '/build/vendor.js'
 					: '/dll.vendor.js';
   const locale = detectLocale(req);
 					
@@ -37,7 +37,7 @@ function handleRender(req, res)
 		res.status(404).render('404');
 	} else {
 		// console.log(renderProps.routes[renderProps.routes.length - 1]);
-		 fetchComponentsData({
+		fetchComponentsData({
                  dispatch   : store.dispatch,
                  components : renderProps.components,
                  params     : renderProps.params,
@@ -62,7 +62,7 @@ function handleRender(req, res)
                 res.render('index', { componentHTML, reduxState, venderJs, metaData });	
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     res.status(500).json({
                         err:error.message
                     });

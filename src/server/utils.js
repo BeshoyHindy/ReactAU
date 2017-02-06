@@ -25,76 +25,76 @@ export function fetchComponentsData({ dispatch, components, params, query, local
 export function getMetaDataFromState({ route, state, params = {}, query = {}, lang }) {
     /* eslint more/no-duplicated-chains: 0 */
 
-    if (route === '/activations/:id' || route === '/activations/:id/:title') {
-        const { name, message, pictureURL } = state.currentActivation.activation;
+    // if (route === '/activations/:id' || route === '/activations/:id/:title') {
+    //     const { name, message, pictureURL } = state.currentActivation.activation;
 
-        return {
-            type        : 'ACTIVATION',
-            title       : name,
-            siteName    : "It's quiz",
-            image       : pictureURL ? pictureURL.replace('svg', 'png') : '',
-            description : message
-        };
-    }
+    //     return {
+    //         type        : 'ACTIVATION',
+    //         title       : name,
+    //         siteName    : "It's quiz",
+    //         image       : pictureURL ? pictureURL.replace('svg', 'png') : '',
+    //         description : message
+    //     };
+    // }
 
-    if (route === '/result/:id/:accountId' && state.currentActivation.activation) {
-        const { name, pictureURL, message, accountQuizSession } = state.currentActivation.activation;
+    // if (route === '/result/:id/:accountId' && state.currentActivation.activation) {
+    //     const { name, pictureURL, message, accountQuizSession } = state.currentActivation.activation;
 
-        const greeting = _getGreeting(state.currentAssessmentSystem.assessmentSystem, accountQuizSession.score);
+    //     const greeting = _getGreeting(state.currentAssessmentSystem.assessmentSystem, accountQuizSession.score);
 
-        const sharePhrases = {
-            ru: 'Я сдал тест "{name}" на {score}%. Мой результат: "{greeting}"',
-            uk: 'Я склав тест "{name}" на {score}%. Мій результат: "{greeting}"',
-            en: 'I have passed test "{name}" and gained {score}%. My result is: "{greeting}"'
-        };
+    //     const sharePhrases = {
+    //         ru: 'Я сдал тест "{name}" на {score}%. Мой результат: "{greeting}"',
+    //         uk: 'Я склав тест "{name}" на {score}%. Мій результат: "{greeting}"',
+    //         en: 'I have passed test "{name}" and gained {score}%. My result is: "{greeting}"'
+    //     };
 
-        const title = strformat(sharePhrases[lang], {
-            name, score: accountQuizSession.score, greeting: greeting.phrase
-        });
-        const greetingDescription = greeting.description || '';
+    //     const title = strformat(sharePhrases[lang], {
+    //         name, score: accountQuizSession.score, greeting: greeting.phrase
+    //     });
+    //     const greetingDescription = greeting.description || '';
 
-        return {
-            type        : 'RESULT',
-            title,
-            siteName    : "It's quiz",
-            image       : pictureURL ? pictureURL.replace('svg', 'png') : '',
-            description : greetingDescription || message
-        };
-    }
+    //     return {
+    //         type        : 'RESULT',
+    //         title,
+    //         siteName    : "It's quiz",
+    //         image       : pictureURL ? pictureURL.replace('svg', 'png') : '',
+    //         description : greetingDescription || message
+    //     };
+    // }
 
-    if (route === '/share/:key') {
-        const { customShareInfo } = clientConfig;
-        const { key } = params;
+    // if (route === '/share/:key') {
+    //     const { customShareInfo } = clientConfig;
+    //     const { key } = params;
 
-        if (key && customShareInfo && customShareInfo[key]) {
-            const { title, pictureURL, description } = customShareInfo[key];
+    //     if (key && customShareInfo && customShareInfo[key]) {
+    //         const { title, pictureURL, description } = customShareInfo[key];
 
-            return {
-                type        : 'SHARE',
-                title       : strformat(title, query),
-                siteName    : 'Hi-Tech CCTV',
-                image       : pictureURL,
-                description : strformat(description, query)
-            };
-        }
-    }
+    //         return {
+    //             type        : 'SHARE',
+    //             title       : strformat(title, query),
+    //             siteName    : 'Hi-Tech CCTV',
+    //             image       : pictureURL,
+    //             description : strformat(description, query)
+    //         };
+    //     }
+    // }
 
-    if (route === '/promo/:key') {
-        const { promos } = clientConfig;
-        const { key } = params;
+    // if (route === '/promo/:key') {
+    //     const { promos } = clientConfig;
+    //     const { key } = params;
 
-        if (key && promos && promos[key]) {
-            const { title, image, description } = promos[key];
+    //     if (key && promos && promos[key]) {
+    //         const { title, image, description } = promos[key];
 
-            return {
-                type     : 'PROMO',
-                image,
-                title,
-                description,
-                siteName : 'Hi-Tech CCTV'
-            };
-        }
-    }
+    //         return {
+    //             type     : 'PROMO',
+    //             image,
+    //             title,
+    //             description,
+    //             siteName : 'Hi-Tech CCTV'
+    //         };
+    //     }
+    // }
 
     return {
         type        : 'MAIN',

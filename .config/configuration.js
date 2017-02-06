@@ -17,16 +17,5 @@ module.exports =
 			host: 'localhost',
 			port: process.env.PORT || 3000,
 		}
-	},
-	development:
-	{
-		webpack:
-		{
-			development_server:
-			{
-				host: 'localhost',
-				port: 3002
-			}
-		}
 	}
 }

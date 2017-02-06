@@ -1,7 +1,7 @@
 import React from 'react';
 
 let Star = (props) => {
-	var r = 'fa fa-star';
+	let r = 'fa fa-star';
 	if(!props.selected){
 		r += '-o';
 	}else if (props.half){

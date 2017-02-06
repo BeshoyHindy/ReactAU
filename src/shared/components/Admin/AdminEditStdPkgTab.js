@@ -15,7 +15,7 @@ let dKey=["id","desc","qty", "del"];
 let newItems =[
 	{desc: "Description", inputType:"text", field:"desc"},
 	{desc: "Qty", inputType:"number", field:"qty"}
-]
+];
 
 let pass = {initItem, customTd, tHead, dKey, newItems};
 

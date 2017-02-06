@@ -61,7 +61,7 @@ class AdminEditSpecBlock extends React.Component{
 		const newItem  = update(this.state.newItem, {		
 			[subField]:{$set: value}
 		});	
-		this.setState((state, props) => { return { newItem }});
+		this.setState((state, props) => { return { newItem };});
 	}		
 	render () {				
 		let {group, gid} = this.props;

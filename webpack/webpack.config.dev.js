@@ -8,13 +8,11 @@ let HappyPack  = require( 'happypack');
 let info = autoprefixer().info();
 console.log(info);
 */
+//http://stackoverflow.com/questions/36854862/redux-hot-reload-warning-on-changes
+import { web_server } from '../.config/configuration';
 
-import { development } from '../.config/configuration';
-
-
-const dev_server = development.webpack.development_server;
-const port = dev_server.port || 3002;
-const host = dev_server.host || 'localhost';
+const port = web_server.http.port || 3002;
+const host = web_server.http.host || 'localhost';
 
 
 let projectRoot = process.cwd();
@@ -27,7 +25,8 @@ let config = {
 	devtool: 'inline-eval-cheap-source-map',
 	context: process.cwd(),
 	entry: [
-		'webpack-hot-middleware/client?reload=true',
+		'eventsource-polyfill', // necessary for hot reloading with IE
+		'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
 		path.resolve(projectRoot, './src/client/index.js')
 	],
 	target: 'web',
@@ -50,7 +49,7 @@ let config = {
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.IgnorePlugin(/webpack-stats\.json$/),
-		// new webpack.NoErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/main.css',
 			disable: false,
@@ -95,8 +94,8 @@ let config = {
 						],
 					})
 			},
-			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=./fonts/[name].[ext]" },
-			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=./fonts/[name].[ext]" },
+			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=/fonts/[name].[ext]" },
+			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=/fonts/[name].[ext]" },
 			{
 				test: /\.gif$/i,
 				loader: 'url-loader',
@@ -187,4 +186,4 @@ let config = {
 };
 
 
-module.exports = config;
+export default config;
