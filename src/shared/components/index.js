@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import Modal from 'react-modal';
 
 import { NavBar } from '../components/header/NavBar';
 import { navData } from '../Data/RouteData';
@@ -31,6 +32,8 @@ class Root extends React.Component{
 		this.signin = this.signin.bind(this);
 		this.goToSignUp = this.goToSignUp.bind(this);
 		this.getUser = this.getUser.bind(this);
+		this.loadScript = this.loadScript.bind(this);
+		this.getGoogleAuth2 = this.getGoogleAuth2.bind(this);
 	}
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
@@ -39,6 +42,19 @@ class Root extends React.Component{
 	}
 	goToSignUp(values) {
 		this.props.router.push('/signup');
+	}
+	loadScript(src) {
+		return new Promise(function (resolve, reject) {
+			var s;
+			s = document.createElement('script');
+			s.src = src;
+			s.onload = resolve;
+			s.onerror = reject;
+			document.head.appendChild(s);
+		});
+	}
+	getGoogleAuth2(){
+		return this.googleAuth2;
 	}
 	componentDidMount() {
 		let cx = '010537077688859157203:be4kn89v_sy';
@@ -51,6 +67,30 @@ class Root extends React.Component{
 		let gcsecc = document.createElement("gcse:search");
 		gcsecc.innerHTML = "";
 		document.getElementById("search").appendChild(gcsecc);
+
+		// Load the FB SDK asynchronously
+		this.loadScript("https://connect.facebook.net/en_US/sdk.js")
+		.then(()=>{
+			FB.init({
+				appId      : '250001685455881',
+				xfbml      : true,  // parse social plugins on this page
+				version    : 'v2.8', // use version 2.8
+			});
+		})
+
+		// Load the google api asynchronously
+		this.loadScript("https://apis.google.com/js/api:client.js")
+		.then(()=>{
+			gapi.load('auth2', () => {
+			// Retrieve the singleton for the GoogleAuth library and set up the client.
+				this.googleAuth2 = gapi.auth2.init({
+					client_id: '586155954929-m97mht8fe5sm5ua26pjbu3bkij22p8i0.apps.googleusercontent.com',
+					cookiepolicy: 'single_host_origin',
+					// Request scopes in addition to 'profile' and 'email'
+					//scope: 'additional_scope'
+				});
+			});	
+		})
 	}
 	logout(){
 		this.props.userSignOut(this.props.routes);
@@ -72,7 +112,7 @@ class Root extends React.Component{
 		return User;
 	}
 	render() {
-		let { auth} = this.props;
+		let { auth, showSigninModal} = this.props;
 		return (
 	<div>
 		<header id="header">
@@ -101,7 +141,9 @@ class Root extends React.Component{
 			</div>
 		</div>
 		<div id="footer"/>
-		<SignInModal/>
+		<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
+			<SignInModal getGoogleAuth2={this.getGoogleAuth2}/>
+		</Modal>
 	</div>
 
 		);
@@ -111,6 +153,7 @@ class Root extends React.Component{
 function mapStateToProps(state) {
   return { 
     auth: state.auth,
+	showSigninModal: state.modal.open,	
   };
 }	
 

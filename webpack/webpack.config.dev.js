@@ -1,11 +1,11 @@
-var webpack = require('webpack');
-var path  = require( 'path');
-var ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
+let webpack = require('webpack');
+let path  = require( 'path');
+let ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
 //import HtmlWebpackPlugin from 'html-webpack-plugin';
-var autoprefixer  = require( 'autoprefixer');
-var HappyPack  = require( 'happypack');
+let autoprefixer  = require( 'autoprefixer');
+let HappyPack  = require( 'happypack');
 /*
-var info = autoprefixer().info();
+let info = autoprefixer().info();
 console.log(info);
 */
 
@@ -17,36 +17,16 @@ const port = dev_server.port || 3002;
 const host = dev_server.host || 'localhost';
 
 
-var projectRoot = process.cwd();
-var assetsPath = path.join(projectRoot,   "public", "build");
-var publicPath = `http://${host}:${port}/build`;
-var distPath = projectRoot;
+let projectRoot = process.cwd();
+let assetsPath = path.join(projectRoot,   "public", "build");
+let publicPath = `http://${host}:${port}/build`;
+let distPath = projectRoot;
 
-var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
-// HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss-loader']);
-console.log(assetsPath);
-function createHappyPlugin(id, loaders) {
-  return new HappyPack({
-    id: id,
-    loaders: loaders,
-    threadPool: happyThreadPool,
-
-    // disable happy caching with HAPPY_CACHE=0
-    cache: false,
-
-    // make happy more verbose with HAPPY_VERBOSE=1
-    verbose: true,
-  });
-}
-
-
-var config = {
+let config = {
 	cache: false,
 	devtool: 'inline-eval-cheap-source-map',
 	context: process.cwd(),
 	entry: [
-		'react-hot-loader/patch',
-		//`webpack-hot-middleware/client?path=http://${dev_server.host}:${port}/__webpack_hmr`,
 		'webpack-hot-middleware/client?reload=true',
 		path.resolve(projectRoot, './src/client/index.js')
 	],
@@ -80,59 +60,22 @@ var config = {
             context: path.join(projectRoot, "src" , "client"),
             manifest: require("../dll/vendor-manifest.json")
         }),
-		createHappyPlugin('jsHappy',
-			[
-				{
-					path: 'babel-loader',
-					query: {
-						cacheDirectory: true,
-						presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
-						plugins: ['react-hot-loader/babel'],
-					}
-				}
-			]
-		),
-		// createHappyPlugin('sassHappy',
-		// 	[
-		// 		{ path: 'raw-loader'/*, query: { sourceMap: true, importLoaders: 2, localIdentName: '[name]__[local]__[hash:base64:5]' }*/ },
-		// 		{ path: 'resolve-url-loader' },
-		// 		{ path: 'postcss-loader' },
-		// 		{ path: 'sass-loader', query: {
-		// 					sourceMap: true,
-		// 					includePaths: [
-		// 						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-		// 						path.resolve(projectRoot, './src/client/sass/')
-		// 					]
-		// 			}
-		// 		}
-		// 	]
-		// )
 	],
 	module: {
 		rules: [
 			{
 				test: /(\.jsx)|(\.js)$/i,
 				exclude: /node_modules/,
-				loader: 'happypack/loader?id=jsHappy',
+				loader: 'babel-loader',
 				include: [
                     path.join(projectRoot, "src" , "client"),
 					path.join(projectRoot, "src" , "shared")
                 ],
-				// options: {
-				// 	cacheDirectory: true,
-				// 	babelrc: false,
-				// 	presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
-				// 	plugins: ['react-hot-loader/babel'],
-				// },
+				options: {
+					cacheDirectory: true,
+					presets: ["react-hmre"]
+				},
 			},
-			// {
-			// 	test: /(\.sass|\.scss)$/i,
-			// 	loader:
-			// 		ExtractTextPlugin.extract({
-			// 			fallbackLoader: "style-loader",
-			// 			loader: 'happypack/loader?id=sassHappy'
-			// 		})
-			// },
 			{
 				test: /(\.sass|\.scss)$/,
 				loader:
@@ -144,7 +87,7 @@ var config = {
 							{ loader: 'sass-loader', query: {
 									sourceMap: true,
 									includePaths: [
-								 		path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+										path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
 										path.resolve(projectRoot, './src/shared/sass/')
 									]
 								}
@@ -210,8 +153,8 @@ var config = {
 	},
     resolveLoader: {
 		modules: [
-		  path.resolve(projectRoot, "./src/shared"),
-		  "node_modules"
+			path.resolve(projectRoot, "./src/shared"),
+			"node_modules"
 		],
     },
     resolve: {

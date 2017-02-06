@@ -18,7 +18,6 @@ module.exports =
 			port: process.env.PORT || 3000,
 		}
 	},
-	session_secret_keys: ['chingchingyeh'],
 	development:
 	{
 		webpack:

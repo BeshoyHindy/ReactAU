@@ -1,4 +1,4 @@
-import Modal from 'react-modal';
+
 import React from 'react';
 import { connect } from 'react-redux';
 import jsonp from 'jsonp';
@@ -24,27 +24,12 @@ class SignInModal extends React.Component{
 		this.goToSignUp = this.goToSignUp.bind(this);
 		this.fbLogin = this.fbLogin.bind(this);
 		this.googleLogin = this.googleLogin.bind(this);
+		this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
 		this.handleFbLogin = this.handleFbLogin.bind(this);
 	}
 	componentDidMount() {
-		window.fbAsyncInit = () => {
-			FB.init({
-				appId      : '250001685455881',
-				xfbml      : true,  // parse social plugins on this page
-				version    : 'v2.8', // use version 2.8
-			});
-		}
-
-		// Load the SDK asynchronously
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));		
+		this.googleLogin();	
 	}
-	
 	handleOpenModal () {
 		this.props.changeModal({open:true});
 	}
@@ -63,6 +48,16 @@ class SignInModal extends React.Component{
 		if (nextProps !== this.props && this.props.auth && !this.props.auth.success && nextProps.auth && nextProps.auth.success){
 			this.handleCloseModal();
 		}
+	}
+	googleLogin() {
+		if (this.googleAuth2){
+			return;
+		}
+		this.googleAuth2 = this.props.getGoogleAuth2();
+		this.googleAuth2.attachClickHandler(this.customGoogleBtn, {}, this.handleGoogleLogin, function(error) {
+				alert(JSON.stringify(error, undefined, 2)
+			);
+		});		
 	}	
 	fbLogin(){
 		FB.login( this.handleFbLogin, {
@@ -76,26 +71,6 @@ class SignInModal extends React.Component{
 
 		//sdk docs		
 		//https://developers.facebook.com/docs/reference/javascript/FB.login/v2.8
-
-		// the follow wil fail with: Refused to display 'https://www.facebook.com/connect/ping?client_id=250001685455881&domain=loca…4%26relation%3Dparent&response_type=token%2Csigned_request%2Ccode&sdk=joey' in a frame because it set 'X-Frame-Options' to 'DENY'.
-		// FB.getLoginStatus(function(response) {
-		// 	if (response.status === 'connected') {
-		// 		// the user is logged in and has authenticated your
-		// 		// app, and response.authResponse supplies
-		// 		// the user's ID, a valid access token, a signed
-		// 		// request, and the time the access token 
-		// 		// and signed request each expire
-		// 		var uid = response.authResponse.userID;
-		// 		console.log('Welcome!  Fetching your information.... ', response);
-		// 		console.log('Good to see you, ' + response.name + '.');
-		// 	} else if (response.status === 'not_authorized') {
-		// 		// the user is logged in to Facebook, 
-		// 		// but has not authenticated your app
-		// 	} else {
-		// 		// the user isn't logged in to Facebook.
-		// 	}
-		// });
-
 	}
 	handleFbLogin(response){
 		if (response.authResponse) {
@@ -111,9 +86,12 @@ class SignInModal extends React.Component{
 			this.setState((state, props) => { return { socialErsMsg: "For FB Login, You need to not fully authorize" }});				
 		}
 	}
-	googleLogin(){
-
-	}
+	handleGoogleLogin(googleUser) {
+		//https://developers.google.com/identity/sign-in/web/
+		var profile = googleUser.getBasicProfile();
+		var id_token = googleUser.getAuthResponse().id_token;
+		this.props.userSocialLoginClient({type: "google", token: id_token, id: profile.getId()});
+	}	
 	renderAlert() {
 		if (this.props.auth.error || this.state.socialErsMsg) {
 			return (
@@ -127,7 +105,6 @@ class SignInModal extends React.Component{
 	render() {
 		let {auth, handleSubmit, pristine, submitting, showSigninModal } = this.props;
 		return (
-		<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 					
 			<form onSubmit={handleSubmit(this.handleFormSubmit)}>
 				<h3 className="modal-title">Sign In</h3>
 				<div className="col-lg-12">
@@ -138,7 +115,8 @@ class SignInModal extends React.Component{
 				<div className="social-login">
 					<lable className="social-label"> Sign In with Social Account</lable>	
 					<i className="fa fa-facebook-square btn-social btn-facebook" aria-hidden="true" onClick={this.fbLogin}></i>	
-					<i className="fa fa-google-plus-square btn-social btn-google" aria-hidden="true" onClick={this.googleLogin}></i>	
+					<i className="fa fa-google-plus-square btn-social btn-google" id="customGoogleBtn" aria-hidden="true" 
+						ref={ref => {this.customGoogleBtn = ref;}} onClick={this.googleLogin}></i>	
 				</div>
 					{this.renderAlert()}
 					<div>
@@ -147,17 +125,9 @@ class SignInModal extends React.Component{
 					</div>
 				</div>
 			</form>
-		</Modal>		
 		);
 	}
 }
-
-
-/*
-					<a href={`${api_server.http.host}:${api_server.http.port}/auth/facebook`} target="_self"> 
-						<i className="fa fa-facebook-square btn-social btn-facebook" aria-hidden="true" onClick={this.fbLogin}></i>	
-					</a>
-*/
 const validate = values => {
 	const errors = {}
 	if (!values.email) {

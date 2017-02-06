@@ -13,6 +13,8 @@ function authReducer(state = initialState.auth, action) {
       return {user: action.user, error:"", success:true};
     case types.USER_CHANGE_PROFILE_FAIL:
       return {user: {}, error:action.error, success:false};
+    case types.CLAEN_MODAL_ERRMESSAGE:
+      return Object.assign({}, state, {error:""});
     case types.USER_SIGN_OUT:
       return {user: {}, error:"", success:false};
     case types.UPDATE_USER_DATA:

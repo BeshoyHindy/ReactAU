@@ -96,8 +96,6 @@ var config = [
 					],
 					options: {
 						cacheDirectory: true,
-						babelrc: false,
-						presets: [["es2015", {"loose": true, "module": false}], "stage-0", "react"],
 					},
 				},
 				{
@@ -224,10 +222,7 @@ var config = [
 						path.join(projectRoot, "src" ) //important for performance!
 					],
 					options: {
-						cacheDirectory: true,
-						babelrc: false,
-						presets: [["es2015", {"module": false}], "stage-0", "react"],
-						plugins: ['react-hot-loader/babel'],
+						cacheDirectory: true
 					},
 				},
 			]
