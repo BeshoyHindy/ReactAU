@@ -4,7 +4,8 @@ const CustomDel = (props) => (
 );
 CustomDel.propTypes = {
 	data: React.PropTypes.string,
-	rowData: React.PropTypes.object
+	rowData: React.PropTypes.object,
+	delItem: React.PropTypes.func
 };
 
 
@@ -15,6 +16,8 @@ CustomInput.propTypes = {
 	data: React.PropTypes.string,
 	field: React.PropTypes.string,
 	type: React.PropTypes.string,
+	tdData: React.PropTypes.string,
+	setInput: React.PropTypes.func,
 	rowData: React.PropTypes.object
 };
 

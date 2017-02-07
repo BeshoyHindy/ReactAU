@@ -30,16 +30,13 @@ export function userSignup(user) {
   };
 }
 
-export function userSignin(user,routePath) {
+export function userSignin(user) {
   return dispatch => {
     dispatch(beginAjaxCall());
     return AuthApi.userSignin(user).then(user => {
         localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
 		dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:false}}); 
-        // if (process.env.BROWSER && routePath ==='/signin'){
-        //     browserHistory.push('/user');
-        // }
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -56,7 +53,7 @@ export function userSocialLoginClient(data) {
         dispatch(signupUserSuccess(user.details));
 		dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:false}}); 
     }).catch(error => {
-		console.log(error);
+		// console.log(error);
         dispatch(signupUserFail(error.err));      
     });
   };

@@ -53,6 +53,12 @@ class AdminEditInputArray extends React.Component{
 		);
 	}
 }
-
+AdminEditInputArray.propTypes = {
+	data: React.PropTypes.array,
+	setData: React.PropTypes.func.isRequired,
+	addArrayMember: React.PropTypes.func.isRequired,
+	deleteArrayMember: React.PropTypes.func.isRequired,	
+	field: React.PropTypes.string.isRequired,	
+};
 
 export default AdminEditInputArray;

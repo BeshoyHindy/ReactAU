@@ -1,5 +1,7 @@
 import React from 'react';
 import {SortableTblPager} from './SortableTblPager';
+import {SortableTblTh} from './SortableTblTh';
+import {SortableTblTd} from './SortableTblTd';
 
 class SortableTbl extends React.Component{
 		constructor(props) {
@@ -112,9 +114,9 @@ class SortableTbl extends React.Component{
 								{
 									this.props.dKey.map((item, id) => {
 										return (
-											<SortableTh key={id} sortData={this.sortData} asc={this.state.asc[item]}  dataKey={item} >
+											<SortableTblTh key={id} sortData={this.sortData} asc={this.state.asc[item]}  dataKey={item} >
 												{this.props.tHead[parseInt(id)]}
-											</SortableTh>
+											</SortableTblTh>
 									);})
 								}
 							</tr>
@@ -122,7 +124,7 @@ class SortableTbl extends React.Component{
 							<tbody>
 							{
 								pageData.map( (item, id) => {
-									return <SortableTd key={id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
+									return <SortableTblTd key={id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
 								})
 							}
 							</tbody>
@@ -149,82 +151,6 @@ SortableTbl.defaultProps = {
 	customTd: [],
 	paging: true,
 	defaultRowsPerPage: 5
-};
-
-
-
-class SortableTh extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
-			sortCssClass: "fa fa-sort"
-		};
-		this.sort = this.sort.bind(this);
-	}
-	componentWillReceiveProps(nextProps) {
-		//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
-		let a = "fa fa-sort";
-		switch (nextProps.asc){
-			case null:
-				a = "fa fa-sort";
-			break;
-			case true:
-				a = "fa fa-sort-amount-asc";
-			break;
-			case false:
-				a = "fa fa-sort-amount-desc";
-			break;
-		}
-		//console.log(a);
-		if (nextProps.asc !== this.props.asc) {
-			this.setState({ sortCssClass: a });
-		}
-	}
-	sort(){
-		this.props.sortData(this.props.dataKey, !this.props.asc);
-	}
-	render() {
-		return (
-			<th onClick={this.sort}> {this.props.children} <br/><i className={this.state.sortCssClass} aria-hidden="true"/></th>
-		);
-	}
-}
-SortableTh.propTypes = {
-	asc: React.PropTypes.bool,
-	sortData: React.PropTypes.func.isRequired,
-	dataKey:  React.PropTypes.string,
-	children: React.PropTypes.node
-};
-
-
-const SortableTd = (props) => {
-	let CustomTd = props.customTd;
-	return(
-		<tr>
-		{
-			props.dKey.map((item, id) => {
-				let CustomTdComponent = null;
-				CustomTdComponent = CustomTd && CustomTd.filter((i)=>{return (i.keyItem === item);})
-						.reduce( (result,item) => { return item; }, {})
-						.custd;
-
-				if (!CustomTd)
-					return (<td key={id} >{props.tdData[item]}</td>);
-
-				if (CustomTdComponent)	{
-					return (<CustomTdComponent key={id} {...props} tdData={props.tdData[item]} field={item} rowData={props.tdData}/>);
-				}
-
-				return (<td key={id} >{props.tdData[item]}</td>);
-			})
-		}
-		</tr>
-	);
-};
-SortableTd.propTypes = {
-	tdData: React.PropTypes.object,
-	dKey: React.PropTypes.array,
-	customTd: React.PropTypes.array
 };
 
 export {SortableTbl};

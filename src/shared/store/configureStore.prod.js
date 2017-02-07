@@ -4,9 +4,9 @@ import thunk from 'redux-thunk';
 
 function configureStore(initialState) {
     return createStore(
-      rootReducer,
-      initialState,
-	  applyMiddleware(thunk)
+		rootReducer,
+		initialState,
+		applyMiddleware(thunk)
     );
 }
 

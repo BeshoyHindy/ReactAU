@@ -13,7 +13,7 @@ let UserProfileTab = (props) => {
 		data = user.data.rate.map((item)=> { 
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
-			return {pid: item.productId, rate: item.rate, cat}
+			return {pid: item.productId, rate: item.rate, cat};
 		});
 	}
 	return (
@@ -40,16 +40,17 @@ let UserProfileTab = (props) => {
 				</tbody>
 			</table>
 		</div>
-	)
+	);
 }; 
 
 UserProfileTab.propTypes = {
 	user:  React.PropTypes.object.isRequired,
+	categories:  React.PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-	user: state.auth.user,
+	user: state.auth.user || {},
   };
 }
 UserProfileTab = connect(mapStateToProps)(UserProfileTab);

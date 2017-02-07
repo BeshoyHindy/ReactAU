@@ -141,7 +141,17 @@ class AdminEditBasicTab extends React.Component{
 	}
 }
 AdminEditBasicTab.propTypes = {
-	data: React.PropTypes.object
+	data: React.PropTypes.object,
+	details: React.PropTypes.object.isRequired,
+	params: React.PropTypes.object.isRequired,
+	categories: React.PropTypes.array.isRequired,
+	newImages: React.PropTypes.array,
+	setNewFiles: React.PropTypes.func.isRequired,
+	setData: React.PropTypes.func.isRequired,
+	addArrayMember: React.PropTypes.func.isRequired,
+	delArrayMember: React.PropTypes.func.isRequired,
+	tabId: React.PropTypes.number.isRequired,
+	fileField: React.PropTypes.string.isRequired,
 };
 
 export default AdminEditBasicTab;

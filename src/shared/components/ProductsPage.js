@@ -110,6 +110,7 @@ ProductsP.propTypes = {
 	sidebar: React.PropTypes.node,
 	params:  React.PropTypes.object,
 	products:  React.PropTypes.array,
+	ajaxState:  React.PropTypes.number,
 };
 
 function mapStateToProps(state, ownProps) {

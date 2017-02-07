@@ -17,7 +17,7 @@ class SignupPage extends React.Component {
   handleFormSubmit(values) {
     // Call action creator to sign up the user!
 		let {email, password} = values;		
-		this.props.dispatch(actions.userSignup({email, password}));
+		this.props.userSignup({email, password});
   }
 
   renderAlert() {
@@ -88,9 +88,14 @@ const validate = values => {
     errors.password = 'Passwords must match';
   }
   return errors;
-}
+};
 
 SignupPage.propTypes = {
+	handleSubmit: React.PropTypes.func.isRequired,
+	submitting: React.PropTypes.bool.isRequired,
+	pristine: React.PropTypes.bool.isRequired,
+	userSignup: React.PropTypes.func.isRequired,
+	errorMessage: React.PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -98,7 +103,7 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, actions)( reduxForm({
+export default connect(mapStateToProps, ...actions)( reduxForm({
 														form: 'signup',
 														validate,                // <--- validation function given to redux-form
 													})(SignupPage));

@@ -90,7 +90,7 @@ class editUserTab extends React.Component {
 const validate = values => {
 	const errors = {};
 	if (!values.email) {
-		errors.email = 'Required'
+		errors.email = 'Required';
 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
 		errors.email = 'Invalid email address';
 	}
@@ -107,9 +107,16 @@ const validate = values => {
 		errors.password = 'Passwords must match';
 	}
 	return errors;
-}
+};
 
 editUserTab.propTypes = {
+	handleSubmit: React.PropTypes.func.isRequired,
+	submitting: React.PropTypes.bool.isRequired,
+	pristine: React.PropTypes.bool.isRequired,
+	auth: React.PropTypes.object.isRequired,
+	initialValues: React.PropTypes.object.isRequired,
+	errorMessage: React.PropTypes.string,
+	userChangeProfile: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {

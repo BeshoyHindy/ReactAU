@@ -83,5 +83,14 @@ class EditSortableTbl extends React.Component{
 		// return <WrappedComponent data={this.state.data} {...this.props} />;
 	}
   }
+EditSortableTbl.propTypes = {
+	tabId: React.PropTypes.number.isRequired,
+	addArrayMember: React.PropTypes.func.isRequired,
+	setArrayMember: React.PropTypes.func.isRequired,	
+	delArrayMember: React.PropTypes.func.isRequired,	
+	field: React.PropTypes.string.isRequired,	
+	pass: React.PropTypes.object.isRequired,	
+	member: React.PropTypes.object.isRequired,	
+};  
 
 export default EditSortableTbl;

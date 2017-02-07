@@ -63,6 +63,8 @@ AdminEditProductPage.propTypes = {
 	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	products:  React.PropTypes.array,
+	params: React.PropTypes.object.isRequired,	
+	router: React.PropTypes.object.isRequired,		
 };
 
 function mapStateToProps(state, ownProps) {

@@ -25,7 +25,7 @@ const UnauthorizedPage = (props) 	=> (
 			</div>
 		</div>
 	);
-class Root extends React.Component{
+let Root = class Root extends React.Component{
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);
@@ -38,14 +38,14 @@ class Root extends React.Component{
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
 		let {email, password} = values;
-		this.props.userSignin({email, password},this.props.pathname);
+		this.props.userSignin({email, password});
 	}
 	goToSignUp(values) {
 		this.props.router.push('/signup');
 	}
 	loadScript(src) {
 		return new Promise(function (resolve, reject) {
-			var s;
+			let s;
 			s = document.createElement('script');
 			s.src = src;
 			s.onload = resolve;
@@ -76,7 +76,7 @@ class Root extends React.Component{
 				xfbml      : true,  // parse social plugins on this page
 				version    : 'v2.8', // use version 2.8
 			});
-		})
+		});
 
 		// Load the google api asynchronously
 		this.loadScript("https://apis.google.com/js/api:client.js")
@@ -90,7 +90,7 @@ class Root extends React.Component{
 					//scope: 'additional_scope'
 				});
 			});	
-		})
+		});
 	}
 	logout(){
 		this.props.userSignOut(this.props.routes);
@@ -105,7 +105,7 @@ class Root extends React.Component{
 	}	
 	getUser(){
 		let { auth} = this.props;
-		if (!auth ||! auth.success || !auth.user)	return <div></div>;
+		if (!auth ||! auth.success || !auth.user)	return <div/>;
 
 		let User = undefined || (auth.user.email && <div className="login-user">{auth.user.email}</div>);
 		User = User || (auth.user.profile && auth.user.profile.username && <div className="login-user">{auth.user.profile.username}</div>);
@@ -123,8 +123,8 @@ class Root extends React.Component{
 							for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733
 						</p>
 						<div className="signin">
-							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}></i>							
-							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"></i></Link>
+							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
+							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
 							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 							{this.getUser()}
 						</div>
@@ -148,7 +148,21 @@ class Root extends React.Component{
 
 		);
 	}
-}
+};
+
+Root.propTypes = {
+	userSignOut: React.PropTypes.func.isRequired,
+	userSignin: React.PropTypes.func.isRequired,
+	showSigninModal: React.PropTypes.bool.isRequired,
+	changeModal: React.PropTypes.func.isRequired,
+	auth: React.PropTypes.object.isRequired,
+	router: React.PropTypes.object.isRequired,
+	routes: React.PropTypes.array.isRequired,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.arrayOf(React.PropTypes.node),
+      React.PropTypes.node
+    ])	
+};
 
 function mapStateToProps(state) {
   return { 

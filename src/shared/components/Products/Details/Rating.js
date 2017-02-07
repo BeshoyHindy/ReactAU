@@ -7,7 +7,7 @@ import StarsRating from '../../Shared/StarsRating';
 import StarsRated from '../../Shared/StarsRated';
 
 
-class Rating extends React.Component{
+let Rating = class Rating extends React.Component{
 	constructor(props) {
 		super(props);
 		this.signin = this.signin.bind(this);
@@ -41,10 +41,14 @@ class Rating extends React.Component{
 			</div>
 		);
 	}
-}
+};
 
 Rating.propTypes = {
 	stars: React.PropTypes.object,
+	setUserProductRate: React.PropTypes.func.isRequired,
+	changeModal: React.PropTypes.func.isRequired,
+	auth: React.PropTypes.object,
+	id: React.PropTypes.string,
 };
 Rating.defaultProps = {
 	stars: {avgRate : 0, voteCount: 0},

@@ -26,8 +26,7 @@ class AdminEditDocsTab extends React.Component{
 			let file = files[id];
 			if (file && file.type) {
 				// console.log(file);
-				nDocs.push({file});
-				console.log(nDocs);					
+				nDocs.push({file});				
 			}
 		}
 		this.props.setNewDocs(this.props.tabId, this.props.fileField, nDocs);				
@@ -75,12 +74,12 @@ class AdminEditDocsTab extends React.Component{
 		);
 	}
 	render () {
-		let tblData = this.props.docs.map((item, id)=>{item.id=id+1; return item});
+		let tblData = this.props.docs.map((item, id)=>{item.id=id+1; return item;});
 		return (
 		<div className="">
 			<ul className="fa-ul">
 				<li><i className="fa-li fa fa-check-square"/>將上傳之檔案</li>			
-				<li><input type="file" accept='*' className="form-control" id="uploadDocs" name="uploadDocs" multiple value="" onChange={this.changeDocs}/></li>
+				<li><input type="file" accept="*" className="form-control" id="uploadDocs" name="uploadDocs" multiple={true} value="" onChange={this.changeDocs}/></li>
 				<li>{this.getNewInsertTbl()}
 				</li>
 				<li><i className="fa-li fa fa-check-square"/>已上傳之檔案</li>
@@ -100,6 +99,14 @@ class AdminEditDocsTab extends React.Component{
 
 AdminEditDocsTab.propTypes = {
 	spec: React.PropTypes.array,
+	setNewDocs: React.PropTypes.func.isRequired,
+	addArrayMember: React.PropTypes.func.isRequired,
+	delArrayMember: React.PropTypes.func.isRequired,	
+	tabId: React.PropTypes.number.isRequired,
+	fileField: React.PropTypes.string.isRequired,	
+	field: React.PropTypes.string.isRequired,	
+	newDocs: React.PropTypes.array.isRequired,	
+	docs: React.PropTypes.array.isRequired,	
 };
 
 export default AdminEditDocsTab;

@@ -146,6 +146,10 @@ class AdminEditSpecTab extends React.Component{
 
 AdminEditSpecTab.propTypes = {
 	spec: React.PropTypes.array,
+	tabId: React.PropTypes.number,
+	addArrayMember: React.PropTypes.func.isRequired,
+	setArrayMember: React.PropTypes.func.isRequired,	
+	field: React.PropTypes.string.isRequired,	
 };
 
 export default AdminEditSpecTab;

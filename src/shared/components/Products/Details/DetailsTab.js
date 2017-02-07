@@ -5,7 +5,7 @@ import { SpecTbl }  from './Spec';
 import { SortableTbl }  from '../../Shared/SortableTbl';
 import {CustomDownloadTd} from '../../Shared/Shared';
 let idCounter = 0;
-const generateIds = () => `custom-id-${idCounter++}`
+const generateIds = () => `custom-id-${idCounter++}`;
 
 const DetailsTab = (props) => {
 	idCounter = 0;

@@ -110,7 +110,10 @@ class AdminEditSpecBlock extends React.Component{
 
 
 AdminEditSpecBlock.propTypes = {
-	spec: React.PropTypes.array,
+	group: React.PropTypes.object,
+	gid: React.PropTypes.number,
+	setGroup: React.PropTypes.func.isRequired,
+	deleteGroup: React.PropTypes.func.isRequired,
 };
 
 export default AdminEditSpecBlock;

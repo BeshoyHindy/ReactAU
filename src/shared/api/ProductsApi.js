@@ -8,7 +8,7 @@ class ProductApi {
 		//console.log('getAllProducts', ptype, subpType);
 	if (!isvalidRoute(ptype, subpType)){
 		return new Promise((resolve, reject) => {
-			console.log("invalid product type", ptype, subpType);
+			// console.log("invalid product type", ptype, subpType);
 			reject("invalid product type", ptype, subpType);
 		});
 	}

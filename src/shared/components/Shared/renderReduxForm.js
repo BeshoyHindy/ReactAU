@@ -10,17 +10,35 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
     </div>
   </div>
 );
-const renderSelectField = ({ input, label, type, options, meta: { touched, error, warning } }) => (
+renderField.propTypes = {
+	input: React.PropTypes.object.isRequired,
+	field: React.PropTypes.string,
+	label: React.PropTypes.string.isRequired,
+	type: React.PropTypes.string.isRequired,
+	meta: React.PropTypes.object.isRequired
+};
+
+
+const renderSelectField = ({ input, label,  options, meta: { touched, error, warning } }) => (
   <div>
     <label>{label}</label>
     <div>
-		<select {...input} placeholder={label} type={type} className="form-control">
-			{options.map((item, id)=> (<option key={id} value={item.value}> {item.text}</option>))}
+		<select {...input} placeholder={label} className="form-control">
+			{options && options.map((item, id)=> (<option key={id} value={item.value}> {item.text}</option>))}
 		</select>
       {touched && ((error && <span className="error">{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </div>
   </div>
 );
+renderSelectField.propTypes = {
+	input: React.PropTypes.object.isRequired,
+	field: React.PropTypes.string,
+	label: React.PropTypes.string.isRequired,
+	options: React.PropTypes.array,
+	meta: React.PropTypes.object.isRequired
+};
+
+
 const renderDropzoneInput = ({input, field, label, src, meta: { touched, error, warning } }) => {
   const files = input.value;
   return (
@@ -46,5 +64,12 @@ const renderDropzoneInput = ({input, field, label, src, meta: { touched, error, 
   );
 };
 
+renderDropzoneInput.propTypes = {
+	input: React.PropTypes.object.isRequired,
+	field: React.PropTypes.string,
+	label: React.PropTypes.string.isRequired,
+	src: React.PropTypes.string,
+	meta: React.PropTypes.object.isRequired
+};
 
 export {renderField, renderSelectField, renderDropzoneInput};

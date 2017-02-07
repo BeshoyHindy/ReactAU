@@ -13,16 +13,22 @@ class StarsRating extends React.Component{
 		this.handleClick = this.handleClick.bind(this);
 	}
 	handleMouseOver (idx, evt){
-		this.state.hoverAt = idx + 1;
-		this.forceUpdate(); 
+		this.setState((state, props) => { return { hoverAt: idx + 1 };});
+		
+		// this.state.hoverAt = idx + 1;
+		// this.forceUpdate(); 
 	}
 	handleMouseOut(idx, evt){
-		this.state.hoverAt = null;
-		this.forceUpdate();
+		this.setState((state, props) => { return { hoverAt: null };});
+
+		// this.state.hoverAt = null;
+		// this.forceUpdate();
 	}
 	handleClick(idx, evt){
-		this.state.rating = idx + 1;
-		this.forceUpdate();
+		this.setState((state, props) => { return { rating: idx + 1 };});
+
+		// this.state.rating = idx + 1;
+		// this.forceUpdate();
 		this.props.rate(idx + 1);
 	}
 	render(){
@@ -31,16 +37,19 @@ class StarsRating extends React.Component{
 			let rating = this.state.hoverAt != null ? this.state.hoverAt : this.state.rating;
 			let selected = (i < rating);
 			stars.push(
-			<Star key={i} selected={selected} style={{cursor: "pointer"}}
-				onMouseOver={this.handleMouseOver.bind(this, i)}
-				onMouseOut={this.handleMouseOut.bind(this, i)}
-				onClick={this.handleClick.bind(this, i)}
+			<Star key={i} id={i} selected={selected} style={{cursor: "pointer"}}
+				onMouseOver={this.handleMouseOver}
+				onMouseOut={this.handleMouseOut}
+				onClick={this.handleClick}
 			/>);
 		}
 		return (<div  className="rating">  Your Rate: {stars}</div>);
 	}
 }
 
-
+StarsRating.propTypes = {
+	initRate: React.PropTypes.number.isRequired,
+	rate: React.PropTypes.func.isRequired,
+};
 
 export default StarsRating;

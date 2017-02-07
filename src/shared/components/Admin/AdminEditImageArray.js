@@ -53,16 +53,16 @@ class AdminEditImageArray extends React.Component{
 					<li>
 						<div className="upload-image-list-wrap">
 						{
-							this.props.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteImage}/> <img className='upload-image' src={item}/></div> :"")
+							this.props.data.map((item,id)=>	id < this.props.data.length ? <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteImage}/> <img className="upload-image" src={item}/></div> :"")
 						}
 						</div>
 					</li>
 					<li><i className="fa-li fa fa-check-square"/>欲新上傳之檔案</li>
 					<li >
-						<input type="file" accept='image/*' className="form-control" id="uploadImages" name="uploadImages" multiple value="" onChange={this.changeImage}/>
+						<input type="file" accept="image/*" className="form-control" id="uploadImages" name="uploadImages" multiple={true} value="" onChange={this.changeImage}/>
 						<div className="upload-image-list-wrap">
 						{
-							this.props.newImages.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className='upload-image' src={item.data_uri}/></div> )
+							this.props.newImages.map((item,id)=> <div key={id} className="upload-image-list"><i className="fa fa-close icon-item delete-item upload-image-delete" data-id={id} onClick={this.deleteInsertImage}/> <img className="upload-image" src={item.data_uri}/></div> )
 						}
 						</div>
 					</li>
@@ -73,6 +73,13 @@ class AdminEditImageArray extends React.Component{
 	}
 }
 
+AdminEditImageArray.propTypes = {
+	data: React.PropTypes.array,
+	setNewImages: React.PropTypes.func.isRequired,
+	deleteArrayMember: React.PropTypes.func.isRequired,	
+	field: React.PropTypes.string.isRequired,	
+	newImages: React.PropTypes.array.isRequired,	
+};
 AdminEditImageArray.defaultProps = {
 	data: []
 };

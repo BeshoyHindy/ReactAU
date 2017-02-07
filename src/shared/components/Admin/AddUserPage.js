@@ -89,7 +89,7 @@ class AddUserPage extends React.Component {
 				</div>
 			</div>
 		</div>
-	)};
+	);}
 }
 
 
@@ -116,7 +116,11 @@ const validate = values => {
 };
 
 AddUserPage.propTypes = {
+	handleSubmit: React.PropTypes.func.isRequired,
+	submitting: React.PropTypes.bool.isRequired,
+	pristine: React.PropTypes.bool.isRequired,
 };
+
 
 export default reduxForm({
   form: 'adduser',

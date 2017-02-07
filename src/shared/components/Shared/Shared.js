@@ -7,7 +7,8 @@ const CustomDownloadTd = (props) => (
 );
 CustomDownloadTd.propTypes = {
 	data: React.PropTypes.string,
-	rowData: React.PropTypes.object
+	rowData: React.PropTypes.object,
+	tdData: React.PropTypes.string
 };
 
 

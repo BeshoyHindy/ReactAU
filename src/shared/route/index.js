@@ -13,11 +13,11 @@ import ProductsTblPage from '../components/Products/ProductsTblPage';
 import DetailsPage from '../components/Products/DetailsPage';
 
 import AdminPage from '../components/AdminPage';
-import AdminEditProductPage from '../components/admin/AdminEditProductPage';
-import AdminListProductPage from '../components/admin/AdminListProductPage';
-import AddUserPage from '../components/admin/AddUserPage';
+import AdminEditProductPage from '../components/Admin/AdminEditProductPage';
+import AdminListProductPage from '../components/Admin/AdminListProductPage';
+import AddUserPage from '../components/Admin/AddUserPage';
 
-import { Root,NotFoundPage, UnauthorizedPage} from '../components/index';
+import { Root, NotFoundPage, UnauthorizedPage} from '../components/index';
 
 export default function createRoutes(history = browserHistory) {
 	return (

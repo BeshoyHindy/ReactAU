@@ -12,7 +12,7 @@ import RatedProductTab from './User/RatedProductTab.js';
 import FavoriteProductTab from './User/FavoriteProductTab.js';
 
 let idCounter = 0;
-const generateIds = () => `custom-id-${idCounter++}`
+const generateIds = () => `custom-id-${idCounter++}`;
 
 class UserPage extends React.Component{
 	constructor(props) {
@@ -29,7 +29,7 @@ class UserPage extends React.Component{
 	
 	render () {
 		idCounter=0;
-		let {authSuccess} = this.props;
+		let {authSuccess, user} = this.props;
 		return (
 		<div>
 			<div className="row">
@@ -40,7 +40,7 @@ class UserPage extends React.Component{
 			<div className="row">
 				<div className="col-xs-12">
 					<div className="loading-wrap">
-						<div className={`ajax-loading-big ${(!authSuccess) ?'fade-show':'fade-hide'}`} >
+						<div className={`ajax-loading-big ${(!authSuccess || !user) ?'fade-show':'fade-hide'}`} >
 							<img src="/img/ajax-loader.gif" alt=""/>
 							<div className="ajax-loading-progress">
 								loading....
@@ -82,11 +82,13 @@ class UserPage extends React.Component{
 
 UserPage.propTypes = {
 	authSuccess:  React.PropTypes.bool.isRequired,
+	user:  React.PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
 	authSuccess: state.auth.success,
+	user: state.auth.user,
   };
 }
 

@@ -212,7 +212,7 @@ class AdminEditProductPage extends React.Component{
 				this.props.router.push(`/admin/productList/${cat}`);
 		}).catch(error => {
 			alert("Process Fail, Error Message: " + error.err);
-			console.log(error);
+			// console.error(error);
 			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
 								delete: {images: [], docs: []},
 								detailPostProgress: 0});
@@ -315,6 +315,9 @@ AdminEditProductPage.propTypes = {
 	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	details: React.PropTypes.object,
+	params: React.PropTypes.object.isRequired,	
+	router: React.PropTypes.object.isRequired,	
+	dispatch: React.PropTypes.func.isRequired,	
 };
 
 function mapStateToProps(state, ownProps) {

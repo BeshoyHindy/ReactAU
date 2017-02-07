@@ -42,6 +42,7 @@ class Carousel extends React.Component{
 	render(){
 		let carouselChildren = this.props.carouselChildren || [];
 		let CurrChild= carouselChildren[this.state.currentId];
+		let thumb = this.props.thumb || false;		
 		return (
 			<div className="carousel">
 				<div className="carousel-main" alt="">
@@ -53,7 +54,7 @@ class Carousel extends React.Component{
 				</div>
 				<div className="prev" onClick={this.subCurrent}/>
 				<div className="next" onClick={this.addCurrent}/>
-				<Footer carouselChildren={carouselChildren} currentId={this.state.currentId} setCurrent={this.setCurrent} dots={carouselChildren.length}/>
+				<Footer carouselChildren={carouselChildren} currentId={this.state.currentId} setCurrent={this.setCurrent} dots={carouselChildren.length} thumb={thumb}/>
 			</div>
 		);
 	}

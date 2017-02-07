@@ -27,6 +27,13 @@ class BaseProductDeleteComponent extends React.Component{
 	}
 }
 
+BaseProductDeleteComponent.propTypes = {
+	rowData: React.PropTypes.object,
+	actions: React.PropTypes.object.isRequired,
+	productType: React.PropTypes.string.isRequired,
+};
+
+
 function mapStateToProps(state, ownProps) {
 	//console.log("mapStateToProps", state);
   return {};

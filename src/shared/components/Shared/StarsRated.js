@@ -13,5 +13,10 @@ let StarsRated = (props) => {
 	}
 	return (<div  className="rated">{pretitle} {stars} ({count}) {voteCount} </div>);
 };
+StarsRated.propTypes = {
+	voteCount: React.PropTypes.number,
+	count: React.PropTypes.number,
+	pretitle: React.PropTypes.string,
+};
 
 export default StarsRated;

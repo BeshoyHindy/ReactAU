@@ -16,7 +16,7 @@ const PID = (props) =>
 			</Link>
 		</td>
 	);
-}
+};
 
 PID.propTypes = {
 	rowData:  React.PropTypes.object.isRequired,
@@ -31,7 +31,7 @@ const Fav = (props) =>
 			<HeartToggle init={true}/>
 		</td>
 	);
-}
+};
 
 Fav.propTypes = {
 	rowData: React.PropTypes.object.isRequired,
@@ -45,7 +45,7 @@ let FavoriteProductTab = (props) => {
 		data = user.data.favorite.map((item)=> { 
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
-			return {pid: item.productId, fav: 1, cat}
+			return {pid: item.productId, fav: 1, cat};
 		});
 	}
 	return (
@@ -55,7 +55,7 @@ let FavoriteProductTab = (props) => {
 				<div> 
 					<BigHeader smallTitle="">My Favorite Products</BigHeader>
 					<SortableTbl categories={categories} tblData={data}
-						tHead={ [  "Product ID", "Product Type", "Favorite"]}
+						tHead={[  "Product ID", "Product Type", "Favorite"]}
 						customTd={[
 									{custd: PID, keyItem: "pid"},
 									{custd: Fav, keyItem: "fav"},
@@ -64,17 +64,17 @@ let FavoriteProductTab = (props) => {
 				</div>
 			}
 		</div>
-	)
+	);
 }; 
 
 FavoriteProductTab.propTypes = {
 	user:  React.PropTypes.object.isRequired,
-	categories:  React.PropTypes.array.isRequired,
+	categories:  React.PropTypes.array,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-	user: state.auth.user,
+	user: state.auth.user || {},
     categories: state.categories,		
   };
 }

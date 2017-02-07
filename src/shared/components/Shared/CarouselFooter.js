@@ -40,7 +40,8 @@ class Footer extends React.Component{
 Footer.propTypes = {
 	dots: React.PropTypes.number.isRequired,
 	currentId: React.PropTypes.number.isRequired,
-	setCurrent: React.PropTypes.func.isRequired
+	setCurrent: React.PropTypes.func.isRequired,
+	thumb: React.PropTypes.bool.isRequired
 };
 
 export {Footer};

@@ -1,14 +1,14 @@
-var express  = require('express');
-var path  = require('path');
-//var open  = require('open');
-var compression  = require('compression');
+let express  = require('express');
+let path  = require('path');
+//let open  = require('open');
+let compression  = require('compression');
 
 /* eslint-disable no-console */
 
 // Heroku dynamically assigns your app a port, so you can't set the port to a fixed number. Heroku adds the port to the env
-var port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 
-var app = express();
+let app = express();
 
 app.use(compression());
 app.use(express.static('dist'));

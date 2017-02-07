@@ -35,6 +35,9 @@ const BaseProductEditComponent = (props) =>
 		</td>
 	);
 };
+BaseProductEditComponent.propTypes = {
+	rowData:  React.PropTypes.object,
+};
 
 
 
@@ -96,6 +99,12 @@ const ProductsTblPage = (props) =>{
 
 ProductsTblPage.propTypes = {
 	productType: React.PropTypes.string,
+	actions: React.PropTypes.object,
+	router: React.PropTypes.object,
+	params: React.PropTypes.object,
+	editBaseLink: React.PropTypes.string,
+	delete: React.PropTypes.bool,
+	edit: React.PropTypes.bool,
 	products: React.PropTypes.array,
 	ajaxState: React.PropTypes.number
 };

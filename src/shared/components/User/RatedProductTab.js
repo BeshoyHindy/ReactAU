@@ -15,7 +15,7 @@ const PID = (props) =>
 			</Link>
 		</td>
 	);
-}
+};
 
 PID.propTypes = {
 	rowData:  React.PropTypes.object.isRequired,
@@ -30,7 +30,7 @@ const Rate = (props) =>
 			<StarsRated count={props.tdData}/>
 		</td>
 	);
-}
+};
 
 Rate.propTypes = {
 	rowData: React.PropTypes.object.isRequired,
@@ -44,7 +44,7 @@ let RatedProductTab = (props) => {
 		data = user.data.rate.map((item)=> { 
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
-			return {pid: item.productId, rate: item.rate, cat}
+			return {pid: item.productId, rate: item.rate, cat};
 		});
 	}
 	return (
@@ -54,7 +54,7 @@ let RatedProductTab = (props) => {
 				<div> 
 					<BigHeader smallTitle="">My Rated Products</BigHeader>
 					<SortableTbl categories={categories} tblData={data}
-						tHead={ [  "Product ID", "Product Type", "Rate"]}
+						tHead={[  "Product ID", "Product Type", "Rate"]}
 						customTd={[
 									{custd: PID, keyItem: "pid"},
 									{custd: Rate, keyItem: "rate"},
@@ -63,17 +63,17 @@ let RatedProductTab = (props) => {
 				</div>
 			}
 		</div>
-	)
+	);
 }; 
 
 RatedProductTab.propTypes = {
 	user:  React.PropTypes.object.isRequired,
-	categories:  React.PropTypes.array.isRequired,
+	categories:  React.PropTypes.array,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-	user: state.auth.user,
+	user: state.auth.user || {},
     categories: state.categories,		
   };
 }

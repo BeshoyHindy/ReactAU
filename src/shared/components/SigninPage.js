@@ -90,9 +90,17 @@ const validate = values => {
   }
 
   return errors;
-}
+};
 
 SigninPage.propTypes = {
+	handleSubmit: React.PropTypes.func.isRequired,
+	submitting: React.PropTypes.bool.isRequired,
+	pristine: React.PropTypes.bool.isRequired,
+	userSignin: React.PropTypes.func.isRequired,
+	errorMessage: React.PropTypes.string,	
+	auth: React.PropTypes.object.isRequired,
+	router: React.PropTypes.object.isRequired,
+	location: React.PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

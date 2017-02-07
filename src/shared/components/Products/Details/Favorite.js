@@ -6,7 +6,7 @@ import * as userActions from '../../../actions/userAction';
 import HeartToggle from '../../Shared/HeartToggle';
 
 
-class Favorite extends React.Component{
+let Favorite = class Favorite extends React.Component{
 	constructor(props) {
 		super(props);
 		this.save = this.save.bind(this);
@@ -15,7 +15,7 @@ class Favorite extends React.Component{
 	save(love){
 		let {auth, id, changeModal, setUserFavorite} = this.props;
 		if (!auth || !auth.success ){
-			return changeModal({open:true});;
+			return changeModal({open:true});
 		}
 		setUserFavorite({love, id});
 	}
@@ -28,16 +28,20 @@ class Favorite extends React.Component{
 			}).length;
 		}
 
-    	return (
+		return (
 			<div className="favorite">
 				<HeartToggle selectIt={this.save} init={init}/> {favorite && `${favorite} ${favorite===1?"person":"people"} love`}
 			</div>
 		);
 	}
-}
+};
 
 Favorite.propTypes = {
 	favorite: React.PropTypes.number,
+	auth: React.PropTypes.object,
+	id: React.PropTypes.string,	
+	changeModal: React.PropTypes.func.isRequired,	
+	setUserFavorite: React.PropTypes.func.isRequired,	
 };
 Favorite.defaultProps = {
 	favorite: 0,
