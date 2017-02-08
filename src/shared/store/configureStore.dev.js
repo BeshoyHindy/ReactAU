@@ -1,25 +1,19 @@
 import { createStore, applyMiddleware, compose  } from 'redux';
 import rootReducer from '../reducers';
-import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
-import DevTools from '../components/Shared/DevTools';
 
 function configureStore(initialState) {
 	if (process.env.BROWSER) {
+		/* eslint-disable no-underscore-dangle */
 		let store = createStore(
 			rootReducer,
 			initialState,
 			compose(
 				applyMiddleware(thunk),
-				DevTools.instrument(),
-				persistState(
-						window.location.href.match(
-						/[?&]debug_session=([^&#]+)\b/
-						)
-					)
-				) 
+				window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+			)
 		);	
-		
+		/* eslint-enable */		
 		if(process.env.NODE_ENV !== 'production' && module.hot) {
 			module.hot.accept('../reducers', () => {
 				store.replaceReducer(require('../reducers').default);
