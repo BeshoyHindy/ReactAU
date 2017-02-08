@@ -42,11 +42,10 @@ let config = {
 		}),
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
-		// new webpack.IgnorePlugin(/webpack-stats\.json$/),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/main.css',
-			disable: false,
+			disable: true,  //let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR
 			allChunks: true
 		}),
         new webpack.DllReferencePlugin({
