@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+	require ('./user.sass');
+}
+
 import { connect } from 'react-redux';
 import React from 'react';
 import update from 'immutability-helper';

@@ -1,6 +1,4 @@
 import 'babel-polyfill';
-
-require ('./sass/main.scss');
 require ("font-awesome-sass-loader");
 require.context('./fonts', true, /\.?/);
 

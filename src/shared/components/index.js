@@ -1,3 +1,6 @@
+if (process.env.BROWSER) {
+	require ('./global.scss');
+}
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -9,11 +12,11 @@ import * as authActions from '../actions/authAction';
 import * as modalActions from '../actions/modalAction';
 import  {renderField} from "./Shared/renderReduxForm";
 import  SignInModal from "./SignInModal";
-
+ 
 const NotFoundPage = (props) 	=> (
 		<div className="row">
 			<div className="col-xs-12">
-				<h1 className="center-page"> Page Not Found </h1>
+				<h1 className="center-page"> Page Not Found!! </h1>
 			</div>
 		</div>
 	);

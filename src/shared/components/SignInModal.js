@@ -1,3 +1,6 @@
+if (process.env.BROWSER) {
+	require ('./auth.sass');
+}
 
 import React from 'react';
 import { connect } from 'react-redux';

@@ -1,3 +1,6 @@
+if (process.env.BROWSER) {
+	require ('./admin.scss');
+}
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -19,6 +22,10 @@ let AdminPage = (props) => {
 
 AdminPage.propTypes = {
 	auth:  React.PropTypes.object,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.arrayOf(React.PropTypes.node),
+      React.PropTypes.node
+    ])	
 };
 
 function mapStateToProps(state, ownProps) {

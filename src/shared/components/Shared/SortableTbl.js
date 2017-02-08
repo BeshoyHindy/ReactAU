@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+	require ('./SortableTbl.scss');
+}
+
 import React from 'react';
 import {SortableTblPager} from './SortableTblPager';
 import {SortableTblTh} from './SortableTblTh';

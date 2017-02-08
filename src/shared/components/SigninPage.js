@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+	require ('./auth.sass');
+}
+
 import { connect } from 'react-redux';
 import React from 'react';
 import {  Field, reduxForm } from 'redux-form';

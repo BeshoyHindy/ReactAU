@@ -1,4 +1,4 @@
-//import 'babel-polyfill'
+//import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import compression from 'compression';
@@ -41,8 +41,25 @@ delete process.env.BROWSER;
 const serverOptions = {
   // quiet: true,
   // noInfo: true,
-  publicPath: config.output.publicPath,
-  stats: { colors: true },
+	// hot: true,
+	publicPath: config.output.publicPath,
+	progress: true,
+	stats: {
+		hash: true,
+		version: true,
+		timings: true,
+		assets: false,
+		chunks: true,
+		modules: true,
+		reasons: false,
+		children: false,
+		source: false,
+		errors: true,
+		errorDetails: true,
+		warnings: true,
+		publicPath: true,
+		colors: true
+	},
 };
 
 let compiler = webpack(config);

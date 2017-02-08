@@ -100,86 +100,42 @@ var config = [
 				},
 				{
 					test: /(\.sass|\.scss)$/,
-					loader:
+					include: [
+						path.resolve(projectRoot, './src/shared/components/') ,
+						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+					],					
+					use:
 						ExtractTextPlugin.extract({
-							fallbackLoader: "style-loader",
-							loader: [
-								{ loader: 'css-loader'},
+							fallback: "style-loader",
+							use: [
+								{ loader: 'css-loader', query: { importLoaders: 2}},
+								{ loader: 'postcss-loader' },
 								{ loader: 'resolve-url-loader' },
 								{ loader: 'sass-loader', query: {
-										sourceMap: true,
+										// sourceMap: true,
 										includePaths: [
-	//									 	  path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-											path.resolve(projectRoot, './src/shared/sass/')
-										]
+											path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+										],
 									}
 								}
 							],
 						})
 				},
-				{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=./fonts/[name].[ext]" },
-				{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=./fonts/[name].[ext]" },
-				{
-					test: /\.gif$/i,
-					loader: 'url-loader',
-					include: [
-						path.join(projectRoot, "src" , "shared", "img") 
-					],				
-					options: {
-						name: '[path]/[name].[ext]',
-						context: path.resolve(projectRoot, './src/shared'),
-						limit:10000,
-						mimetype:'image/gif'
-					}
-				},
-				{
-					test: /\.jpg$/i,
-					loader: 'url-loader',
-					include: [
-						path.join(projectRoot, "src" , "shared", "img") 
-					],				
-					options: {
-						name: '[path]/[name].[ext]',
-						context: path.resolve(projectRoot, './src/shared'),
-						limit:10000,
-						mimetype:'image/jpg'
-					}
-				},
-				{
-					test: /\.png$/i,
-					loader: 'url-loader',
-					include: [
-						path.join(projectRoot, "src" , "shared", "img") 
-					],				
-					options: {
-						name: '[path]/[name].[ext]',
-						context: path.resolve(projectRoot, './src/shared'),
-						limit:10000,
-						mimetype:'image/png'
-					}
-				},
-				{
-					test: /\.svg$/i,
-					loader: 'url-loader',
-					include: [
-						path.join(projectRoot, "src" , "shared") 
-					],				
-					options: {
-						name: 'fonts/[name].[ext]',
-						context: path.resolve(projectRoot, './src/shared/fonts'),
-						limit:26000,
-						mimetype:'image/svg+xml'
-					}
-				},	
-				
+				{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
+				{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=fonts/[name].[ext]" },
+				{ test: /\.(gif|jpg|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=img/[name].[ext]" },					
 			]
+		},
+		resolveLoader: {
+			modules: [
+				"node_modules"
+			],
 		},
 		resolve: {
 			modules: [
-				path.resolve(projectRoot, "./src/shared"),
 				"node_modules"
 			],
-			unsafeCache : false
+			unsafeCache : true,
 		},
 	},
 	{

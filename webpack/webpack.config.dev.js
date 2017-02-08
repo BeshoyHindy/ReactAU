@@ -1,15 +1,9 @@
 let webpack = require('webpack');
 let path  = require( 'path');
 let ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
-//import HtmlWebpackPlugin from 'html-webpack-plugin';
-let autoprefixer  = require( 'autoprefixer');
-let HappyPack  = require( 'happypack');
-/*
-let info = autoprefixer().info();
-console.log(info);
-*/
+
 //http://stackoverflow.com/questions/36854862/redux-hot-reload-warning-on-changes
-import { web_server } from '../.config/configuration';
+const web_server = require('../.config/configuration').web_server;
 
 const port = web_server.http.port || 3002;
 const host = web_server.http.host || 'localhost';
@@ -17,15 +11,15 @@ const host = web_server.http.host || 'localhost';
 
 let projectRoot = process.cwd();
 let assetsPath = path.join(projectRoot,   "public", "build");
-let publicPath = `http://${host}:${port}/build`;
+let publicPath = `http://${host}:${port}/build/`;
 let distPath = projectRoot;
 
 let config = {
 	cache: false,
-	devtool: 'inline-eval-cheap-source-map',
+	devtool: 'eval',
 	context: process.cwd(),
 	entry: [
-		'eventsource-polyfill', // necessary for hot reloading with IE
+		// 'eventsource-polyfill', // necessary for hot reloading with IE
 		'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
 		path.resolve(projectRoot, './src/client/index.js')
 	],
@@ -48,7 +42,7 @@ let config = {
 		}),
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.IgnorePlugin(/webpack-stats\.json$/),
+		// new webpack.IgnorePlugin(/webpack-stats\.json$/),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/main.css',
@@ -77,113 +71,63 @@ let config = {
 			},
 			{
 				test: /(\.sass|\.scss)$/,
-				loader:
+				include: [
+					path.resolve(projectRoot, './src/shared/components/') ,
+					// path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+                ],
+				use:
 					ExtractTextPlugin.extract({
-						fallbackLoader: "style-loader",
-						loader: [
-							{ loader: 'raw-loader'},
-							{ loader: 'resolve-url-loader' },
+						fallback: "style-loader",
+						use: [
+							{ loader: 'css-loader'},
+							// { loader: 'resolve-url-loader' },
 							{ loader: 'sass-loader', query: {
-									sourceMap: true,
+									// sourceMap: true,
 									includePaths: [
 										path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-										path.resolve(projectRoot, './src/shared/sass/')
-									]
+									],
 								}
 							}
 						],
 					})
 			},
-			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=/fonts/[name].[ext]" },
-			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=/fonts/[name].[ext]" },
-			{
-				test: /\.gif$/i,
-				loader: 'url-loader',
-				include: [
-					path.join(projectRoot, "src" , "shared", "img")
-				],
-				options: {
-					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/shared'),
-					limit:10000,
-					mimetype:'image/gif'
-				}
-			},
-			{
-				test: /\.jpg$/i,
-				loader: 'url-loader',
-				include: [
-					path.join(projectRoot, "src" , "shared", "img")
-				],
-				options: {
-					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/shared'),
-					limit:10000,
-					mimetype:'image/jpg'
-				}
-			},
-			{
-				test: /\.png$/i,
-				loader: 'url-loader',
-				include: [
-					path.join(projectRoot, "src" , "shared", "img")
-				],
-				options: {
-					name: '[path]/[name].[ext]',
-					context: path.resolve(projectRoot, './src/shared'),
-					limit:10000,
-					mimetype:'image/png'
-				}
-			},
-			{
-				test: /\.svg$/i,
-				loader: 'url-loader',
-				include: [
-					path.join(projectRoot, "src" , "shared")
-				],
-				options: {
-					name: 'fonts/[name].[ext]',
-					context: path.resolve(projectRoot, './src/shared/fonts'),
-					limit:26000,
-					mimetype:'image/svg+xml'
-				}
-			},
+			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
+			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=fonts/[name].[ext]" },
+			{ test: /\.(gif|jpg|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=img/[name].[ext]" },			
 		]
 	},
     resolveLoader: {
 		modules: [
-			path.resolve(projectRoot, "./src/shared"),
 			"node_modules"
 		],
     },
     resolve: {
 		modules: [
-			path.resolve(projectRoot, "./src/shared"),
 			"node_modules"
 		],
-        unsafeCache : true,
-		// alias: {
-        //     "bootstrap-sass": "node_modules/bootstrap-sass/assets/stylesheets/bootstrap",
-		// 	"bootstrap-sass-font": "bootstrap-sass/assets/fonts/bootstrap/"
-        // }
+        unsafeCache : true
     },
 	profile: true,
 	stats: {
 		hash: true,
 		version: true,
 		timings: true,
-		assets: true,
+		assets: false,
 		chunks: true,
 		modules: true,
-		reasons: true,
-		children: true,
+		reasons: false,
+		children: false,
 		source: false,
 		errors: true,
 		errorDetails: true,
 		warnings: true,
-		publicPath: true
+		publicPath: true,
+		colors: true
 	},
+	// performance: {
+	// 	hints: "warning"
+	// }
 };
 
 
-export default config;
+module.exports = config;

@@ -1,3 +1,8 @@
+if (process.env.BROWSER) {
+	require ('./product.scss');
+}
+
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link} from 'react-router';

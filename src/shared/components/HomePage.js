@@ -1,3 +1,6 @@
+if (process.env.BROWSER) {	
+	require ('./home.sass');
+}
 import Carousel from './Shared/Carousel';
 import React from 'react';
 import { connect } from 'react-redux';

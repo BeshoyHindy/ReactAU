@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+	require ('./contact.scss');
+}
+
 import React from 'react';
 import { Link} from 'react-router';
 import ImageLoader from 'react-imageloader';

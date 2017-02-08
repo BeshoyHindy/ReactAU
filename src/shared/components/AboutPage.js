@@ -1,3 +1,6 @@
+if (process.env.BROWSER) {
+	require ('./about.scss');
+}
 import { connect } from 'react-redux';
 import React from 'react';
 import ImageLoader from 'react-imageloader';
