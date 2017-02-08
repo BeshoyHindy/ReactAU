@@ -21398,7 +21398,7 @@ function createRoutes() {
 
 	return _react2.default.createElement(
 		_reactRouter.Router,
-		{ history: history },
+		{ key: Math.random(), history: history },
 		_react2.default.createElement(
 			_reactRouter.Route,
 			{ path: '/', component: _index.Root },

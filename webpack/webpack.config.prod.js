@@ -28,7 +28,7 @@ var config = [
 				'react-router',
 				'redux',
 				'react-redux',
-				'react-form',
+				'redux-form',
 				'react-imageloader',
 				'react-router-redux',
 				'redux-thunk',
