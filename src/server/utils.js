@@ -25,7 +25,7 @@ export function fetchComponentsData({ dispatch, components, params, query, local
 export function getMetaDataFromState({ route, state, params = {}, query = {}, lang }) {
     /* eslint more/no-duplicated-chains: 0 */
 
-    if (route === '/aboutus' ) {
+    if (route === 'aboutus' ) {
         return {
             type        : 'ABOUTUS',
             title       : "About Us",

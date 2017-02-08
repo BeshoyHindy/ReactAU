@@ -14922,7 +14922,7 @@ function getMetaDataFromState(_ref2) {
 
     /* eslint more/no-duplicated-chains: 0 */
 
-    if (route === '/aboutus') {
+    if (route === 'aboutus') {
         return {
             type: 'ABOUTUS',
             title: "About Us",
