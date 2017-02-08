@@ -454,7 +454,15 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	}
 
 	.gsc-input{
+		display: block!important;		
+		height: 26px!important;
+		margin-top: 0px!important;
 		background-color: transparent!important;
+	}
+	.gsst_b, .gsst_a {
+		display: block!important;		
+		margin-top: -5px!important;
+		height: 26px!important;		
 	}
 
 	.gsc-search-button{

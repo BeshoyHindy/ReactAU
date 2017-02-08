@@ -60,7 +60,8 @@ let Root = class Root extends React.Component{
 		return this.googleAuth2;
 	}
 	componentDidMount() {
-		let cx = '010537077688859157203:be4kn89v_sy';
+
+		let cx = '010537077688859157203:awis0lislbk';
 		let gcse = document.createElement('script');
 		gcse.type = 'text/javascript';
 		gcse.async = true;
