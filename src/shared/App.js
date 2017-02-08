@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore} from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
-import createRoutes from './route/index';
+import Routes from './route/index';
 import configureStore from './store/configureStore';
 import { loadCategories } from './actions/adminActions';
 
@@ -21,7 +21,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				{ createRoutes(history) }
+				<Routes history={history}/>
 			</Provider>
 		);
 	}

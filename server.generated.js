@@ -21307,7 +21307,6 @@ function productsReducer() {
 
 
 exports.__esModule = true;
-exports.default = createRoutes;
 
 var _react = __webpack_require__(0);
 
@@ -21371,6 +21370,8 @@ var _index = __webpack_require__(269);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//https://github.com/reactjs/react-router-redux/issues/179
+
 var _ref = _react2.default.createElement(_reactRouter.IndexRoute, { component: _HomePage2.default });
 
 var _ref2 = _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _SigninPage2.default });
@@ -21393,12 +21394,10 @@ var _ref10 = _react2.default.createElement(_reactRouter.Route, { path: '*', comp
 
 var _ref11 = _react2.default.createElement(_reactRouter.Route, { path: '*', component: _index.NotFoundPage });
 
-function createRoutes() {
-	var history = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _reactRouter.browserHistory;
-
+var Routes = function Routes(props) {
 	return _react2.default.createElement(
 		_reactRouter.Router,
-		{ key: Math.random(), history: history },
+		{ history: props.history },
 		_react2.default.createElement(
 			_reactRouter.Route,
 			{ path: '/', component: _index.Root },
@@ -21431,7 +21430,8 @@ function createRoutes() {
 		),
 		_ref11
 	);
-}
+};
+exports.default = Routes;
 
 /***/ }),
 /* 278 */
