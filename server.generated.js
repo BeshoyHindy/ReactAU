@@ -20866,6 +20866,7 @@ var Root = function (_React$Component) {
 	Root.prototype.componentDidMount = function componentDidMount() {
 		var _this2 = this;
 
+		//google custom search
 		var cx = '010537077688859157203:awis0lislbk';
 		var gcse = document.createElement('script');
 		gcse.type = 'text/javascript';
@@ -20875,6 +20876,15 @@ var Root = function (_React$Component) {
 		var gcsecc = document.createElement("gcse:search");
 		gcsecc.innerHTML = "";
 		document.getElementById("search").appendChild(gcsecc);
+
+		//GA
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments);
+			}, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-50969260-2', 'auto');
+		ga('send', 'pageview');
 
 		// Load the FB SDK asynchronously
 		this.loadScript("https://connect.facebook.net/en_US/sdk.js").then(function () {
