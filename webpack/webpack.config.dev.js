@@ -43,11 +43,11 @@ let config = {
 		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
-		new ExtractTextPlugin({
-			filename: 'css/main.css',
-			disable: true,  //let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR
-			allChunks: true
-		}),
+		// new ExtractTextPlugin({
+		// 	filename: 'css/main.css',
+		// 	disable: true,  //let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR
+		// 	allChunks: true
+		// }),
         new webpack.DllReferencePlugin({
             context: path.join(projectRoot, "src" , "client"),
             manifest: require("../dll/vendor-manifest.json")
@@ -74,21 +74,27 @@ let config = {
 					path.resolve(projectRoot, './src/shared/components/') ,
 					// path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
                 ],
-				use:
-					ExtractTextPlugin.extract({
-						fallback: "style-loader",
-						use: [
-							{ loader: 'css-loader'},
-							// { loader: 'resolve-url-loader' },
-							{ loader: 'sass-loader', query: {
-									// sourceMap: true,
-									includePaths: [
-										path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-									],
-								}
-							}
-						],
-					})
+				use: [
+					"style-loader",
+					"css-loader",
+					"sass-loader"
+				]	
+				//let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR			
+				// use:
+				// 	ExtractTextPlugin.extract({
+				// 		fallback: "style-loader",
+				// 		use: [
+				// 			{ loader: 'css-loader'},
+				// 			// { loader: 'resolve-url-loader' },
+				// 			{ loader: 'sass-loader', query: {
+				// 					// sourceMap: true,
+				// 					includePaths: [
+				// 						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+				// 					],
+				// 				}
+				// 			}
+				// 		],
+				// 	})
 			},
 			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
 			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=fonts/[name].[ext]" },
