@@ -28,10 +28,12 @@ var config = [
 				'react-router',
 				'redux',
 				'react-redux',
+				'react-form',
 				'react-imageloader',
 				'react-router-redux',
 				'redux-thunk',
 				'react-tabs-isomorphic',
+				'immutability-helper',
 				'axios'
 			]
 		},

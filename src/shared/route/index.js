@@ -21,7 +21,7 @@ import { Root, NotFoundPage, UnauthorizedPage} from '../components/index';
 
 export default function createRoutes(history = browserHistory) {
 	return (
-		<Router history={history}>
+		<Router key={Math.random()} history={history}>
 			<Route path="/" component={Root}>
 				<IndexRoute component={HomePage}/>
 				<Route path="home" authorize={['reAuth']} component={HomePage} />

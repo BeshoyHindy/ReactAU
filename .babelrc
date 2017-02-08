@@ -1,9 +1,9 @@
 {
   "presets": [["es2015", {"loose": true, "module": false}], "stage-1", "react"],
   "env": {
-    "development": {
-      "presets": ["react-hmre"]
-    },	  
+    // "development": {
+    //   "presets": ["react-hmre"]
+    // },	  
     "production": {
       "plugins": [
         "transform-react-constant-elements",
