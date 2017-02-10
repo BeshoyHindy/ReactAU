@@ -1,7 +1,11 @@
 import { Link} from 'react-router';
 import React from 'react';
+import { connect } from 'react-redux';
 
-const AtomLink = (props) =>  (<li> <Link to={props.a.link} activeClassName={props.activeClass}> {props.a.desc} </Link></li>);
+import { navData } from '../../Data/RouteData';
+import * as modalActions from '../../actions/modalAction';
+
+const AtomLink = (props) =>  (<li> <Link to={props.a.link} activeClassName={props.activeClass}  > {props.a.desc} </Link></li>);
 AtomLink.propTypes = {
   a: React.PropTypes.object,
   activeClass: React.PropTypes.string
@@ -12,7 +16,7 @@ const ParentLink = (props) => {
 	if ( props.item.sub && props.item.sub.length > 0) {
 		return (
 		<li>
-			<Link to={props.item.link}> {props.item.desc} <i className="fa fa-caret-right"/></Link>
+			<Link to={props.item.link}  > {props.item.desc} <i className="fa fa-caret-right"/></Link>
 			<ul className="dropdown-menu">
 				{
 					props.item.sub.map((item, id) => {	return (<ParentLink  key={id} item={item}/>);	})
@@ -21,7 +25,7 @@ const ParentLink = (props) => {
 		</li>
 		);
 	}else{
-		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}} activeClass={props.activeClass} />);
+		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}}  activeClass={props.activeClass} />);
 	}
 };
 ParentLink.propTypes = {
@@ -35,11 +39,11 @@ const TopParentLink = (props) => {
 		return (
 			<li>
 				<div className="parent">
-					<Link to={props.item.link} activeClassName="active">{props.item.desc}</Link><span className="caret" />
+					<Link to={props.item.link}   activeClassName="active" >{props.item.desc}</Link><span className="caret" />
 				</div>
 				<ul className="dropdown-menu">
 					{
-						props.item.sub.map((item, id) => { return (<ParentLink  key={id} item={item}/>);})
+						props.item.sub.map((item, id) => { return (<ParentLink key={id} item={item}/>);})
 					}
 				</ul>
 			</li>
@@ -53,22 +57,44 @@ TopParentLink.propTypes = {
   activeClass: React.PropTypes.string
 };
 
-const NavBar = (props) =>  (
-		<div id="cctv-nav" className="cctv-nav">
+let NavBar = class Root extends React.Component{
+	constructor(props) {
+		super(props);
+		this.hideXsNav = this.hideXsNav.bind(this);
+	}
+	hideXsNav(){
+		this.props.changeXsNavModal(false);
+	}
+	render() {
+		let props = this.props;
+	return (
+		<div id="cctv-nav" className={`cctv-nav ${props.showXsNav?'show-xs-nav':''}`} >
 			<ul>
-				<h3 id="XX"> <i className="fa fa-times" /></h3>
+				<h3 id="XX" onClick={this.hideXsNav}> <i className="fa fa-times" /></h3>
 				{
-					props.data.map && props.data.map( (item, id) => {
-						return (item.sub && item.sub.length > 0) ? (<TopParentLink  key={id} item={item}/>	)
-																: (<AtomLink key={id}  a={{link:item.link, desc:item.desc}} activeClass={props.activeClass} />);
+					navData.map && navData.map( (item, id) => {
+						return (item.sub && item.sub.length > 0) ? (<TopParentLink  key={id} item={item} />	)
+																: (<AtomLink key={id}  a={{link:item.link, desc:item.desc}}  activeClass={props.activeClass} />);
 					})
 				}
 			</ul>
 		</div>
-);
-NavBar.propTypes = {
-  data: React.PropTypes.array,
-  activeClass: React.PropTypes.string
+		);
+	}
 };
+
+NavBar.propTypes = {
+  activeClass: React.PropTypes.string,
+  showXsNav: React.PropTypes.bool.isRequired,
+  changeXsNavModal: React.PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return { 
+	showXsNav: state.modal.showXsNav,	
+  };
+}	
+
+NavBar = connect(mapStateToProps, { ...modalActions})(NavBar);
 
 export {NavBar};

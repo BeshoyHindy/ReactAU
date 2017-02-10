@@ -117,3 +117,24 @@
 		}
 	}
 }
+
+
+@include respond-to('xs'){
+	.admin-edit-tabwrap{
+		padding: 0 5px;
+		.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, 
+		.table > tfoot > tr > th, .table > tfoot > tr > td{
+			padding: 0;
+			height: 40px;
+			line-height: 40px;
+		}
+		input.btn{
+			padding: 0px 2px;
+			height: 30px;
+			line-height: 30px;
+		}
+		input.btn.add-botton{
+			right: -35px;
+		}
+	}
+}

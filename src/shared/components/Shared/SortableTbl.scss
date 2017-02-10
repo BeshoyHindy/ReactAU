@@ -57,21 +57,59 @@
 		}
    }
    .pager{
-	   margin: 5px 0;
-	   >*{
+	   margin: 0;
+	   overflow: hidden;
+	   div.form-group{
+		   margin-bottom: 5px;
+	   }
+	   input{
+		   display: block;
 		   float: left;
 	   }
 		select.page-select {
 			width : 80px;
-		}
-		&:after{
-			content: "";
-			clear: both;
 			display: block;
+			float: left;
+		}
+		.SortableTblLabel{
+			display: block;
+			float: left;
+			height: 30px;
+			line-height: 30px;
+		}
+		.row-per-page,.prev-next{
+			text-align: left;
+			width: 200px;
+			margin: 0 auto;
+			float: left;
+			overflow: hidden;
+		}
+		.desc{
+			margin: 0;
+			text-align: right;
+			height: 100%;
+			line-height: 30px;
 		}
    }
-   .desc{
-   		margin: 5px 0;
-		text-align: right;
-   }
+}
+
+@media screen and (max-width: 736px){
+	.sortable-table{
+		.search-box input.search{
+			width: 180px;
+		}
+		.pager{
+			div.desc{
+				margin: 0;
+				padding: 0;
+				height: 30px;
+				line-height: 30px;
+				float: none;
+			}
+			.row-per-page,
+			.prev-next{
+				float: none;
+			}		
+		}	
+	}
 }

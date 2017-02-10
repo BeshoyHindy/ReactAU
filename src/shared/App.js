@@ -11,6 +11,7 @@ import { browserHistory } from 'react-router';
 import Routes from './route/index';
 import configureStore from './store/configureStore';
 import { loadCategories } from './actions/adminActions';
+import {hodeXsNavAction} from './actions/modalAction';
 
 const initialState = window.__REDUX_STATE__ || {};
 
@@ -18,10 +19,13 @@ const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
 export default class App extends React.Component {
+	hideXsNav() {
+		store.dispatch(hodeXsNavAction);
+	}
 	render() {
 		return (
 			<Provider store={store}>
-				<Routes history={history}/>
+				<Routes history={history} hideXsNav={this.hideXsNav}/>
 			</Provider>
 		);
 	}

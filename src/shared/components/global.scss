@@ -54,7 +54,13 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 		padding:0;
 		box-sizing: border-box;
 	}
-
+	body{
+		 @include respond-to('xxs'){
+			 width: 320px;
+			 min-width: 320px;
+			 max-width: 320px;
+		 }
+	}
 	body, p {
 		font-family: #{$font-p};
 		font-size: $fontsize-p;
@@ -68,7 +74,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 		color: #333;
 	}
 	.social-login {
-		margin-top: 15px;
+		margin-top: 0px;
 		line-height: 34px;
 		border-bottom: 1px solid #ddd;
 		margin-bottom: 10px;
@@ -118,7 +124,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	.Modal{
 		width: 80vw;
 		height: 50vw;
-		min-width: 400px;
+		min-width: 300px;
 		max-width: 600px;
 		min-height: 400px;	
 		max-height: 600px;	
@@ -132,6 +138,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 		border-radius: 5px;
 		padding: 80px 40px 40px 40px;
 		z-index: 12;
+		 @include respond-to('xs'){
+			 padding: 80px 20px 40px 20px;
+		 }
 	}
 	.login-modal{
 		width: 80vw;
@@ -311,6 +320,17 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 			font-weight: 600;
 		}
 	}
+	 @include respond-to('xs'){
+		ol.breadcrumb{
+			margin: 12px 0 0 0;
+			padding: 5px;
+			line-height: 1.5;
+			font-size: 16px;
+			li:before{
+				padding:0;
+			}
+		}
+	}
 	.bar-title
 	{
 		color: #000;
@@ -412,6 +432,8 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
 	.page-header{
 		@include respond-to(xs) {
+			margin-top: 20px;
+			font-size: 34px;
 			small{
 				display: none;
 			}
@@ -520,7 +542,35 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	}
 
 	.react-tabs [role=tablist] {
-		margin : 0;
+		margin : 0; 
+		@include respond-to('xs'){
+			li{
+				height: 40px;
+				background-color: #F6C176;
+				color: #fff;
+			}
+			li.ReactTabs__Tab--selected{
+				background-color: #EC971F;
+				color: #fff;				
+			}
+		}
+	}
+	.react-tabs [role=tab] {
+		@include respond-to('xs'){
+		    padding: 0px 5px;
+		}
+	}
+	.react-tabs [role=tabpanel] {
+		@include respond-to('xs'){
+		    ul {
+				margin-left: 1em;
+				i.fa-li{
+					left: -1em;
+					width: 0.14286em;
+					top: 13px;
+				}
+			}
+		}
 	}
 
 /*GLOBAL*/
@@ -587,7 +637,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
     position: relative;
     margin: 0 auto;
     max-width: 1200px;
-    background-image: url('/img/logo-03.png');
+    background-image: url('/img/logo.png');
     background-size: 140px 48px;
     background-position: 0px 28px;
     @include respond-to(sm) {
@@ -620,9 +670,6 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       font-size: 14px;
       line-height: 14px;
       font-family: 'Ubuntu', sans-serif;
-      @include respond-to(xs) {
-        display: none;
-      }
       @include respond-to(sm) {
         display: none;
       }
@@ -641,12 +688,19 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       }
       @include respond-to(sm) {
         width: 100%;
+		top: 40px;
         max-width: none;
-      }
+      } 
     }
+	.signin{
+		display: block;
+	}
   }
   #XX{
     display:none;
+  }
+  .show-xs-nav{
+	  display: block;
   }
   .cctv-nav{
     position: absolute;
@@ -784,14 +838,15 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 }
 @include respond-to(xs) {
   #header{
+	  width: 100%;
     height: $xs-nav-height;
     .banner{
       background-size: 65px 22px;
       background-position: 0px 8px;
       h1{
-        top: 4px;
-        left: 55px;
-        font-size: 20px;
+        top: 5px;
+        left: 50px;
+        font-size: 15px;
         line-height: 20px;
       }
       p{
@@ -800,15 +855,22 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       .bar{
         display: block;
         position: absolute;
-        top: 5px;
+        top: 0px;
         right: 0px;
         color: $color6;
         cursor: pointer;
       }
       .search{
+		top: 40px;
         width: 100%;
         max-width: none;
       }
+	  .signin{
+		  right: 15px;
+		  .login-user{
+			  display: none;
+		  }
+	  }
     }
     .cctv-nav{
       position:fixed;
@@ -876,8 +938,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
       >ul{
         width:260px;
-        height:260px;
+        height:230px;
         position:absolute;
+		background-color: #000;
         left:50%;
         top:50%;
         margin-left:-130px;
@@ -887,6 +950,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       >ul>li{
         width:100%;
         float:none;
+		margin-left: 0;
       }
       .parent{
         width:100%;
@@ -910,6 +974,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
         border:1px solid #333;
       }
     }
+	.show-xs-nav{
+		display: block !important;
+	}	
     .myheader{
       display: none;
     }

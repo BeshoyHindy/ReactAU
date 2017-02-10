@@ -35,7 +35,7 @@ class UserPage extends React.Component{
 		idCounter=0;
 		let {authSuccess, user} = this.props;
 		return (
-		<div>
+		<div className="container">
 			<div className="row">
 				<div className="col-xs-12">
 					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>					

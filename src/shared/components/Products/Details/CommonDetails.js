@@ -29,28 +29,24 @@ let CommonDetails = (props) => {
 	if(props.params.product==="ALARM"){
 		return (
 			<div className="product-detail">
-				<div className="row">
 					<div className="col-xs-12 product-desc  alarm-product-desc">						
 						<DetailsDesc data={descData}/>
 					</div>
 					<div id="product-top" className="col-xs-12">
 						<DetailsImage data={detailsImage} productType={props.params.product}/>
 					</div>
-				</div>
 				<DetailsTab data={tabData}/>
 			</div>
 		);
 	}else{
 		return (
 			<div className="product-detail">
-				<div className="row">
 					<div id="product-top" className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
 						<DetailsImage data={detailsImage} productType={props.params.product}/>
 					</div>
 					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">										
 						<DetailsDesc data={descData}/>
 					</div>
-				</div>
 				<DetailsTab data={tabData}/>
 			</div>
 		);

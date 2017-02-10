@@ -39,9 +39,11 @@ ContactDetail.propTypes = {
 
 const ContactBoard = (props) => (
     <div>
+		<div className="col-xs-12 address">
 		{
 			props.contactData.map((item ,id) => (item.title === "Address") && <PureList key={id} data={item.content}/>  )
 		}
+		</div>
         <div className="col-xs-12 c">
             {  props.contactData.map((item ,id) => ( item.iconClass) && ( <ContactDetail key={id} {...item}/> )       )     }
         </div>
@@ -76,25 +78,21 @@ const ContactPage = (props) => {
                 </div>
                 </div>
 
-                <div className="col-sm-7 col-md-8 ">
-                <div className="row front-door">
-                    <div className="col-xs-12 col-md-9 front-door-photo-wrap">
-                        <div className="front-door-photo">
-                            <ImageLoader
-                                src={frontImgData[0]}
-                                wrapper={React.DOM.div}
-                                preloader={FrontImgpreloader}>NOT FOUND
-                            </ImageLoader>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-xs-12 front-door-t">
-                        <ul className="product-thumbs" >
-                            {
-                                frontImgData.map( (item, id) => ( <ImageList key={id} src={item} loaderStyle={{minHeight: "120px"}}/>))
-                            }
-                        </ul>
-                    </div>
-                </div>
+                <div className="col-xs-12 col-sm-7 col-md-8 front-door">
+					<div className="front-door-photo">
+						<ImageLoader
+							src={frontImgData[0]}
+							wrapper={React.DOM.div}
+							preloader={FrontImgpreloader}>NOT FOUND
+						</ImageLoader>
+					</div>
+					<div className="front-door-t">
+						<ul className="front-thumbs" >
+							{
+								frontImgData.map( (item, id) => ( <ImageList key={id} src={item} loaderStyle={{minHeight: "120px"}}/>))
+							}
+						</ul>
+					</div>
                 </div>
             </div>
         </div>

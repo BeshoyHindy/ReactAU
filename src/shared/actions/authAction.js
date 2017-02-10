@@ -36,7 +36,7 @@ export function userSignin(user) {
     return AuthApi.userSignin(user).then(user => {
         localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:false}}); 
+		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -51,7 +51,7 @@ export function userSocialLoginClient(data) {
     return AuthApi.userSocialLoginClient(data).then(user => {
         localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:false}}); 
+		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -72,7 +72,7 @@ export function userCheckAuth() {
         dispatch(signupUserSuccess(user.details));
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
-        dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:true}});      
+        dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});      
         // browserHistory.push('/signin');
     });
   };
@@ -110,7 +110,7 @@ export function userCheckAdmin() {
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
         // browserHistory.push('/signin');
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:{open:true}});  
+		dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});  
     });
   };
 }

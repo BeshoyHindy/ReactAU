@@ -21,11 +21,14 @@ git push -f origin master
 
 //github page
 git subtree push --prefix <path/to/your/site> origin gh-pages
+git subtree push --prefix example/example1/dist origin gh-pages
 git subtree push --prefix example/example2/dist origin gh-pages
 git subtree push --prefix dist origin gh-pages
 https://grace951.github.io/react-image-carousel/
 http://kbroman.org/simple_site/pages/independent_site.html
 http://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
+
+
 
 // npm clean cache
 npm cache clean

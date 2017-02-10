@@ -63,27 +63,31 @@ class SortableTblPager extends React.Component{
 			let rowPerPage = this.props.totalPage===1?"All":this.props.rowPerPage;
 
 			return (
-				<div className="form-group">
-					<div className="pager col-sm-7 col-xs-12">
-						<input type="button" className="btn btn-default" name="" disabled={prevDisableStyle} 
-							onClick={this.subPage} value="Prev" />
-						<select onChange={this.setCurrentPage} value={this.state.currPage} className="form-control page-select">
-							{
-								Array.from(new Array(this.props.totalPage), (x,i) => {return (<option key={i} value={i}>{i + 1}</option>);})
-							}		
-						</select>
-						<input type="button" className="btn btn-default" name="" disabled={nextDisableStyle} 
-							onClick={this.addPagge} value="Next"/>
-						<label htmlFor="rowsPerPage"> ，display </label>
-						<select id="rowsPerPage" onChange={this.setRowsPerPage} value={rowPerPage} className="form-control page-select">
-							{
-								[5, 10, 20 ,50, 'All'].map((item,id) => {return (<option key={id} value={item}>{item}</option>);})
-							}		
-						</select>
-						<label>rows per page</label>
-					</div>
-					<div className="desc col-sm-5 col-xs-12">
-						<div>Page {this.state.currPage + 1} of totlas {this.props.totalPage}, totlas {this.props.totalsCount} rows</div>
+				<div className="pager">
+					<div className="form-group">
+						<div className="prev-next">
+							<input type="button" className="btn btn-default" name="" disabled={prevDisableStyle} 
+								onClick={this.subPage} value="Prev" />
+							<select onChange={this.setCurrentPage} value={this.state.currPage} className="form-control page-select">
+								{
+									Array.from(new Array(this.props.totalPage), (x,i) => {return (<option key={i} value={i}>{i + 1}</option>);})
+								}		
+							</select>
+							<input type="button" className="btn btn-default" name="" disabled={nextDisableStyle} 
+								onClick={this.addPagge} value="Next"/>
+						</div>
+						<div className="row-per-page">
+							<label htmlFor="rowsPerPage" className="SortableTblLabel"> Show</label>
+							<select id="rowsPerPage" onChange={this.setRowsPerPage} value={rowPerPage} className="form-control page-select">
+								{
+									[5, 10, 20 ,50, 'All'].map((item,id) => {return (<option key={id} value={item}>{item}</option>);})
+								}		
+							</select>
+							<label  className="SortableTblLabel">entries</label>
+						</div>
+						<div className="desc">
+							<div>Page {this.state.currPage + 1} of totlas {this.props.totalPage}, totlas {this.props.totalsCount} rows</div>
+						</div>
 					</div>
 				</div>
 			);

@@ -11,7 +11,7 @@ The app is a real world website project, integrate with react, redux, server sid
 * Webpack2 with Hot Reload
 * Node.js + MongoDB ( For the data schema, please refer to my another git repo:  [`https://github.com/Grace951/node-api-server-demo`](https://github.com/Grace951/node-api-server-demo))
 * Node Sass with PostCSS (autoprefixer)  
-* ESLint development enviroment
+* ES6 with ESLint development enviroment
 * Have Deployed to heroku for Demo
 
 ## Live Demo 
@@ -30,7 +30,7 @@ cd ReactAU
 cd .config
 //Then EDIT the configuration file(configuration.js) to meet your requirements
 npm install
-npm run dev
+npm run start
 ```
 
 Then open [`localhost:3000`](http://localhost:3000) in a browser.

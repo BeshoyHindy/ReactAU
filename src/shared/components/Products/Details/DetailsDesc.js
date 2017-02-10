@@ -16,7 +16,7 @@ const DetailsDesc = (props) => {
 				<ul className="fa-ul">
 					{props.data.description && props.data.description.map( (item, id) => {
 						return (
-						<li key={id}><i className="fa-li fa fa-check-square"/>{item}</li>
+						<li key={id} ><i className="fa-li fa fa-check-square"/>{item}</li>
 						);
 					})}
 				</ul>

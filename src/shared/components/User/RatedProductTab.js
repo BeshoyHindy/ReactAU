@@ -9,7 +9,7 @@ const PID = (props) =>
 {
 	
 	return (
-		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
+		<td style={{minWidth: '120px',backgroundColor: '#fff'}} >
 			<Link to={`/products/${props.rowData.cat}/spec/${props.tdData}`}>
 				{props.tdData}
 			</Link>

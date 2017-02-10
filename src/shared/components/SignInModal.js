@@ -35,10 +35,10 @@ let SignInModal = class SignInModal extends React.Component{
 		this.googleLogin();	
 	}
 	handleOpenModal () {
-		this.props.changeModal({open:true});
+		this.props.changeModal(true);
 	}
 	handleCloseModal () {
-		this.props.changeModal({open:false});
+		this.props.changeModal(false);
 	}
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
@@ -171,7 +171,7 @@ function mapStateToProps(state) {
   return { 
     auth: state.auth,
 	errorMessage: state.auth.error,
-	showSigninModal: state.modal.open,
+	showSigninModal: state.modal.showModal,
   };
 }	
 

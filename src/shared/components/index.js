@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 import Modal from 'react-modal';
 
 import { NavBar } from '../components/header/NavBar';
-import { navData } from '../Data/RouteData';
 import * as authActions from '../actions/authAction';
 import * as modalActions from '../actions/modalAction';
 import  {renderField} from "./Shared/renderReduxForm";
@@ -31,12 +30,16 @@ const UnauthorizedPage = (props) 	=> (
 let Root = class Root extends React.Component{
 	constructor(props) {
 		super(props);
+		this.state={
+			showSmNav: false
+		}
 		this.logout = this.logout.bind(this);
 		this.signin = this.signin.bind(this);
 		this.goToSignUp = this.goToSignUp.bind(this);
 		this.getUser = this.getUser.bind(this);
 		this.loadScript = this.loadScript.bind(this);
 		this.getGoogleAuth2 = this.getGoogleAuth2.bind(this);
+		this.showXsNav = this.showXsNav.bind(this);
 	}
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
@@ -116,7 +119,7 @@ let Root = class Root extends React.Component{
 			return this.props.router.push(`/user`);
 		}
 			
-		this.props.changeModal({open:true});
+		this.props.changeModal(true);
 	}	
 	getUser(){
 		let { auth} = this.props;
@@ -125,6 +128,9 @@ let Root = class Root extends React.Component{
 		let User = undefined || (auth.user.email && <div className="login-user">{auth.user.email}</div>);
 		User = User || (auth.user.profile && auth.user.profile.username && <div className="login-user">{auth.user.profile.username}</div>);
 		return User;
+	}
+	showXsNav(){
+		this.props.changeXsNavModal(true);
 	}
 	render() {
 		let { auth, showSigninModal} = this.props;
@@ -143,17 +149,15 @@ let Root = class Root extends React.Component{
 							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 							{this.getUser()}
 						</div>
-						<span id="BTN" className="bar"><i className="fa fa-bars"/></span>
+						<span id="BTN" className="bar" onClick={this.showXsNav}><i className="fa fa-bars"/></span>
 						<div id="search" className="search"/>
 				</div>
 				<div className="myheader"/>
-				<NavBar data={navData} activeClass="active"/>
+				<NavBar activeClass="active"/>
 			</div>
 		</header>
-		<div id="article">
-			<div className="container">
-				{this.props.children}
-			</div>
+		<div id="article">			
+			{this.props.children}
 		</div>
 		<div id="footer"/>
 		<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
@@ -170,6 +174,7 @@ Root.propTypes = {
 	userSignin: React.PropTypes.func.isRequired,
 	showSigninModal: React.PropTypes.bool.isRequired,
 	changeModal: React.PropTypes.func.isRequired,
+	changeXsNavModal: React.PropTypes.func.isRequired,
 	auth: React.PropTypes.object.isRequired,
 	router: React.PropTypes.object.isRequired,
 	routes: React.PropTypes.array.isRequired,
@@ -182,7 +187,7 @@ Root.propTypes = {
 function mapStateToProps(state) {
   return { 
     auth: state.auth,
-	showSigninModal: state.modal.open,	
+	showSigninModal: state.modal.showModal,	
   };
 }	
 

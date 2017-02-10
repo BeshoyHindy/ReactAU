@@ -18,7 +18,7 @@ class SpecTbl extends React.Component{
 		}
 		render() {
 			return (
-				<div id="p-spec">
+				<div id="p-spec" className="table-responsive">
 					<table className="table table-striped table-bordered table-hover p-spec">
 					{
 						this.props.data && this.props.data.map( (item, i) => {

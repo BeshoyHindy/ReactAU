@@ -95,6 +95,7 @@ class ProductsP extends React.Component{
 			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
 
 			return (
+			<div className="container">
 				<div className="row">
 					<div className="col-lg-12">
 						<Breadcrumb linkPair={linkpair}/>
@@ -107,6 +108,7 @@ class ProductsP extends React.Component{
 						{this.getProductContent()}
 					</div>
 				</div>
+			</div>
 			);
 		}
 }

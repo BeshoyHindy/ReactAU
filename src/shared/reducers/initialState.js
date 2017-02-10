@@ -4,5 +4,5 @@ export default {
   categories: [],
   ajaxCallsInProgress: 0,
   auth: { user:{}, error:"", success: false},
-  modal: {open: false}
+  modal: {showModal: false, showXsNav: false}
 };

@@ -44,7 +44,7 @@ class SignupPage extends React.Component {
 			<div className="col-lg-12 ">
 				<Breadcrumb linkPair={[{link:"user", desc:"User"},{link:"signup", desc:"Sign Up"}]}/>
 				<div className="well">
-					<div className="panel panel-danger sign-up-panel">
+					<div className="panel sign-up-panel">
 						<div className="panel-heading">
 							<h3 className="panel-title">Sign Up</h3>
 						</div>

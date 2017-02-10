@@ -9,6 +9,7 @@ import { loadCategories } from '../actions/adminActions';
 
 let AdminPage = (props) => { 
   return (
+	<div className="container">
 		<div className="loading-wrap">
 			<div className={`ajax-loading-big ${(!props.auth.success || !props.auth.user || !props.auth.user.accessRight || props.auth.user.accessRight !== 8) ?'fade-show':'fade-hide'}`} >
 				<h1 className="center-page"> Unauthorized </h1>
@@ -17,6 +18,7 @@ let AdminPage = (props) => {
 				{props.children}
 			</div>
 		</div>
+	</div>
     ) ;
 };
 

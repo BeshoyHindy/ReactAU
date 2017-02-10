@@ -73,15 +73,31 @@ table.p-spec, table.p-stdpkg{
       border-bottom: 10px solid $color1;
     }
     .product-desc{
+      @include respond-to(xs) {
+        padding: 0;
+      }		
       margin-bottom: 30px;
 	  h1{
+		  position: relative;
 	  	 .favorite{
+			   position: absolute;
+			   right: 0;
+			   top: 30px;
+			   @include respond-to(xs) {
+					top: -30px;
+				}	
 			font-size: 18px;
 			float: right;
 		 }
+		 @include respond-to(xs) {
+			margin-bottom: 0px;
+		}
 	  }
       .rate{
         padding-left: 10px;
+		@include respond-to(xs) {
+			padding-left: 0;
+		}
         overflow: hidden;
         .rated{
           float: left;
@@ -94,10 +110,7 @@ table.p-spec, table.p-stdpkg{
 	.alarm-product-desc{
 		margin-bottom: 0;
 	}
-    .fa-ul ul li {
-      height: 25px;
-      line-height: 25px;
-    }
+
 
   ul.product-thumbs {
     margin: 0 0 20px 0;
@@ -140,6 +153,7 @@ table.p-spec, table.p-stdpkg{
 	}
     @include respond-to(xs) {
       width: 100%;
+	  height: 200px;
     }
     //width: 100%;
     img {
@@ -201,6 +215,16 @@ table.p-spec, table.p-stdpkg{
 	}
   .p-desc-detail{
       margin: 0px;
+	  @include respond-to(xs) {
+		  .fa-ul{
+			  margin-left: 1.5em;
+			  line-height: 2;
+			  .fa-li{
+			  	line-height: 2;
+
+			  }
+		  }
+	  }
   }
 }
 
