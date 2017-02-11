@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/build/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 500);
+/******/ 	return __webpack_require__(__webpack_require__.s = 501);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -14785,7 +14785,7 @@ var _server = __webpack_require__(481);
 
 var _reactRouter = __webpack_require__(9);
 
-var _serializeJavascript = __webpack_require__(498);
+var _serializeJavascript = __webpack_require__(499);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
@@ -14924,7 +14924,7 @@ var _geoipLite = __webpack_require__(493);
 
 var _geoipLite2 = _interopRequireDefault(_geoipLite);
 
-var _strformat = __webpack_require__(499);
+var _strformat = __webpack_require__(500);
 
 var _strformat2 = _interopRequireDefault(_strformat);
 
@@ -20816,6 +20816,8 @@ var _reactModal = __webpack_require__(495);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
+var _reactShare = __webpack_require__(497);
+
 var _connectDataFetchers = __webpack_require__(19);
 
 var _connectDataFetchers2 = _interopRequireDefault(_connectDataFetchers);
@@ -20855,6 +20857,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 if (false) {
 	require('./global.scss');
 }
+var FacebookShareButton = _reactShare.ShareButtons.FacebookShareButton,
+    GooglePlusShareButton = _reactShare.ShareButtons.GooglePlusShareButton,
+    LinkedinShareButton = _reactShare.ShareButtons.LinkedinShareButton,
+    TwitterShareButton = _reactShare.ShareButtons.TwitterShareButton,
+    PinterestShareButton = _reactShare.ShareButtons.PinterestShareButton,
+    VKShareButton = _reactShare.ShareButtons.VKShareButton;
+
+
+var FacebookIcon = (0, _reactShare.generateShareIcon)('facebook');
+var TwitterIcon = (0, _reactShare.generateShareIcon)('twitter');
+var GooglePlusIcon = (0, _reactShare.generateShareIcon)('google');
+var LinkedinIcon = (0, _reactShare.generateShareIcon)('linkedin');
+var PinterestIcon = (0, _reactShare.generateShareIcon)('pinterest');
 
 var _ref = _react2.default.createElement(
 	'div',
@@ -20892,15 +20907,15 @@ var UnauthorizedPage = function UnauthorizedPage(props) {
 	return _ref2;
 };
 
-var _ref5 = _react2.default.createElement('div', null);
+var _ref3 = _react2.default.createElement('div', null);
 
-var _ref6 = _react2.default.createElement(
+var _ref4 = _react2.default.createElement(
 	'b',
 	null,
 	'Hi-Tech'
 );
 
-var _ref7 = _react2.default.createElement(
+var _ref5 = _react2.default.createElement(
 	'p',
 	null,
 	'for all your residential, commercial and industrial needs. ',
@@ -20911,21 +20926,29 @@ var _ref7 = _react2.default.createElement(
 	' 02 9725 7733'
 );
 
-var _ref8 = _react2.default.createElement(
+var _ref6 = _react2.default.createElement(FacebookIcon, { size: 28, round: true });
+
+var _ref7 = _react2.default.createElement(GooglePlusIcon, { size: 28, round: true });
+
+var _ref8 = _react2.default.createElement(LinkedinIcon, { size: 28, round: true });
+
+var _ref9 = _react2.default.createElement(TwitterIcon, { size: 28, round: true });
+
+var _ref10 = _react2.default.createElement(
 	_reactRouter.Link,
 	{ to: '/signup' },
 	_react2.default.createElement('i', { className: 'fa fa-user-plus signin-icon', 'aria-hidden': 'true' })
 );
 
-var _ref9 = _react2.default.createElement('i', { className: 'fa fa-bars' });
+var _ref11 = _react2.default.createElement('i', { className: 'fa fa-bars' });
 
-var _ref10 = _react2.default.createElement('div', { id: 'search', className: 'search' });
+var _ref12 = _react2.default.createElement('div', { id: 'search', className: 'search' });
 
-var _ref11 = _react2.default.createElement('div', { className: 'myheader' });
+var _ref13 = _react2.default.createElement('div', { className: 'myheader' });
 
-var _ref12 = _react2.default.createElement(_NavBar.NavBar, { activeClass: 'active' });
+var _ref14 = _react2.default.createElement(_NavBar.NavBar, { activeClass: 'active' });
 
-var _ref13 = _react2.default.createElement(_Footer2.default, null);
+var _ref15 = _react2.default.createElement(_Footer2.default, null);
 
 var Root = function (_React$Component) {
 	_inherits(Root, _React$Component);
@@ -21016,23 +21039,6 @@ var Root = function (_React$Component) {
 				});
 			});
 		});
-
-		this.loadScript("https://platform.twitter.com/widgets.js").then(function () {});
-	};
-
-	Root.prototype.componentWillReceiveProps = function componentWillReceiveProps(_ref3) {
-		var location = _ref3.location;
-	};
-
-	Root.prototype.componentDidUpdate = function componentDidUpdate(_ref4, prevState) {
-		var location = _ref4.location;
-
-		if (location !== this.props.location) {
-			if (window.FB) {
-				// console.log(location.pathname, document.getElementById('fblike'));
-				window.FB.XFBML.parse(document.getElementById('fblike'));
-			}
-		}
 	};
 
 	Root.prototype.logout = function logout() {
@@ -21052,7 +21058,7 @@ var Root = function (_React$Component) {
 	Root.prototype.getUser = function getUser() {
 		var auth = this.props.auth;
 
-		if (!auth || !auth.success || !auth.user) return _ref5;
+		if (!auth || !auth.success || !auth.user) return _ref3;
 
 		var User = undefined || auth.user.email && _react2.default.createElement(
 			'div',
@@ -21099,7 +21105,7 @@ var Root = function (_React$Component) {
 							_react2.default.createElement(
 								'h1',
 								null,
-								_ref6,
+								_ref4,
 								' ',
 								_react2.default.createElement(
 									'span',
@@ -21108,34 +21114,52 @@ var Root = function (_React$Component) {
 								)
 							)
 						),
-						_ref7,
+						_ref5,
 						_react2.default.createElement(
 							'div',
 							{ className: 'signin' },
 							this.getUser(),
 							_react2.default.createElement(
-								'div',
-								{ className: 'twitter-share' },
-								_react2.default.createElement(
-									'a',
-									{ className: 'twitter-share-button', 'data-url': link, target: '_blank', href: 'https://twitter.com/intent/tweet' },
-									'Tweet'
-								)
+								FacebookShareButton,
+								{ url: link, className: 'social-share' },
+								' ',
+								_ref6,
+								' '
 							),
-							_react2.default.createElement('div', { className: 'fb-like', id: 'fblike', 'data-href': link, 'data-layout': 'button_count', 'data-action': 'like', 'data-size': 'small', 'data-show-faces': 'false', 'data-share': 'true' }),
+							_react2.default.createElement(
+								GooglePlusShareButton,
+								{ url: link, className: 'social-share' },
+								' ',
+								_ref7,
+								' '
+							),
+							_react2.default.createElement(
+								LinkedinShareButton,
+								{ url: link, className: 'social-share' },
+								' ',
+								_ref8,
+								' '
+							),
+							_react2.default.createElement(
+								TwitterShareButton,
+								{ url: link, className: 'social-share' },
+								' ',
+								_ref9,
+								' '
+							),
 							_react2.default.createElement('i', { className: 'fa fa-user signin-icon', 'aria-hidden': 'true', onClick: this.signin }),
-							_ref8,
+							_ref10,
 							_react2.default.createElement('i', { className: 'fa fa-sign-out signin-icon', 'aria-hidden': 'true', onClick: this.logout })
 						),
 						_react2.default.createElement(
 							'span',
 							{ id: 'BTN', className: 'bar', onClick: this.showXsNav },
-							_ref9
+							_ref11
 						),
-						_ref10
+						_ref12
 					),
-					_ref11,
-					_ref12
+					_ref13,
+					_ref14
 				)
 			),
 			_react2.default.createElement(
@@ -21143,7 +21167,7 @@ var Root = function (_React$Component) {
 				{ id: 'article' },
 				this.props.children
 			),
-			_ref13,
+			_ref15,
 			_react2.default.createElement(
 				_reactModal2.default,
 				{ isOpen: showSigninModal, contentLabel: 'Modal', className: 'Modal login-modal', overlayClassName: 'Overlay' },
@@ -21609,7 +21633,7 @@ var _reducers = __webpack_require__(275);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _reduxThunk = __webpack_require__(497);
+var _reduxThunk = __webpack_require__(498);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -39703,22 +39727,28 @@ module.exports = require("react-router-redux");
 /* 497 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("react-share");
 
 /***/ }),
 /* 498 */
 /***/ (function(module, exports) {
 
-module.exports = require("serialize-javascript");
+module.exports = require("redux-thunk");
 
 /***/ }),
 /* 499 */
 /***/ (function(module, exports) {
 
-module.exports = require("strformat");
+module.exports = require("serialize-javascript");
 
 /***/ }),
 /* 500 */
+/***/ (function(module, exports) {
+
+module.exports = require("strformat");
+
+/***/ }),
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

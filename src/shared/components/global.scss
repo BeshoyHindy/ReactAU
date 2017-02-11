@@ -731,8 +731,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 			cursor: pointer;
 			text-align: center;
 		}
-		.fb-like{
-		    margin-top: -14px;
+		.social-share{
+			margin-top: 2px;
+			cursor: pointer;
 		}		
 	}
   }
@@ -881,7 +882,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	  width: 100%;
     height: $xs-nav-height;
     .banner{
-      background-size: 80px 25px;
+      background-size: 70px 23px;
       background-position: 0px 8px;
       h1{
 		margin-right: 0;

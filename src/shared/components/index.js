@@ -5,6 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
+import { ShareButtons, generateShareIcon} from 'react-share';
 
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { loadCategories } from '../actions/adminActions';
@@ -16,6 +17,21 @@ import  {renderField} from "./Shared/renderReduxForm";
 import  SignInModal from "./SignInModal";
 import  Footer from "./Footer";
 
+
+const {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  VKShareButton
+} = ShareButtons;
+
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
+const GooglePlusIcon = generateShareIcon('google');
+const LinkedinIcon = generateShareIcon('linkedin');
+const PinterestIcon = generateShareIcon('pinterest');
 
 const NotFoundPage = (props) 	=> (
 		<div className="row">
@@ -118,21 +134,7 @@ let Root = class Root extends React.Component{
 			});	
 		});
 
-		this.loadScript("https://platform.twitter.com/widgets.js")
-		.then(()=>{
-		});
 	}
-	componentWillReceiveProps({ location }) {
-	}
-	componentDidUpdate({location}, prevState){
-		if (location !== this.props.location) {
-			if (window.FB) {
-				// console.log(location.pathname, document.getElementById('fblike'));
-				window.FB.XFBML.parse(document.getElementById('fblike'));
-			}
-		}
-	}
-
 	logout(){
 		this.props.dispatch(authActions.userSignOut(this.props.routes));
 	}
@@ -172,8 +174,10 @@ let Root = class Root extends React.Component{
 						</p>
 						<div className="signin">
 							{this.getUser()}
-							<div className="twitter-share" ><a className="twitter-share-button" data-url={link} target="_blank" href="https://twitter.com/intent/tweet">Tweet</a></div>
-							<div className="fb-like" id="fblike" data-href={link} data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"/>
+							<FacebookShareButton url={link} className="social-share"> <FacebookIcon size={28} round={true} /> </FacebookShareButton>
+							<GooglePlusShareButton url={link} className="social-share"> <GooglePlusIcon size={28} round={true} /> </GooglePlusShareButton>
+							<LinkedinShareButton url={link} className="social-share"> <LinkedinIcon size={28} round={true} /> </LinkedinShareButton>
+							<TwitterShareButton url={link} className="social-share"> <TwitterIcon size={28} round={true} /> </TwitterShareButton>
 							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
 							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
