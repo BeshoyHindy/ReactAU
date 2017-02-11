@@ -5,10 +5,7 @@ if (process.env.BROWSER) {
 import React from 'react';
 import { Link} from 'react-router';
 import ImageLoader from 'react-imageloader';
-import { connect } from 'react-redux';
 
-import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared";
 import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
 import {ImageList} from './Shared/ImageList';
@@ -99,4 +96,4 @@ const ContactPage = (props) => {
     );
 };
 
-export default connect()(connectDataFetchers(ContactPage, [ loadCategories ]));
+export default ContactPage;

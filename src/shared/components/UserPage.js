@@ -7,9 +7,7 @@ import React from 'react';
 import update from 'immutability-helper';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 
-import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { Breadcrumb} from "./Shared/Shared";
-import { loadCategories } from '../actions/adminActions';
 import EditUserTab from './User/EditUserTab.js';
 import UserProfileTab from './User/UserProfileTab.js';
 import RatedProductTab from './User/RatedProductTab.js';
@@ -96,6 +94,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(
-    connectDataFetchers(UserPage, [ loadCategories ])
-);
+export default connect(mapStateToProps)(UserPage);

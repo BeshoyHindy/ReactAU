@@ -3,10 +3,7 @@ if (process.env.BROWSER) {
 }
 import Carousel from './Shared/Carousel';
 import React from 'react';
-import { connect } from 'react-redux';
 
-import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { loadCategories } from '../actions/adminActions';
 
 const Child1 = (props) => (
 	<div className="banner1 my-switch-animation">
@@ -45,10 +42,12 @@ const HomePage = (props) => {
 		carouselChildren: [Child1, Child2, Child3]
 	};
 	return (
-	<div className="home-banner">
-		<div className="well banner">
-			<div className="panel-body" >
-				<Carousel {...settings} />					
+	<div className="HomePage">
+		<div className="home-banner">
+			<div className="well banner">
+				<div className="panel-body" >
+					<Carousel {...settings} />					
+				</div>
 			</div>
 		</div>
 	</div>
@@ -58,4 +57,4 @@ const HomePage = (props) => {
 HomePage.propTypes = {
 };
 
-export default connect()(connectDataFetchers(HomePage, [ loadCategories ]));
+export default HomePage;

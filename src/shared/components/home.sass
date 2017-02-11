@@ -1,142 +1,143 @@
 @import "./variable.scss"
 @import "./mixin.scss"
-
-.home-banner
-	height: $banner-height
-	+respond-to(xs) 
-		margin-top: 10px
-	
-	.banner
-		position: relative
+.HomePage
+	min-height: calc(100vh - #{$footer-height} - #{$nav-height})
+	.home-banner
 		height: $banner-height
-		overflow: hidden
-		margin: 0
-		padding: 0
 		+respond-to(xs) 
-			height: $banner-height - 100px
-	.panel-body 
-		position:relative
-		margin: 0
-		padding: 0
-		height: $banner-height
-		width: 100%
-		.banner1, .banner2, .banner3
+			margin-top: 10px
+		
+		.banner
+			position: relative
+			height: $banner-height
+			overflow: hidden
 			margin: 0
 			padding: 0
-			width: 100%
+			+respond-to(xs) 
+				height: $banner-height - 100px
+		.panel-body 
+			position:relative
+			margin: 0
+			padding: 0
 			height: $banner-height
+			width: 100%
+			.banner1, .banner2, .banner3
+				margin: 0
+				padding: 0
+				width: 100%
+				height: $banner-height
+				position: relative
+				background-repeat: no-repeat
+				background-position: center center
+				background-size: cover
+			
+			.banner1
+				background-image: url(/img/banner1.png)
+			
+			.banner2
+				background-image: url(/img/banner2.png)
+			
+			.banner3
+				background-image: url(/img/banner3.png)
+			
+			.bg
+				position: absolute
+				z-index: 1
+				width: 100%
+				height: 80px
+				+respond-to(xs) 
+					height: 60px	
+				background-color: rgba(215, 139, 44, 0.3)
+				-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)"
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)
+			
+			.word
+				position: absolute
+				width: 100%
+				height: 100px
+				+respond-to(xs) 
+					right: 5px
+					width: 300px
+				
+			
+			h2, h3 
+				position: absolute
+				z-index: 3
+				top: 20px
+				left: 60px
+				+respond-to(xs) 
+					right: 10px
+				
+				width: 100%
+				font-family: 'Oswald', sans-serif
+				text-shadow: 3px 3px 6px #000
+				color: #fff
+				font-size: 35px
+			
+			h2 
+				text-align: left
+				+respond-to(xs) 
+					top: 10px
+					left: 10px
+				
+			
+			h3 
+				left: 300px
+				top: 40px
+				z-index: 2
+				font-family: 'Rajdhani', sans-serif
+				font-size: 20px
+				line-height: 20px
+				text-align: left
+				+respond-to(xs) 
+					left: 150px
+					top: 50px
+					width: 120px
+					//background-color: rgba(100, 70, 33, 0.5)
+					background-color: $color4
+					padding: 15px 20px
+					border: 2px rgba(255, 255, 255, 0.2) solid
+					text-shadow: 3px 3px 3px #000
+					//background-color: rgba(215, 139, 44, 0.3)
+				
+			
+			.banner1 h3 
+				left: 250px
+				+respond-to(xs) 
+					left: 150px
+				
+			
+			.banner3 h3 
+				left: 260px
+				+respond-to(xs) 
+					left: 150px
+					width: 130px
+					padding: 25px 20px
+			
+		
+
+	.btn-switch
+		text-align: center
+		height: 20px
+		position: absolute
+		bottom: 15px
+		ul li
 			position: relative
-			background-repeat: no-repeat
-			background-position: center center
-			background-size: cover
+			margin-left: 10px
+			+inline-block-grace(10px)
+			height: 10px
+			border-radius: 5px 5px 5px 5px
+			background-color:  #fff
+			box-shadow: 1px 1px 2px #999999
+			cursor: pointer
+			border: 1px solid #fff
 		
-		.banner1
-			background-image: url(/img/banner1.png)
-		
-		.banner2
-			background-image: url(/img/banner2.png)
-		
-		.banner3
-			background-image: url(/img/banner3.png)
-		
-		.bg
-			position: absolute
-			z-index: 1
-			width: 100%
-			height: 80px
-			+respond-to(xs) 
-				height: 60px	
-			background-color: rgba(215, 139, 44, 0.3)
-			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)"
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000, endColorstr=#88000000)
-		
-		.word
-			position: absolute
-			width: 100%
-			height: 100px
-			+respond-to(xs) 
-				right: 5px
-				width: 300px
-			
-		
-		h2, h3 
-			position: absolute
-			z-index: 3
-			top: 20px
-			left: 60px
-			+respond-to(xs) 
-				right: 10px
-			
-			width: 100%
-			font-family: 'Oswald', sans-serif
-			text-shadow: 3px 3px 6px #000
-			color: #fff
-			font-size: 35px
-		
-		h2 
-			text-align: left
-			+respond-to(xs) 
-				top: 10px
-				left: 10px
-			
-		
-		h3 
-			left: 300px
-			top: 40px
-			z-index: 2
-			font-family: 'Rajdhani', sans-serif
-			font-size: 20px
-			line-height: 20px
-			text-align: left
-			+respond-to(xs) 
-				left: 150px
-				top: 50px
-				width: 120px
-				//background-color: rgba(100, 70, 33, 0.5)
-				background-color: $color4
-				padding: 15px 20px
-				border: 2px rgba(255, 255, 255, 0.2) solid
-				text-shadow: 3px 3px 3px #000
-				//background-color: rgba(215, 139, 44, 0.3)
-			
-		
-		.banner1 h3 
-			left: 250px
-			+respond-to(xs) 
-				left: 150px
-			
-		
-		.banner3 h3 
-			left: 260px
-			+respond-to(xs) 
-				left: 150px
-				width: 130px
-				padding: 25px 20px
-		
-	
-
-.btn-switch
-	text-align: center
-	height: 20px
-	position: absolute
-	bottom: 15px
-	ul li
-		position: relative
-		margin-left: 10px
-		+inline-block-grace(10px)
-		height: 10px
-		border-radius: 5px 5px 5px 5px
-		background-color:  #fff
-		box-shadow: 1px 1px 2px #999999
-		cursor: pointer
-		border: 1px solid #fff
-	
-	.active
-		background-color:  #999
+		.active
+			background-color:  #999
 	
 
 
-
+/*****************************************carousel******************************************************/
 $footerHeight: 30px
 $thumbWidth: 120px
 $thumbHeight: 20px

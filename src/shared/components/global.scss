@@ -66,7 +66,6 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 		font-size: $fontsize-p;
 		line-height: 2.5;
 		@include min-height-grace(100%);
-		margin-bottom: 20px;
 		color: #666;
 	}
 
@@ -366,10 +365,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	}
 
 	#article{
-		padding-bottom: $footer-height;
-		padding-top:$nav-height;
+		padding: 0;
 		max-width: 1200px;
-		margin: 0 auto;
+		margin: $nav-height auto 0;
 		@include respond-to('sm'){
 			width: 100%;
 		}
@@ -378,8 +376,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 		}
 		@include respond-to('xs'){
 			width: 100%;
-			padding: $xs-nav-height 5px $footer-height 5px;
-			padding-top: $xs-nav-height;
+			padding-left: 5px;
+			padding-right: 5px;
+			margin-top: $xs-nav-height;
 		}
 	}
 
@@ -583,9 +582,8 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
 #footer{
     width: 100%;
-    position: absolute;
-    bottom: 0;
-    height: $footer-height;
+    height:auto;
+    min-height: $footer-height;
     background: $footer-color;
     font-family: $font-p;
     font-size: $fontsize-p;
@@ -595,35 +593,50 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       min-width: 300px;
       max-width: 1200px;
     }
-    .footer_menu{
-      width: 300px;
-      margin: 0 auto;
-      ul li {
-        color: #fff;
-        @include inline-block-grace(72px);
-      }
-      a {
-        display: block;
-        width: 100%;
-        color:#aaa;
-        line-height: 40px;
-        text-align: center;
-      }
-      a:hover {
-        color: #fff;
-        box-shadow:#000 0 0 3px 1px inset;
-        font-weight: normal;
-      }
-    }
-
   .copyright{
     text-align: center;
-    color:#ccc;
+    color:#888;
     @include respond-to(xs) {
       margin-top: -5px;
       line-height: 20px;
       font-size: 11px;
     }
+  }
+  .info{
+	  width: 100%;
+	  max-width: 1200px;
+	  margin: 0 auto;
+	  padding: 5px;
+	  color: #aaa;
+	  ul{
+		  width: 100%;
+		  display: flex;
+		  flex-wrap: wrap;
+		  line-height: 1.6;
+		  li{
+			  width:280px;
+			  display: flex;			  
+			  margin-left: 10px;
+			  a,i{
+				  display: block;
+				  line-height: 1.6;
+				  color: #aaa;
+			  }
+			  i{
+				  margin-right: 5px;
+				  color: #fff;
+			  }
+			  ul{
+				  display: block;
+				  li{
+					  margin-left: 5px;
+				  }
+			  }
+		  }
+	  }
+	  @include respond-to(xs) {
+		font-size: 11px;
+	  }
   }
 
 }
@@ -898,9 +911,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
         max-width: none;
       }
 	  .signin{
-		  width: 100%;
+		  width: auto;
 		  right: 15px;
-		  .login-user{
+		  .login-user,.twitter-share, .fb-like{
 			  display: none;
 		  }
 	  }

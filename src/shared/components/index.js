@@ -6,12 +6,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
 
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { loadCategories } from '../actions/adminActions';
+
 import { NavBar } from '../components/header/NavBar';
 import * as authActions from '../actions/authAction';
 import * as modalActions from '../actions/modalAction';
 import  {renderField} from "./Shared/renderReduxForm";
 import  SignInModal from "./SignInModal";
- 
+import  Footer from "./Footer";
+
+
 const NotFoundPage = (props) 	=> (
 		<div className="row">
 			<div className="col-xs-12">
@@ -27,12 +32,15 @@ const UnauthorizedPage = (props) 	=> (
 			</div>
 		</div>
 	);
+
+
+
 let Root = class Root extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state={
 			showSmNav: false
-		}
+		};
 		this.logout = this.logout.bind(this);
 		this.signin = this.signin.bind(this);
 		this.goToSignUp = this.goToSignUp.bind(this);
@@ -44,7 +52,7 @@ let Root = class Root extends React.Component{
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
 		let {email, password} = values;
-		this.props.userSignin({email, password});
+		this.props.dispatch(authActions.userSignin({email, password}));
 	}
 	goToSignUp(values) {
 		this.props.router.push('/signup');
@@ -78,8 +86,8 @@ let Root = class Root extends React.Component{
 
 		//GA
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		(i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
 		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 		ga('create', 'UA-50969260-2', 'auto');
 		ga('send', 'pageview');
@@ -89,7 +97,7 @@ let Root = class Root extends React.Component{
 		// Load the FB SDK asynchronously
 		this.loadScript("https://connect.facebook.net/en_US/sdk.js")
 		.then(()=>{
-			FB.init({
+			window.FB.init({
 				appId      : '250001685455881',
 				xfbml      : true,  // parse social plugins on this page
 				version    : 'v2.8', // use version 2.8
@@ -114,8 +122,19 @@ let Root = class Root extends React.Component{
 		.then(()=>{
 		});
 	}
+	componentWillReceiveProps({ location }) {
+	}
+	componentDidUpdate({location}, prevState){
+		if (location !== this.props.location) {
+			if (window.FB) {
+				console.log(location.pathname, document.getElementById('fblike'));
+				window.FB.XFBML.parse(document.getElementById('fblike'));
+			}
+		}
+	}
+
 	logout(){
-		this.props.userSignOut(this.props.routes);
+		this.props.dispatch(authActions.userSignOut(this.props.routes));
 	}
 	signin(){
 		let {auth} = this.props;
@@ -123,7 +142,7 @@ let Root = class Root extends React.Component{
 			return this.props.router.push(`/user`);
 		}
 			
-		this.props.changeModal(true);
+		this.props.dispatch(modalActions.changeModal(true));
 	}	
 	getUser(){
 		let { auth} = this.props;
@@ -134,15 +153,14 @@ let Root = class Root extends React.Component{
 		return User;
 	}
 	showXsNav(){
-		this.props.changeXsNavModal(true);
+		this.props.dispatch(modalActions.changeXsNavModal(true));
 	}
 	render() {
 		let { auth, showSigninModal} = this.props;
-		let Baselink = "https://react-redux-demo-chingching.herokuapp.com/";
+		let Baselink = "https://react-redux-demo-chingching.herokuapp.com";
 		let link = Baselink;
-		if (process.env.BROWSER) {
-			link = window.location.href;
-		}
+		this.props.location.pathname && (link = Baselink + this.props.location.pathname);
+		console.log(link, this.props.location.pathname);
 		return (
 	<div>
 		<header id="header">
@@ -154,8 +172,8 @@ let Root = class Root extends React.Component{
 						</p>
 						<div className="signin">
 							{this.getUser()}
-							<div className="twitter-share" ><a className="twitter-share-button" url={link} target="_blank" href="https://twitter.com/intent/tweet">Tweet</a></div>
-							<div className="fb-like" data-href={Baselink} data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"/>
+							<div className="twitter-share" ><a className="twitter-share-button" data-url={link} target="_blank" href="https://twitter.com/intent/tweet">Tweet</a></div>
+							<div className="fb-like" id="fblike" data-href={link} data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"/>
 							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
 							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
@@ -170,11 +188,7 @@ let Root = class Root extends React.Component{
 		<div id="article">			
 			{this.props.children}
 		</div>
-		<div id="footer">
-			<div className="copyright">
-				COPYRIGHT (C) 2017 HI-TECH DIGITAL CCTV PTY., LTD. ALL RIGHTS RESERVED.
-			</div>
-		</div>
+		<Footer/>
 		<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
 			<SignInModal getGoogleAuth2={this.getGoogleAuth2}/>
 		</Modal>
@@ -185,13 +199,11 @@ let Root = class Root extends React.Component{
 };
 
 Root.propTypes = {
-	userSignOut: React.PropTypes.func.isRequired,
-	userSignin: React.PropTypes.func.isRequired,
 	showSigninModal: React.PropTypes.bool.isRequired,
-	changeModal: React.PropTypes.func.isRequired,
-	changeXsNavModal: React.PropTypes.func.isRequired,
+	dispatch: React.PropTypes.func.isRequired,
 	auth: React.PropTypes.object.isRequired,
 	router: React.PropTypes.object.isRequired,
+	location: React.PropTypes.object.isRequired,
 	routes: React.PropTypes.array.isRequired,
     children: React.PropTypes.oneOfType([
       React.PropTypes.arrayOf(React.PropTypes.node),
@@ -200,12 +212,13 @@ Root.propTypes = {
 };
 
 function mapStateToProps(state) {
+	
   return { 
     auth: state.auth,
 	showSigninModal: state.modal.showModal,	
   };
 }	
 
-Root = connect(mapStateToProps, { ...modalActions, ...authActions})(Root);
+Root = connect(mapStateToProps)(connectDataFetchers(Root, [ loadCategories ]));
 
 export { Root, NotFoundPage, UnauthorizedPage};

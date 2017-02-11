@@ -4,7 +4,6 @@ if (process.env.BROWSER) {
 
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link} from 'react-router';
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';

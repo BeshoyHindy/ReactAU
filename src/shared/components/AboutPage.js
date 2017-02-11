@@ -1,12 +1,9 @@
 if (process.env.BROWSER) {
 	require ('./about.scss');
 }
-import { connect } from 'react-redux';
 import React from 'react';
 import ImageLoader from 'react-imageloader';
 
-import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { loadCategories } from '../actions/adminActions';
 import {BrandsData} from '../Data/AboutData';
 import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared/Shared";
 
@@ -74,4 +71,4 @@ const AboutPage = (props) => (
 AboutPage.propTypes = {
 };
 
-export default connect()(connectDataFetchers(AboutPage, [ loadCategories ]));
+export default AboutPage;
