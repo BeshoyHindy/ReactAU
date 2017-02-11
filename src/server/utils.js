@@ -22,9 +22,8 @@ export function fetchComponentsData({ dispatch, components, params, query, local
     return Promise.all(promises);
 }
 
-export function getMetaDataFromState({ route, state, params = {}, query = {}, lang }) {
+export function getMetaDataFromState({ route, state, params = {}, query = {}, lang, pathname }) {
     /* eslint more/no-duplicated-chains: 0 */
-
     if (route === 'aboutus' ) {
         return {
             type        : 'ABOUTUS',
@@ -33,7 +32,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
             image       : '/img/logo.png',
             description : `At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.
 			Our products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.
-			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit.`
+			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit.`,
+			pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
         };
     }
 
@@ -45,7 +45,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
             image       : '/img/logo.png',
             description : `The page provide all info for ${params.product} ${params.ProductsTbl}. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.
 			Our products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.
-			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia`
+			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia`,
+			pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
         };
     }
     if (route === 'spec/:id' ) {
@@ -58,7 +59,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
             image       : `${image}`,
             description : `Products Details|${params.product}|${params.id.toUpperCase()}|${state.details.brand}|${state.details.name}. Feature: ${desc}. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.
 			Our products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price. 
-			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia `
+			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia `,
+			pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
         };
     }
 
@@ -68,7 +70,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
                 title       : "Contact",
                 siteName    : 'Hi-Tech Digital CCTV',
                 image       : '/img/front1.png',
-                description :  "Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia. 02 9725 7733. email: info@hitechdigitalcctv.com.au, Work Days: Mon - Fri, 10:00am - 5:00pm, Saturday: 10:00am - 3:00pm, Sunday and Public Holiday Closed. | Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit"
+                description :  "Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia. 02 9725 7733. email: info@hitechdigitalcctv.com.au, Work Days: Mon - Fri, 10:00am - 5:00pm, Saturday: 10:00am - 3:00pm, Sunday and Public Holiday Closed. | Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit",
+				pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
             };
  
     }
@@ -79,7 +82,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
                 title       : "Admin - Change Product",
                 siteName    : 'Hi-Tech Digital CCTV',
                 image       : '/img/logo.png',
-                description :  ""
+                description :  "",
+				pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
             };
 
     }
@@ -89,7 +93,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
                 title       : "Admin - Product List",
                 siteName    : 'Hi-Tech Digital CCTV',
                 image       : '/img/logo.png',
-                description :  ""
+                description :  "",
+				pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
             };
 
     }
@@ -99,7 +104,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
                 title       : "Admin - Add User",
                 siteName    : 'Hi-Tech Digital CCTV',
                 image       : '/img/logo.png',
-                description :  ""
+                description :  "",
+				pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
             };
 
     }
@@ -111,7 +117,8 @@ export function getMetaDataFromState({ route, state, params = {}, query = {}, la
         image       : '/img/logo.png',
         description : `At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.
 			Our products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.
-			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit`
+			To meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit`,
+		pathname: `https://react-redux-demo-chingching.herokuapp.com${pathname}`
     };
 }
 

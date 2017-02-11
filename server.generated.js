@@ -14832,7 +14832,8 @@ function handleRender(req, res) {
           query: renderProps.location.query,
           lang: locale,
           route: renderProps.routes[renderProps.routes.length - 1].path,
-          state: reduxState
+          state: reduxState,
+          pathname: renderProps.location.pathname
         });
 
         var componentHTML = (0, _server.renderToString)(_react2.default.createElement(
@@ -14962,17 +14963,18 @@ function getMetaDataFromState(_ref2) {
         params = _ref2$params === undefined ? {} : _ref2$params,
         _ref2$query = _ref2.query,
         query = _ref2$query === undefined ? {} : _ref2$query,
-        lang = _ref2.lang;
+        lang = _ref2.lang,
+        pathname = _ref2.pathname;
 
     /* eslint more/no-duplicated-chains: 0 */
-
     if (route === 'aboutus') {
         return {
             type: 'ABOUTUS',
             title: "About Us",
             siteName: "Hi-Tech Digital CCTV",
             image: '/img/logo.png',
-            description: 'At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit.'
+            description: 'At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit.',
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
 
@@ -14982,7 +14984,8 @@ function getMetaDataFromState(_ref2) {
             title: 'Products|' + params.product + '|' + params.ProductsTbl,
             siteName: "Hi-Tech Digital CCTV",
             image: '/img/logo.png',
-            description: 'The page provide all info for ' + params.product + ' ' + params.ProductsTbl + '. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia'
+            description: 'The page provide all info for ' + params.product + ' ' + params.ProductsTbl + '. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia',
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
     if (route === 'spec/:id') {
@@ -14995,7 +14998,8 @@ function getMetaDataFromState(_ref2) {
             title: 'Products Details|' + params.product + '|' + params.id.toUpperCase() + '|' + state.details.brand + '|' + state.details.name,
             siteName: "Hi-Tech Digital CCTV",
             image: '' + image,
-            description: 'Products Details|' + params.product + '|' + params.id.toUpperCase() + '|' + state.details.brand + '|' + state.details.name + '. Feature: ' + desc + '. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price. \n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia '
+            description: 'Products Details|' + params.product + '|' + params.id.toUpperCase() + '|' + state.details.brand + '|' + state.details.name + '. Feature: ' + desc + '. At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price. \n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia ',
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
 
@@ -15005,7 +15009,8 @@ function getMetaDataFromState(_ref2) {
             title: "Contact",
             siteName: 'Hi-Tech Digital CCTV',
             image: '/img/front1.png',
-            description: "Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia. 02 9725 7733. email: info@hitechdigitalcctv.com.au, Work Days: Mon - Fri, 10:00am - 5:00pm, Saturday: 10:00am - 3:00pm, Sunday and Public Holiday Closed. | Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit"
+            description: "Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia. 02 9725 7733. email: info@hitechdigitalcctv.com.au, Work Days: Mon - Fri, 10:00am - 5:00pm, Saturday: 10:00am - 3:00pm, Sunday and Public Holiday Closed. | Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit",
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
 
@@ -15015,7 +15020,8 @@ function getMetaDataFromState(_ref2) {
             title: "Admin - Change Product",
             siteName: 'Hi-Tech Digital CCTV',
             image: '/img/logo.png',
-            description: ""
+            description: "",
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
     if (route === 'productList/:cat') {
@@ -15024,7 +15030,8 @@ function getMetaDataFromState(_ref2) {
             title: "Admin - Product List",
             siteName: 'Hi-Tech Digital CCTV',
             image: '/img/logo.png',
-            description: ""
+            description: "",
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
     if (route === 'addUser') {
@@ -15033,7 +15040,8 @@ function getMetaDataFromState(_ref2) {
             title: "Admin - Add User",
             siteName: 'Hi-Tech Digital CCTV',
             image: '/img/logo.png',
-            description: ""
+            description: "",
+            pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
         };
     }
 
@@ -15042,7 +15050,8 @@ function getMetaDataFromState(_ref2) {
         title: 'Home',
         siteName: 'Hi-Tech Digital CCTV',
         image: '/img/logo.png',
-        description: 'At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit'
+        description: 'At Hi-Tech Digital CCTV, our aim is to provide you with professional advice through our experience to satisfy all your security surveillance needs through our friendly services. We will only provide you with products of the highest quality for your surveillance soultion and will continue to provide an ongoing reliable support.\n\t\t\tOur products are predominantly Made in Taiwan and Made in Korea to ensure the best of its quality while still maintaining an affordable price.\n\t\t\tTo meet all your needs, we endeavour to explain all the functions and features of our products until you understand them clearly before you make any decisions. We will continue to provide friendly services and reliable support to our customers to ensure the best results can be obtained from our products.| Sunday | Australia | DVR | NVR | CCTV Camera | Instrusion Alarm | Video Intercom | Kit',
+        pathname: 'https://react-redux-demo-chingching.herokuapp.com' + pathname
     };
 }
 

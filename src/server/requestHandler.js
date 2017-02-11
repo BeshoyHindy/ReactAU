@@ -51,7 +51,8 @@ function handleRender(req, res)
                     query  : renderProps.location.query,
                     lang   : locale,
                     route  : renderProps.routes[renderProps.routes.length - 1].path,
-                    state  : reduxState
+                    state  : reduxState,
+					pathname: renderProps.location.pathname
                 });
                 
                 const componentHTML = renderToString(
