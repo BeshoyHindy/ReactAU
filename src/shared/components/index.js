@@ -109,6 +109,10 @@ let Root = class Root extends React.Component{
 				});
 			});	
 		});
+
+		this.loadScript("https://platform.twitter.com/widgets.js")
+		.then(()=>{
+		});
 	}
 	logout(){
 		this.props.userSignOut(this.props.routes);
@@ -134,6 +138,11 @@ let Root = class Root extends React.Component{
 	}
 	render() {
 		let { auth, showSigninModal} = this.props;
+		let Baselink = "https://react-redux-demo-chingching.herokuapp.com/";
+		let link = Baselink;
+		if (process.env.BROWSER) {
+			link = window.location.href;
+		}
 		return (
 	<div>
 		<header id="header">
@@ -144,10 +153,12 @@ let Root = class Root extends React.Component{
 							for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733
 						</p>
 						<div className="signin">
-							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
-							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
-							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 							{this.getUser()}
+							<div className="twitter-share" ><a className="twitter-share-button" url={link} target="_blank" href="https://twitter.com/intent/tweet">Tweet</a></div>
+							<div className="fb-like" data-href={Baselink} data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"/>
+							<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
+							<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
+							<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
 						</div>
 						<span id="BTN" className="bar" onClick={this.showXsNav}><i className="fa fa-bars"/></span>
 						<div id="search" className="search"/>
@@ -159,7 +170,11 @@ let Root = class Root extends React.Component{
 		<div id="article">			
 			{this.props.children}
 		</div>
-		<div id="footer"/>
+		<div id="footer">
+			<div className="copyright">
+				COPYRIGHT (C) 2017 HI-TECH DIGITAL CCTV PTY., LTD. ALL RIGHTS RESERVED.
+			</div>
+		</div>
 		<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
 			<SignInModal getGoogleAuth2={this.getGoogleAuth2}/>
 		</Modal>

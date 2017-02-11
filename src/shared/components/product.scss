@@ -215,13 +215,14 @@ table.p-spec, table.p-stdpkg{
 	}
   .p-desc-detail{
       margin: 0px;
+
 	  @include respond-to(xs) {
 		  .fa-ul{
 			  margin-left: 1.5em;
 			  line-height: 2;
 			  .fa-li{
 			  	line-height: 2;
-
+				top: 0;
 			  }
 		  }
 	  }

@@ -73,6 +73,11 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	b{
 		color: #333;
 	}
+	.fa-ul{
+		.fa-li{
+			top:.8em;
+		}
+	}	
 	.social-login {
 		margin-top: 0px;
 		line-height: 34px;
@@ -610,6 +615,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
         font-weight: normal;
       }
     }
+
   .copyright{
     text-align: center;
     color:#ccc;
@@ -693,7 +699,28 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       } 
     }
 	.signin{
-		display: block;
+		position: absolute;
+		right: 0;
+		top: 5px;
+		height: 30px;
+		display: flex;
+		.login-user{
+			line-height: 2;
+		}
+		.signin-icon{
+			width: 30px;
+			height: 30px;
+			display: block;
+			float: right;
+			color: #000;
+			line-height: 30px;
+			font-size: 24px;
+			cursor: pointer;
+			text-align: center;
+		}
+		.fb-like{
+		    margin-top: -14px;
+		}		
 	}
   }
   #XX{
@@ -841,24 +868,29 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	  width: 100%;
     height: $xs-nav-height;
     .banner{
-      background-size: 65px 22px;
+      background-size: 80px 25px;
       background-position: 0px 8px;
       h1{
+		margin-right: 0;
+		padding-right: 0;
+		width: 120px;
         top: 5px;
         left: 50px;
         font-size: 15px;
         line-height: 20px;
+		display: none;
       }
       p{
         display: none;
       }
       .bar{
-        display: block;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        color: $color6;
-        cursor: pointer;
+		display: block;
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		color: #c30;
+		cursor: pointer;
+		font-size: 20px;
       }
       .search{
 		top: 40px;
@@ -866,6 +898,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
         max-width: none;
       }
 	  .signin{
+		  width: 100%;
 		  right: 15px;
 		  .login-user{
 			  display: none;

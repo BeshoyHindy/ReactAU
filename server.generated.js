@@ -20876,7 +20876,15 @@ var _ref9 = _react2.default.createElement('div', { className: 'myheader' });
 
 var _ref10 = _react2.default.createElement(_NavBar.NavBar, { activeClass: 'active' });
 
-var _ref11 = _react2.default.createElement('div', { id: 'footer' });
+var _ref11 = _react2.default.createElement(
+	'div',
+	{ id: 'footer' },
+	_react2.default.createElement(
+		'div',
+		{ className: 'copyright' },
+		'COPYRIGHT (C) 2017 HI-TECH DIGITAL CCTV PTY., LTD. ALL RIGHTS RESERVED.'
+	)
+);
 
 var Root = function (_React$Component) {
 	_inherits(Root, _React$Component);
@@ -20967,6 +20975,8 @@ var Root = function (_React$Component) {
 				});
 			});
 		});
+
+		this.loadScript("https://platform.twitter.com/widgets.js").then(function () {});
 	};
 
 	Root.prototype.logout = function logout() {
@@ -21010,6 +21020,11 @@ var Root = function (_React$Component) {
 		    auth = _props.auth,
 		    showSigninModal = _props.showSigninModal;
 
+		var Baselink = "https://react-redux-demo-chingching.herokuapp.com/";
+		var link = Baselink;
+		if (false) {
+			link = window.location.href;
+		}
 		return _react2.default.createElement(
 			'div',
 			null,
@@ -21042,10 +21057,20 @@ var Root = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'signin' },
-							_react2.default.createElement('i', { className: 'fa fa-sign-out signin-icon', 'aria-hidden': 'true', onClick: this.logout }),
-							_ref6,
+							this.getUser(),
+							_react2.default.createElement(
+								'div',
+								{ className: 'twitter-share' },
+								_react2.default.createElement(
+									'a',
+									{ className: 'twitter-share-button', url: link, target: '_blank', href: 'https://twitter.com/intent/tweet' },
+									'Tweet'
+								)
+							),
+							_react2.default.createElement('div', { className: 'fb-like', 'data-href': Baselink, 'data-layout': 'button_count', 'data-action': 'like', 'data-size': 'small', 'data-show-faces': 'false', 'data-share': 'true' }),
 							_react2.default.createElement('i', { className: 'fa fa-user signin-icon', 'aria-hidden': 'true', onClick: this.signin }),
-							this.getUser()
+							_ref6,
+							_react2.default.createElement('i', { className: 'fa fa-sign-out signin-icon', 'aria-hidden': 'true', onClick: this.logout })
 						),
 						_react2.default.createElement(
 							'span',
