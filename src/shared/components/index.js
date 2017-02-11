@@ -127,7 +127,7 @@ let Root = class Root extends React.Component{
 	componentDidUpdate({location}, prevState){
 		if (location !== this.props.location) {
 			if (window.FB) {
-				console.log(location.pathname, document.getElementById('fblike'));
+				// console.log(location.pathname, document.getElementById('fblike'));
 				window.FB.XFBML.parse(document.getElementById('fblike'));
 			}
 		}
@@ -160,7 +160,7 @@ let Root = class Root extends React.Component{
 		let Baselink = "https://react-redux-demo-chingching.herokuapp.com";
 		let link = Baselink;
 		this.props.location.pathname && (link = Baselink + this.props.location.pathname);
-		console.log(link, this.props.location.pathname);
+		// console.log(link, this.props.location.pathname);
 		return (
 	<div>
 		<header id="header">
