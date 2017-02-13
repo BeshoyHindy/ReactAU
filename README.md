@@ -30,7 +30,7 @@ cd ReactAU
 cd .config
 //Then EDIT the configuration file(configuration.js) to meet your requirements
 npm install
-npm run start
+npm run dev
 ```
 
 Then open [`localhost:3000`](http://localhost:3000) in a browser.
