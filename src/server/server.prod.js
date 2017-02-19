@@ -9,6 +9,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import request from 'request';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import requestHandler from './requestHandler';
 import { api_server, web_server ,development } from '../../.config/configuration';
@@ -24,6 +25,7 @@ const app = express();
 let publicPath = path.resolve( process.cwd(), "./public");
 let viewPath = path.resolve(process.cwd(), "./src/server/views");
 const oneDay = 86400000;
+app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 app.engine('ejs', require('ejs').renderFile);
