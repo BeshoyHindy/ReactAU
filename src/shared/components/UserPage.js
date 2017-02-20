@@ -24,14 +24,19 @@ class UserPage extends React.Component{
 		};
 		this.setTab = this.setTab.bind(this);
 	}
+	componentDidMount() {
+	}
 	setTab(tabId){
 		let t = parseInt(tabId);
 		this.setState({selectedTab:t});		
 	}
-	
+		
 	render () {
 		idCounter=0;
 		let {authSuccess, user} = this.props;
+		if(this.props.errorMessage){
+			alert(this.props.errorMessage);
+		}		
 		return (
 		<div className="container">
 			<div className="row">
@@ -41,13 +46,6 @@ class UserPage extends React.Component{
 			</div>
 			<div className="row">
 				<div className="col-xs-12">
-					<div className="loading-wrap">
-						<div className={`ajax-loading-big ${(!authSuccess || !user) ?'fade-show':'fade-hide'}`} >
-							<img src="/img/ajax-loader.gif" alt=""/>
-							<div className="ajax-loading-progress">
-								loading....
-							</div>
-						</div>	
 						<Tabs selectedIndex={this.state.selectedTab}	generateIdsFn={generateIds}>
 							<TabList>
 								<Tab>Basic Info</Tab> 
@@ -74,7 +72,6 @@ class UserPage extends React.Component{
 
 						</Tabs>
 					</div>
-				</div>
 			</div>
 		</div>		
 		);
@@ -85,12 +82,14 @@ class UserPage extends React.Component{
 UserPage.propTypes = {
 	authSuccess:  React.PropTypes.bool.isRequired,
 	user:  React.PropTypes.object,
+	errorMessage: React.PropTypes.string,	
 };
 
 function mapStateToProps(state, ownProps) {
   return {
 	authSuccess: state.auth.success,
 	user: state.auth.user,
+	errorMessage: state.auth.error	
   };
 }
 

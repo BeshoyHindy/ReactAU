@@ -40,6 +40,7 @@ app.use(helmet.contentSecurityPolicy({
 		reportUri: "/cspviolation"
 	},
 }));
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 app.use(compression());
 app.use(cookieParser());
 app.engine('ejs', require('ejs').renderFile);

@@ -131,9 +131,6 @@ let config = {
 			"node_modules"
 		],
         unsafeCache : true,
-		alias: {
-            'react-redux': path.join(projectRoot, './node_modules/react-redux/dist/react-redux.min')
-        }
     },
 	profile: true,
 	stats: {

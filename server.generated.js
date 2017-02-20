@@ -280,7 +280,7 @@ var _reactImageloader = __webpack_require__(53);
 
 var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -630,6 +630,12 @@ module.exports = ReactDOMComponentTree;
 /* 8 */
 /***/ (function(module, exports) {
 
+module.exports = require("react-router");
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
 /**
  * Checks if `value` is classified as an `Array` object.
  *
@@ -657,12 +663,6 @@ var isArray = Array.isArray;
 
 module.exports = isArray;
 
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
 
 /***/ }),
 /* 10 */
@@ -2775,7 +2775,7 @@ exports.userReAuth = userReAuth;
 exports.userCheckAdmin = userCheckAdmin;
 exports.userSignOut = userSignOut;
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _map2 = __webpack_require__(185);
 
@@ -5191,6 +5191,8 @@ exports.userChangeProfile = userChangeProfile;
 exports.setUserProductRate = setUserProductRate;
 exports.setUserFavorite = setUserFavorite;
 
+var _reactRouter = __webpack_require__(8);
+
 var _UserApi = __webpack_require__(233);
 
 var _UserApi2 = _interopRequireDefault(_UserApi);
@@ -5208,7 +5210,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function signupUserSuccess(user) {
   return { type: types.USER_CHANGE_PROFILE_SUCCESS, user: user };
 }
-function signupUserFail(error) {
+function userChangeProfileFail(error) {
   return { type: types.USER_CHANGE_PROFILE_FAIL, error: error };
 }
 
@@ -5218,7 +5220,8 @@ function userChangeProfile(formData, upload) {
     return _UserApi2.default.setUserProfile(formData, upload, localStorage.getItem('token')).then(function (user) {
       dispatch(signupUserSuccess(user.details));
     }).catch(function (error) {
-      dispatch(signupUserFail(error.err));
+      dispatch(userChangeProfileFail(error.err));
+      // browserHistory.push('/signin');    
     });
   };
 }
@@ -5797,7 +5800,7 @@ module.exports = arrayPush;
 var baseMatches = __webpack_require__(320),
     baseMatchesProperty = __webpack_require__(321),
     identity = __webpack_require__(97),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     property = __webpack_require__(413);
 
 /**
@@ -6066,7 +6069,7 @@ module.exports = isIndex;
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isArray = __webpack_require__(8),
+var isArray = __webpack_require__(9),
     isSymbol = __webpack_require__(44);
 
 /** Used to match property names within property paths. */
@@ -8871,7 +8874,7 @@ exports.gMapLinkData = gMapLinkData;
 exports.__esModule = true;
 exports.Metadata = undefined;
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -9813,7 +9816,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _lodash = __webpack_require__(295);
 
@@ -9958,7 +9961,7 @@ exports.ProductIndexSidebar = exports.ProductCategorySidebar = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -10548,7 +10551,7 @@ module.exports = arrayFilter;
 
 var baseTimes = __webpack_require__(325),
     isArguments = __webpack_require__(98),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isBuffer = __webpack_require__(99),
     isIndex = __webpack_require__(92),
     isTypedArray = __webpack_require__(186);
@@ -10736,7 +10739,7 @@ var Stack = __webpack_require__(81),
     initCloneArray = __webpack_require__(359),
     initCloneByTag = __webpack_require__(360),
     initCloneObject = __webpack_require__(361),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isBuffer = __webpack_require__(99),
     isObject = __webpack_require__(20),
     keys = __webpack_require__(45);
@@ -10975,7 +10978,7 @@ module.exports = baseGet;
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayPush = __webpack_require__(85),
-    isArray = __webpack_require__(8);
+    isArray = __webpack_require__(9);
 
 /**
  * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -11093,7 +11096,7 @@ module.exports = baseSetData;
 /* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isArray = __webpack_require__(8),
+var isArray = __webpack_require__(9),
     isKey = __webpack_require__(93),
     stringToPath = __webpack_require__(180),
     toString = __webpack_require__(190);
@@ -14783,7 +14786,7 @@ var _reactRedux = __webpack_require__(5);
 
 var _server = __webpack_require__(483);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _serializeJavascript = __webpack_require__(501);
 
@@ -17466,7 +17469,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _reactImageloader = __webpack_require__(53);
 
@@ -17838,7 +17841,7 @@ exports.ProductsPage = exports.ProductCategory = exports.ProductIndex = undefine
 
 var _reactRedux = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -18221,7 +18224,7 @@ exports.DetailsDesc = DetailsDesc;
 exports.__esModule = true;
 exports.DetailsImage = undefined;
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -19253,7 +19256,7 @@ var _jsonp = __webpack_require__(496);
 
 var _jsonp2 = _interopRequireDefault(_jsonp);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _reduxForm = __webpack_require__(35);
 
@@ -19961,15 +19964,7 @@ var generateIds = function generateIds() {
 	return 'custom-id-' + idCounter++;
 };
 
-var _ref = _react2.default.createElement('img', { src: '/img/ajax-loader.gif', alt: '' });
-
-var _ref2 = _react2.default.createElement(
-	'div',
-	{ className: 'ajax-loading-progress' },
-	'loading....'
-);
-
-var _ref3 = _react2.default.createElement(
+var _ref = _react2.default.createElement(
 	_reactTabsIsomorphic.TabList,
 	null,
 	_react2.default.createElement(
@@ -19994,25 +19989,25 @@ var _ref3 = _react2.default.createElement(
 	)
 );
 
-var _ref4 = _react2.default.createElement(
+var _ref2 = _react2.default.createElement(
 	_reactTabsIsomorphic.TabPanel,
 	null,
 	_react2.default.createElement(_UserProfileTab2.default, null)
 );
 
-var _ref5 = _react2.default.createElement(
+var _ref3 = _react2.default.createElement(
 	_reactTabsIsomorphic.TabPanel,
 	null,
 	_react2.default.createElement(_EditUserTab2.default, null)
 );
 
-var _ref6 = _react2.default.createElement(
+var _ref4 = _react2.default.createElement(
 	_reactTabsIsomorphic.TabPanel,
 	null,
 	_react2.default.createElement(_RatedProductTab2.default, null)
 );
 
-var _ref7 = _react2.default.createElement(
+var _ref5 = _react2.default.createElement(
 	_reactTabsIsomorphic.TabPanel,
 	null,
 	_react2.default.createElement(_FavoriteProductTab2.default, null)
@@ -20033,6 +20028,8 @@ var UserPage = function (_React$Component) {
 		return _this;
 	}
 
+	UserPage.prototype.componentDidMount = function componentDidMount() {};
+
 	UserPage.prototype.setTab = function setTab(tabId) {
 		var t = parseInt(tabId);
 		this.setState({ selectedTab: t });
@@ -20044,6 +20041,9 @@ var UserPage = function (_React$Component) {
 		    authSuccess = _props.authSuccess,
 		    user = _props.user;
 
+		if (this.props.errorMessage) {
+			alert(this.props.errorMessage);
+		}
 		return _react2.default.createElement(
 			'div',
 			{ className: 'container' },
@@ -20063,23 +20063,13 @@ var UserPage = function (_React$Component) {
 					'div',
 					{ className: 'col-xs-12' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'loading-wrap' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'ajax-loading-big ' + (!authSuccess || !user ? 'fade-show' : 'fade-hide') },
-							_ref,
-							_ref2
-						),
-						_react2.default.createElement(
-							_reactTabsIsomorphic.Tabs,
-							{ selectedIndex: this.state.selectedTab, generateIdsFn: generateIds },
-							_ref3,
-							_ref4,
-							_ref5,
-							_ref6,
-							_ref7
-						)
+						_reactTabsIsomorphic.Tabs,
+						{ selectedIndex: this.state.selectedTab, generateIdsFn: generateIds },
+						_ref,
+						_ref2,
+						_ref3,
+						_ref4,
+						_ref5
 					)
 				)
 			)
@@ -20092,7 +20082,8 @@ var UserPage = function (_React$Component) {
 function mapStateToProps(state, ownProps) {
 	return {
 		authSuccess: state.auth.success,
-		user: state.auth.user
+		user: state.auth.user,
+		errorMessage: state.auth.error
 	};
 }
 
@@ -20235,7 +20226,7 @@ var editUserTab = function (_React$Component) {
 			{ className: 'loading-wrap' },
 			_react2.default.createElement(
 				'div',
-				{ className: 'ajax-loading-big ' + (this.state.upload > 0 || !auth.success ? 'fade-show' : 'fade-hide') },
+				{ className: 'ajax-loading-big ' + (this.state.upload > 0 ? 'fade-show' : 'fade-hide') },
 				_ref2,
 				_react2.default.createElement(
 					'div',
@@ -20338,7 +20329,7 @@ exports.__esModule = true;
 
 var _reactRedux = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -20437,7 +20428,7 @@ exports.__esModule = true;
 
 var _reactRedux = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -20530,7 +20521,7 @@ exports.__esModule = true;
 
 var _reactRedux = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -20666,7 +20657,7 @@ exports.NavBar = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -20831,7 +20822,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _reactModal = __webpack_require__(497);
 
@@ -21292,7 +21283,7 @@ function authReducer() {
     case types.USER_CHANGE_PROFILE_SUCCESS:
       return { user: action.user, error: "", success: true };
     case types.USER_CHANGE_PROFILE_FAIL:
-      return { user: {}, error: action.error, success: false };
+      return Object.assign({}, state, { error: action.error });
     case types.CLAEN_MODAL_ERRMESSAGE:
       return Object.assign({}, state, { error: "" });
     case types.USER_SIGN_OUT:
@@ -21518,7 +21509,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(9);
+var _reactRouter = __webpack_require__(8);
 
 var _HomePage = __webpack_require__(248);
 
@@ -24494,7 +24485,7 @@ var Stack = __webpack_require__(81),
     equalByTag = __webpack_require__(346),
     equalObjects = __webpack_require__(347),
     getTag = __webpack_require__(168),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isBuffer = __webpack_require__(99),
     isTypedArray = __webpack_require__(186);
 
@@ -25015,7 +25006,7 @@ module.exports = baseTimes;
 
 var Symbol = __webpack_require__(31),
     arrayMap = __webpack_require__(84),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isSymbol = __webpack_require__(44);
 
 /** Used as references for various `Number` constants. */
@@ -25526,7 +25517,7 @@ var LodashWrapper = __webpack_require__(78),
     flatRest = __webpack_require__(161),
     getData = __webpack_require__(90),
     getFuncName = __webpack_require__(164),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isLaziable = __webpack_require__(169);
 
 /** Error message constants. */
@@ -26017,7 +26008,7 @@ module.exports = getWrapDetails;
 
 var castPath = __webpack_require__(154),
     isArguments = __webpack_require__(98),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isIndex = __webpack_require__(92),
     isLength = __webpack_require__(101),
     toKey = __webpack_require__(42);
@@ -26371,7 +26362,7 @@ module.exports = insertWrapDetails;
 
 var Symbol = __webpack_require__(31),
     isArguments = __webpack_require__(98),
-    isArray = __webpack_require__(8);
+    isArray = __webpack_require__(9);
 
 /** Built-in value references. */
 var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
@@ -27469,7 +27460,7 @@ module.exports = curry;
 var arrayFilter = __webpack_require__(140),
     baseFilter = __webpack_require__(306),
     baseIteratee = __webpack_require__(86),
-    isArray = __webpack_require__(8);
+    isArray = __webpack_require__(9);
 
 /**
  * Iterates over elements of `collection`, returning an array of all elements
@@ -28579,7 +28570,7 @@ module.exports = {
   'clone': __webpack_require__(396),
   'curry': __webpack_require__(398),
   'forEach': __webpack_require__(83),
-  'isArray': __webpack_require__(8),
+  'isArray': __webpack_require__(9),
   'isFunction': __webpack_require__(100),
   'iteratee': __webpack_require__(409),
   'keys': __webpack_require__(152),
@@ -28734,7 +28725,7 @@ module.exports = iteratee;
 var arrayMap = __webpack_require__(84),
     baseIteratee = __webpack_require__(86),
     baseMap = __webpack_require__(319),
-    isArray = __webpack_require__(8);
+    isArray = __webpack_require__(9);
 
 /**
  * Creates an array of values by running each element in `collection` thru
@@ -29115,7 +29106,7 @@ module.exports = toNumber;
 
 var arrayMap = __webpack_require__(84),
     copyArray = __webpack_require__(60),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isSymbol = __webpack_require__(44),
     stringToPath = __webpack_require__(180),
     toKey = __webpack_require__(42),
@@ -29155,7 +29146,7 @@ module.exports = toPath;
 var LazyWrapper = __webpack_require__(77),
     LodashWrapper = __webpack_require__(78),
     baseLodash = __webpack_require__(87),
-    isArray = __webpack_require__(8),
+    isArray = __webpack_require__(9),
     isObjectLike = __webpack_require__(32),
     wrapperClone = __webpack_require__(394);
 
@@ -39849,6 +39840,7 @@ app.use(_helmet2.default.contentSecurityPolicy({
     reportUri: "/cspviolation"
   }
 }));
+app.use(_helmet2.default.referrerPolicy({ policy: 'same-origin' }));
 app.use((0, _compression2.default)());
 app.use((0, _cookieParser2.default)());
 app.engine('ejs', __webpack_require__(222).renderFile);

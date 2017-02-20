@@ -49,7 +49,7 @@ class editUserTab extends React.Component {
 	
     return (
 	<div className="loading-wrap">
-		<div className={`ajax-loading-big ${((this.state.upload > 0) || (!auth.success)) ?'fade-show':'fade-hide'}`} >
+		<div className={`ajax-loading-big ${(this.state.upload > 0) ?'fade-show':'fade-hide'}`} >
 			<img src="/img/ajax-loader.gif" alt=""/>
 			<div className="ajax-loading-progress">
 				Processing....{this.state.upload}%
