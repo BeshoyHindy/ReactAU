@@ -39831,7 +39831,7 @@ app.use((0, _helmet2.default)());
 app.use(_helmet2.default.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'none'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", _configuration.api_server.http.host],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://www.google.com/", _configuration.api_server.http.host],
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
     imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],
@@ -39840,7 +39840,7 @@ app.use(_helmet2.default.contentSecurityPolicy({
     reportUri: "/cspviolation"
   }
 }));
-app.use(_helmet2.default.referrerPolicy({ policy: 'same-origin' }));
+app.use(_helmet2.default.referrerPolicy({ policy: 'no-referrer' }));
 app.use((0, _compression2.default)());
 app.use((0, _cookieParser2.default)());
 app.engine('ejs', __webpack_require__(222).renderFile);
