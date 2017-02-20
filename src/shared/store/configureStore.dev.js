@@ -4,15 +4,26 @@ import thunk from 'redux-thunk';
 
 function configureStore(initialState) {
 	if (process.env.BROWSER) {
+		let store = null;
 		/* eslint-disable no-underscore-dangle */
-		let store = createStore(
-			rootReducer,
-			initialState,
-			compose(
-				applyMiddleware(thunk),
-				window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-			)
-		);	
+		if (window.__REDUX_DEVTOOLS_EXTENSION__ ) {
+			store = createStore(
+				rootReducer,
+				initialState,
+				compose(
+					applyMiddleware(thunk),
+					window.__REDUX_DEVTOOLS_EXTENSION__()
+				)
+			);	
+		}else{
+			store = createStore(
+				rootReducer,
+				initialState,
+				compose(
+					applyMiddleware(thunk)
+				)
+			);	
+		}
 		/* eslint-enable */		
 		if(process.env.NODE_ENV !== 'production' && module.hot) {
 			module.hot.accept('../reducers', () => {

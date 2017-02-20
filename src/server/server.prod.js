@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import request from 'request';
 import cors from 'cors';
 import helmet from 'helmet';
+import xssFilters from 'xss-filters';
 
 import requestHandler from './requestHandler';
 import { api_server, web_server ,development } from '../../.config/configuration';
@@ -26,6 +27,19 @@ let publicPath = path.resolve( process.cwd(), "./public");
 let viewPath = path.resolve(process.cwd(), "./src/server/views");
 const oneDay = 86400000;
 app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+	directives: {
+		defaultSrc: ["'none'"],
+		scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
+												, "https://apis.google.com/", api_server.http.host	],
+		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", api_server.http.host],
+		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", api_server.http.host],
+		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", api_server.http.host,],
+		frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/"],
+		connectSrc: ["'self'", api_server.http.host],
+		reportUri: "/cspviolation"
+	},
+}));
 app.use(compression());
 app.use(cookieParser());
 app.engine('ejs', require('ejs').renderFile);
