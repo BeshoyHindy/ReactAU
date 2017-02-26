@@ -15,7 +15,6 @@
     "lint:watch": "npm run lint -- --watch",
     "open:src": "babel-node src/server/server.dev.js",
     "dev": "npm-run-all --parallel open:src lint:watch ",
-    "dev-speed": "cross-env NODE_ENV=SPEED babel-node src/server/server.dev.js",
     "stat": "webpack --progress --profile --json --config=webpack/webpack.config.dev.js > stats.json"
   },
   "author": "",

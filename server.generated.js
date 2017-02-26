@@ -21025,13 +21025,21 @@ var Root = function (_React$Component) {
 		document.getElementById("search").appendChild(gcsecc);
 
 		//GA
-		(function (i, s, o, g, r, a, m) {
-			i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
-				(i[r].q = i[r].q || []).push(arguments);
-			}, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-		ga('create', 'UA-50969260-2', 'auto');
-		ga('send', 'pageview');
+		// (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		// (i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+		// m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
+		// })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		// ga('create', 'UA-50969260-2', 'auto');
+		// ga('send', 'pageview');
+		this.loadScript("https://cdn.jsdelivr.net/ga-lite/latest/ga-lite.min.js").then(function () {
+			var galite = galite || {};galite.UA = 'UA-50969260-2';
+		});
+
+		//Google Web fonts
+		var WebFontConfig = {
+			google: { families: ['Lato', 'Oswald:400,700', 'Rajdhani', 'Ubuntu'] }
+		};
+		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js").then(function () {});
 
 		// Load the FB SDK asynchronously
 		this.loadScript("https://connect.facebook.net/en_US/sdk.js").then(function () {
@@ -39828,10 +39836,11 @@ var publicPath = _path2.default.resolve(process.cwd(), "./public");
 var viewPath = _path2.default.resolve(process.cwd(), "./src/server/views");
 var oneDay = 86400000;
 app.use((0, _helmet2.default)());
+app.use(_helmet2.default.noCache());
 app.use(_helmet2.default.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'none'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", _configuration.api_server.http.host],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", _configuration.api_server.http.host],
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
     imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],

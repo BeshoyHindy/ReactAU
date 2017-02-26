@@ -100,6 +100,7 @@ git apply 1.patch --reject
 heroku run bash --app react-redux-demo-chingching
 heroku logs --app react-redux-demo-chingching
 heroku config:set NPM_CONFIG_PRODUCTION=false --app react-redux-demo-chingching
+heroku ps:scale web=1  --app hopeshelter
 
 heroku git:clone -a node-api-server-chingching
 cd node-api-server-chingching
