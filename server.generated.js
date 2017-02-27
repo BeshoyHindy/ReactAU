@@ -21011,9 +21011,24 @@ var PinterestIcon = (0, _reactShare.generateShareIcon)('pinterest');
 var _ref = _react2.default.createElement('div', null);
 
 var _ref2 = _react2.default.createElement(
-	'b',
-	null,
-	'Hi-Tech'
+	_reactRouter.Link,
+	{ to: '/home' },
+	' ',
+	_react2.default.createElement(
+		'h1',
+		null,
+		_react2.default.createElement(
+			'b',
+			null,
+			'Hi-Tech'
+		),
+		' ',
+		_react2.default.createElement(
+			'span',
+			null,
+			' Digital CCTV'
+		)
+	)
 );
 
 var _ref3 = _react2.default.createElement(
@@ -21126,7 +21141,7 @@ var Root = function (_React$Component) {
 
 		//Google Web fonts
 		var WebFontConfig = {
-			google: { families: ['Lato', 'Oswald:400,700', 'Rajdhani', 'Ubuntu'] }
+			google: { families: ['Lato', 'Oswald:400,700', 'Rajdhani:300,400,500', 'Ubuntu:300,400'] }
 		};
 		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js").then(function () {});
 
@@ -21207,22 +21222,7 @@ var Root = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'banner' },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/home' },
-							' ',
-							_react2.default.createElement(
-								'h1',
-								null,
-								_ref2,
-								' ',
-								_react2.default.createElement(
-									'span',
-									{ style: { fontWeight: 500 } },
-									' Digital CCTV'
-								)
-							)
-						),
+						_ref2,
 						_ref3,
 						_react2.default.createElement(
 							'div',
@@ -39938,16 +39938,19 @@ var oneDay = 86400000;
 app.use((0, _helmet2.default)());
 app.use(_helmet2.default.noCache());
 app.use(_helmet2.default.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'none'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", _configuration.api_server.http.host],
-    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
-    imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
-    fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],
-    frameSrc: ["'self'", _configuration.api_server.http.host, "https://accounts.google.com/", "https://staticxx.facebook.com/"],
-    connectSrc: ["'self'", _configuration.api_server.http.host],
-    reportUri: "/cspviolation"
-  }
+	directives: {
+		defaultSrc: ["'https:'"],
+		//google custom search need 'unsafe-eval'....
+		scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", _configuration.api_server.http.host],
+		// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
+		// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
+		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
+		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
+		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],
+		frameSrc: ["'self'", _configuration.api_server.http.host, "https://accounts.google.com/", "https://staticxx.facebook.com/"],
+		connectSrc: ["'self'", _configuration.api_server.http.host],
+		reportUri: "/cspviolation"
+	}
 }));
 app.use(_helmet2.default.referrerPolicy({ policy: 'no-referrer' }));
 app.use((0, _compression2.default)());
@@ -39958,24 +39961,24 @@ app.set('view engine', 'ejs');
 // use httpProxy will rejected by heroku, use manually instead
 console.log('redirect to api server:' + _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/');
 app.use('/api', function (req, res, next) {
-  var method = void 0,
-      r = void 0;
-  method = req.method.toLowerCase().replace(/delete/, "del");
-  var path = req.url.replace(/^\/api\//, "");
-  switch (method) {
-    case "get":
-    case "post":
-    case "del":
-    case "put":
-      r = _request2.default[method]({
-        uri: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/' + path,
-        json: req.body
-      });
-      break;
-    default:
-      return res.send("invalid method");
-  }
-  return req.pipe(r).pipe(res);
+	var method = void 0,
+	    r = void 0;
+	method = req.method.toLowerCase().replace(/delete/, "del");
+	var path = req.url.replace(/^\/api\//, "");
+	switch (method) {
+		case "get":
+		case "post":
+		case "del":
+		case "put":
+			r = _request2.default[method]({
+				uri: _configuration.api_server.http.host + ':' + _configuration.api_server.http.port + '/' + path,
+				json: req.body
+			});
+			break;
+		default:
+			return res.send("invalid method");
+	}
+	return req.pipe(r).pipe(res);
 });
 
 app.set('views', viewPath);
@@ -39984,11 +39987,11 @@ app.use(_requestHandler2.default);
 
 //console.log(path.join(__dirname, '../../dist/public'));
 app.listen(port, function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.info('Server listening on port ' + port + '!');
-  }
+	if (err) {
+		console.log(err);
+	} else {
+		console.info('Server listening on port ' + port + '!');
+	}
 });
 
 /***/ })

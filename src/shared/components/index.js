@@ -100,7 +100,7 @@ let Root = class Root extends React.Component{
 
 		//Google Web fonts
 		let WebFontConfig = {
-			google: { families: [ 'Lato' , 'Oswald:400,700' , 'Rajdhani', 'Ubuntu'] }
+			google: { families: [ 'Lato' , 'Oswald:400,700' , 'Rajdhani:300,400,500', 'Ubuntu:300,400'] }
 		};
 		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js")
 		.then(()=>{});	
@@ -164,7 +164,7 @@ let Root = class Root extends React.Component{
 		<header id="header">
 			<div className="container">
 				<div className="banner">
-						<Link to="/home"> <h1><b>Hi-Tech</b> <span style={{ fontWeight: 500 }} > Digital CCTV</span></h1></Link>
+						<Link to="/home"> <h1><b>Hi-Tech</b> <span > Digital CCTV</span></h1></Link>
 						<p>
 							for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733
 						</p>

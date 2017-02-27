@@ -675,6 +675,12 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       font-size: 45px;
       line-height: 45px;
       cursor: pointer;
+      b{
+		font-weight: 500;
+      }
+      span{
+		font-weight: 400;
+      }	  
       @include respond-to(sm) {
         top: 0px;
         left: 60px;
