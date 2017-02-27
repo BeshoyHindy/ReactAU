@@ -8,7 +8,7 @@ The app is a real world website project, integrate with react, redux, server sid
 * Rating and Favorite Markable for Logined User
 * RWD (not completed yet)
 * Additional Friendly Web UI to ADD/DELETE/EDIT Backend Data
-* Webpack2 with Hot Reload
+* Webpack2 + Code Split + Lazy Route + Hot Reload
 * Node.js + MongoDB ( For the data schema, please refer to my another git repo:  [`https://github.com/Grace951/node-api-server-demo`](https://github.com/Grace951/node-api-server-demo))
 * Node Sass with PostCSS (autoprefixer)  
 * ES6 with ESLint development enviroment
