@@ -5,7 +5,7 @@ export default (store, hideXsNav) => ({
   component: ProductsPage,
   authorize: ['reAuth'],
   getChildRoutes(location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, [
         require('./Products/Product').default(store, hideXsNav),
       ]);

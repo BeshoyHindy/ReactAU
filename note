@@ -1,3 +1,5 @@
+npm install -g npm-static-stats dependents-tree npm-get-dependents npm-dependents
+
 //Sublime text
 npm install -g eslint babel-eslint eslint-plugin-react
 

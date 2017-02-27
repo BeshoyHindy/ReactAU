@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/build/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 507);
+/******/ 	return __webpack_require__(__webpack_require__.s = 508);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -14776,6 +14776,10 @@ module.exports = require("react-dropzone");
 
 exports.__esModule = true;
 
+var _fs = __webpack_require__(499);
+
+var _fs2 = _interopRequireDefault(_fs);
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -14788,7 +14792,7 @@ var _server = __webpack_require__(487);
 
 var _reactRouter = __webpack_require__(8);
 
-var _serializeJavascript = __webpack_require__(505);
+var _serializeJavascript = __webpack_require__(506);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
@@ -14806,6 +14810,9 @@ var _utils = __webpack_require__(230);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var asset = JSON.parse(_fs2.default.readFileSync('./webpack-assets.json'));
+var manifest =  true ? _fs2.default.readFileSync('./public/build/' + asset.manifest.js) : "";
+
 var history = (0, _reactRouter.createMemoryHistory)();
 var store = (0, _configureStore2.default)();
 
@@ -14817,7 +14824,8 @@ function handleRender(req, res) {
 
   var routes = (0, _index2.default)(store, hideXsNav);
   var location = req.url;
-  var venderJs =  true ? '/build/vendor.js' : '/dll.vendor.js';
+  var vendorJs =  true ? '/build/' + asset.vendor.js : '/dll.vendor.js';
+  asset.bundle.js =  true ? asset.bundle.js : 'bundle.js';
   var locale = (0, _utils.detectLocale)(req);
 
   (0, _reactRouter.match)({ routes: routes, location: location }, function (error, redirectLocation, renderProps) {
@@ -14851,7 +14859,8 @@ function handleRender(req, res) {
           { store: store },
           _react2.default.createElement(_reactRouter.RouterContext, renderProps)
         ));
-        res.render('index', { componentHTML: componentHTML, reduxState: reduxState, venderJs: venderJs, metaData: metaData });
+        reduxState = (0, _serializeJavascript2.default)(reduxState, { isJSON: true });
+        res.render('index', { componentHTML: componentHTML, reduxState: reduxState, vendorJs: vendorJs, metaData: metaData, asset: asset, manifest: manifest });
       }).catch(function (error) {
         console.log(error);
         res.status(500).json({
@@ -14943,11 +14952,11 @@ exports.getMetaDataFromState = getMetaDataFromState;
 exports.getIp = getIp;
 exports.detectLocale = detectLocale;
 
-var _geoipLite = __webpack_require__(499);
+var _geoipLite = __webpack_require__(500);
 
 var _geoipLite2 = _interopRequireDefault(_geoipLite);
 
-var _strformat = __webpack_require__(506);
+var _strformat = __webpack_require__(507);
 
 var _strformat2 = _interopRequireDefault(_strformat);
 
@@ -19331,7 +19340,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(5);
 
-var _jsonp = __webpack_require__(500);
+var _jsonp = __webpack_require__(501);
 
 var _jsonp2 = _interopRequireDefault(_jsonp);
 
@@ -20939,11 +20948,11 @@ var _reactRedux = __webpack_require__(5);
 
 var _reactRouter = __webpack_require__(8);
 
-var _reactModal = __webpack_require__(501);
+var _reactModal = __webpack_require__(502);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
-var _reactShare = __webpack_require__(503);
+var _reactShare = __webpack_require__(504);
 
 var _connectDataFetchers = __webpack_require__(19);
 
@@ -21494,7 +21503,7 @@ var _categoriesReducer = __webpack_require__(279);
 
 var _categoriesReducer2 = _interopRequireDefault(_categoriesReducer);
 
-var _reactRouterRedux = __webpack_require__(502);
+var _reactRouterRedux = __webpack_require__(503);
 
 var _reduxForm = __webpack_require__(36);
 
@@ -21738,7 +21747,7 @@ var _reducers = __webpack_require__(281);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _reduxThunk = __webpack_require__(504);
+var _reduxThunk = __webpack_require__(505);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -39808,52 +39817,58 @@ module.exports = traverseAllChildren;
 /* 499 */
 /***/ (function(module, exports) {
 
-module.exports = require("geoip-lite");
+module.exports = require("fs");
 
 /***/ }),
 /* 500 */
 /***/ (function(module, exports) {
 
-module.exports = require("jsonp");
+module.exports = require("geoip-lite");
 
 /***/ }),
 /* 501 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-modal");
+module.exports = require("jsonp");
 
 /***/ }),
 /* 502 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-redux");
+module.exports = require("react-modal");
 
 /***/ }),
 /* 503 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-share");
+module.exports = require("react-router-redux");
 
 /***/ }),
 /* 504 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("react-share");
 
 /***/ }),
 /* 505 */
 /***/ (function(module, exports) {
 
-module.exports = require("serialize-javascript");
+module.exports = require("redux-thunk");
 
 /***/ }),
 /* 506 */
 /***/ (function(module, exports) {
 
-module.exports = require("strformat");
+module.exports = require("serialize-javascript");
 
 /***/ }),
 /* 507 */
+/***/ (function(module, exports) {
+
+module.exports = require("strformat");
+
+/***/ }),
+/* 508 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39925,7 +39940,7 @@ app.use(_helmet2.default.noCache());
 app.use(_helmet2.default.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'none'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", _configuration.api_server.http.host],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", _configuration.api_server.http.host],
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
     imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],

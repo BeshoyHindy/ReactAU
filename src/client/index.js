@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore} from 'react-router-redux';
 import { match,  browserHistory, Router } from 'react-router';
-import 'babel-polyfill';
+
 
 import "font-awesome-sass-loader";
 require.context('../shared/fonts', true, /\.?/);

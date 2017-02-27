@@ -1,3 +1,4 @@
+import fs from 'fs';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,6 +17,11 @@ import { fetchComponentsData,
          getIp
 	} from './utils';
 
+
+let asset = JSON.parse(fs.readFileSync('./webpack-assets.json'));
+let manifest = (process.env.NODE_ENV === 'production')?fs.readFileSync(`./public/build/${asset.manifest.js}`):"";
+
+
 const history = createMemoryHistory();
 const store = configureStore();
 
@@ -27,11 +33,14 @@ function handleRender(req, res)
 {
 
 	const routes = createRoutes(store, hideXsNav);
-  const location = req.url;
-  const venderJs =(process.env.NODE_ENV === 'production')
-					? '/build/vendor.js'
-					: '/dll.vendor.js';
-  const locale = detectLocale(req);
+	const location = req.url;
+	let vendorJs =(process.env.NODE_ENV === 'production')
+						? `/build/${asset.vendor.js}`
+						: '/dll.vendor.js';
+	asset.bundle.js = (process.env.NODE_ENV === 'production')
+							? asset.bundle.js
+							:'bundle.js';
+	const locale = detectLocale(req);
 					
   match({ routes, location }, (error, redirectLocation, renderProps) => {
 	if (redirectLocation) {
@@ -50,8 +59,8 @@ function handleRender(req, res)
                  route      : renderProps.routes[renderProps.routes.length - 1]
                 })
                 .then(() => {
-                const reduxState = store.getState();
-                const metaData = getMetaDataFromState({
+                let reduxState = store.getState();
+                let metaData = getMetaDataFromState({
                     params : renderProps.params,
                     query  : renderProps.location.query,
                     lang   : locale,
@@ -65,7 +74,8 @@ function handleRender(req, res)
                         <RouterContext {...renderProps} />
                     </Provider>
                 );
-                res.render('index', { componentHTML, reduxState, venderJs, metaData });	
+				reduxState = serializeJs(reduxState, { isJSON: true });
+                res.render('index', { componentHTML, reduxState, vendorJs, metaData, asset, manifest });	
                 })
                 .catch(error => {
                     console.log( error);

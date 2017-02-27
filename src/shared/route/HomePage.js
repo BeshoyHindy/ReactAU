@@ -3,7 +3,7 @@ export default (store, hideXsNav) => ({
   onEnter: hideXsNav,    
   authorize: ['reAuth'],
   getComponent(nextState, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, require('../components/HomePage').default);
     });
   },

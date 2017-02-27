@@ -5,7 +5,7 @@ export default (store, hideXsNav) => ({
   component: AdminPage,
   authorize: ['normal','admin'],
   getChildRoutes(location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, [
         require('./Admin/AdminEditProductPage').default(store, hideXsNav),
         require('./Admin/AdminListProductPage').default(store, hideXsNav),

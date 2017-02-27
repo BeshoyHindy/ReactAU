@@ -5,11 +5,14 @@ import { Root} from '../components/index';
 import '../lib/ensure-polyfill';
 //https://github.com/reactjs/react-router-redux/issues/179
 
+
+//https://github.com/webpack/webpack/issues/959
+//when use require.ensure, don't use arrow function!!!
 export default (store, hideXsNav) => ({
   path: '/',
   component: Root,
   getChildRoutes(location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, [
         require('./HomePage').default(store, hideXsNav),
         require('./SigninPage').default(store, hideXsNav),
@@ -25,7 +28,7 @@ export default (store, hideXsNav) => ({
     });
   },
   getIndexRoute(location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, {
         component: require('../components/HomePage').default,
       });

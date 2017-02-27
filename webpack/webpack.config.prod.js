@@ -1,17 +1,20 @@
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var webpack  = require('webpack');
 var path  = require('path');
 var ExtractTextPlugin  = require('extract-text-webpack-plugin');
 // var HtmlWebpackPlugin  = require('html-webpack-plugin');
 var autoprefixer  = require('autoprefixer');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-
+var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 var projectRoot = process.cwd(); 
 var assetsPath = path.join(projectRoot,   "public", "build");
 var publicPath = "/build/";
 var distPath = projectRoot;
 
-
+//https://github.com/webpack/webpack/issues/1081
 var config = [
 	{
 		name: "browser",
@@ -19,16 +22,16 @@ var config = [
 		context: process.cwd(),
 		entry: {
 			bundle: [
-						path.resolve(projectRoot, './src/client/index.js'),
-						require.resolve('./util/polyfills')
-				]
+				path.resolve(projectRoot, './src/client/index.js'),
+				require.resolve('./util/polyfills')
+			]
 		},
 		target: 'web',
 		output: {
 			path: assetsPath,
 			publicPath: publicPath,
-			filename: '[name].js',
-			chunkFilename: '[id].[hash].chunk.js'
+			filename: '[name]-[chunkhash].js',
+			chunkFilename: '[name]-[chunkhash].js'
 		},
 		plugins: [
 			new webpack.DefinePlugin({
@@ -56,11 +59,6 @@ var config = [
 				},
 				sourceMap: false
 			}),
-			// new webpack.optimize.CommonsChunkPlugin({
-			// 	name: ['bundle'],
-			// 	filename: '[name].js',
-			// 	minChunks: Infinity
-			// }),
 			new webpack.LoaderOptionsPlugin({
 				minimize: true,
 				debug: false
@@ -69,8 +67,23 @@ var config = [
 			new CleanWebpackPlugin([ 'public/build'], {
 				root: projectRoot,
 				verbose: true, 
-				//exclude: ['shared.js']
-			})
+			}),
+			// new BundleAnalyzerPlugin({
+			// 	analyzerMode: 'static'
+			// }),
+
+			new webpack.optimize.CommonsChunkPlugin({
+				name: 'vendor',
+				minChunks: ({ resource }) => /node_modules/.test(resource),
+			}),
+			// Generate a 'manifest' chunk to be inlined in the HTML template
+			new webpack.optimize.CommonsChunkPlugin('manifest'),
+
+			// Need this plugin for deterministic hashing
+			// until this issue is resolved: https://github.com/webpack/webpack/issues/1315
+			// for more info: https://webpack.js.org/how-to/cache/
+			new WebpackMd5Hash(),	
+			new AssetsPlugin({fullPath: false})	
 		],
 		module: {
 			rules: [

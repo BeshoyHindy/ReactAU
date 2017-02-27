@@ -1,7 +1,7 @@
 export default (store, hideXsNav) => ({
   path: '*',
   getComponent(nextState, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, require('../components/NotFoundPage').default);
     });
   },

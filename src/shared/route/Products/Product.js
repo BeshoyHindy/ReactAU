@@ -6,7 +6,7 @@ export default (store, hideXsNav) => ({
   onEnter: hideXsNav,    
   components: { content: ProductCategory, sidebar: ProductCategorySidebar },
   getChildRoutes(location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, [
         require('./DetailsPage').default(store, hideXsNav),
         require('./ProductsTblPage').default(store, hideXsNav),

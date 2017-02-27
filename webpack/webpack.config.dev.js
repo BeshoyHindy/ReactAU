@@ -29,7 +29,7 @@ let config = {
 		publicPath: publicPath,
 		filename: 'bundle.js',
 		chunkFilename: '[name]-[chunkhash].js',
-        // library: "[name]_[hash]"
+        library: "[name]_[hash]"
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -48,10 +48,10 @@ let config = {
 		// 	disable: true,  //let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR
 		// 	allChunks: true
 		// }),
-        // new webpack.DllReferencePlugin({
-        //     context: path.join(projectRoot, "src" , "client"),
-        //     manifest: require("../dll/vendor-manifest.json")
-        // }),
+        new webpack.DllReferencePlugin({
+            context: path.join(projectRoot, "src" , "client"),
+            manifest: require("../dll/vendor-manifest.json")
+        }),
 	],
 	module: {
 		rules: [

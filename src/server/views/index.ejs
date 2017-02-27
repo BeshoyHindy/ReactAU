@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title><%= metaData.title %> - Hi-Tech Digital CCTV</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0; user-scalable=0;">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0, user-scalable=0">
 		<meta name="author" content="ChingChing Yeh">
 		<meta name="copyright" content="HI-TECH DIGITAL CCTV PTY., LTD">
 		<meta name="description" content='<%= metaData.description %>'>
@@ -28,7 +28,7 @@
 		<meta name="twitter:description" content='<%= metaData.description %>'> 
 		<meta name="twitter:image" content="https://react-redux-demo-chingching.herokuapp.com<%= metaData.image %>">
 
-		<link rel="stylesheet" href="/build/css/main.css">
+		<link rel="stylesheet" href='/build/<%- asset.bundle.css %>'>
 		<link rel="shortcut icon" href="/img/favicon.ico">
 		<link rel="apple-touch-icon" href="/img/Icon-60@3x.png">
 		<link rel="apple-touch-icon" sizes="76x76" href="/img/Icon-60@3x.png">
@@ -41,8 +41,12 @@
 	<body>
 		<div id="rootWrap"><%- componentHTML %></div>
 		<script type="text/javascript" charset="utf-8">
-			 window.__REDUX_STATE__ = <%-JSON.stringify(reduxState)%>;
-		</script>	
-		<script src='/build/bundle.js'></script>
+			 window.__REDUX_STATE__ = <%- reduxState %>;
+		</script>
+		<script type="text/javascript" charset="utf-8">
+			<%- manifest %>;
+		</script>
+		<script defer src='<%- vendorJs %>'></script>
+		<script defer src='/build/<%- asset.bundle.js %>'></script>
 	</body>
 </html>
