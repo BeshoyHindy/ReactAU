@@ -21,28 +21,14 @@ var config = [
 			bundle: [
 						path.resolve(projectRoot, './src/client/index.js'),
 						require.resolve('./util/polyfills')
-				],
-			vendor: [
-				'react',
-				'react-dom',
-				'react-router',
-				'redux',
-				'react-redux',
-				'redux-form',
-				'react-imageloader',
-				'react-router-redux',
-				'redux-thunk',
-				'react-tabs-isomorphic',
-				'immutability-helper',
-				'axios'
-			]
+				]
 		},
 		target: 'web',
 		output: {
 			path: assetsPath,
 			publicPath: publicPath,
 			filename: '[name].js',
-			chunkFilename: '[name]-[id].js'
+			chunkFilename: '[id].[hash].chunk.js'
 		},
 		plugins: [
 			new webpack.DefinePlugin({
@@ -70,11 +56,11 @@ var config = [
 				},
 				sourceMap: false
 			}),
-			new webpack.optimize.CommonsChunkPlugin({
-				name: ['bundle', 'vendor'],
-				filename: '[name].js',
-				minChunks: Infinity
-			}),
+			// new webpack.optimize.CommonsChunkPlugin({
+			// 	name: ['bundle'],
+			// 	filename: '[name].js',
+			// 	minChunks: Infinity
+			// }),
 			new webpack.LoaderOptionsPlugin({
 				minimize: true,
 				debug: false

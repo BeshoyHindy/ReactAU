@@ -9,51 +9,12 @@ import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 
 import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
-import { Breadcrumb , BigHeader, Paragraph} from "./Shared/Shared";
+import { ProductIndex } from './Products/ProductIndex';
+import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
 
 import { loadProducts } from '../actions/productsActions';
-
-const ProductIndex = () => (
-	<div>
-		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="DVR">
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>
-
-		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Kit">
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>
-
-		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="CCTV Camera">
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>
-
-		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Instrusion Alarm">
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>
-
-		<Paragraph smallTitle="Lorem ipsum dolor sit amet" title="Video Intercom">
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		</Paragraph>
-	</div>
-);
-
-
-
-const ProductCategory = (props) => (
-	<div>
-		{
-			(props.children)
-				? (<div> {React.cloneElement(props.children, props)} </div>)
-				: (<div/>)
-		}
-	</div>
-);
-ProductCategory.propTypes = {
-	children: React.PropTypes.node
-};
-
 
 class ProductsP extends React.Component{
 		constructor(props) {
@@ -130,4 +91,4 @@ const ProductsPage = connect(mapStateToProps)(
     connectDataFetchers(ProductsP, [ loadProducts ])
 );
 
-export {ProductIndex, ProductCategory, ProductsPage };
+export { ProductsPage };

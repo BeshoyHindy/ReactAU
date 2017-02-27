@@ -8,7 +8,8 @@ import UserPage from '../components/UserPage';
 import AboutPage from '../components/AboutPage';
 import ContactPage from '../components/ContactPage';
 import {ProductCategorySidebar, ProductIndexSidebar} from '../components/Products/Sidebar/CategorySidebar';
-import {ProductsPage, ProductCategory} from '../components/ProductsPage';
+import {ProductsPage } from '../components/ProductsPage';
+import { ProductCategory} from '../components/Products/ProductCategory';
 import ProductsTblPage from '../components/Products/ProductsTblPage';
 import DetailsPage from '../components/Products/DetailsPage';
 
@@ -18,11 +19,13 @@ import AdminListProductPage from '../components/Admin/AdminListProductPage';
 import AddUserPage from '../components/Admin/AddUserPage';
 
 
-import { Root, NotFoundPage, UnauthorizedPage} from '../components/index';
+import { Root}  from '../components/index';
+import NotFoundPage from '../components/NotFoundPage';
+import { UnauthorizedPage} from '../components/UnauthorizedPage';
 //https://github.com/reactjs/react-router-redux/issues/179
 
 const Routes = (props) => {
-	let {store, history} = props;
+	let { history} = props;
 	return (
 	<Router history={history}>
 		<Route path="/" component={Root}>
@@ -49,8 +52,9 @@ const Routes = (props) => {
 		</Route>
 		<Route path="*" component={NotFoundPage} />
 	</Router>);
-}
+};
 Routes.propTypes = {
+	// store: React.PropTypes.object.isRequired,
 	history: React.PropTypes.object.isRequired,
 	hideXsNav: React.PropTypes.func.isRequired
 };

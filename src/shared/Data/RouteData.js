@@ -24,7 +24,7 @@ const navData = [
 		]},
 	{name: "aboutus", link: "/aboutus", desc: "About Us"},
 	{name: "contact", link: "/contact", desc: "Contact"},
-	{name: "admin", link: "/admin/productChange/0", desc: "Admin"
+	{name: "admin", link: "", desc: "Admin"
 		, sub: [
 			{name: "productChange", link: "/admin/productChange/0", desc: "Add Product"},
 			{name: "editproduct", link: "/admin/productList/DVR", desc: "Edit Product"},

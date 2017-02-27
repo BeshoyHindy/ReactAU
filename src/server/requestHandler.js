@@ -8,6 +8,7 @@ import serializeJs  from 'serialize-javascript';
 
 import createRoutes from '../shared/route/index';
 import configureStore from '../shared/store/configureStore';
+import {hodeXsNavAction} from '../shared/actions/modalAction';
 
 import { fetchComponentsData,
          getMetaDataFromState,
@@ -15,13 +16,17 @@ import { fetchComponentsData,
          getIp
 	} from './utils';
 
+const history = createMemoryHistory();
+const store = configureStore();
+
+function hideXsNav() {
+	store.dispatch(hodeXsNavAction);
+}
 
 function handleRender(req, res) 
 {
-  const history = createMemoryHistory();
-  const store = configureStore();
-  const routes = createRoutes(history);
 
+	const routes = createRoutes(store, hideXsNav);
   const location = req.url;
   const venderJs =(process.env.NODE_ENV === 'production')
 					? '/build/vendor.js'
@@ -63,7 +68,7 @@ function handleRender(req, res)
                 res.render('index', { componentHTML, reduxState, venderJs, metaData });	
                 })
                 .catch(error => {
-                    // console.log(error);
+                    console.log( error);
                     res.status(500).json({
                         err:error.message
                     });

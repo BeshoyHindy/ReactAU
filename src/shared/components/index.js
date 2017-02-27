@@ -1,6 +1,7 @@
 if (process.env.BROWSER) {
 	require ('./global.scss');
 }
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -32,22 +33,6 @@ const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');
 const LinkedinIcon = generateShareIcon('linkedin');
 const PinterestIcon = generateShareIcon('pinterest');
-
-const NotFoundPage = (props) 	=> (
-		<div className="row">
-			<div className="col-xs-12">
-				<h1 className="center-page"> Page Not Found!! </h1>
-			</div>
-		</div>
-	);
-
-const UnauthorizedPage = (props) 	=> (
-		<div className="row">
-			<div className="col-xs-12">
-				<h1 className="center-page"> Unauthorized </h1>
-			</div>
-		</div>
-	);
 
 
 
@@ -236,4 +221,4 @@ function mapStateToProps(state) {
 
 Root = connect(mapStateToProps)(connectDataFetchers(Root, [ loadCategories ]));
 
-export { Root, NotFoundPage, UnauthorizedPage};
+export { Root};

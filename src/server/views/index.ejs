@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title><%= metaData.title %> - Hi-Tech Digital CCTV</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0; user-scalable=0;">
 		<meta name="author" content="ChingChing Yeh">
 		<meta name="copyright" content="HI-TECH DIGITAL CCTV PTY., LTD">
 		<meta name="description" content='<%= metaData.description %>'>
@@ -43,7 +43,6 @@
 		<script type="text/javascript" charset="utf-8">
 			 window.__REDUX_STATE__ = <%-JSON.stringify(reduxState)%>;
 		</script>	
-		<script src='<%= venderJs %>'></script>
 		<script src='/build/bundle.js'></script>
 	</body>
 </html>
