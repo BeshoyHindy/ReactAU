@@ -21140,10 +21140,13 @@ var Root = function (_React$Component) {
 		});
 
 		//Google Web fonts
-		var WebFontConfig = {
-			google: { families: ['Lato', 'Oswald:400,700', 'Rajdhani:300,400,500', 'Ubuntu:300,400'] }
-		};
-		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js").then(function () {});
+		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js").then(function () {
+			WebFont.load({
+				google: {
+					families: ['Lato', 'Oswald:400,600', 'Rajdhani:300,400,500', 'Ubuntu:300,400']
+				}
+			});
+		});
 
 		// Load the FB SDK asynchronously
 		this.loadScript("https://connect.facebook.net/en_US/sdk.js").then(function () {
@@ -39939,13 +39942,13 @@ app.use((0, _helmet2.default)());
 app.use(_helmet2.default.noCache());
 app.use(_helmet2.default.contentSecurityPolicy({
 	directives: {
-		defaultSrc: ["'https:'"],
+		defaultSrc: ["'none'"],
 		//google custom search need 'unsafe-eval'....
 		scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/", "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", _configuration.api_server.http.host],
 		// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
 		// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
-		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", _configuration.api_server.http.host],
-		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", _configuration.api_server.http.host],
+		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.google.com", _configuration.api_server.http.host],
+		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", "https://www.google.com", _configuration.api_server.http.host],
 		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", _configuration.api_server.http.host],
 		frameSrc: ["'self'", _configuration.api_server.http.host, "https://accounts.google.com/", "https://staticxx.facebook.com/"],
 		connectSrc: ["'self'", _configuration.api_server.http.host],

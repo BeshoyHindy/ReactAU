@@ -99,11 +99,14 @@ let Root = class Root extends React.Component{
 
 
 		//Google Web fonts
-		let WebFontConfig = {
-			google: { families: [ 'Lato' , 'Oswald:400,700' , 'Rajdhani:300,400,500', 'Ubuntu:300,400'] }
-		};
-		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js")
-		.then(()=>{});	
+		this.loadScript("https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js")
+		.then(()=>{
+			WebFont.load({
+				google: {
+					families: [ 'Lato' , 'Oswald:400,600' , 'Rajdhani:300,400,500', 'Ubuntu:300,400']
+				}
+			});
+		});	
 
 
 		// Load the FB SDK asynchronously

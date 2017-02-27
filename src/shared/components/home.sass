@@ -6,7 +6,6 @@
 		height: $banner-height
 		+respond-to(xs) 
 			margin-top: 10px
-		
 		.banner
 			position: relative
 			height: $banner-height
@@ -30,16 +29,12 @@
 				background-repeat: no-repeat
 				background-position: center center
 				background-size: cover
-			
 			.banner1
 				background-image: url(/img/banner1.png)
-			
 			.banner2
 				background-image: url(/img/banner2.png)
-			
 			.banner3
 				background-image: url(/img/banner3.png)
-			
 			.bg
 				position: absolute
 				z-index: 1
@@ -57,65 +52,54 @@
 				height: 100px
 				+respond-to(xs) 
 					right: 5px
-					width: 300px
-				
-			
-			h2, h3 
-				position: absolute
-				z-index: 3
-				top: 20px
-				left: 60px
-				+respond-to(xs) 
-					right: 10px
-				
-				width: 100%
-				font-family: 'Oswald', sans-serif
-				text-shadow: 3px 3px 6px #000
-				color: #fff
-				font-size: 35px
-			
-			h2 
-				text-align: left
-				+respond-to(xs) 
-					top: 10px
-					left: 10px
-				
-			
-			h3 
-				left: 300px
-				top: 40px
-				z-index: 2
-				font-family: 'Rajdhani', sans-serif
-				font-size: 20px
-				line-height: 20px
-				text-align: left
-				+respond-to(xs) 
-					left: 150px
-					top: 50px
-					width: 120px
-					//background-color: rgba(100, 70, 33, 0.5)
-					background-color: $color4
-					padding: 15px 20px
-					border: 2px rgba(255, 255, 255, 0.2) solid
-					text-shadow: 3px 3px 3px #000
-					//background-color: rgba(215, 139, 44, 0.3)
-				
-			
+					width: 300px							
+				h2, h3 
+					width: 100%				
+					text-shadow: 3px 3px 6px #000
+					color: #fff
+					font-size: 35px
+					position: absolute
+					z-index: 3
+					top: 20px
+					left: 60px
+					+respond-to(xs) 
+						right: 10px				
+				h2 
+					font-family: 'Oswald', sans-serif
+					font-weight: 400
+					text-align: left
+					+respond-to(xs) 
+						top: 10px
+						left: 10px
+				h3 
+					left: 300px
+					top: 40px
+					z-index: 2
+					font-family: 'Rajdhani', sans-serif
+					font-weight: 400
+					font-size: 20px
+					line-height: 20px
+					text-align: left
+					+respond-to(xs) 
+						left: 150px
+						top: 50px
+						width: 120px
+						//background-color: rgba(100, 70, 33, 0.5)
+						background-color: $color4
+						padding: 15px 20px
+						border: 2px rgba(255, 255, 255, 0.2) solid
+						text-shadow: 3px 3px 3px #000
+						//background-color: rgba(215, 139, 44, 0.3)
 			.banner1 h3 
 				left: 250px
 				+respond-to(xs) 
 					left: 150px
-				
-			
 			.banner3 h3 
 				left: 260px
 				+respond-to(xs) 
 					left: 150px
 					width: 130px
 					padding: 25px 20px
-			
-		
-
 	.btn-switch
 		text-align: center
 		height: 20px
@@ -131,7 +115,6 @@
 			box-shadow: 1px 1px 2px #999999
 			cursor: pointer
 			border: 1px solid #fff
-		
 		.active
 			background-color:  #999
 	

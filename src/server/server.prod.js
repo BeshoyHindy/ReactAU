@@ -29,14 +29,14 @@ app.use(helmet());
 app.use(helmet.noCache());
 app.use(helmet.contentSecurityPolicy({
 	directives: {
-		defaultSrc: ["'https:'"],
+		defaultSrc: ["'none'"],
 		//google custom search need 'unsafe-eval'....
 		scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
 												, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
 		// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
 		// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
-		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", api_server.http.host],
-		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", api_server.http.host],
+		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.google.com", api_server.http.host],
+		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", "https://www.google.com", api_server.http.host],
 		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", api_server.http.host,],
 		frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/"],
 		connectSrc: ["'self'", api_server.http.host],
