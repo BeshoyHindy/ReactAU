@@ -35,11 +35,147 @@ http://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-
 // npm clean cache
 npm cache clean
 
+=======================================================================================================
+*		GIT 觀念與常用 command						
+*		http://gracebuild.blogspot.tw/2013/06/version-control.html
+*		http://rubyist.marsz.tw/blog/2012-01-17/git-reset-and-revert-to-rollback-commit/
+=======================================================================================================
+	1. repository: commited 過的snapshot。
+		ORIG_HEAD is last value of HEAD before dangerous operation change by some command such as "git reset "
+		The last three commits (HEAD, HEAD^, and HEAD~2)
+			HEAD
+			HEAD^
+			HEAD~2
+		SHA
+	2. staging area
+		 	要 commit 的 snapshot。
+			cache:	staging area 也稱做cache, 用來紀錄最後一次git add 時的snapshot
+			index:	staging area 也稱做index，可以想成commit之前要有個index 指向要commit的snapshot，這樣git才知道要commit 哪個snopshot. 第一次要用git add建立這指標，之後 git add 與 git reset 都可以修改這個指標。
+	3. working area:
+		 	尚未git add 的 snapshot。
+
+	4. local 端圖示1
+		*************************************************************************************************************************
+		*	snopshot1     	|					snopshots				    | snopshotx 	|	snopshoty 	|	snopshotz		*
+		*	working area    | 		 			index      					|-->repo    	|				|					*
+		*					|					staging area  				| HEAD      	|	HEAD^     	|	HEAD~2			*
+		*************************************************************************************************************************
+			working area --git_add---------> staging area ------git commit--> repo
+						<----------------------check out--------------------- 
+
+	5. local 端圖示2
+			untracked 	--git add-> unmodified --edit--> modified --git add--> staged
+			untracked	<--git rm-- unmodified <------------commit------------ staged
+
+	6. reset, revert, rebase
+		6.1. revert
+			git revert <options> <commits>
+				# commit 成某之前版本的內容，且不會洗掉之前的commit紀錄。
+				# 和 svn revert不一樣
+
+			原 commit 如下
+			A -> B -> C -> D -> E
+			想要還原到 commit C 之後的狀態 (也就是把 D 和 E rollback)
+
+			用 git revert:
+				git revert E
+				git revert D
+			結果:
+
+			A -> B -> C -> D -> E -> F -> G
+				F 是還原 commit E 修改結果的 commit
+				G 是還原 commit D 修改結果的 commit
+				因此 revert 只會讓 commit 繼續往前
+				優點是可以針對某個 commit 進行還原 並且留下還原記錄
+
+		6.2. reset
+			Reset current HEAD to the specified state ，但檔案在--soft 和 --mixed(預設) 時不會修改!!!!! ----- 之前修改的處在 unstaged 階段
+			git reset <commit> <files>
+				移  HEAD, sstaging area(index) 至 <commits>
+
+			git reset -p <commit> <files>
+				移  HEAD, sstaging area(index) 還可以選擇 hunk
+
+			git reset <mode> <commit>
+				*********** ORIG_HEAD*****************
+				*	指向上次command操作的HEAD         *
+				**************************************
+				--soft
+					移 HEAD 至 <commit>
+					不會更改內容，只是erase掉中間一段的commit 紀錄，但是舊的HEAD會存在ORIG_HEAD
+					git commit <files>
+					git reset --soft HEAD^  
+					修改
+					git commit -a -c ORIG_HEAD  # ORIG_HEAD commit的內容變為這次commit的內容
+				--mixed
+					移 HEAD, staging area(index) 至 <commit>
+					預設就是--mixed
+				--hard
+					移 HEAD, staging area(index), working tree 至 <commit>
+						更改內容及中間的commit會整個被移掉。
+					git reset --hard
+						洗掉自己更改的和pull的
+					git reset --hard -c ORIG_HEAD
+						洗掉merge的
+			--mixed(預設) 用於做整段 commits 的還原，例如希望還原到 B commit 以後的狀態變成
+				A -> B -> C -> D -> E  變  A -> B  
+				git reset B
+				則 git 會將 log 中的 C, D, E 都清除
+				但檔案內容沒有任何變動, 因此會看到 C, D, E 修改的檔案處在 unstaged 階段
+
+				若針對部分檔案還原可以用
+					git checkout [file path]
+				若要全部還原可用
+					git checkout -f
+		6.3 rebase
+			6.3.1 rebase -i
+				假如想要抽掉某個 commit 又不想留下記錄, rebase -i 就很好用了
+
+			假如 A -> B -> C -> D -> E 只想要抽掉 D 的更改變成 A -> B -> C -> E
+				git rebase -i C
+				這時候會出現文字編輯
+					pick D xxx
+					pick E ooo
+				把 pick D xxx 整列移除後儲存就可以了 若中間有遇到衝突則必須自行修正後再
+					git add .
+					git rebase --continue		
+		8. with remote
+			8.1 複製 remote的 repository
+				git clone <url> <local dir>
+				git clone git://aaa/bbb/project_name.git  ~/myProject
+				git clone https://aaa/bbb/project_name.git  ~/myProject
+				git clone user@server:/path.git  ~/myProject 
+					#ssh
+			8.2 sync  with remote
+				git push <remote name> <branch name>
+				git pull     
+					會merge到我修改的，不會更改HEAD, ORIG_HEAD
+				git fetch   
+					不會merge
+			8.3 push			
+				git push origin --all
+					//push all branches
+				git push origin --tags
+					//push all tags
+				add a new branch and push the new branch to remote
+					git checkout -b <branch name>
+					git push -u origin <branch name>
+
 //branch
 git branch
 git branch without-redux
 git checkout without-redux
 git branch -d without-redux
+
+git checkout -b new_branch  
+#新建一個branch，並轉到那個branch
+
+git branch new_branch        
+# 新建一個branch，停留在原來的的branch
+
+git checkout branch        
+# 轉到那個branch
+
 
 //add a new branch and push the new branch to remote
 git checkout -b without-redux
@@ -96,6 +232,29 @@ git format-patch 813d102927b0833b6d01f5cb5c82efd5f50e87d3 10c570278a4a7d8f4a277f
 git format-patch --base=10c570278a4a7d8f4a277f6d1c826084c8e8536e~ -M -C 10c570278a4a7d8f4a277f6d1c826084c8e8536e~..10c570278a4a7d8f4a277f6d1c826084c8e8536e
 git format-patch --base=0aafd6a61f9a2c95012b7be4c88e8464224e9912~ -M -C 0aafd6a61f9a2c95012b7be4c88e8464224e9912~..0aafd6a61f9a2c95012b7be4c88e8464224e9912
 git apply 1.patch --reject
+
+git diff
+# working area v.s. staging area. 
+# 還有哪些沒有 git add 到 staging area。
+
+git diff HEAD
+# working area v.s. HEAD.
+# 跟已commit有甚麼不同。
+
+git diff --cached
+# staging area v.s. HEAD.
+# cahced了哪些，也就是看這次commit 會改變哪些。
+
+
+// 把 unstage的都清除掉，包含新增檔案
+git clean -df
+git checkout -- .
+
+// 把某檔案 unstage 的清除掉
+git checkout -- <filename>
+
+
+
 
 
 //heroku
