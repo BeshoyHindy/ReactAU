@@ -1,6 +1,4 @@
 import React from 'react';
-import update from 'immutability-helper';
-
 import AdminEditSpecBlock from "./AdminEditSpecBlock";
 import { SortableTbl }  from '../Shared/SortableTbl';
 import {CustomDel} from "./SortabletblCustomInput.js";

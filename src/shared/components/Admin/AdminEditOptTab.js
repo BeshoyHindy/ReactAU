@@ -2,9 +2,6 @@ import React from 'react';
 
 import EditSortableTbl  from './EditSortableTbl';
 import {CustomDel, CustomNumberInputTd, CustomTextInputTd} from "./SortabletblCustomInput.js";
-
-import update from 'immutability-helper';
-
 let initItem = {
 				desc:""
 			};

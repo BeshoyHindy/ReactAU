@@ -2,6 +2,8 @@
 @import "./mixin.scss"
 .HomePage
 	min-height: calc(100vh - #{$footer-height} - #{$nav-height})
+	+respond-to(xs) 
+		margin-top: 72px
 	.home-banner
 		height: $banner-height
 		+respond-to(xs) 
