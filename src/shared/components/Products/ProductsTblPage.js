@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import cloneDeep from 'lodash.clonedeep';
+import { connect } from 'react-redux';
+import ImageLoader from 'react-imageloader';
 import {TblImageLoader} from '../Shared/Shared';
 import { SortableTbl }  from '../Shared/SortableTbl';
 //import * as detailActions from '../../actions/detailsActions';
@@ -11,6 +13,8 @@ import StarsRated from '../Shared/StarsRated';
 import  Favorite  from '../Products/Details/Favorite';
 import HeartToggle from '../Shared/HeartToggle';
 
+import { getDevice } from '../../actions/deviceAction';
+import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 const BaseProductTblImageComponent = (props) =>
 {
 	return (
@@ -43,22 +47,39 @@ BaseProductEditComponent.propTypes = {
 };
 
 
-class ProductsTblPage extends React.Component{
+let ProductsTblPage = class ProductsTblPage extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			gridView : false,
+			gridView : !!(props.device.phone || props.device.mobile),
 		};
 		this.setGridListView = this.setGridListView.bind(this);
+		this.handleResize = this.handleResize.bind(this);
+		this.ProductBlkImgpreloader = this.ProductBlkImgpreloader.bind(this);
 	}
 	componentDidMount() {
+		window.addEventListener('resize', this.handleResize, false);
 	}
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.handleResize);
+	}		
+	handleResize(){
+		let {device} = this.props;
+		this.setState( { 
+			gridView: window.outerWidth < 736 || (device.phone || device.mobile)
+		});
+	}	
 	setGridListView(e){
 		let gridView = e.target.getAttribute("data-view")==="grid";
 		this.setState({gridView:gridView});		
 	}
-		
+	ProductBlkImgpreloader() {
+		return <div className="loading-div" style={{minHeight: "166px"}}/>;
+	}
 	render () {
+		let {device} = this.props;
+		let mobile = !!(device.phone || device.mobile);
+		let viewSettingStyle = {display: mobile?"none":"block"};
 		if ( !this.props.productType || !Metadata[this.props.productType] || this.props.products === []){
 			return (<div/>);
 		}else{
@@ -97,7 +118,7 @@ class ProductsTblPage extends React.Component{
 		return (
 			<div className="loading-wrap">
 				<div className={`ajax-loading-big ${this.props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
-				<ul className="app-view" >
+				<ul className="app-view" style={viewSettingStyle}>
 					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
 						<div className="bubble ng-binding">list view</div>
 					</li>
@@ -129,7 +150,11 @@ class ProductsTblPage extends React.Component{
 								<Link to={`/products/${this.props.productType}/spec/${item._id}`}>
 								<div className="block">
 									<div className="">
-										<img img-preload="" className="fade ng-isolate-scope in" src={item.imageUrl}/>
+										<ImageLoader
+											src={item.imageUrl}
+											wrapper={React.DOM.div}
+											preloader={this.ProductBlkImgpreloader} >	NOT FOUND
+										</ImageLoader>
 									</div>
 									<div className="title">
 										<span className="favorite"><i className="fa fa-heart" style={{color: "#CC3300"}}/> {item.favorite || 0}</span>
@@ -159,8 +184,18 @@ ProductsTblPage.propTypes = {
 	delete: React.PropTypes.bool,
 	edit: React.PropTypes.bool,
 	products: React.PropTypes.array,
-	ajaxState: React.PropTypes.number
+	ajaxState: React.PropTypes.number,
+	device:  React.PropTypes.object.isRequired
 };
+function mapStateToProps(state, ownProps) {
+  return {
+    device: state.device
+  };
+}
+
+ProductsTblPage = connect(mapStateToProps)(
+    connectDataFetchers(ProductsTblPage, [ getDevice ])
+);
 
 export default ProductsTblPage;
 

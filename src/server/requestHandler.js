@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext, createMemoryHistory } from 'react-router';
 import serializeJs  from 'serialize-javascript';
-
+import MobileDetect from 'mobile-detect';
 
 import createRoutes from '../shared/route/index';
 import configureStore from '../shared/store/configureStore';
@@ -37,6 +37,9 @@ function handleRender(req, res)
 	let vendorJs =(process.env.NODE_ENV === 'production')
 						? `/build/${asset.vendor.js}`
 						: '/dll.vendor.js';
+
+	const md = new MobileDetect(req.headers['user-agent']);
+	let device = {mobile: md.mobile()||md.phone(), tablet: md.tablet(), os: md.os() };
 	asset.bundle.js = (process.env.NODE_ENV === 'production')
 							? asset.bundle.js
 							:'bundle.js';
@@ -56,7 +59,8 @@ function handleRender(req, res)
                  components : renderProps.components,
                  params     : renderProps.params,
                  query      : renderProps.location.query,
-                 route      : renderProps.routes[renderProps.routes.length - 1]
+                 route      : renderProps.routes[renderProps.routes.length - 1],
+				device,
                 })
                 .then(() => {
                 let reduxState = store.getState();
