@@ -17,7 +17,7 @@ import * as modalActions from '../actions/modalAction';
 import  {renderField} from "./Shared/renderReduxForm";
 import  SignInModal from "./SignInModal";
 import  Footer from "./Footer";
-
+import { getDevice } from '../actions/deviceAction';
 
 const {
   FacebookShareButton,
@@ -222,6 +222,6 @@ function mapStateToProps(state) {
   };
 }	
 
-Root = connect(mapStateToProps)(connectDataFetchers(Root, [ loadCategories ]));
+Root = connect(mapStateToProps)(connectDataFetchers(Root, [ loadCategories, getDevice ]));
 
 export { Root};
