@@ -107,6 +107,11 @@ table.p-spec, table.p-stdpkg{
         }
       }
     }
+	.react-tabs{
+	  @include respond-to(xs) {
+        padding: 0 0 15px;
+      }
+	}
 	.alarm-product-desc{
 		margin-bottom: 0;
 	}
@@ -611,22 +616,5 @@ ul.specs dt {
   left: 60px;
 }
 
-ul.app-view {
-  display: inline-block;
-  width: 100px;
-  li{
-    display: inline-block;
-    width:40px;
-    margin-left: 5px;
-    position: relative;
-    .bubble{
-      display: none;
-    }
-  }
-  li:hover>.bubble
-  {
-    display:block;
-  }
-}
 
 
