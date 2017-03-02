@@ -2,12 +2,11 @@
 @import "./mixin.scss"
 .HomePage
 	min-height: calc(100vh - #{$footer-height} - #{$nav-height})
-	+respond-to(xs) 
-		margin-top: 72px
 	.home-banner
 		height: $banner-height
 		+respond-to(xs) 
 			margin-top: 10px
+			height: $banner-height - 100px
 		.banner
 			position: relative
 			height: $banner-height
@@ -15,13 +14,20 @@
 			margin: 0
 			padding: 0
 			+respond-to(xs) 
-				height: $banner-height - 100px
+				height: 100%
 		.panel-body 
 			position:relative
 			margin: 0
 			padding: 0
 			height: $banner-height
 			width: 100%
+			height: 100%
+			.carousel
+				+respond-to(xs) 
+					height: $banner-height - 70px
+			.carousel-footer, .prev, .next	
+				+respond-to(xs) 
+					display: none		
 			.banner1, .banner2, .banner3
 				margin: 0
 				padding: 0
@@ -30,7 +36,9 @@
 				position: relative
 				background-repeat: no-repeat
 				background-position: center center
-				background-size: cover
+				background-size: cover	
+				+respond-to(xs) 
+					height: $banner-height - 100px							
 			.banner1
 				background-image: url(/img/banner1.png)
 			.banner2
