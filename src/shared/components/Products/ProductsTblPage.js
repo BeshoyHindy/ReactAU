@@ -7,6 +7,9 @@ import { SortableTbl }  from '../Shared/SortableTbl';
 import { Metadata } from "../../Data/ProductTblSettings";
 import {routeBaseLink} from '../../Data/RouteData';
 import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
+import StarsRated from '../Shared/StarsRated';
+import  Favorite  from '../Products/Details/Favorite';
+import HeartToggle from '../Shared/HeartToggle';
 
 const BaseProductTblImageComponent = (props) =>
 {
@@ -40,62 +43,112 @@ BaseProductEditComponent.propTypes = {
 };
 
 
-
-const ProductsTblPage = (props) =>{
-	if ( !props.productType || !Metadata[props.productType] || props.products === []){
-		return (<div/>);
-	}else{
-		let col = [], tHead =[];
-		let colMetadata = Metadata[props.productType];
-		for (let item of colMetadata) {
-			if (item.visible){
-				col.push(item.columnName);
-				tHead.push(item.displayName);
+class ProductsTblPage extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			gridView : false,
+		};
+		this.setGridListView = this.setGridListView.bind(this);
+	}
+	componentDidMount() {
+	}
+	setGridListView(e){
+		let gridView = e.target.getAttribute("data-view")==="grid";
+		this.setState({gridView:gridView});		
+	}
+		
+	render () {
+		if ( !this.props.productType || !Metadata[this.props.productType] || this.props.products === []){
+			return (<div/>);
+		}else{
+			let col = [], tHead =[];
+			let colMetadata = Metadata[this.props.productType];
+			for (let item of colMetadata) {
+				if (item.visible){
+					col.push(item.columnName);
+					tHead.push(item.displayName);
+				}
 			}
-		}
 
-		if(props.edit) {
-			tHead.push("Edit");
-			col.push("edit");
-		}
-		if(props.delete) {
-			tHead.push("Delete");
-			col.push("delete");
-		}
-
-		let data = cloneDeep(props.products);
-		for (let item of data) {
-			if (item.images && item.images[0]){
-				item.imageUrl= item.images[0];
-				delete item.images;
+			if(this.props.edit) {
+				tHead.push("Edit");
+				col.push("edit");
 			}
-			if(props.edit)
-				item.edit = props.editBaseLink;
-			if(props.delete)
-				item.delete = "";
-		}
+			if(this.props.delete) {
+				tHead.push("Delete");
+				col.push("delete");
+			}
+
+			let data = cloneDeep(this.props.products);
+			for (let item of data) {
+				if (item.images && item.images[0]){
+					item.imageUrl= item.images[0];
+					delete item.images;
+				}
+				if(this.props.edit)
+					item.edit = this.props.editBaseLink;
+				if(this.props.delete)
+					item.delete = "";
+			}
 
 
-		// console.log(Metadata[props.productType]);
+		// console.log(Metadata[this.props.productType]);
 		return (
 			<div className="loading-wrap">
-				<div className={`ajax-loading-big ${props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
-				<SortableTbl tblData={data}
-					tHead={tHead}
-					customTd={[
-								{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
-								{custd: BaseProductEditComponent, keyItem: "edit"},
-								{custd: BaseProductDeleteComponent, keyItem: "delete"}
-								]}
-					dKey={col}
-					productType={props.productType}
-					actions={props.actions}
-					router={props.router}
-					params={props.params}/>
+				<div className={`ajax-loading-big ${this.props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
+				<ul className="app-view" >
+					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
+						<div className="bubble ng-binding">list view</div>
+					</li>
+					<li className="hiddenView ng-scope fa fa-th btn-list" data-view="grid" onClick={this.setGridListView}>
+						<div className="bubble ng-binding">grid view</div>
+					</li>
+				</ul>
+				<div className="list-container" style={{display: this.state.gridView?"none":"block"}}>
+					<SortableTbl tblData={data} 
+						tHead={tHead}
+						customTd={[
+									{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
+									{custd: BaseProductEditComponent, keyItem: "edit"},
+									{custd: BaseProductDeleteComponent, keyItem: "delete"}
+									]}
+						dKey={col}
+						productType={this.props.productType}
+						actions={this.props.actions}
+						router={this.props.router}
+						params={this.props.params}/>
+				</div>
+				<div className="grid-container" style={{display: this.state.gridView?"block":"none"}}>
+					{data.map((item, id)=>{
+						let c = 0;
+						item.stars && (c = (Math.round((item.stars.totalStars / item.stars.voteCount) * 100) / 100));
+						return (
+						<div key={id} className="col-sm-6 col-md-4 Grid">
+							<div className="block-wrap">
+								<Link to={`/products/${this.props.productType}/spec/${item._id}`}>
+								<div className="block">
+									<div className="">
+										<img img-preload="" className="fade ng-isolate-scope in" src={item.imageUrl}/>
+									</div>
+									<div className="title">
+										<span className="favorite"><i className="fa fa-heart" style={{color: "#CC3300"}}/> {item.favorite || 0}</span>
+										<span className="rate"><StarsRated count={c}/></span>
+										<p className="model ellipsis ng-binding">{item.name}</p>										
+										<p className="brand ellipsis ng-binding">{item.brand} - {item.type}</p>
+									</div>
+								</div>
+								</Link>
+							</div>
+						</div>);
+					})}
+				</div>
 			</div>
-		);
+			);
+		}
 	}
-};
+}
+
 
 ProductsTblPage.propTypes = {
 	productType: React.PropTypes.string,
