@@ -30,10 +30,10 @@ let CommonDetails = (props) => {
 		return (
 			<div className="product-detail">
 					<div className="col-xs-12 product-desc  alarm-product-desc">						
-						<DetailsDesc data={descData}/>
+						<DetailsDesc data={descData} />
 					</div>
 					<div id="product-top" className="col-xs-12">
-						<DetailsImage data={detailsImage} productType={props.params.product}/>
+						<DetailsImage data={detailsImage} type={props.data.type}  brand={props.data.brand}   name={props.data.name} productType={props.params.product}/>
 					</div>
 				<DetailsTab data={tabData}/>
 			</div>
@@ -42,7 +42,7 @@ let CommonDetails = (props) => {
 		return (
 			<div className="product-detail">
 					<div id="product-top" className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
-						<DetailsImage data={detailsImage} productType={props.params.product}/>
+						<DetailsImage data={detailsImage} type={props.data.type}   brand={props.data.brand}   name={props.data.name} productType={props.params.product}/>
 					</div>
 					<div className="col-xs-12 col-sm-8 col-md-8 col-lg-7 product-desc">										
 						<DetailsDesc data={descData}/>

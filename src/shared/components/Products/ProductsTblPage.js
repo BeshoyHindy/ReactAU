@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import cloneDeep from 'lodash.clonedeep';
 import { connect } from 'react-redux';
-import ImageLoader from 'react-imageloader';
-import {TblImageLoader} from '../Shared/Shared';
+import { ImageLoader } from '../Shared/ImageLoader';
 import { SortableTbl }  from '../Shared/SortableTbl';
 //import * as detailActions from '../../actions/detailsActions';
 import { Metadata } from "../../Data/ProductTblSettings";
-import {routeBaseLink} from '../../Data/RouteData';
+import { routeBaseLink } from '../../Data/RouteData';
 import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 import StarsRated from '../Shared/StarsRated';
 import  Favorite  from '../Products/Details/Favorite';
@@ -20,13 +19,17 @@ const BaseProductTblImageComponent = (props) =>
 	return (
 		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
 			<Link to={routeBaseLink[props.productType] + props.rowData._id}>
-				<TblImageLoader data={props.rowData.imageUrl}/>
+				<ImageLoader src={props.tdData} minHeight="100px" 
+					alt={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
+					title={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
+				/>
 			</Link>
 		</td>
 	);
 };
 
 BaseProductTblImageComponent.propTypes = {
+	tdData:  React.PropTypes.string,
 	rowData:  React.PropTypes.object,
 	productType: React.PropTypes.string.isRequired,
 };
@@ -52,10 +55,10 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		super(props);
 		this.state = {
 			gridView : !!(props.device.phone || props.device.mobile),
+			manualSetGV : false
 		};
 		this.setGridListView = this.setGridListView.bind(this);
 		this.handleResize = this.handleResize.bind(this);
-		this.ProductBlkImgpreloader = this.ProductBlkImgpreloader.bind(this);
 	}
 	componentDidMount() {
 		window.addEventListener('resize', this.handleResize, false);
@@ -65,21 +68,25 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 	}		
 	handleResize(){
 		let {device} = this.props;
-		this.setState( { 
-			gridView: window.outerWidth < 736 || (device.phone || device.mobile)
-		});
+		let gv = window.outerWidth < 736 || (device.phone || device.mobile);
+		if (!this.state.manualSetGV && gv !== this.state.gridView){
+			this.setState( { 
+				gridView: gv,
+				manualSetGV: false
+			});
+		}
 	}	
 	setGridListView(e){
 		let gridView = e.target.getAttribute("data-view")==="grid";
-		this.setState({gridView:gridView});		
-	}
-	ProductBlkImgpreloader() {
-		return <div className="loading-div" style={{minHeight: "166px"}}/>;
+		this.setState( { 
+			gridView:gridView,
+			manualSetGV: true
+		});	
 	}
 	render () {
 		let {device} = this.props;
 		let mobile = !!(device.phone || device.mobile);
-		let viewSettingStyle = {display: mobile?"none":"block"};
+		let viewSettingStyle = {display: mobile ?"none":"block"};
 		if ( !this.props.productType || !Metadata[this.props.productType] || this.props.products === []){
 			return (<div/>);
 		}else{
@@ -152,9 +159,10 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 									<div className="">
 										<ImageLoader
 											src={item.imageUrl}
-											wrapper={React.DOM.div}
-											preloader={this.ProductBlkImgpreloader} >	NOT FOUND
-										</ImageLoader>
+											minHeight= "200px"
+											alt={`${item.brand} - ${this.props.productType} - ${item.type} - ${item.name}`}
+											title={`${item.brand} - ${this.props.productType} - ${item.type} - ${item.name}`}
+										/>
 									</div>
 									<div className="title">
 										<span className="favorite"><i className="fa fa-heart" style={{color: "#CC3300"}}/> {item.favorite || 0}</span>

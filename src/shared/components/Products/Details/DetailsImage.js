@@ -5,9 +5,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { SpecTbl }  from './Spec';
 import { SortableTbl }  from '../../Shared/SortableTbl';
-import ImageLoader from 'react-imageloader';
-import {CustomDownloadTd} from '../../Shared/Shared';
-import {ImageList} from '../../Shared/ImageList';
+import { ImageLoader } from '../../Shared/ImageLoader';
+import { CustomDownloadTd } from '../../Shared/Shared';
+import { ImageList } from '../../Shared/ImageList';
 
 
 
@@ -19,10 +19,6 @@ class DetailsImage extends React.Component{
 				activeItem: 0
 			};
 			this.changeShowImage = this.changeShowImage.bind(this);
-			this.detailImgpreLoader = this.detailImgpreLoader.bind(this);
-		}
-		detailImgpreLoader() {
-			return <div className="loading-div" style={{minHeight: "300px"}}/>;
 		}
 		changeShowImage(id){
 			this.setState({
@@ -47,11 +43,13 @@ class DetailsImage extends React.Component{
 									showImage && (
 										<ImageLoader
 											className={transitionName}
+											cssClass={transitionName}
 											key={showImage}
 											src={showImage}
-											wrapper={React.DOM.div}
-											preloader={this.detailImgpreLoader} >NOT FOUND
-										</ImageLoader>
+											minHeight="284px"
+											alt={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
+											title={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
+										/>
 									)
 								}
 						</ReactCSSTransitionGroup>
@@ -60,7 +58,11 @@ class DetailsImage extends React.Component{
 						<ul className={productImagesThumbClass}>
 							{
 								this.props.data.images && this.props.data.images.map( (item, id) => {
-									return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} loaderStyle={{minHeight: "60px"}}/>);
+									return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} 
+												alt={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
+												title={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
+												minHeight="60px"
+												/>);
 								})
 							}
 						</ul>
@@ -71,6 +73,9 @@ class DetailsImage extends React.Component{
 }
 DetailsImage.propTypes = {
 	productType: React.PropTypes.string,
+	type: React.PropTypes.string,
+	name: React.PropTypes.string,
+	brand: React.PropTypes.string,
 	data: React.PropTypes.object
 };
 

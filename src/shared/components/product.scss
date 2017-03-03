@@ -290,22 +290,21 @@ table.p-spec, table.p-stdpkg{
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 1;
 }
 
 .product-enter{
 	top: -284px;
-	opacity: 0;
+	z-index: 2;
 	transition: 300ms ease-out all;
 }
 
 .product-enter-active {
-	top: -284px;
-	opacity: 1;
+	top: 0;
 }
 
 .product-leave {
 	top: 0;
-	opacity: 1;
 	transition: 300ms ease-out all;
 }
 

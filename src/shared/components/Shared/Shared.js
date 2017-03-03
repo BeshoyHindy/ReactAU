@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageLoader from 'react-imageloader';
+import {ImageLoader} from './ImageLoader';
 import { Link } from 'react-router';
 
 const CustomDownloadTd = (props) => (
@@ -10,23 +10,6 @@ CustomDownloadTd.propTypes = {
 	rowData: React.PropTypes.object,
 	tdData: React.PropTypes.string
 };
-
-
-function ProductTblImgpreloader() {
-	return <div className="loading-div" style={{minHeight: "100px"}}/>;
-}
-
-const TblImageLoader = (props) => (
-	<ImageLoader
-		src={props.data}
-		wrapper={React.DOM.div}
-		preloader={ProductTblImgpreloader}>NOT FOUND
-	</ImageLoader>);
-TblImageLoader.propTypes = {
-  data: React.PropTypes.string.isRequired,
-};
-
-
 
 const PureList = (props) => ( <ul>{props.data.map( (item, id) => { return ( <li key={id}> {item} </li> ); })} </ul>);
 PureList.propTypes = {
@@ -102,7 +85,6 @@ const isEmptyObject = (obj) => Object.keys(obj).length === 0 && obj.constructor 
 const  deleteArrayMember = (array, id) => [...array.slice( 0, id) ,...array.slice( id + 1, array.length)];
 
 export { Breadcrumb , BigHeader , OrangeBoard, Paragraph, PureList, GoogleMap
-		, TblImageLoader
 		, CustomDownloadTd
 		,isEmptyObject
 		,deleteArrayMember};

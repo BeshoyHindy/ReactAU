@@ -26,7 +26,8 @@ let publicPath = path.resolve( process.cwd(), "./public");
 let viewPath = path.resolve(process.cwd(), "./src/server/views");
 const oneDay = 86400000;
 app.use(helmet());
-app.use(helmet.noCache());
+// app.use(helmet.noCache());   
+
 app.use(helmet.contentSecurityPolicy({
 	directives: {
 		defaultSrc: ["'none'"],
@@ -51,27 +52,27 @@ app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
 
-// use httpProxy will rejected by heroku, use manually instead
-console.log(`redirect to api server:${api_server.http.host}:${api_server.http.port}/`);
-app.use('/api', function(req, res, next) {
-  let method, r;
-  method = req.method.toLowerCase().replace(/delete/,"del");
-  let path = req.url.replace(/^\/api\//,"");
-  switch (method) {
-    case "get":
-    case "post":
-    case "del":
-    case "put":
-      r = request[method]({
-        uri: `${api_server.http.host}:${api_server.http.port}/${path}`,
-        json: req.body
-      });
-      break;
-    default:
-      return res.send("invalid method");
-  }
-  return req.pipe(r).pipe(res);
-});
+// // use httpProxy will rejected by heroku, use manually instead
+// console.log(`redirect to api server:${api_server.http.host}:${api_server.http.port}/`);
+// app.use('/api', function(req, res, next) {
+//   let method, r;
+//   method = req.method.toLowerCase().replace(/delete/,"del");
+//   let path = req.url.replace(/^\/api\//,"");
+//   switch (method) {
+//     case "get":
+//     case "post":
+//     case "del":
+//     case "put":
+//       r = request[method]({
+//         uri: `${api_server.http.host}:${api_server.http.port}/${path}`,
+//         json: req.body
+//       });
+//       break;
+//     default:
+//       return res.send("invalid method");
+//   }
+//   return req.pipe(r).pipe(res);
+// });
 
 app.set('views', viewPath);
 app.use( express.static(publicPath, { maxAge: oneDay * 7 }));
