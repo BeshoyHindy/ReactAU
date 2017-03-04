@@ -4,7 +4,6 @@ if (process.env.BROWSER) {
 
 import React from 'react';
 import { connect } from 'react-redux';
-import jsonp from 'jsonp';
 import { Link } from 'react-router';
 import {  Field, reduxForm } from 'redux-form';
 

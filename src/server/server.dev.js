@@ -16,7 +16,7 @@ import requestHandler from './requestHandler';
 import http from 'http';
 import httpProxy from 'http-proxy';
 import request from 'request';
-import cors from 'cors';
+
 
 const port = web_server.http.port || 3000;
 const host = web_server.http.host || 'localhost';

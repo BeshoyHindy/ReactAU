@@ -1,21 +1,12 @@
 /* eslint import/no-unresolved: 0*/
-
-//import Promise     from 'bluebird';
-import geoip       from 'geoip-lite';
-import strformat   from 'strformat';
-
-
-// import clientConfig              from '../shared/config';
-// import { getSupportedLocales }   from '../shared/utils';
-
-export function fetchComponentsData({ dispatch, components, params, query, locale, route, device }) {
+export function fetchComponentsData({ dispatch, components, params, query,  route, device }) {
     const promises = components.map(current => {
         //console.log(current);
 		if (!current)  return null;
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         
         return component.fetchData
-            ? component.fetchData({ dispatch, params, query, locale, route, device })
+            ? component.fetchData({ dispatch, params, query,  route, device })
             : null;
     });
 
@@ -127,33 +118,3 @@ export function getIp(req) {
     return req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress;
 }
 
-export function detectLocale(req) {
-    // // Take locale passed by account
-    // const passedLocale = (req.query.locale || req.cookies.locale || '').toLowerCase();
-
-    // // if (getSupportedLocales().indexOf(passedLocale) >= 0) {
-    //     return passedLocale;
-    // // }
-
-    // // Detect locale by ip
-    const ip = getIp(req);
-    const geo = geoip.lookup(ip);
-    const country = (geo && geo.country);
-
-    return {
-        UA: 'uk',
-        RU: 'ru',
-        TR: 'tr'
-    }[country] || 'en';
-}
-
-function _getGreeting(assessmentSystem, score) {
-    for (let i = assessmentSystem.length - 1; i >= 0; i--) {
-        if (score >= assessmentSystem[i].grade) {
-            return {
-                phrase: assessmentSystem[i].phrase,
-                description: assessmentSystem[i].description || ''
-            };
-        }
-    }
-}

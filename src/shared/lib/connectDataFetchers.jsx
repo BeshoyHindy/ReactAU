@@ -22,10 +22,10 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired
         };
 
-        static fetchData({ dispatch, params = {}, query = {}, locale , route= [], device}) {          
+        static fetchData({ dispatch, params = {}, query = {},  route= [], device}) {          
             //console.log("fetchData", actionCreators);  
             let promiseArray = actionCreators.map(actionCreator => {                    
-                    return actionCreator?(dispatch(actionCreator({ params, query, locale, device }))):null;
+                    return actionCreator?(dispatch(actionCreator({ params, query,  device }))):null;
                 });       
 
             if (process.env.BROWSER && route.authorize && route.authorize.length){

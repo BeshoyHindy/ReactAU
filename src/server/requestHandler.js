@@ -13,7 +13,6 @@ import {hodeXsNavAction} from '../shared/actions/modalAction';
 
 import { fetchComponentsData,
          getMetaDataFromState,
-         detectLocale,
          getIp
 	} from './utils';
 
@@ -43,8 +42,7 @@ function handleRender(req, res)
 	asset.bundle.js = (process.env.NODE_ENV === 'production')
 							? asset.bundle.js
 							:'bundle.js';
-	const locale = detectLocale(req);
-					
+				
   match({ routes, location }, (error, redirectLocation, renderProps) => {
 	if (redirectLocation) {
 		res.redirect(301, redirectLocation.pathname + redirectLocation.search);
@@ -67,7 +65,6 @@ function handleRender(req, res)
                 let metaData = getMetaDataFromState({
                     params : renderProps.params,
                     query  : renderProps.location.query,
-                    lang   : locale,
                     route  : renderProps.routes[renderProps.routes.length - 1].path,
                     state  : reduxState,
 					pathname: renderProps.location.pathname

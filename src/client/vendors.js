@@ -4,7 +4,6 @@ require("react-addons-css-transition-group");
 require("react-dom");
 require("react-redux");
 require("react-router");
-require("react-imageloader");
 require("react-router-redux");
 require("redux");
 require("redux-thunk");

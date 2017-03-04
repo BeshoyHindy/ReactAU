@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/build/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 511);
+/******/ 	return __webpack_require__(__webpack_require__.s = 508);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1079,14 +1079,13 @@ function connectDataFetchers(Component, actionCreators) {
                 params = _ref$params === undefined ? {} : _ref$params,
                 _ref$query = _ref.query,
                 query = _ref$query === undefined ? {} : _ref$query,
-                locale = _ref.locale,
                 _ref$route = _ref.route,
                 route = _ref$route === undefined ? [] : _ref$route,
                 device = _ref.device;
 
             //console.log("fetchData", actionCreators);  
             var promiseArray = actionCreators.map(function (actionCreator) {
-                return actionCreator ? dispatch(actionCreator({ params: params, query: query, locale: locale, device: device })) : null;
+                return actionCreator ? dispatch(actionCreator({ params: params, query: query, device: device })) : null;
             });
 
             if (false) {
@@ -15188,11 +15187,11 @@ var _server = __webpack_require__(489);
 
 var _reactRouter = __webpack_require__(8);
 
-var _serializeJavascript = __webpack_require__(509);
+var _serializeJavascript = __webpack_require__(507);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _mobileDetect = __webpack_require__(504);
+var _mobileDetect = __webpack_require__(502);
 
 var _mobileDetect2 = _interopRequireDefault(_mobileDetect);
 
@@ -15229,7 +15228,6 @@ function handleRender(req, res) {
   var md = new _mobileDetect2.default(req.headers['user-agent']);
   var device = { mobile: md.mobile() || md.phone(), tablet: md.tablet(), os: md.os() };
   asset.bundle.js =  true ? asset.bundle.js : 'bundle.js';
-  var locale = (0, _utils.detectLocale)(req);
 
   (0, _reactRouter.match)({ routes: routes, location: location }, function (error, redirectLocation, renderProps) {
     if (redirectLocation) {
@@ -15252,7 +15250,6 @@ function handleRender(req, res) {
         var metaData = (0, _utils.getMetaDataFromState)({
           params: renderProps.params,
           query: renderProps.location.query,
-          lang: locale,
           route: renderProps.routes[renderProps.routes.length - 1].path,
           state: reduxState,
           pathname: renderProps.location.pathname
@@ -15354,30 +15351,12 @@ exports.__esModule = true;
 exports.fetchComponentsData = fetchComponentsData;
 exports.getMetaDataFromState = getMetaDataFromState;
 exports.getIp = getIp;
-exports.detectLocale = detectLocale;
-
-var _geoipLite = __webpack_require__(502);
-
-var _geoipLite2 = _interopRequireDefault(_geoipLite);
-
-var _strformat = __webpack_require__(510);
-
-var _strformat2 = _interopRequireDefault(_strformat);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import clientConfig              from '../shared/config';
-// import { getSupportedLocales }   from '../shared/utils';
-
 /* eslint import/no-unresolved: 0*/
-
-//import Promise     from 'bluebird';
 function fetchComponentsData(_ref) {
     var dispatch = _ref.dispatch,
         components = _ref.components,
         params = _ref.params,
         query = _ref.query,
-        locale = _ref.locale,
         route = _ref.route,
         device = _ref.device;
 
@@ -15386,7 +15365,7 @@ function fetchComponentsData(_ref) {
         if (!current) return null;
         var component = current.WrappedComponent ? current.WrappedComponent : current;
 
-        return component.fetchData ? component.fetchData({ dispatch: dispatch, params: params, query: query, locale: locale, route: route, device: device }) : null;
+        return component.fetchData ? component.fetchData({ dispatch: dispatch, params: params, query: query, route: route, device: device }) : null;
     });
 
     return Promise.all(promises);
@@ -15493,37 +15472,6 @@ function getMetaDataFromState(_ref2) {
 
 function getIp(req) {
     return req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress;
-}
-
-function detectLocale(req) {
-    // // Take locale passed by account
-    // const passedLocale = (req.query.locale || req.cookies.locale || '').toLowerCase();
-
-    // // if (getSupportedLocales().indexOf(passedLocale) >= 0) {
-    //     return passedLocale;
-    // // }
-
-    // // Detect locale by ip
-    var ip = getIp(req);
-    var geo = _geoipLite2.default.lookup(ip);
-    var country = geo && geo.country;
-
-    return {
-        UA: 'uk',
-        RU: 'ru',
-        TR: 'tr'
-    }[country] || 'en';
-}
-
-function _getGreeting(assessmentSystem, score) {
-    for (var i = assessmentSystem.length - 1; i >= 0; i--) {
-        if (score >= assessmentSystem[i].grade) {
-            return {
-                phrase: assessmentSystem[i].phrase,
-                description: assessmentSystem[i].description || ''
-            };
-        }
-    }
 }
 
 /***/ }),
@@ -19619,10 +19567,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(5);
 
-var _jsonp = __webpack_require__(503);
-
-var _jsonp2 = _interopRequireDefault(_jsonp);
-
 var _reactRouter = __webpack_require__(8);
 
 var _reduxForm = __webpack_require__(37);
@@ -21227,11 +21171,11 @@ var _reactRedux = __webpack_require__(5);
 
 var _reactRouter = __webpack_require__(8);
 
-var _reactModal = __webpack_require__(505);
+var _reactModal = __webpack_require__(503);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
-var _reactShare = __webpack_require__(507);
+var _reactShare = __webpack_require__(505);
 
 var _connectDataFetchers = __webpack_require__(16);
 
@@ -21819,7 +21763,7 @@ var _categoriesReducer = __webpack_require__(280);
 
 var _categoriesReducer2 = _interopRequireDefault(_categoriesReducer);
 
-var _reactRouterRedux = __webpack_require__(506);
+var _reactRouterRedux = __webpack_require__(504);
 
 var _reduxForm = __webpack_require__(37);
 
@@ -22068,7 +22012,7 @@ var _reducers = __webpack_require__(283);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _reduxThunk = __webpack_require__(508);
+var _reduxThunk = __webpack_require__(506);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -40144,58 +40088,40 @@ module.exports = require("fs");
 /* 502 */
 /***/ (function(module, exports) {
 
-module.exports = require("geoip-lite");
+module.exports = require("mobile-detect");
 
 /***/ }),
 /* 503 */
 /***/ (function(module, exports) {
 
-module.exports = require("jsonp");
+module.exports = require("react-modal");
 
 /***/ }),
 /* 504 */
 /***/ (function(module, exports) {
 
-module.exports = require("mobile-detect");
+module.exports = require("react-router-redux");
 
 /***/ }),
 /* 505 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-modal");
+module.exports = require("react-share");
 
 /***/ }),
 /* 506 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-redux");
+module.exports = require("redux-thunk");
 
 /***/ }),
 /* 507 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-share");
-
-/***/ }),
-/* 508 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 509 */
-/***/ (function(module, exports) {
-
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 510 */
-/***/ (function(module, exports) {
-
-module.exports = require("strformat");
-
-/***/ }),
-/* 511 */
+/* 508 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
