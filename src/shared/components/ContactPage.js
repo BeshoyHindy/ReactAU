@@ -4,7 +4,7 @@ if (process.env.BROWSER) {
 
 import React from 'react';
 import { Link} from 'react-router';
-import ImageLoader from 'react-imageloader';
+import {ImageLoader} from './Shared/ImageLoader';
 
 import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared";
 import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
@@ -78,15 +78,18 @@ const ContactPage = (props) => {
                 <div className="col-xs-12 col-sm-7 col-md-8 front-door">
 					<div className="front-door-photo">
 						<ImageLoader
-							src={frontImgData[0]}
-							wrapper={React.DOM.div}
-							preloader={FrontImgpreloader}>NOT FOUND
-						</ImageLoader>
+							src={frontImgData[0]} minHeight="383px"
+							alt="Hi-Tech Digital CCTV,  Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
+							title="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"							
+							/>
 					</div>
 					<div className="front-door-t">
 						<ul className="front-thumbs" >
 							{
-								frontImgData.map( (item, id) => ( <ImageList key={id} src={item} loaderStyle={{minHeight: "120px"}}/>))
+								frontImgData.map( (item, id) => ( <ImageList key={id} src={item} minHeight="120px" 
+									alt="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
+									title="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
+									/>))
 							}
 						</ul>
 					</div>
