@@ -1,4 +1,4 @@
-$color7: #E0914C;
+@import "./mixin.scss";
 
 .asia{
   padding: 20px;
@@ -23,6 +23,10 @@ $color7: #E0914C;
 .about{
   p{
     color: #000;
+	@include respond-to(xs) {
+		line-height: 1.8;
+		font-size: 15px;
+	}
   }
   padding: 20px;
   background-color: lighten($color7, 37);

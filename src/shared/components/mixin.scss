@@ -1,3 +1,4 @@
+@import "./variable.scss";
 @mixin inline-block-grace($w: 120px){
     width:$w;
     display: inline-block;
