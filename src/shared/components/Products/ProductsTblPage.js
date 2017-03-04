@@ -127,10 +127,10 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 				<div className={`ajax-loading-big ${this.props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
 				<ul className="app-view" style={viewSettingStyle}>
 					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
-						<div className="bubble ng-binding">list view</div>
+						<div className="bubble ">list view</div>
 					</li>
-					<li className="hiddenView ng-scope fa fa-th btn-list" data-view="grid" onClick={this.setGridListView}>
-						<div className="bubble ng-binding">grid view</div>
+					<li className="hiddenView fa fa-th btn-list" data-view="grid" onClick={this.setGridListView}>
+						<div className="bubble ">grid view</div>
 					</li>
 				</ul>
 				<div className="list-container" style={{display: this.state.gridView?"none":"block"}}>
@@ -167,8 +167,8 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 									<div className="title">
 										<span className="favorite"><i className="fa fa-heart" style={{color: "#CC3300"}}/> {item.favorite || 0}</span>
 										<span className="rate"><StarsRated count={c}/></span>
-										<p className="model ellipsis ng-binding">{item.name}</p>										
-										<p className="brand ellipsis ng-binding">{item.brand} - {item.type}</p>
+										<p className="model ellipsis ">{item.name}</p>										
+										<p className="brand ellipsis ">{item.brand} - {item.type}</p>
 									</div>
 								</div>
 								</Link>

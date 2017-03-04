@@ -10170,13 +10170,13 @@ var _ref5 = _react2.default.createElement('img', { src: '/img/ajax-loader.gif', 
 
 var _ref6 = _react2.default.createElement(
 	'div',
-	{ className: 'bubble ng-binding' },
+	{ className: 'bubble ' },
 	'list view'
 );
 
 var _ref7 = _react2.default.createElement(
 	'div',
-	{ className: 'bubble ng-binding' },
+	{ className: 'bubble ' },
 	'grid view'
 );
 
@@ -10309,7 +10309,7 @@ var ProductsTblPage = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'li',
-						{ className: 'hiddenView ng-scope fa fa-th btn-list', 'data-view': 'grid', onClick: this.setGridListView },
+						{ className: 'hiddenView fa fa-th btn-list', 'data-view': 'grid', onClick: this.setGridListView },
 						_ref7
 					)
 				),
@@ -10370,12 +10370,12 @@ var ProductsTblPage = function (_React$Component) {
 											),
 											_react2.default.createElement(
 												'p',
-												{ className: 'model ellipsis ng-binding' },
+												{ className: 'model ellipsis ' },
 												item.name
 											),
 											_react2.default.createElement(
 												'p',
-												{ className: 'brand ellipsis ng-binding' },
+												{ className: 'brand ellipsis ' },
 												item.brand,
 												' - ',
 												item.type
