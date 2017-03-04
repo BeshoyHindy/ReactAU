@@ -1717,10 +1717,10 @@ module.exports =
 	{
 		http:
 		{
-			host: 'https://node-api-server-chingching.herokuapp.com',
-			port: 443,
-			// host: 'http://localhost',
-			// port: 3003,
+			// host: 'https://node-api-server-chingching.herokuapp.com',
+			// port: 443,
+			host: 'http://localhost',
+			port: 3003,
 		}
 	},
 	web_server:
@@ -10490,7 +10490,9 @@ var Classify = function Classify(props) {
 				_react2.default.createElement(
 					_reactRouter.Link,
 					{ to: '/products/' + props.productType + '/All' },
-					'All'
+					'All (',
+					props.count.All,
+					')'
 				)
 			),
 			props.data.map(function (item, index) {
@@ -10502,7 +10504,9 @@ var Classify = function Classify(props) {
 						{ to: '/products/' + props.productType + '/' + item },
 						' ',
 						item,
-						' '
+						' (',
+						props.count[item],
+						')'
 					)
 				);
 			})
@@ -10542,9 +10546,15 @@ var ProductCategorySidebar = function (_React$Component) {
 	};
 
 	ProductCategorySidebar.prototype.uniqArray = function uniqArray(arrArg) {
-		return arrArg.filter(function (elem, pos, arr) {
+		var count = {};
+		var a = [];
+		a = arrArg.filter(function (elem, pos, arr) {
+			count[elem] === undefined && (count[elem] = 0);
+			count[elem]++;
 			return arr.indexOf(elem) == pos;
 		});
+		count.All = arrArg.length;
+		return { a: a, count: count };
 	};
 
 	ProductCategorySidebar.prototype.render = function render() {
@@ -10566,8 +10576,8 @@ var ProductCategorySidebar = function (_React$Component) {
 					_react2.default.createElement(
 						'ul',
 						null,
-						_react2.default.createElement(Classify, _extends({ title: 'Brand:', data: brands, isActive: this.isActive }, this.props)),
-						_react2.default.createElement(Classify, _extends({ title: 'System:', data: type, isActive: this.isActive }, this.props))
+						_react2.default.createElement(Classify, _extends({ title: 'Brand:', data: brands.a, count: brands.count, isActive: this.isActive }, this.props)),
+						_react2.default.createElement(Classify, _extends({ title: 'System:', data: type.a, count: type.count, isActive: this.isActive }, this.props))
 					)
 				)
 			);

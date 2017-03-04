@@ -27,11 +27,11 @@ ProductIndexSidebar.propTypes = {
 const Classify =  (props) => (
 			<li>{props.title}
 				<ul>
-					<li className={props.isActive( 'All' )}><Link to={`/products/${props.productType}/All`} >All</Link></li>
+					<li className={props.isActive( 'All' )}><Link to={`/products/${props.productType}/All`} >All ({props.count.All})</Link></li>
 					{
 						props.data.map((item, index) => (
 							<li key={index}  className={props.isActive( item )}>
-								<Link to={`/products/${props.productType}/${item}`}> {item} </Link>
+								<Link to={`/products/${props.productType}/${item}`}> {item} ({props.count[item]})</Link>
 							</li>
 						))
 					}
@@ -43,6 +43,7 @@ Classify.propTypes = {
 	title: React.PropTypes.string,
 	isActive: React.PropTypes.func.isRequired,
 	params:  React.PropTypes.object,
+	count:  React.PropTypes.object,
 	productType:   React.PropTypes.string
 };
 
@@ -71,7 +72,15 @@ class ProductCategorySidebar extends React.Component{
 			return ((value===this.state.selected) ?'active':'');
 		}
 		uniqArray(arrArg){
-			return arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
+			let count = {};
+			let a = [];
+			a = arrArg.filter((elem, pos, arr) => {
+				count[elem] === undefined && (count[elem] = 0);
+				count[elem]++; 
+				return arr.indexOf(elem) == pos;
+			});
+			count.All = arrArg.length;
+			return  {a, count};
 		}
 		render() {
 			if (!isvalidRoute(this.props.productType, this.props.ProductsTbl)){
@@ -83,8 +92,8 @@ class ProductCategorySidebar extends React.Component{
 					<div>
 						<div className="col-sm-12 cat">
 							<ul >
-								<Classify title="Brand:" data={brands} isActive={this.isActive} {...this.props}/>
-								<Classify title="System:" data={type} isActive={this.isActive} {...this.props}/>
+								<Classify title="Brand:" data={brands.a} count={brands.count} isActive={this.isActive} {...this.props}/>
+								<Classify title="System:" data={type.a} count={type.count} isActive={this.isActive} {...this.props}/>
 							</ul>
 						</div>
 					</div>
