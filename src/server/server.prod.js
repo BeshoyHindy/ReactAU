@@ -3,6 +3,7 @@
 import compression from 'compression';
 import express from 'express';
 import http from 'http';
+import https from 'https';
 import httpProxy from 'http-proxy';
 import path from 'path';
 import cookieParser from 'cookie-parser';
@@ -10,6 +11,8 @@ import request from 'request';
 import cors from 'cors';
 import helmet from 'helmet';
 import xssFilters from 'xss-filters';
+import {CronJob} from "cron";
+import fs from 'fs';
 
 import requestHandler from './requestHandler';
 import { api_server, web_server ,development } from '../../.config/configuration';
@@ -17,13 +20,66 @@ import { api_server, web_server ,development } from '../../.config/configuration
 const port = web_server.http.port || 3000;
 const host = web_server.http.host || 'localhost';
 
+let publicPath = path.resolve( process.cwd(), "./public");
+let viewPath = path.resolve(process.cwd(), "./src/server/views");
+
+const ga_host = "www.google-analytics.com";
+const ga_path = "/analytics.js";
+const ga_local = "./public/local-ga.js";
+
+function updateGA() {
+	console.log("updateGA.......")
+    let req = https.request({
+        host: ga_host,
+		family: 4,
+		port: 443,		
+        path: ga_path,
+		method: 'GET',
+		headers: {
+			accept: '*/*'
+		}
+    }, function(response) {
+        // Continuously update stream with data
+        let body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+			fs.writeFile(ga_local, body, 'utf8', function(err){
+				if (err) {
+					// throw err;	
+					console.log('updateGA fail', err);
+				} 
+				else{
+					console.log('updateGA success');
+				}
+			});
+        });
+    });
+
+	req.end();
+
+	req.on('error', function(e) {
+		console.log('updateGA fail', e);
+	});
+}
+// Run this cron job every Sunday (0) at 7:00:00 AM
+let job = new CronJob(	{
+		cronTime: "00 00 7 * * 0",
+		onTick: updateGA,
+		start: true,
+		runOnInit: true
+	}
+  );
+
+job.start();
+// updateGA();
+
 global.__CLIENT__ = false; // eslint-disable-line
 delete process.env.BROWSER;
 
 const app = express();
 
-let publicPath = path.resolve( process.cwd(), "./public");
-let viewPath = path.resolve(process.cwd(), "./src/server/views");
 const oneDay = 86400000;
 app.use(helmet());
 // app.use(helmet.noCache());   
@@ -77,7 +133,6 @@ app.use('/api', function(req, res, next) {
 app.set('views', viewPath);
 app.use( express.static(publicPath, { maxAge: oneDay * 7 }));
 app.use(requestHandler);
-
 
 //console.log(path.join(__dirname, '../../dist/public'));
 app.listen(port, function(err) {
