@@ -1458,10 +1458,10 @@ module.exports =
 	{
 		http:
 		{
-			// host: 'https://node-api-server-chingching.herokuapp.com',
-			// port: 443,
-			host: 'http://localhost',
-			port: 3003,
+			host: 'https://node-api-server-chingching.herokuapp.com',
+			port: 443,
+			// host: 'http://localhost',
+			// port: 3003,
 		}
 	},
 	web_server:
