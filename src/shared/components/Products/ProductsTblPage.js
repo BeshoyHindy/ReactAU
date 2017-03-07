@@ -201,9 +201,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-ProductsTblPage = connect(mapStateToProps)(
-    connectDataFetchers(ProductsTblPage, [ getDevice ])
-);
+ProductsTblPage = connect(mapStateToProps)(ProductsTblPage);
 
 export default ProductsTblPage;
 

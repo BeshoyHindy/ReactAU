@@ -1,7 +1,7 @@
 /* eslint import/no-unresolved: 0*/
 export function fetchComponentsData({ dispatch, components, params, query,  route, device }) {
     const promises = components.map(current => {
-        //console.log(current);
+
 		if (!current)  return null;
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         

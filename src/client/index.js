@@ -9,7 +9,7 @@ import "font-awesome-sass-loader";
 require.context('../shared/fonts', true, /\.?/);
 
 
-// import Routes from './route/index';
+// import createRoutes from '../shared/route/index';
 import createRoutes  from '../shared/route/lazyRoute';
 import configureStore from '../shared/store/configureStore';
 import { loadCategories } from '../shared/actions/adminActions';
@@ -33,8 +33,8 @@ match({ history, routes}, (error, redirectLocation, renderProps) => {
 	}
 	render(
 		<Provider store={store}>
-			<Router history={history} {...renderProps} >
-				{routes}
+			<Router history={history} {...renderProps} routes={routes}>
+				
 			</Router>
 		</Provider>,
 		document.getElementById('rootWrap')

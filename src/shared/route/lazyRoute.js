@@ -1,75 +1,167 @@
 import React from 'react';
 import { Router, Route, IndexRoute, IndexLink, browserHistory } from 'react-router';
 
-import { Root} from '../components/index';
+import Root from '../components/index';
+import HomePage from '../components/HomePage';
 import '../lib/ensure-polyfill';
 //https://github.com/reactjs/react-router-redux/issues/179
+if (typeof System === "undefined") {
+  var System = {
+    import: function(path) {
+      return Promise.resolve(require(path));
+    }
+  };
+}
 
-
-//https://github.com/webpack/webpack/issues/959
-//when use require.ensure, don't use arrow function!!!
-export default (store, hideXsNav) => ({
-  path: '/',
-  component: Root,
-  getChildRoutes(location, cb) {
-    require.ensure([], function(require) {
-      cb(null, [
-        require('./HomePage').default(store, hideXsNav),
-        require('./SigninPage').default(store, hideXsNav),
-        require('./SignupPage').default(store, hideXsNav),
-        require('./UserPage').default(store, hideXsNav),
-        require('./ProductsPage').default(store, hideXsNav),
-        require('./AboutPage').default(store, hideXsNav),
-        require('./ContactPage').default(store, hideXsNav),
-        require('./AdminPage').default(store, hideXsNav),
-        require('./UnauthorizedPage').default(store, hideXsNav),
-        require('./NotFoundPage').default(store, hideXsNav),
-      ]);
-    });
-  },
-  getIndexRoute(location, cb) {
-    require.ensure([], function(require) {
-      cb(null, {
-        component: require('../components/HomePage').default,
+function errorLoading(err) {
+	console.error('Dynamic page loading failed', err);
+}
+function loadRoute(cb) {
+	return (module) => cb(null, module.default);
+}
+function loadIndexRoute(cb) {
+	return (module) => cb(null, {
+        component: module.default,
       });
-    });
-  },
+}
+export default (store, hideXsNav) => ({
+	path: '/',
+	component: Root,
+	getIndexRoute(location, cb) {
+		System.import('../components/HomePage').then(loadIndexRoute(cb)).catch(errorLoading);
+	},
+	childRoutes: [
+		{
+			path: 'home',
+			authorize: ['reAuth'], 
+			onEnter: hideXsNav ,
+			component: HomePage,
+		},
+		{
+			path: 'signin',
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/SigninPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: 'signup',
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/SignupPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: 'user',
+			authorize: ['normal'],
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components//UserPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: 'aboutus',
+			authorize: ['reAuth'],
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/AboutPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: 'contact',
+			authorize: ['reAuth'],
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/ContactPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: 'products',
+			authorize: ['reAuth'],
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/ProductsPage').then(loadRoute(cb)).catch(errorLoading);
+			},
+			childRoutes: [
+				{
+					path: ':product',
+					authorize: ['reAuth'], 
+					onEnter: hideXsNav ,
+					getComponents(nextState, cb) {
+						var ProductCategory, ProductCategorySidebar;
+						System.import('../components/Products/ProductCategory').then((module)=> {
+							ProductCategory = module.default;
+							return System.import('../components/Products/Sidebar/ProductCategorySidebar');
+						}).then((module)=> {
+							ProductCategorySidebar = module.default;
+							cb(null, {content: ProductCategory, sidebar: ProductCategorySidebar});
+						}).catch(errorLoading);						
+					},
+					childRoutes: [
+						{
+							path: 'spec/:id',
+							authorize: ['reAuth'], 
+							onEnter: hideXsNav ,
+							getComponent(location, cb) {
+								System.import('../components/Products/DetailsPage').then(loadRoute(cb)).catch(errorLoading);
+							}
+						},
+						{
+							path: ':ProductsTbl',
+							authorize: ['reAuth'], 
+							onEnter: hideXsNav ,
+							getComponent(location, cb) {
+								System.import('../components/Products/ProductsTblPage').then(loadRoute(cb)).catch(errorLoading);
+							}
+						},
+					]
+				},
+			]
+		},
+		{
+			path: 'admin',
+			authorize: ['normal','admin'],
+			onEnter: hideXsNav ,
+			getComponent(location, cb) {
+				System.import('../components/AdminPage').then(loadRoute(cb)).catch(errorLoading);
+			},
+			childRoutes: [
+				{
+					path: 'productChange/:id',
+					onEnter: hideXsNav ,
+					getComponent(location, cb) {
+						System.import('../components/Admin/AdminEditProductPage').then(loadRoute(cb)).catch(errorLoading);
+					},					
+				},
+				{
+					path: 'productList/:cat',
+					onEnter: hideXsNav ,
+					getComponent(location, cb) {
+						System.import('../components/Admin/AdminListProductPage').then(loadRoute(cb)).catch(errorLoading);
+					},					
+				},
+				{
+					path: 'addUser',
+					onEnter: hideXsNav ,
+					getComponent(location, cb) {
+						System.import('../components/Admin/AddUserPage').then(loadRoute(cb)).catch(errorLoading);
+					},					
+				},
+			]
+		},
+		{
+			path: 'unauthorized',
+			getComponent(location, cb) {
+				System.import('../components/UnauthorizedPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+		{
+			path: '*',
+			getComponent(location, cb) {
+				System.import('../components/NotFoundPage').then(loadRoute(cb)).catch(errorLoading);
+			}
+		},
+	]
 });
 
 
-// const Routes = (props) => {
-// 	let {store, history} = props;
-// 	return (
-// 	<Router history={history}>
-// 		<Route path="/" component={Root}>
-// 			<IndexRoute component={HomePage}/>
-// 			<Route path="home" authorize={['reAuth']} component={HomePage} onEnter={props.hideXsNav} />
-// 			<Route path="signin" component={SigninPage} onEnter={props.hideXsNav} />
-// 			<Route path="signup" component={SignupPage} onEnter={props.hideXsNav} />
-// 			<Route path="user" authorize={['normal']} component={UserPage} onEnter={props.hideXsNav} />
-// 			<Route path="products" authorize={['reAuth']} component={ProductsPage} >
-// 				<Route path=":product" components={{ content: ProductCategory, sidebar: ProductCategorySidebar }} onEnter={props.hideXsNav} >
-// 					<Route path="spec/:id" component={DetailsPage} onEnter={props.hideXsNav} />
-// 					<Route path=":ProductsTbl" component={ProductsTblPage} onEnter={props.hideXsNav} />
-// 				</Route>
-// 			</Route>
-// 			<Route path="aboutus" authorize={['reAuth']} component={AboutPage} onEnter={props.hideXsNav} />
-// 			<Route path="contact" authorize={['reAuth']} component={ContactPage} onEnter={props.hideXsNav} />
-// 			<Route path="admin" authorize={['normal','admin']} component={AdminPage} onEnter={props.hideXsNav} >				
-// 				<Route path="productChange/:id" component={AdminEditProductPage} onEnter={props.hideXsNav} />
-// 				<Route path="productList/:cat" component={AdminListProductPage} onEnter={props.hideXsNav} />					
-// 				<Route path="addUser" component={AddUserPage} onEnter={props.hideXsNav} />					
-// 			</Route>
-// 			<Route path="unauthorized" component={UnauthorizedPage} />
-// 			<Route path="*" component={NotFoundPage} />
-// 		</Route>
-// 		<Route path="*" component={NotFoundPage} />
-// 	</Router>);
-// }
-// Routes.propTypes = {
-// 	history: React.PropTypes.object.isRequired,
-// 	hideXsNav: React.PropTypes.func.isRequired
-// };
-
-
-// export default Routes;

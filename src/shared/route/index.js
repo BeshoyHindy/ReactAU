@@ -7,9 +7,10 @@ import SigninPage from '../components/SigninPage';
 import UserPage from '../components/UserPage';
 import AboutPage from '../components/AboutPage';
 import ContactPage from '../components/ContactPage';
-import {ProductCategorySidebar, ProductIndexSidebar} from '../components/Products/Sidebar/CategorySidebar';
-import {ProductsPage } from '../components/ProductsPage';
-import { ProductCategory} from '../components/Products/ProductCategory';
+import ProductCategorySidebar from '../components/Products/Sidebar/ProductCategorySidebar';
+import ProductIndexSidebar from '../components/Products/Sidebar/ProductIndexSidebar';
+import ProductsPage from '../components/ProductsPage';
+import ProductCategory from '../components/Products/ProductCategory';
 import ProductsTblPage from '../components/Products/ProductsTblPage';
 import DetailsPage from '../components/Products/DetailsPage';
 
@@ -19,9 +20,9 @@ import AdminListProductPage from '../components/Admin/AdminListProductPage';
 import AddUserPage from '../components/Admin/AddUserPage';
 
 
-import { Root}  from '../components/index';
+import Root from '../components/index';
 import NotFoundPage from '../components/NotFoundPage';
-import { UnauthorizedPage} from '../components/UnauthorizedPage';
+import UnauthorizedPage from '../components/UnauthorizedPage';
 //https://github.com/reactjs/react-router-redux/issues/179
 
 const Routes = (props) => {

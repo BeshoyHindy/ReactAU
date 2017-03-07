@@ -13,4 +13,4 @@ ProductCategory.propTypes = {
 	children: React.PropTypes.node
 };
 
-export {ProductCategory};
+export default ProductCategory;

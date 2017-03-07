@@ -7,7 +7,8 @@ import { match, RouterContext, createMemoryHistory } from 'react-router';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
 
-import createRoutes from '../shared/route/index';
+import createRoutes from '../shared/route/lazyRoute';
+// import createRoutes from '../shared/route/index';
 import configureStore from '../shared/store/configureStore';
 import {hodeXsNavAction} from '../shared/actions/modalAction';
 
@@ -51,7 +52,7 @@ function handleRender(req, res)
 	} else if (renderProps == null) {
 		res.status(404).render('404');
 	} else {
-		// console.log(renderProps.routes[renderProps.routes.length - 1]);
+		
 		fetchComponentsData({
                  dispatch   : store.dispatch,
                  components : renderProps.components,

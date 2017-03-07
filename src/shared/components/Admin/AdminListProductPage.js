@@ -3,13 +3,10 @@ import React from 'react';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 import { Breadcrumb , BigHeader, OrangeBoard} from "../Shared/Shared";
-import { loadCategories } from '../../actions/adminActions';
 import { loadProductList } from '../../actions/productsActions';
-import DetailApi from '../../api/DetailsApi';
-import {productEditColDetail} from '../../Data/General';
 import ProductsTblPage from '../Products/ProductsTblPage';
 
-class AdminEditProductPage extends React.Component{
+class AdminListProductPage extends React.Component{
 	constructor(props) {
 		super(props);
 		this.setCategory = this.setCategory.bind(this);
@@ -59,7 +56,7 @@ class AdminEditProductPage extends React.Component{
 }
 
 
-AdminEditProductPage.propTypes = {
+AdminListProductPage.propTypes = {
 	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	products:  React.PropTypes.array,
@@ -68,7 +65,7 @@ AdminEditProductPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	//console.log("mapStateToProps", state);
+// console.log("AdminListProductPage - mapStateToProps", state);
   return {
    products: state.products,
     categories: state.categories,
@@ -77,7 +74,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const AdminListProductPageWrap = connect(mapStateToProps)(
-    connectDataFetchers(AdminEditProductPage, [ loadProductList])
+    connectDataFetchers(AdminListProductPage, [ loadProductList ])
 );
 
 export default AdminListProductPageWrap;

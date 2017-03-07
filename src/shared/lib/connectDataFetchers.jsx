@@ -23,7 +23,7 @@ export default function connectDataFetchers(Component, actionCreators) {
         };
 
         static fetchData({ dispatch, params = {}, query = {},  route= [], device}) {          
-            //console.log("fetchData", actionCreators);  
+
             let promiseArray = actionCreators.map(actionCreator => {                    
                     return actionCreator?(dispatch(actionCreator({ params, query,  device }))):null;
                 });       
@@ -59,6 +59,7 @@ export default function connectDataFetchers(Component, actionCreators) {
 
         componentDidMount() {
             if (IS_FIRST_MOUNT_AFTER_LOAD) {
+
                 let {dispatch, routes} = this.props; 
                 const routeRoles = _flow(
                     _filter(item => item.authorize), // access to custom attribute
@@ -90,10 +91,8 @@ export default function connectDataFetchers(Component, actionCreators) {
 
 
         _fetchDataOnClient() {
-            const locale = this.context.i18n ? this.context.i18n.getLocale() : 'en';
 
             DataFetchersWrapper.fetchData({
-                locale,
                 dispatch : this.props.dispatch,
                 params   : this.props.params,
                 query    : this.props.location.query,

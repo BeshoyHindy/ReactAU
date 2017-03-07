@@ -10,4 +10,4 @@ const UnauthorizedPage = (props) 	=> (
 
 
 
-export {UnauthorizedPage};
+export default UnauthorizedPage;

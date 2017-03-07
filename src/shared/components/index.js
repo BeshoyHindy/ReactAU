@@ -224,4 +224,4 @@ function mapStateToProps(state) {
 
 Root = connect(mapStateToProps)(connectDataFetchers(Root, [ loadCategories, getDevice ]));
 
-export { Root};
+export default Root;

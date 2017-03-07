@@ -8,7 +8,7 @@ import { Link} from 'react-router';
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 
-import { ProductIndexSidebar, } from './Products/Sidebar/CategorySidebar';
+import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
 import { ProductIndex } from './Products/ProductIndex';
 import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
@@ -91,4 +91,4 @@ const ProductsPage = connect(mapStateToProps)(
     connectDataFetchers(ProductsP, [ loadProducts ])
 );
 
-export { ProductsPage };
+export default  ProductsPage ;
