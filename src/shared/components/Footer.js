@@ -28,6 +28,6 @@ const Footer = (props) => (
 					<li><i className="fa fa-home" aria-hidden="true"></i> | {contactData.map((item ,id) => (item.title === "Address") && <PureList key={id} data={item.content}/>  )}</li>
 				</ul>
 			</div>
-</div>)
+</div>);
 
 export default Footer;

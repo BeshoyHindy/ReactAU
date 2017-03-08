@@ -1,4 +1,4 @@
-import {ProductsPage } from '../../components/ProductsPage';
+import ProductsPage from '../../components/ProductsPage';
 
 export default (store, hideXsNav) => ({
   path: 'products',

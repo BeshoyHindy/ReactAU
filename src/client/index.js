@@ -9,8 +9,6 @@ import "font-awesome-sass-loader";
 require.context('../shared/fonts', true, /\.?/);
 
 
-// import createRoutes from '../shared/route/index';
-import createRoutes  from '../shared/route/lazyRoute';
 import configureStore from '../shared/store/configureStore';
 import { loadCategories } from '../shared/actions/adminActions';
 import {hodeXsNavAction} from '../shared/actions/modalAction';
@@ -24,14 +22,42 @@ function hideXsNav() {
 	store.dispatch(hodeXsNavAction);
 }
 
-let routes = createRoutes(store, hideXsNav);
+let Routes;
 
 
-render(
-	<Provider store={store}>
-		<Router history={history} routes={routes}>
-			
-		</Router>
-	</Provider>,
-	document.getElementById('rootWrap')
-);
+
+if (process.env.NODE_ENV === 'production') {
+	//enable code spliting for production
+	let createRoutes = require('../shared/route/lazyRoute').default;
+	Routes = createRoutes(store, hideXsNav);
+	render(
+		<Provider store={store}>
+			<Router history={history} routes={Routes} />
+		</Provider>,
+		document.getElementById('rootWrap')
+	);
+}else{
+	//disable code spliting for development, then HMR work
+
+	Routes = require('../shared/route/index');
+	//https://github.com/reactjs/react-router-redux/issues/179
+	//need to wrap as compnent to let HMR work
+	class App extends React.Component {
+		hideXsNav() {
+			store.dispatch(hodeXsNavAction);
+		}
+		render() {
+			return (
+				<Provider store={store}>
+					<Routes history={history} hideXsNav={this.hideXsNav}/>
+				</Provider>
+			);
+		}
+	}
+	render(
+		<App/>,
+		document.getElementById('rootWrap')
+	);
+}
+
+

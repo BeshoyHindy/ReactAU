@@ -140,7 +140,7 @@ let config = {
 		assets: false,
 		chunks: true,
 		modules: true,
-		reasons: false,
+		reasons: true,
 		children: false,
 		source: false,
 		errors: true,

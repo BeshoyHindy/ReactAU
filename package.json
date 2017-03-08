@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build:dll": "webpack  --verbose --colors --display-error-details --config=webpack/webpack.config.dll.js",
-    "build": "cross-env NODE_ENV=production webpack --verbose --colors --display-error-details --config=webpack/webpack.config.prod.js",
+    "build": "cross-env NODE_ENV=production webpack -p --verbose --colors --display-error-details --config=webpack/webpack.config.prod.js",
     "postbuild": "node server.generated.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
@@ -69,6 +69,7 @@
     "babel-loader": "^6.2.9",
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-transform-react-constant-elements": "^6.22.0",
+    "babel-plugin-transform-react-inline-elements": "^6.22.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.3.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",

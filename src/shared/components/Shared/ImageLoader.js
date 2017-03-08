@@ -8,7 +8,7 @@ class ImageLoader extends React.Component{
 		super(props);
 		this.state = {
 			show: props.showTransition
-		}
+		};
 		this.handleImageLoaded = this.handleImageLoaded.bind(this);
 	}
 	componentDidMount() {
@@ -33,7 +33,7 @@ class ImageLoader extends React.Component{
 		let loadingStyle={
 			minHeight: minHeight,
 			backgroundImage: this.state.show?"none":this.props.loadingGif 
-		}
+		};
 		return(
 			<div className={cssClass} style={loadingStyle}>
 				<img src={src} alt={alt} style={{opacity: this.state.show?"1":"0"}} className={imgCssClass} title={this.props.title}  
@@ -56,6 +56,6 @@ ImageLoader.propTypes = {
 
 ImageLoader.defaultProps = {
 	loadingGif: "url('/img/ajax-loader.gif')"
-}
+};
 
 export {ImageLoader};				

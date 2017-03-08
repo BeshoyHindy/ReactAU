@@ -180,7 +180,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 			);
 		}
 	}
-}
+};
 
 
 ProductsTblPage.propTypes = {

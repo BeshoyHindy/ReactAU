@@ -3,8 +3,6 @@ import { Router, Route, IndexRoute, IndexLink, browserHistory } from 'react-rout
 
 import Root from '../../components/index';
 import '../../lib/ensure-polyfill';
-//https://github.com/reactjs/react-router-redux/issues/179
-
 
 //https://github.com/webpack/webpack/issues/959
 //when use require.ensure, don't use arrow function!!!
