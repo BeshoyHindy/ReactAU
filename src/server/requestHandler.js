@@ -7,8 +7,11 @@ import { match, RouterContext, createMemoryHistory } from 'react-router';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
 
-import createRoutes from '../shared/route/lazyRoute';
-// import createRoutes from '../shared/route/index';
+// import createRoutes from '../shared/route/lazyRoute';
+// disable code split on server side rendering
+import createRoutes from '../shared/route/index';
+// disable code split on server side rendering
+
 import configureStore from '../shared/store/configureStore';
 import {hodeXsNavAction} from '../shared/actions/modalAction';
 

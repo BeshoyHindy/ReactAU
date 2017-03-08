@@ -27,16 +27,11 @@ function hideXsNav() {
 let routes = createRoutes(store, hideXsNav);
 
 
-match({ history, routes}, (error, redirectLocation, renderProps) => {
-	if (error) {
-		console.log(error);
-	}
-	render(
-		<Provider store={store}>
-			<Router history={history} {...renderProps} routes={routes}>
-				
-			</Router>
-		</Provider>,
-		document.getElementById('rootWrap')
-	);
-});
+render(
+	<Provider store={store}>
+		<Router history={history} routes={routes}>
+			
+		</Router>
+	</Provider>,
+	document.getElementById('rootWrap')
+);
