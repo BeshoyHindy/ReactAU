@@ -3,6 +3,10 @@ if (process.env.BROWSER) {
 }
 import React from 'react';
 import {ImageLoader} from './Shared/ImageLoader';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { getDevice } from '../actions/deviceAction';
+import { loadCategories } from '../actions/adminActions';
+import { connect } from 'react-redux';
 
 import {BrandsData} from '../Data/AboutData';
 import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared/Shared";
@@ -15,7 +19,7 @@ const AboutPage = (props) => (
 	<div className="container">
 		<div className="row">
 			<div className="col-lg-12">
-				<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"", desc:"About Us"}]}/>
+				<Breadcrumb linkPair={[{link:"/home", desc:"Home"},{link:"", desc:"About Us"}]}/>
 				<BigHeader smallTitle="Provide friendly services and reliable support">About Us</BigHeader>
 			</div>
 			<div className="col-sm-9">
@@ -66,5 +70,5 @@ const AboutPage = (props) => (
 
 AboutPage.propTypes = {
 };
+export default connect(null)(connectDataFetchers(AboutPage, [ loadCategories, getDevice ]));
 
-export default AboutPage;

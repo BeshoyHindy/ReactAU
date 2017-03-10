@@ -1,11 +1,11 @@
-import { Link} from 'react-router';
+import { Link} from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import { navData } from '../../Data/RouteData';
 import * as modalActions from '../../actions/modalAction';
 
-const AtomLink = (props) =>  (<li> <Link to={props.a.link} activeClassName={props.activeClass}  > {props.a.desc} </Link></li>);
+const AtomLink = (props) =>  (<li> <Link to={props.a.link}> {props.a.desc} </Link></li>);
 AtomLink.propTypes = {
   a: React.PropTypes.object,
   activeClass: React.PropTypes.string
@@ -39,7 +39,7 @@ const TopParentLink = (props) => {
 		return (
 			<li>
 				<div className="parent">
-					<Link to={props.item.link}   activeClassName="active" >{props.item.desc}</Link><span className="caret" />
+					<Link to={props.item.link} >{props.item.desc}</Link><span className="caret" />
 				</div>
 				<ul className="dropdown-menu">
 					{
@@ -90,10 +90,10 @@ NavBar.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { 
-	showXsNav: state.modal.showXsNav,	
+  return {
+	showXsNav: state.modal.showXsNav,
   };
-}	
+}
 
 NavBar = connect(mapStateToProps, { ...modalActions})(NavBar);
 

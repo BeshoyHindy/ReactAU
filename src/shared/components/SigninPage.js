@@ -8,6 +8,7 @@ import {  Field, reduxForm } from 'redux-form';
 
 import * as actions from '../actions/authAction';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { getDevice } from '../actions/deviceAction';
 import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb } from "./Shared/Shared";
 import  {renderField} from "./Shared/renderReduxForm";
@@ -51,7 +52,7 @@ class SigninPage extends React.Component {
 		<div className="container">
 			<div className="row">
 				<div className="col-lg-12 ">
-					<Breadcrumb linkPair={[{link:"user", desc:"User"},{link:"signup", desc:"Sign Up"}]}/>
+					<Breadcrumb linkPair={[{link:"/user", desc:"User"},{link:"/signup", desc:"Sign Up"}]}/>
 					<div className="well">
 						<div className="panel panel-danger sign-up-panel">
 							<div className="panel-heading">
@@ -114,8 +115,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(reduxForm({
-													form: 'signup',
-													validate,                // <--- validation function given to redux-form
-												} )(SigninPage));
 
+export default connect(mapStateToProps, actions)(connectDataFetchers(reduxForm({
+														form: 'signin',
+														validate,                // <--- validation function given to redux-form
+													})(SigninPage), [ loadCategories, getDevice ]));

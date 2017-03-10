@@ -4,55 +4,56 @@ if (process.env.BROWSER) {
 
 
 import { connect } from 'react-redux';
-import { Link} from 'react-router';
+import { Route, Link} from 'react-router-dom';
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-
-import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
+import { getDevice } from '../actions/deviceAction';
 import { ProductIndex } from './Products/ProductIndex';
 import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
-
+import { loadCategories } from '../actions/adminActions';
 import { loadProducts } from '../actions/productsActions';
 
-class ProductsP extends React.Component{
+
+import ProductCategorySidebar from './Products/Sidebar/ProductCategorySidebar';
+import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
+import ProductCategory from './Products/ProductCategory';
+import ProductsTblPage from './Products/ProductsTblPage';
+
+
+let ProductsPage = class ProductsPage extends React.Component{
 		constructor(props) {
 			super(props);
 			this.getProductContent = this.getProductContent.bind(this);
 			this.getProductSidebar = this.getProductSidebar.bind(this);
 		}
 		getProductContent() {
-			if(!this.props.content){
-				return <ProductIndex/>;
-			}
-			let ProductsTbl = this.props.params.ProductsTbl;
-			let filtered = this.props.products;
+			let {match, products, ajaxState} = this.props ;
+			let ProductsTbl = match.params.ProductsTbl;
+			let filtered = products;
 			if (ProductsTbl && ProductsTbl !== "All"){
-				filtered = this.props.products.filter( item => {
+				filtered = products.filter( item => {
 					return item.type == ProductsTbl
 						|| item.brand == ProductsTbl;
 				});
 			}
-			let ProductContentComponentElement
-				= React.cloneElement(this.props.content, {products: filtered, productType:this.props.params.product, ajaxState:this.props.ajaxState});
-			return ProductContentComponentElement;
+			return (<ProductsTblPage products={filtered} productType={match.params.product} ajaxState={ajaxState}
+							params={match.params}/>);
+
 		}
 		getProductSidebar() {
-			if(!this.props.sidebar){
-				return <ProductIndexSidebar/>;
-			}
-			let ProductSidebarComponentElement
-				= React.cloneElement(this.props.sidebar, {products: this.props.products, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
-			return ProductSidebarComponentElement;
+			let {match, products} = this.props ;
+			return (<ProductCategorySidebar products={products} productType={match.params.product} ProductsTbl={match.params.ProductsTbl} params={match.params}/>);
 		}
 		render() {
+			let {match} = this.props ;
 			let linkpair = [
-							{link:"Home", desc:"Home"},
+							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
 						];
-			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
-			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
+			match.params.product && linkpair.push({link:"/products/" + match.params.product + "/All", desc:match.params.product}	);
+			match.params.ProductsTbl && linkpair.push({link:"", desc:match.params.ProductsTbl});
 
 			return (
 			<div className="container">
@@ -61,7 +62,7 @@ class ProductsP extends React.Component{
 						<Breadcrumb linkPair={linkpair}/>
 					</div>
 					<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-						{ this.getProductSidebar() }
+						{ this.getProductSidebar() }						
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
@@ -72,10 +73,10 @@ class ProductsP extends React.Component{
 			);
 		}
 }
-ProductsP.propTypes = {
+ProductsPage.propTypes = {
 	content: React.PropTypes.node,
 	sidebar: React.PropTypes.node,
-	params:  React.PropTypes.object,
+	match:  React.PropTypes.object,
 	products:  React.PropTypes.array,
 	ajaxState:  React.PropTypes.number,
 };
@@ -87,8 +88,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const ProductsPage = connect(mapStateToProps)(
-    connectDataFetchers(ProductsP, [ loadProducts ])
+ProductsPage = connect(mapStateToProps)(
+    connectDataFetchers(ProductsPage, [ loadProducts, getDevice, loadCategories ])
 );
 
 export default  ProductsPage ;

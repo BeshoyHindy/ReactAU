@@ -1,20 +1,17 @@
 import React, { PropTypes } from 'react';
-import _map from "lodash/fp/map";
-import _flattenDeep from "lodash/fp/flattenDeep";
-import _flow from "lodash/fp/flow";
-import _filter from "lodash/fp/filter";
 
-import * as actions from '../actions/authAction';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
 
 export default function connectDataFetchers(Component, actionCreators) {
     return class DataFetchersWrapper extends React.Component {
-        static contextTypes = { i18n: PropTypes.object };
-
         static propTypes = {
             dispatch : PropTypes.func.isRequired,
-            params   : PropTypes.object.isRequired,
+            match   : PropTypes.shape({
+                path : PropTypes.string.required,
+                url   : PropTypes.string,
+                query    : PropTypes.string.object
+            }).isRequired,
             location : PropTypes.shape({
                 pathname : PropTypes.string.required,
                 search   : PropTypes.string,
@@ -22,14 +19,14 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired
         };
 
-        static fetchData({ dispatch, params = {}, query = {},  route= [], device}) {          
+        static fetchData({ dispatch, params = {}, query = {},  authorize= [], device}) {          
 
             let promiseArray = actionCreators.map(actionCreator => {                    
                     return actionCreator?(dispatch(actionCreator({ params, query,  device }))):null;
                 });       
 
-            if (process.env.BROWSER && route.authorize && route.authorize.length){
-                promiseArray.concat( route.authorize.map( role => {
+            if (process.env.BROWSER && authorize && authorize.length){
+                promiseArray.concat( authorize.map( role => {
                     switch (role) {
                         case "admin":
                             return dispatch(actions.userCheckAdmin());
@@ -58,17 +55,10 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
 
         componentDidMount() {
+			let {authorize} = this.props;
             if (IS_FIRST_MOUNT_AFTER_LOAD) {
-
-                let {dispatch, routes} = this.props; 
-                const routeRoles = _flow(
-                    _filter(item => item.authorize), // access to custom attribute
-                    _map(item => item.authorize),
-                    _flattenDeep,                    
-                )(routes);
-
-                if (process.env.BROWSER && routeRoles && routeRoles.length){
-                    let promiseArray =  routeRoles.map( role => {
+                if (process.env.BROWSER && authorize && authorize.length){
+                    let promiseArray =  authorize.map( role => {
                         switch (role) {
                             case "admin":
                                 return dispatch(actions.userCheckAdmin());
@@ -101,6 +91,12 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
 
         render() {
+			let {staticContext, location, match, authorize} = this.props;
+			if (staticContext){
+				staticContext.location = location;
+				staticContext.match = match;
+				staticContext.authorize = authorize;
+			}
             return (
                 <Component {...this.props} />
             );

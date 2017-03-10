@@ -3,6 +3,9 @@ if (process.env.BROWSER) {
 }
 import React from 'react';
 import { connect } from 'react-redux';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { getDevice } from '../actions/deviceAction';
+import { loadCategories } from '../actions/adminActions';
 
 let AdminPage = (props) => { 
   return (
@@ -33,7 +36,9 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-AdminPage = connect(mapStateToProps)(AdminPage);
+AdminPage = connect(mapStateToProps)(
+    connectDataFetchers(AdminPage, [ loadCategories, getDevice ])
+);
 
 
 export default AdminPage;

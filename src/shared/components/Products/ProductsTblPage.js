@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
-import cloneDeep from 'lodash.clonedeep';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import update from 'immutability-helper';
+
 import { ImageLoader } from '../Shared/ImageLoader';
 import { SortableTbl }  from '../Shared/SortableTbl';
-//import * as detailActions from '../../actions/detailsActions';
 import { Metadata } from "../../Data/ProductTblSettings";
 import { routeBaseLink } from '../../Data/RouteData';
 import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
@@ -19,7 +19,7 @@ const BaseProductTblImageComponent = (props) =>
 	return (
 		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
 			<Link to={routeBaseLink[props.productType] + props.rowData._id}>
-				<ImageLoader src={props.tdData} minHeight="100px" 
+				<ImageLoader src={props.tdData} minHeight="100px"
 					alt={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
 					title={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
 				/>
@@ -65,23 +65,23 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 	}
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
-	}		
+	}
 	handleResize(){
 		let {device} = this.props;
 		let gv = window.outerWidth < 736 || (device.phone || device.mobile);
 		if (!this.state.manualSetGV && gv !== this.state.gridView){
-			this.setState( { 
+			this.setState( {
 				gridView: gv,
 				manualSetGV: false
 			});
 		}
-	}	
+	}
 	setGridListView(e){
 		let gridView = e.target.getAttribute("data-view")==="grid";
-		this.setState( { 
+		this.setState( {
 			gridView:gridView,
 			manualSetGV: true
-		});	
+		});
 	}
 	render () {
 		let {device} = this.props;
@@ -108,7 +108,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 				col.push("delete");
 			}
 
-			let data = cloneDeep(this.props.products);
+			let data = [...this.props.products];
 			for (let item of data) {
 				if (item.images && item.images[0]){
 					item.imageUrl= item.images[0];
@@ -134,7 +134,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 					</li>
 				</ul>
 				<div className="list-container" style={{display: this.state.gridView?"none":"block"}}>
-					<SortableTbl tblData={data} 
+					<SortableTbl tblData={data}
 						tHead={tHead}
 						customTd={[
 									{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
@@ -167,7 +167,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 									<div className="title">
 										<span className="favorite"><i className="fa fa-heart" style={{color: "#CC3300"}}/> {item.favorite || 0}</span>
 										<span className="rate"><StarsRated count={c}/></span>
-										<p className="model ellipsis ">{item.name}</p>										
+										<p className="model ellipsis ">{item.name}</p>
 										<p className="brand ellipsis ">{item.brand} - {item.type}</p>
 									</div>
 								</div>

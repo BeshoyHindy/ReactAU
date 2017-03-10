@@ -1,21 +1,22 @@
 /* eslint import/no-unresolved: 0*/
-export function fetchComponentsData({ dispatch, components, params, query,  route, device }) {
+export function fetchComponentsData({ dispatch, components, params, query,  authorize, device }) {
     const promises = components.map(current => {
 
 		if (!current)  return null;
         const component = current.WrappedComponent ? current.WrappedComponent : current;
         
         return component.fetchData
-            ? component.fetchData({ dispatch, params, query,  route, device })
+            ? component.fetchData({ dispatch, params, query,  authorize, device })
             : null;
     });
 
     return Promise.all(promises);
 }
 
+
 export function getMetaDataFromState({ route, state, params = {}, query = {}, lang, pathname }) {
     /* eslint more/no-duplicated-chains: 0 */
-    if (route === 'aboutus' ) {
+    if (route === '/aboutus' ) {
         return {
             type        : 'ABOUTUS',
             title       : "About Us",

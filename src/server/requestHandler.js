@@ -2,40 +2,28 @@ import fs from 'fs';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext, createMemoryHistory } from 'react-router';
+import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from 'react-router';
+import { matchPath } from 'react-router-dom';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
 
-// import createRoutes from '../shared/route/lazyRoute';
-// disable code split on server side rendering
-import createRoutes from '../shared/route/index';
-// disable code split on server side rendering
-
 import configureStore from '../shared/store/configureStore';
-import {hodeXsNavAction} from '../shared/actions/modalAction';
+import App from '../shared/components/App';
+import routes from '../shared/route';
 
-import { fetchComponentsData,
-         getMetaDataFromState,
-         getIp
-	} from './utils';
+import { getMetaDataFromState, fetchComponentsData} from './utils';
 
 
 let asset = JSON.parse(fs.readFileSync('./webpack-assets.json'));
 let manifest = (process.env.NODE_ENV === 'production')?fs.readFileSync(`./public/build/${asset.manifest.js}`):"";
 
 
-const history = createMemoryHistory();
 const store = configureStore();
 
-function hideXsNav() {
-	store.dispatch(hodeXsNavAction);
-}
-
-function handleRender(req, res) 
+function handleRender(req, res)
 {
-
-	const routes = createRoutes(store, hideXsNav);
+	const context = {};
 	const location = req.url;
 	let vendorJs =(process.env.NODE_ENV === 'production')
 						? `/build/${asset.vendor.js}`
@@ -46,50 +34,67 @@ function handleRender(req, res)
 	asset.bundle.js = (process.env.NODE_ENV === 'production')
 							? asset.bundle.js
 							:'bundle.js';
-				
-  match({ routes, location }, (error, redirectLocation, renderProps) => {
-	if (redirectLocation) {
-		res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-	} else if (error) {
-		res.status(500).render('500', error);
-	} else if (renderProps == null) {
-		res.status(404).render('404');
+
+	const html = ReactDOMServer.renderToString(
+		<Provider store={store}>
+			<StaticRouter location={req.url} context={context} >
+				<App/>
+			</StaticRouter>
+		</Provider>
+	);
+	if (context.url) {
+		res.writeHead(301, {
+			Location: context.url
+		});
+		res.end();
 	} else {
-		
+		// console.log(context, location);
+		const components = [];
+		let match = {};
+		routes.some(route => {
+			match = matchPath(req.url, route);
+			if (match){
+				// console.log("-------------------------------------------------", match, req.url, route);
+				components.push(route.component);
+			}
+			return match;
+		});
+// console.log("==========================================================", req.url);
 		fetchComponentsData({
-                 dispatch   : store.dispatch,
-                 components : renderProps.components,
-                 params     : renderProps.params,
-                 query      : renderProps.location.query,
-                 route      : renderProps.routes[renderProps.routes.length - 1],
-				device,
-                })
-                .then(() => {
-                let reduxState = store.getState();
-                let metaData = getMetaDataFromState({
-                    params : renderProps.params,
-                    query  : renderProps.location.query,
-                    route  : renderProps.routes[renderProps.routes.length - 1].path,
-                    state  : reduxState,
-					pathname: renderProps.location.pathname
-                });
-                
-                const componentHTML = renderToString(
-                    <Provider store={store}>
-                        <RouterContext {...renderProps} />
-                    </Provider>
+				dispatch   : store.dispatch,
+				components : components,
+				params     : match.params || context.match.params,
+				query      : context.location.query,
+				route      : context.authorize,
+			device,
+			})
+			.then(() => {
+			let reduxState = store.getState();
+			let metaData = getMetaDataFromState({
+				params : match.params || context.match.params,
+				query  : context.location.query,
+				route  : match.path || context.match.path,
+				state  : reduxState,
+				pathname: context.location.pathname
+			});
+
+			reduxState = serializeJs(reduxState, { isJSON: true });
+			const componentHTML = ReactDOMServer.renderToString(
+                   <Provider store={store}>
+						<StaticRouter location={req.url} context={context} >
+							<App/>
+						</StaticRouter>
+					</Provider>
                 );
-				reduxState = serializeJs(reduxState, { isJSON: true });
-                res.render('index', { componentHTML, reduxState, vendorJs, metaData, asset, manifest });	
-                })
-                .catch(error => {
-                    console.log( error);
-                    res.status(500).json({
-                        err:error.message
-                    });
-            });
-		}
-	});
+			res.render('index', { componentHTML, reduxState, vendorJs, metaData, asset, manifest });
+			})
+			.catch(error => {
+				console.log( error);
+				res.status(500).json({
+					err:error.message
+				});
+		});
+	}
 }
 
 export default handleRender;

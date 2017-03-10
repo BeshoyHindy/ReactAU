@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { loadCategories } from '../../actions/adminActions';
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
-
+import { getDevice } from '../../actions/deviceAction';
 import { CommonDetails } from './Details/CommonDetails';
 // import * as detailActions from '../../actions/detailsActions';
 import { loadDetails } from '../../actions/detailsActions';
@@ -30,6 +30,6 @@ const mapStateToProps = (state, ownProps) => ({
 // });
 
 export default connect(mapStateToProps)(
-    connectDataFetchers(DetailsPage, [ loadDetails ])
+    connectDataFetchers(DetailsPage, [ loadDetails, getDevice,loadCategories ])
 );
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { SortableTbl }  from '../Shared/SortableTbl';
 import { BigHeader} from "../Shared/Shared";
@@ -10,7 +10,7 @@ let UserProfileTab = (props) => {
 	let {user,categories} = props;
 	let data = [];
 	if (user.data && user.data.rate && categories){
-		data = user.data.rate.map((item)=> { 
+		data = user.data.rate.map((item)=> {
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
 			return {pid: item.productId, rate: item.rate, cat};
@@ -41,7 +41,7 @@ let UserProfileTab = (props) => {
 			</table>
 		</div>
 	);
-}; 
+};
 
 UserProfileTab.propTypes = {
 	user:  React.PropTypes.object.isRequired,
@@ -59,4 +59,4 @@ UserProfileTab = connect(mapStateToProps)(UserProfileTab);
 export default UserProfileTab;
 
 
-	
+
