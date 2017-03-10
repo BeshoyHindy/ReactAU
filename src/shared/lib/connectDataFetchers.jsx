@@ -91,12 +91,6 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
 
         render() {
-			let {staticContext, location, match, authorize} = this.props;
-			if (staticContext){
-				staticContext.location = location;
-				staticContext.match = match;
-				staticContext.authorize = authorize;
-			}
             return (
                 <Component {...this.props} />
             );
