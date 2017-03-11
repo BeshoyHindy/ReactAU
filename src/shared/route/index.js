@@ -10,6 +10,9 @@ import NotFoundPage from '../components/NotFoundPage';
 import UnauthorizedPage from '../components/UnauthorizedPage';
 import ProductsTblPage from '../components/Products/ProductsTblPage';
 import DetailsPage from '../components/Products/DetailsPage';
+import AdminEditProductPage from '../components/Admin/AdminEditProductPage';
+import AdminListProductPage from '../components/Admin/AdminListProductPage';
+import AddUserPage from '../components/Admin/AddUserPage';
 
 const routes = [
   { path: '/',
@@ -62,6 +65,20 @@ const routes = [
   { path: '/admin',
     authorize: ['normal','admin'],
     component: AdminPage,
+	routes: [
+      { path: '/admin/productChange/:id',
+		exact: true,
+        component: AdminEditProductPage
+      },
+      { path: '/admin/productList/:cat',
+		exact: true,	  
+        component: AdminListProductPage
+      },
+      { path: '/admin/addUser',
+		exact: true,	  
+        component: AddUserPage
+      }
+    ]	
   },
   { path: '/unauthorized',
     level: 1,

@@ -108,7 +108,7 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-export default connect(null)(connectDataFetchers(reduxForm({
+export default connect(mapStateToProps, ...actions)( reduxForm({
 														form: 'signup',
 														validate,                // <--- validation function given to redux-form
-													})(SignupPage), [ loadCategories, getDevice ]));
+													})(SignupPage));

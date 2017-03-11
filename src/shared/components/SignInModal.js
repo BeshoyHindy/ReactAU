@@ -45,7 +45,7 @@ let SignInModal = class SignInModal extends React.Component{
 		this.props.userSignin({email, password},this.props.pathname);
 	}
 	goToSignUp(values) {
-		this.props.router && this.props.router.push('/signup');
+		this.context.router && this.context.router.history.push('/signup');
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps !== this.props && this.props.auth && !this.props.auth.success && nextProps.auth && nextProps.auth.success){
@@ -141,7 +141,6 @@ SignInModal.propTypes = {
 	showSigninModal: React.PropTypes.bool.isRequired,
 	errorMessage: React.PropTypes.string,
 	auth: React.PropTypes.object.isRequired,
-	router: React.PropTypes.object,
 	getGoogleAuth2: React.PropTypes.func.isRequired,
 	userSocialLoginClient: React.PropTypes.func.isRequired,
     children: React.PropTypes.oneOfType([
@@ -149,7 +148,9 @@ SignInModal.propTypes = {
       React.PropTypes.node
     ])
 };
-
+SignInModal.contextTypes = {
+	router: React.PropTypes.object
+};
 
 const validate = values => {
 	const errors = {};

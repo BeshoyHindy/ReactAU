@@ -42,7 +42,7 @@ let Header = class Header extends React.Component{
 		this.showXsNav = this.showXsNav.bind(this);
 	}
 	goToSignUp(values) {
-		this.props.router.push('/signup');
+		this.context.router.history.push('/signup');
 	}
 	componentDidMount() {
 	}
@@ -52,10 +52,10 @@ let Header = class Header extends React.Component{
 	signin(){
 		let {auth} = this.props;
 		if (auth && auth.success){
-			return this.props.router.push(`/user`);
+			return this.context.router.history.push(`/user`);
 		}
 		this.props.dispatch(modalActions.changeModal(true));
-	}	
+	}
 	getUser(){
 		let { auth} = this.props;
 		if (!auth ||! auth.success || !auth.user)	return <div/>;
@@ -90,7 +90,7 @@ let Header = class Header extends React.Component{
 								<TwitterShareButton url={link} className="social-share"> <TwitterIcon size={28} round={true} /> </TwitterShareButton>
 								<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
 								<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
-								<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
+								<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>
 							</div>
 							<span id="BTN" className="bar" onClick={this.showXsNav}><i className="fa fa-bars"/></span>
 							<div id="search" className="search"/>
@@ -99,7 +99,7 @@ let Header = class Header extends React.Component{
 					<NavBar activeClass="active"/>
 				</div>
 			</header>
-			<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
+			<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay">
 				<SignInModal getGoogleAuth2={this.props.getGoogleAuth2}/>
 			</Modal>
 		</div>
@@ -114,11 +114,13 @@ Header.propTypes = {
 	dispatch: React.PropTypes.func.isRequired,
 	auth: React.PropTypes.object.isRequired,
 };
-
+Header.contextTypes = {
+	router: React.PropTypes.object
+};
 function mapStateToProps(state) {
-  return { 
+  return {
     auth: state.auth,
-	showSigninModal: state.modal.showModal,	
+	showSigninModal: state.modal.showModal,
   };
 }
 

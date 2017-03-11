@@ -17,11 +17,11 @@ class AdminListProductPage extends React.Component{
 	}	
 	setCategory (e){
 		let productType = this.props.categories.filter((item) => {return item._id===parseInt(e.target.value) ;})[0].categoryName;
-		this.props.router.push(`/admin/productList/${productType}`);	
+		this.context.router.history.push(`/admin/productList/${productType}`);
 	}
 	render () {
-		let {categories} = this.props;
-		let cat = 1, t = categories.filter((item) => {return item.categoryName===this.props.params.cat ;});
+		let {match, categories, products, ajaxState} = this.props;
+		let cat = 1, t = categories.filter((item) => {return item.categoryName===match.params.cat ;});
 		if (t && t[0])
 			cat = t[0]._id || 1 ;
 
@@ -29,7 +29,7 @@ class AdminListProductPage extends React.Component{
 		<form>
 			<div className="row">
 				<div className="col-lg-12">
-					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
+					<Breadcrumb linkPair={[{link:"/home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
 					<BigHeader smallTitle="">Edit Products</BigHeader>
 				</div>
 				<div className="col-xs-12">
@@ -45,8 +45,8 @@ class AdminListProductPage extends React.Component{
 					</div>
 				</div>
 				<div className="col-xs-12">
-					<ProductsTblPage productType={this.props.params.cat}  ajaxState={this.props.ajaxState} products={this.props.products} 
-							edit={true} editBaseLink="/admin/productChange/" delete={true} router={this.props.router} />
+					<ProductsTblPage productType={match.params.cat} match={match} ajaxState={ajaxState} products={products} 
+							edit={true} editBaseLink="/admin/productChange/" delete={true} />
 				</div>
 			</div>
 		</form>
@@ -60,8 +60,10 @@ AdminListProductPage.propTypes = {
 	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	products:  React.PropTypes.array,
-	params: React.PropTypes.object.isRequired,	
-	router: React.PropTypes.object.isRequired,		
+	match: React.PropTypes.object.isRequired,		
+};
+AdminListProductPage.contextTypes = {
+	router: React.PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

@@ -18,17 +18,17 @@ class SigninPage extends React.Component {
 		super(props);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
-	}	
+	}
 	componentWillMount() {
 		if (this.props.auth.success){
-			this.props.router.push(`/user`);	
+			this.context.router.history.push(`/user`);
 		}
-	}	
+	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.auth.success){
-			this.props.router.push(`/user`);	
+			this.context.router.history.push(`/user`);
 		}
-	}	  
+	}
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
 			let {email, password} = values;
@@ -102,14 +102,15 @@ SigninPage.propTypes = {
 	submitting: React.PropTypes.bool.isRequired,
 	pristine: React.PropTypes.bool.isRequired,
 	userSignin: React.PropTypes.func.isRequired,
-	errorMessage: React.PropTypes.string,	
+	errorMessage: React.PropTypes.string,
 	auth: React.PropTypes.object.isRequired,
-	router: React.PropTypes.object.isRequired,
 	location: React.PropTypes.object.isRequired,
 };
-
+SigninPage.contextTypes = {
+	router: React.PropTypes.object
+};
 function mapStateToProps(state) {
-  return { 
+  return {
     auth: state.auth,
 		errorMessage: state.auth.error
   };

@@ -57,7 +57,7 @@ class AddUserPage extends React.Component {
 
     return (
 		<div className="col-lg-12 ">
-			<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
+			<Breadcrumb linkPair={[{link:"/home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
 																	{link:"/admin/addUser", desc:"Add User"}]} />
 			<div className="well">
 				<div className="panel panel-danger add-user-panel">

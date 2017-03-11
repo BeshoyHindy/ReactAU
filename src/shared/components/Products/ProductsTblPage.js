@@ -86,7 +86,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 	render () {
 		let {match, edit, products, editBaseLink, ajaxState, actions, routes, device} = this.props ;
 		let ProductsTbl = match.params.ProductsTbl;
-		let productType = match.params.product;
+		let productType = match.params.product || match.params.cat;
 		let filtered = products;
 		if (ProductsTbl && ProductsTbl !== "All"){
 			filtered = products.filter( item => {
