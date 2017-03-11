@@ -84,14 +84,24 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		});
 	}
 	render () {
-		let {device} = this.props;
+		let {match, edit, products, editBaseLink, ajaxState, actions, routes, device} = this.props ;
+		let ProductsTbl = match.params.ProductsTbl;
+		let productType = match.params.product;
+		let filtered = products;
+		if (ProductsTbl && ProductsTbl !== "All"){
+			filtered = products.filter( item => {
+				return item.type == ProductsTbl
+					|| item.brand == ProductsTbl;
+			});
+		}
+				
 		let mobile = !!(device.phone || device.mobile);
 		let viewSettingStyle = {display: mobile ?"none":"block"};
-		if ( !this.props.productType || !Metadata[this.props.productType] || this.props.products === []){
+		if ( !productType || !Metadata[productType] || filtered === []){
 			return (<div/>);
 		}else{
 			let col = [], tHead =[];
-			let colMetadata = Metadata[this.props.productType];
+			let colMetadata = Metadata[productType];
 			for (let item of colMetadata) {
 				if (item.visible){
 					col.push(item.columnName);
@@ -99,7 +109,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 				}
 			}
 
-			if(this.props.edit) {
+			if(edit) {
 				tHead.push("Edit");
 				col.push("edit");
 			}
@@ -108,14 +118,14 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 				col.push("delete");
 			}
 
-			let data = [...this.props.products];
+			let data = [...filtered];
 			for (let item of data) {
 				if (item.images && item.images[0]){
 					item.imageUrl= item.images[0];
 					delete item.images;
 				}
-				if(this.props.edit)
-					item.edit = this.props.editBaseLink;
+				if(edit)
+					item.edit = editBaseLink;
 				if(this.props.delete)
 					item.delete = "";
 			}
@@ -124,7 +134,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		// console.log(Metadata[this.props.productType]);
 		return (
 			<div className="loading-wrap">
-				<div className={`ajax-loading-big ${this.props.ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
+				<div className={`ajax-loading-big ${ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
 				<ul className="app-view" style={viewSettingStyle}>
 					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
 						<div className="bubble ">list view</div>
@@ -142,10 +152,9 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 									{custd: BaseProductDeleteComponent, keyItem: "delete"}
 									]}
 						dKey={col}
-						productType={this.props.productType}
-						actions={this.props.actions}
-						router={this.props.router}
-						params={this.props.params}/>
+						productType={productType}
+						actions={actions}
+						params={match.params}/>
 				</div>
 				<div className="grid-container" style={{display: this.state.gridView?"block":"none"}}>
 					{data.map((item, id)=>{
@@ -154,14 +163,14 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 						return (
 						<div key={id} className="col-sm-6 col-md-4 Grid">
 							<div className="block-wrap">
-								<Link to={`/products/${this.props.productType}/spec/${item._id}`}>
+								<Link to={`/products/${productType}/spec/${item._id}`}>
 								<div className="block">
 									<div className="">
 										<ImageLoader
 											src={item.imageUrl}
 											minHeight= "200px"
-											alt={`${item.brand} - ${this.props.productType} - ${item.type} - ${item.name}`}
-											title={`${item.brand} - ${this.props.productType} - ${item.type} - ${item.name}`}
+											alt={`${item.brand} - ${productType} - ${item.type} - ${item.name}`}
+											title={`${item.brand} - ${productType} - ${item.type} - ${item.name}`}
 										/>
 									</div>
 									<div className="title">
@@ -186,18 +195,20 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 ProductsTblPage.propTypes = {
 	productType: React.PropTypes.string,
 	actions: React.PropTypes.object,
-	router: React.PropTypes.object,
-	params: React.PropTypes.object,
+	match: React.PropTypes.object,
 	editBaseLink: React.PropTypes.string,
 	delete: React.PropTypes.bool,
 	edit: React.PropTypes.bool,
 	products: React.PropTypes.array,
+	routes: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	device:  React.PropTypes.object.isRequired
 };
 function mapStateToProps(state, ownProps) {
   return {
-    device: state.device
+    device: state.device,
+    products: state.products,
+	ajaxState: state.ajaxCallsInProgress	
   };
 }
 

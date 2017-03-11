@@ -5,9 +5,9 @@ import auth from './authReducer';
 import modal from './modalReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import categories from './categoriesReducer.js';
-import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import device from './deviceReducer';
+import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
   products,
@@ -17,8 +17,8 @@ const rootReducer = combineReducers({
   auth,
   modal,
   device,  
+  router: routerReducer,
   form: formReducer ,
-  routing: routerReducer
 });
 
 export default rootReducer;

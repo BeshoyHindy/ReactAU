@@ -4,7 +4,6 @@ require("react-dom");
 require("react-redux");
 require("react-router");
 require("react-router-dom");
-require("react-router-redux");
 require("redux");
 require("redux-thunk");
 require("redux-form");

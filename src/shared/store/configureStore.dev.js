@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose  } from 'redux';
 import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 
+
 function configureStore(initialState) {
 	if (process.env.BROWSER) {
 		let store = null;

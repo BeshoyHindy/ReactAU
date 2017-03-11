@@ -1033,6 +1033,12 @@ chokidar@^1.4.3, chokidar@^1.6.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
+chunk-manifest-webpack-plugin@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/chunk-manifest-webpack-plugin/-/chunk-manifest-webpack-plugin-1.0.0.tgz#84ef34ff676e7b147e9512f7f0289ef3589f33e2"
+  dependencies:
+    webpack-core "^0.6.9"
+
 cipher-base@^1.0.0, cipher-base@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/cipher-base/-/cipher-base-1.0.3.tgz#eeabf194419ce900da3018c207d212f2a6df0a07"
@@ -4452,18 +4458,18 @@ react-redux@^5.0.0:
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
 
-react-router-dom@^4.0.0-beta.8:
+react-router-dom@next:
   version "4.0.0-beta.8"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.8.tgz#907a5a0a36e9190652c80f2feead0eadbbba262e"
   dependencies:
     history "^4.5.1"
     react-router "^4.0.0-beta.8"
 
-react-router-redux@^4.0.7:
+react-router-redux@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-4.0.8.tgz#227403596b5151e182377dab835b5d45f0f8054e"
 
-react-router@^4.0.0-beta.8:
+react-router@^4.0.0-beta.8, react-router@next:
   version "4.0.0-beta.8"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.0.0-beta.8.tgz#368cfe540d23d5d23419b42fb915d465f268b66b"
   dependencies:
@@ -5026,6 +5032,12 @@ source-map@^0.1.38, source-map@^0.1.43:
   dependencies:
     amdefine ">=0.0.4"
 
+source-map@~0.4.1:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
+  dependencies:
+    amdefine ">=0.0.4"
+
 spawn-command@^0.0.2-1:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/spawn-command/-/spawn-command-0.0.2.tgz#9544e1a43ca045f8531aac1a48cb29bdae62338e"
@@ -5529,6 +5541,13 @@ webpack-bundle-analyzer@^2.3.0:
     lodash "^4.17.4"
     mkdirp "^0.5.1"
     opener "^1.4.2"
+
+webpack-core@^0.6.9:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/webpack-core/-/webpack-core-0.6.9.tgz#fc571588c8558da77be9efb6debdc5a3b172bdc2"
+  dependencies:
+    source-list-map "~0.1.7"
+    source-map "~0.4.1"
 
 webpack-dev-middleware@^1.8.4:
   version "1.10.1"

@@ -6,7 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { ShareButtons, generateShareIcon} from 'react-share';
-import { Route, Link} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 
 
@@ -20,6 +20,7 @@ import  Footer from "./Footer";
 import { getDevice } from '../actions/deviceAction';
 
 import routes from '../route';
+import {RouteWithSubRoutes} from '../route/util';
 
 const {
   FacebookShareButton,
@@ -191,7 +192,7 @@ let Root = class Root extends React.Component{
 				</div>
 			</header>
 			<div id="article">			
-				{routes.filter((route)=>(route.level === 1)).map(route => (<Route key={route.path} {...route}/>))}
+				{routes.map((route, id) => (<RouteWithSubRoutes key={id} {...route}/>))}
 			</div>
 			<Footer/>
 			<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 

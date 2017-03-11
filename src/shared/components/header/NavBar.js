@@ -1,11 +1,11 @@
-import { Link} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import { navData } from '../../Data/RouteData';
 import * as modalActions from '../../actions/modalAction';
 
-const AtomLink = (props) =>  (<li> <Link to={props.a.link}> {props.a.desc} </Link></li>);
+const AtomLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName="active"> {props.a.desc} </NavLink></li>);
 AtomLink.propTypes = {
   a: React.PropTypes.object,
   activeClass: React.PropTypes.string
@@ -16,7 +16,7 @@ const ParentLink = (props) => {
 	if ( props.item.sub && props.item.sub.length > 0) {
 		return (
 		<li>
-			<Link to={props.item.link}  > {props.item.desc} <i className="fa fa-caret-right"/></Link>
+			<NavLink to={props.item.link} activeClassName="active" > {props.item.desc} <i className="fa fa-caret-right"/></NavLink>
 			<ul className="dropdown-menu">
 				{
 					props.item.sub.map((item, id) => {	return (<ParentLink  key={id} item={item}/>);	})
@@ -39,7 +39,7 @@ const TopParentLink = (props) => {
 		return (
 			<li>
 				<div className="parent">
-					<Link to={props.item.link} >{props.item.desc}</Link><span className="caret" />
+					<NavLink to={props.item.link} activeClassName="active">{props.item.desc}</NavLink><span className="caret" />
 				</div>
 				<ul className="dropdown-menu">
 					{

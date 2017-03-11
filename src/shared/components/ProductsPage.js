@@ -14,7 +14,7 @@ import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
 import { loadCategories } from '../actions/adminActions';
 import { loadProducts } from '../actions/productsActions';
-
+import {RouteWithSubRoutes} from '../route/util';
 
 import ProductCategorySidebar from './Products/Sidebar/ProductCategorySidebar';
 import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
@@ -25,29 +25,9 @@ import ProductsTblPage from './Products/ProductsTblPage';
 let ProductsPage = class ProductsPage extends React.Component{
 		constructor(props) {
 			super(props);
-			this.getProductContent = this.getProductContent.bind(this);
-			this.getProductSidebar = this.getProductSidebar.bind(this);
-		}
-		getProductContent() {
-			let {match, products, ajaxState} = this.props ;
-			let ProductsTbl = match.params.ProductsTbl;
-			let filtered = products;
-			if (ProductsTbl && ProductsTbl !== "All"){
-				filtered = products.filter( item => {
-					return item.type == ProductsTbl
-						|| item.brand == ProductsTbl;
-				});
-			}
-			return (<ProductsTblPage products={filtered} productType={match.params.product} ajaxState={ajaxState}
-							params={match.params}/>);
-
-		}
-		getProductSidebar() {
-			let {match, products} = this.props ;
-			return (<ProductCategorySidebar products={products} productType={match.params.product} ProductsTbl={match.params.ProductsTbl} params={match.params}/>);
 		}
 		render() {
-			let {match} = this.props ;
+			let {match, products, routes} = this.props ;
 			let linkpair = [
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
@@ -62,11 +42,11 @@ let ProductsPage = class ProductsPage extends React.Component{
 						<Breadcrumb linkPair={linkpair}/>
 					</div>
 					<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-						{ this.getProductSidebar() }						
+						<ProductCategorySidebar products={products} productType={match.params.product} ProductsTbl={match.params.ProductsTbl} params={match.params}/>
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
-						{this.getProductContent()}
+						{routes.map(route => (<RouteWithSubRoutes key={route.path} {...route}/>))}
 					</div>
 				</div>
 			</div>
@@ -74,9 +54,8 @@ let ProductsPage = class ProductsPage extends React.Component{
 		}
 }
 ProductsPage.propTypes = {
-	content: React.PropTypes.node,
-	sidebar: React.PropTypes.node,
 	match:  React.PropTypes.object,
+	routes:  React.PropTypes.array,
 	products:  React.PropTypes.array,
 	ajaxState:  React.PropTypes.number,
 };
@@ -84,7 +63,6 @@ ProductsPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     products: state.products,
-	ajaxState: state.ajaxCallsInProgress
   };
 }
 
