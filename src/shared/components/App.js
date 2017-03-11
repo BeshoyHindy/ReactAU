@@ -8,36 +8,11 @@ import Modal from 'react-modal';
 import { ShareButtons, generateShareIcon} from 'react-share';
 import { Route, Link } from 'react-router-dom';
 
-
-
-
-import { NavBar } from '../components/header/NavBar';
-import * as authActions from '../actions/authAction';
-import * as modalActions from '../actions/modalAction';
-import  {renderField} from "./Shared/renderReduxForm";
-import  SignInModal from "./SignInModal";
 import  Footer from "./Footer";
-import { getDevice } from '../actions/deviceAction';
+import  Header from "./Header";
 
-import routes from '../route';
+import routes from '../route/index';
 import {RouteWithSubRoutes} from '../route/util';
-
-const {
-  FacebookShareButton,
-  GooglePlusShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  PinterestShareButton,
-  VKShareButton
-} = ShareButtons;
-
-const FacebookIcon = generateShareIcon('facebook');
-const TwitterIcon = generateShareIcon('twitter');
-const GooglePlusIcon = generateShareIcon('google');
-const LinkedinIcon = generateShareIcon('linkedin');
-const PinterestIcon = generateShareIcon('pinterest');
-
-
 
 let Root = class Root extends React.Component{
 	constructor(props) {
@@ -45,21 +20,8 @@ let Root = class Root extends React.Component{
 		this.state={
 			showSmNav: false
 		};
-		this.logout = this.logout.bind(this);
-		this.signin = this.signin.bind(this);
-		this.goToSignUp = this.goToSignUp.bind(this);
-		this.getUser = this.getUser.bind(this);
 		this.loadScript = this.loadScript.bind(this);
 		this.getGoogleAuth2 = this.getGoogleAuth2.bind(this);
-		this.showXsNav = this.showXsNav.bind(this);
-	}
-	handleFormSubmit(values) {
-		// Call action creator to sign up the user!
-		let {email, password} = values;
-		this.props.dispatch(authActions.userSignin({email, password}));
-	}
-	goToSignUp(values) {
-		this.props.router.push('/signup');
 	}
 	loadScript(src) {
 		return new Promise(function (resolve, reject) {
@@ -95,10 +57,6 @@ let Root = class Root extends React.Component{
 		})(window,document,'script','/local-ga.js','ga');
 		ga('create', 'UA-50969260-2', 'auto');
 		ga('send', 'pageview');
-		// this.loadScript("https://cdn.jsdelivr.net/ga-lite/latest/ga-lite.min.js")
-		// .then(()=>{
-		// 	let galite = galite || {}; galite.UA = 'UA-50969260-2';
-		// });
 
 
 		//Google Web fonts
@@ -137,87 +95,19 @@ let Root = class Root extends React.Component{
 		});
 
 	}
-	logout(){
-		this.props.dispatch(authActions.userSignOut(this.props.routes));
-	}
-	signin(){
-		let {auth} = this.props;
-		if (auth && auth.success){
-			return this.props.router.push(`/user`);
-		}
-			
-		this.props.dispatch(modalActions.changeModal(true));
-	}	
-	getUser(){
-		let { auth} = this.props;
-		if (!auth ||! auth.success || !auth.user)	return <div/>;
-
-		let User = undefined || (auth.user.email && <div className="login-user">{auth.user.email}</div>);
-		User = User || (auth.user.profile && auth.user.profile.username && <div className="login-user">{auth.user.profile.username}</div>);
-		return User;
-	}
-	showXsNav(){
-		this.props.dispatch(modalActions.changeXsNavModal(true));
-	}
 	render() {
-		let { auth, showSigninModal} = this.props;
-		let Baselink = "https://react-redux-demo-chingching.herokuapp.com";
-		let link = Baselink;
-		// this.props.location.pathname && (link = Baselink + this.props.location.pathname);
-		// console.log(routes);
 		return (
 		<div>
-			<header id="header">
-				<div className="container">
-					<div className="banner">
-							<Link to="/home"> <h1><b>Hi-Tech</b> <span > Digital CCTV</span></h1></Link>
-							<p>
-								for all your residential, commercial and industrial needs. {"\u00a0"}<i className="fa fa-phone"/> {"\u00a0"} 02 9725 7733
-							</p>
-							<div className="signin">
-								{this.getUser()}
-								<FacebookShareButton url={link} className="social-share"> <FacebookIcon size={28} round={true} /> </FacebookShareButton>
-								<GooglePlusShareButton url={link} className="social-share"> <GooglePlusIcon size={28} round={true} /> </GooglePlusShareButton>
-								<LinkedinShareButton url={link} className="social-share"> <LinkedinIcon size={28} round={true} /> </LinkedinShareButton>
-								<TwitterShareButton url={link} className="social-share"> <TwitterIcon size={28} round={true} /> </TwitterShareButton>
-								<i className="fa fa-user signin-icon" aria-hidden="true" onClick={this.signin} />
-								<Link to="/signup"><i className="fa fa-user-plus signin-icon" aria-hidden="true"/></Link>
-								<i className="fa fa-sign-out signin-icon" aria-hidden="true" onClick={this.logout}/>							
-							</div>
-							<span id="BTN" className="bar" onClick={this.showXsNav}><i className="fa fa-bars"/></span>
-							<div id="search" className="search"/>
-					</div>
-					<div className="myheader"/>
-					<NavBar activeClass="active"/>
-				</div>
-			</header>
+			<Header getGoogleAuth2={this.getGoogleAuth2}/>
 			<div id="article">			
-				{routes.map((route, id) => (<RouteWithSubRoutes key={id} {...route}/>))}
+				{routes.map((route, id) => (<RouteWithSubRoutes key={route.path} {...route}/>))}
 			</div>
 			<Footer/>
-			<Modal isOpen={showSigninModal} contentLabel="Modal" className="Modal login-modal"  overlayClassName="Overlay"> 
-				<SignInModal getGoogleAuth2={this.getGoogleAuth2}/>
-			</Modal>
 		</div>
-
 		);
 	}
 };
 
-Root.propTypes = {
-	showSigninModal: React.PropTypes.bool.isRequired,
-	dispatch: React.PropTypes.func.isRequired,
-	auth: React.PropTypes.object.isRequired,
-};
 
-function mapStateToProps(state) {
-	
-  return { 
-    auth: state.auth,
-	showSigninModal: state.modal.showModal,	
-  };
-}	
-
-Root = connect(mapStateToProps)(Root);
 
 export default Root;

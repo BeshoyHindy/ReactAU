@@ -1,14 +1,19 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink , Link} from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import { navData } from '../../Data/RouteData';
 import * as modalActions from '../../actions/modalAction';
 
-const AtomLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName="active"> {props.a.desc} </NavLink></li>);
-AtomLink.propTypes = {
+const AtomNavLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName={props.activeClassName}> {props.a.desc} </NavLink></li>);
+AtomNavLink.propTypes = {
   a: React.PropTypes.object,
-  activeClass: React.PropTypes.string
+  activeClassName: React.PropTypes.string
+};
+
+const AtomLink = (props) =>  (<li> <Link to={props.a.link} > {props.a.desc} </Link></li>);
+AtomLink.propTypes = {
+  a: React.PropTypes.object
 };
 
 
@@ -16,7 +21,7 @@ const ParentLink = (props) => {
 	if ( props.item.sub && props.item.sub.length > 0) {
 		return (
 		<li>
-			<NavLink to={props.item.link} activeClassName="active" > {props.item.desc} <i className="fa fa-caret-right"/></NavLink>
+			<Link to={props.item.link} > {props.item.desc} <i className="fa fa-caret-right"/></Link>
 			<ul className="dropdown-menu">
 				{
 					props.item.sub.map((item, id) => {	return (<ParentLink  key={id} item={item}/>);	})
@@ -25,12 +30,12 @@ const ParentLink = (props) => {
 		</li>
 		);
 	}else{
-		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}}  activeClass={props.activeClass} />);
+		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}}  activeClass={props.activeClassName} />);
 	}
 };
 ParentLink.propTypes = {
   item: React.PropTypes.object,
-  activeClass: React.PropTypes.string
+  activeClassName: React.PropTypes.string
 };
 
 
@@ -39,7 +44,7 @@ const TopParentLink = (props) => {
 		return (
 			<li>
 				<div className="parent">
-					<NavLink to={props.item.link} activeClassName="active">{props.item.desc}</NavLink><span className="caret" />
+					<NavLink to={props.item.link} activeClassName={props.activeClassName}>{props.item.desc}</NavLink><span className="caret" />
 				</div>
 				<ul className="dropdown-menu">
 					{
@@ -49,12 +54,12 @@ const TopParentLink = (props) => {
 			</li>
 		);
 	}else{
-		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}} activeClass={props.activeClass} />);
+		return (<AtomLink a={{link:props.item.link, desc:props.item.desc}} activeClass={props.activeClassName} />);
 	}
 };
 TopParentLink.propTypes = {
   item: React.PropTypes.object,
-  activeClass: React.PropTypes.string
+  activeClassName: React.PropTypes.string
 };
 
 let NavBar = class Root extends React.Component{
@@ -73,8 +78,8 @@ let NavBar = class Root extends React.Component{
 				<h3 id="XX" onClick={this.hideXsNav}> <i className="fa fa-times" /></h3>
 				{
 					navData.map && navData.map( (item, id) => {
-						return (item.sub && item.sub.length > 0) ? (<TopParentLink  key={id} item={item} />	)
-																: (<AtomLink key={id}  a={{link:item.link, desc:item.desc}}  activeClass={props.activeClass} />);
+						return (item.sub && item.sub.length > 0) ? (<TopParentLink  key={id} item={item} activeClassName={props.activeClass}/>	)
+																: (<AtomNavLink key={id}  a={{link:item.link, desc:item.desc}}  activeClassName={props.activeClass} />);
 					})
 				}
 			</ul>

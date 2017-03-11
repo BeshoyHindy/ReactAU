@@ -10,19 +10,14 @@ export default function connectDataFetchers(Component, actionCreators) {
             match   : PropTypes.shape({
                 path : PropTypes.string.required,
                 url   : PropTypes.string,
-                query    : PropTypes.string.object
+                params: PropTypes.string.object
             }).isRequired,
-            location : PropTypes.shape({
-                pathname : PropTypes.string.required,
-                search   : PropTypes.string,
-                query    : PropTypes.string.object
-            }).isRequired
         };
 
-        static fetchData({ dispatch, params = {}, query = {},  authorize= [], device}) {          
+        static fetchData({ dispatch, params = {}, authorize= [], device}) {          
 
             let promiseArray = actionCreators.map(actionCreator => {                    
-                    return actionCreator?(dispatch(actionCreator({ params, query,  device }))):null;
+                    return actionCreator?(dispatch(actionCreator({ params, device }))):null;
                 });       
 
             if (process.env.BROWSER && authorize && authorize.length){
@@ -84,9 +79,8 @@ export default function connectDataFetchers(Component, actionCreators) {
 
             DataFetchersWrapper.fetchData({
                 dispatch : this.props.dispatch,
-                params   : this.props.params,
-                query    : this.props.location.query,
-                route    : this.props.route
+                params   : this.props.match.params,
+                authorize    : this.props.authorize
             });
         }
 

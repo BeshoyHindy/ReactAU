@@ -44,4 +44,4 @@ function configureStore(initialState) {
 
 
 
-module.exports =  configureStore;
+export default configureStore;

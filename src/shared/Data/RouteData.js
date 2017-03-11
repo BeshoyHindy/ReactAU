@@ -1,6 +1,6 @@
 const navData = [
 	{name: "home", link: "/home", desc: "Home"},
-	{name: "products", link: "/products", desc: "Products"
+	{name: "products", link: "/products/DVR/All", desc: "Products"
 		, sub: [
 			{name: "DVR", link: "/products/DVR/All", desc: "DVR", sub:[
 					{name: "HD-SDI", link:"/products/DVR/HD-SDI", desc:"HD-SDI"},
