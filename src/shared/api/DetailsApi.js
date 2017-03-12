@@ -21,8 +21,9 @@ class DetailApi {
 	static deleteProduct(id) {
 		return axios({
 			method: 'delete',
-				url: `${api_server.http.host}:${api_server.http.port}/api/details/${id}`,
-				dataType: 'JSON'
+			url: `${api_server.http.host}:${api_server.http.port}/api/details/${id}`,
+			headers: {'authorization': localStorage.getItem('token')},
+			dataType: 'JSON'
 		})
 		.then( (response) => {
 			return response.data;
