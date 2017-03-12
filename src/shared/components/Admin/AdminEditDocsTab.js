@@ -104,7 +104,9 @@ AdminEditDocsTab.propTypes = {
 	fileField: React.PropTypes.string.isRequired,	
 	field: React.PropTypes.string.isRequired,	
 	newDocs: React.PropTypes.array.isRequired,	
-	docs: React.PropTypes.array.isRequired,	
+	docs: React.PropTypes.array,	
 };
-
+AdminEditDocsTab.defaultProps  = {
+	docs: [],
+};
 export default AdminEditDocsTab;
