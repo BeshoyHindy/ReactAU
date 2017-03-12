@@ -41,7 +41,7 @@ class UserPage extends React.Component{
 		<div className="container">
 			<div className="row">
 				<div className="col-xs-12">
-					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"user", desc:"User Profile"},]}/>					
+					<Breadcrumb linkPair={[{link:"", desc:"User"},{link:"/user", desc:"User Profile"},]}/>					
 				</div>
 			</div>
 			<div className="row">

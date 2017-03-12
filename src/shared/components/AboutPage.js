@@ -15,7 +15,7 @@ const AboutPage = (props) => (
 	<div className="container">
 		<div className="row">
 			<div className="col-lg-12">
-				<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"", desc:"About Us"}]}/>
+				<Breadcrumb linkPair={[{link:"/home", desc:"Home"},{link:"", desc:"About Us"}]}/>
 				<BigHeader smallTitle="Provide friendly services and reliable support">About Us</BigHeader>
 			</div>
 			<div className="col-sm-9">

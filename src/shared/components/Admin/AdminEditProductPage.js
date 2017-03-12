@@ -241,7 +241,7 @@ class AdminEditProductPage extends React.Component{
 		</div>
 		<div className="row">
 			<div className="col-xs-12">
-				<Breadcrumb linkPair={[{link:"Home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
+				<Breadcrumb linkPair={[{link:"/home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
 																	{link:"", desc:params.id !=0 ?"Edit Product":"Add Product"}]}/>
 				<BigHeader smallTitle="">{params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
 			</div>

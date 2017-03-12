@@ -29,7 +29,7 @@ class AdminListProductPage extends React.Component{
 		<form>
 			<div className="row">
 				<div className="col-lg-12">
-					<Breadcrumb linkPair={[{link:"Home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
+					<Breadcrumb linkPair={[{link:"/home", desc:"Home"},{link:"/admin/productChange/0", desc:"Administration"},{link:"", desc:"Edit Products"}]}/>
 					<BigHeader smallTitle="">Edit Products</BigHeader>
 				</div>
 				<div className="col-xs-12">

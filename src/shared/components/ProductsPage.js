@@ -48,7 +48,7 @@ class ProductsP extends React.Component{
 		}
 		render() {
 			let linkpair = [
-							{link:"Home", desc:"Home"},
+							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
 						];
 			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
