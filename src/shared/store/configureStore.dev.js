@@ -1,9 +1,12 @@
 import { createStore, applyMiddleware, compose  } from 'redux';
 import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
+import createHistory from 'history/createBrowserHistory';
+import { Route } from 'react-router';
+import { routerMiddleware} from '../../react-router-redux/es';
 
 
-function configureStore(initialState) {
+function configureStore(initialState, history) {
 	if (process.env.BROWSER) {
 		let store = null;
 		/* eslint-disable no-underscore-dangle */
@@ -13,7 +16,8 @@ function configureStore(initialState) {
 				initialState,
 				compose(
 					applyMiddleware(thunk),
-					window.__REDUX_DEVTOOLS_EXTENSION__()
+					window.__REDUX_DEVTOOLS_EXTENSION__(),
+					applyMiddleware(routerMiddleware(history))
 				)
 			);	
 		}else{
@@ -21,7 +25,8 @@ function configureStore(initialState) {
 				rootReducer,
 				initialState,
 				compose(
-					applyMiddleware(thunk)
+					applyMiddleware(thunk),
+					applyMiddleware(routerMiddleware(history))
 				)
 			);	
 		}
@@ -37,7 +42,8 @@ function configureStore(initialState) {
 		return createStore(
 			rootReducer,
 			initialState,
-			applyMiddleware(thunk)
+			applyMiddleware(thunk),
+			applyMiddleware(routerMiddleware(history))
 		);
 	}
 }

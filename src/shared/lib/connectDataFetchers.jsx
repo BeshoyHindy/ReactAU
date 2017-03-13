@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-
+import * as actions from '../actions/authAction';
+import * as modalActions from '../actions/modalAction';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
 
@@ -38,7 +39,7 @@ export default function connectDataFetchers(Component, actionCreators) {
             return Promise.all( promiseArray );
         }
         componentDidUpdate(prevProps) {
-            const { location } = this.props;
+            const { location , dispatch} = this.props;
             const { location: prevLocation } = prevProps;
 
             const isUrlChanged = (location.pathname !== prevLocation.pathname)
@@ -46,11 +47,11 @@ export default function connectDataFetchers(Component, actionCreators) {
 
             if (isUrlChanged) {
                 this._fetchDataOnClient();
-            }
+            }			
         }
 
         componentDidMount() {
-			let {authorize} = this.props;
+			let {authorize, dispatch} = this.props;
             if (IS_FIRST_MOUNT_AFTER_LOAD) {
                 if (process.env.BROWSER && authorize && authorize.length){
                     let promiseArray =  authorize.map( role => {
@@ -71,6 +72,7 @@ export default function connectDataFetchers(Component, actionCreators) {
                 this._fetchDataOnClient();
             }
 
+			dispatch(modalActions.changeXsNavModal(false));
             IS_FIRST_MOUNT_AFTER_LOAD = false;
         }
 

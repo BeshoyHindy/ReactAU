@@ -14,12 +14,12 @@ let assetsPath = path.join(projectRoot,   "public", "build");
 let publicPath = `http://${host}:${port}/build/`;
 let distPath = projectRoot;
 
-let config = {
+let config = 
+{
 	cache: false,
 	devtool: 'eval',
 	context: process.cwd(),
 	entry: [
-		// 'eventsource-polyfill', // necessary for hot reloading with IE
 		'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
 		path.resolve(projectRoot, './src/client/index.js')
 	],
@@ -29,7 +29,7 @@ let config = {
 		publicPath: publicPath,
 		filename: 'bundle.js',
 		chunkFilename: '[name]-[chunkhash].js',
-        library: "[name]_[hash]"
+		library: "[name]_[hash]"
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -40,18 +40,12 @@ let config = {
 			__DEVELOPMENT__: true,
 			__DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
 		}),
-		//HtmlWebpackPluginConfig,
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
-		// new ExtractTextPlugin({
-		// 	filename: 'css/main.css',
-		// 	disable: true,  //let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR
-		// 	allChunks: true
-		// }),
-        new webpack.DllReferencePlugin({
-            context: path.join(projectRoot, "src" , "client"),
-            manifest: require("../dll/vendor-manifest.json")
-        }),
+		new webpack.DllReferencePlugin({
+			context: path.join(projectRoot, "src" , "client"),
+			manifest: require("../dll/vendor-manifest.json")
+		}),
 	],
 	module: {
 		rules: [
@@ -60,12 +54,43 @@ let config = {
 				exclude: /node_modules/,
 				loader: 'babel-loader',
 				include: [
-                    path.join(projectRoot, "src" , "client"),
+					path.join(projectRoot, "src" , "client"),
 					path.join(projectRoot, "src" , "shared")
-                ],
+				],
 				options: {
 					cacheDirectory: true,
-					presets: ["react-hmre"]
+					babelrc: false,
+					presets: ["react"],
+					plugins: [
+						"transform-object-rest-spread",
+						"transform-class-properties",
+						"transform-es2015-arrow-functions",
+						"transform-es2015-block-scoped-functions",
+						"transform-es2015-block-scoping",
+						["transform-es2015-classes", {
+							"loose": true
+						}],
+						["transform-es2015-computed-properties", {
+							"loose": true
+						}],
+						"transform-es2015-destructuring",
+						"transform-es2015-duplicate-keys",
+						["transform-es2015-for-of", {
+							"loose": true
+						}],
+						"transform-es2015-function-name",
+						"transform-es2015-object-super",
+						"transform-es2015-parameters",
+						"transform-es2015-shorthand-properties",
+						["transform-es2015-spread", {
+							"loose": true
+						}],
+						"transform-es2015-sticky-regex",
+						["transform-es2015-template-literals", {
+							"loose": true
+						}]
+					],  				
+
 				},
 			},
 			{
@@ -73,65 +98,42 @@ let config = {
 				include: [
 					path.resolve(projectRoot, './src/shared/components/') ,
 					path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-                ],
+				],
 				use: [
 					"style-loader",
 					"css-loader",
 					"sass-loader"
 				]	
-				//let's disable ExtractTextPlugin in dev mode, then HMR for sass can be use in SSR			
-				// use:
-				// 	ExtractTextPlugin.extract({
-				// 		fallback: "style-loader",
-				// 		use: [
-				// 			{ loader: 'css-loader'},
-				// 			// { loader: 'resolve-url-loader' },
-				// 			{ loader: 'sass-loader', query: {
-				// 					// sourceMap: true,
-				// 					includePaths: [
-				// 						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-				// 					],
-				// 				}
-				// 			}
-				// 		],
-				// 	})
 			},
 			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
 				loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" ,
 				include: [
-                    path.resolve(projectRoot, './src/shared/fonts/') ,
+					path.resolve(projectRoot, './src/shared/fonts/') ,
 					path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/fonts/') ,
 					path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
-                 ],				
+				],				
 			},
 			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
 				loader: "file-loader?name=fonts/[name].[ext]" ,
 				include: [
-                    path.resolve(projectRoot, './src/shared/fonts/') ,
+					path.resolve(projectRoot, './src/shared/fonts/') ,
 					path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/fonts/') ,
 					path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
-                 ],
-			},
-			// { test: /\.(gif|jpg|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
-			// 	loader: "file-loader?name=img/[name].[ext]" ,
-			// 	include: [
-            //         path.join(projectRoot, "src" , "client"),
-			// 		path.join(projectRoot, "src" , "shared")
-            //     ],
-			// },			
+				],
+			},	
 		]
 	},
-    resolveLoader: {
+	resolveLoader: {
 		modules: [
 			"node_modules"
 		],
-    },
-    resolve: {
+	},
+	resolve: {
 		modules: [
 			"node_modules"
 		],
-        unsafeCache : true,
-    },
+		unsafeCache : true,
+	},
 	profile: true,
 	stats: {
 		hash: true,
@@ -149,10 +151,8 @@ let config = {
 		publicPath: true,
 		colors: true
 	},
-	// performance: {
-	// 	hints: "warning"
-	// }
 };
+
 
 
 module.exports = config;

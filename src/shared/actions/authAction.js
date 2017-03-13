@@ -1,8 +1,4 @@
 import { browserHistory } from 'react-router';
-import _map from "lodash/fp/map";
-import _flattenDeep from "lodash/fp/flattenDeep";
-import _flow from "lodash/fp/flow";
-import _filter from "lodash/fp/filter";
 
 import AuthApi from '../api/AuthApi';
 import * as types from './actionTypes';
@@ -20,10 +16,7 @@ export function userSignup(user) {
     dispatch(beginAjaxCall());
     return AuthApi.userSignup(user).then(user => {
         dispatch(signupUserSuccess(user.details));
-        // - Save the JWT token
         localStorage.setItem('token', user.token);
-        // - redirect to the route '/feature'
-        browserHistory.push('/user');
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
     });
@@ -36,7 +29,6 @@ export function userSignin(user) {
     return AuthApi.userSignin(user).then(user => {
         localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -51,7 +43,6 @@ export function userSocialLoginClient(data) {
     return AuthApi.userSocialLoginClient(data).then(user => {
         localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -71,9 +62,7 @@ export function userCheckAuth() {
 		localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
     }).catch(error => {
-        dispatch(signupUserFail(error.err));      
-        dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});      
-        // browserHistory.push('/signin');
+        dispatch(signupUserFail(error.err));    
     });
   };
 }
@@ -102,30 +91,18 @@ export function userCheckAdmin() {
     }
 
     return AuthApi.userCheckAuth( token ).then(user => {
-      if(!user.details || !user.details.accessRight || user.details.accessRight !== 8)
-          browserHistory.push('/unauthorized');
-
 		localStorage.setItem('token', user.token);
 		dispatch(signupUserSuccess(user.details));
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
-        // browserHistory.push('/signin');
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});  
     });
   };
 }
 
 
-export function userSignOut(routes) {
-	localStorage.removeItem('token');
-	const routeRoles = _flow(
-		_filter(item => item.authorize), // access to custom attribute
-		_map(item => item.authorize),
-		_flattenDeep                 
-	)(routes).filter((item) => {return item==="admin" || item==="normal";});		
-
-	if (process.env.BROWSER && routeRoles && routeRoles.length){
-		browserHistory.push('/home');
-	}   
-	return {type: types.USER_SIGN_OUT};
+export function userSignOut() {
+	return dispatch => {
+		localStorage.removeItem('token');
+		return dispatch({type: types.USER_SIGN_OUT});
+	};
 }

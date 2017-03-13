@@ -9,7 +9,8 @@ import { ShareButtons, generateShareIcon} from 'react-share';
 import { Route, Link } from 'react-router-dom';
 
 import  Footer from "./Footer";
-import  Header from "./Header";
+import  NavBar  from './header/NavBar';
+import FunctionalBar from './header/FunctionalBar';
 
 import routes from '../route/index';
 import {RouteWithSubRoutes} from '../route/util';
@@ -17,11 +18,10 @@ import {RouteWithSubRoutes} from '../route/util';
 let Root = class Root extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state={
-			showSmNav: false
-		};
+		this.state = {showSmNav:false};
 		this.loadScript = this.loadScript.bind(this);
 		this.getGoogleAuth2 = this.getGoogleAuth2.bind(this);
+		this.SmNavCtrl = this.SmNavCtrl.bind(this);
 	}
 	loadScript(src) {
 		return new Promise(function (resolve, reject) {
@@ -93,12 +93,20 @@ let Root = class Root extends React.Component{
 				});
 			});	
 		});
-
 	}
+	SmNavCtrl(ctrl){
+		this.setState({showSmNav: ctrl});
+	}	
 	render() {
 		return (
 		<div>
-			<Header getGoogleAuth2={this.getGoogleAuth2}/>
+			<header id="header">
+				<div className="container">
+					<FunctionalBar getGoogleAuth2={this.getGoogleAuth2} SmNavCtrl={this.SmNavCtrl}/>
+					<div className="myheader"/>
+					<NavBar activeClass="active" SmNavCtrl={this.SmNavCtrl} showSmNav={this.state.showSmNav}/>
+				</div>
+			</header>
 			<div id="article">			
 				{routes.map((route, id) => (<RouteWithSubRoutes key={route.path} {...route}/>))}
 			</div>

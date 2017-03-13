@@ -11,6 +11,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	table {
 		border-collapse:collapse;
 		border-spacing:0;
+		font-size: 16px;
 	}
 	fieldset, img {
 		border:0;
@@ -61,11 +62,17 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 			 max-width: 320px;
 		 }
 	}
-	body, p {
+	body {
 		font-family: #{$font-p};
 		font-size: $fontsize-p;
 		line-height: 2.5;
 		@include min-height-grace(100%);
+		color: #666;
+	}
+	p {
+		font-family: #{$font-p};
+		font-size: $fontsize-p;
+		line-height: 2.5;
 		color: #666;
 	}
 
@@ -128,6 +135,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 	.Modal{
 		width: 80vw;
 		height: 50vw;
+		display: block !important;
 		min-width: 300px;
 		max-width: 600px;
 		min-height: 400px;	
@@ -907,7 +915,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
       .bar{
 		display: block;
 		position: absolute;
-		top: -5px;
+		top: 10px;
 		right: -5px;
 		color: #c30;
 		cursor: pointer;
