@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ConnectedRouter} from '../react-router-redux/es';
+import { ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
 import "font-awesome-sass-loader";
@@ -19,9 +19,7 @@ const store = configureStore(initialState, history);
 render(
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
-			<Router>
-				<App/>
-			</Router>
+			<App/>
 		</ConnectedRouter>
 	</Provider>,
 	document.getElementById('rootWrap')

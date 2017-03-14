@@ -3,15 +3,17 @@ import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
-import { routerMiddleware} from '../../react-router-redux/es';
+import { routerMiddleware} from 'react-router-redux';
 
 
 function configureStore(initialState, history) {
     return createStore(
 		rootReducer,
 		initialState,
-		applyMiddleware(thunk),
-		applyMiddleware(routerMiddleware(history))
+		compose(
+			applyMiddleware(thunk),
+			applyMiddleware(routerMiddleware(history))
+		)
     );
 }
 

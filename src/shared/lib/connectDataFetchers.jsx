@@ -71,14 +71,11 @@ export default function connectDataFetchers(Component, actionCreators) {
             }else{
                 this._fetchDataOnClient();
             }
-
-			dispatch(modalActions.changeXsNavModal(false));
             IS_FIRST_MOUNT_AFTER_LOAD = false;
         }
 
 
         _fetchDataOnClient() {
-
             DataFetchersWrapper.fetchData({
                 dispatch : this.props.dispatch,
                 params   : this.props.match.params,

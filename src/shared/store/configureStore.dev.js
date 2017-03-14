@@ -3,7 +3,7 @@ import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
-import { routerMiddleware} from '../../react-router-redux/es';
+import { routerMiddleware} from 'react-router-redux';
 
 
 function configureStore(initialState, history) {
@@ -16,10 +16,10 @@ function configureStore(initialState, history) {
 				initialState,
 				compose(
 					applyMiddleware(thunk),
-					window.__REDUX_DEVTOOLS_EXTENSION__(),
-					applyMiddleware(routerMiddleware(history))
+					applyMiddleware(routerMiddleware(history)),
+					window.__REDUX_DEVTOOLS_EXTENSION__()
 				)
-			);	
+			);
 		}else{
 			store = createStore(
 				rootReducer,
@@ -28,9 +28,9 @@ function configureStore(initialState, history) {
 					applyMiddleware(thunk),
 					applyMiddleware(routerMiddleware(history))
 				)
-			);	
+			);
 		}
-		/* eslint-enable */		
+		/* eslint-enable */
 		if(process.env.NODE_ENV !== 'production' && module.hot) {
 			module.hot.accept('../reducers', () => {
 				store.replaceReducer(require('../reducers').default);
@@ -42,8 +42,10 @@ function configureStore(initialState, history) {
 		return createStore(
 			rootReducer,
 			initialState,
-			applyMiddleware(thunk),
-			applyMiddleware(routerMiddleware(history))
+			compose(
+					applyMiddleware(thunk),
+					applyMiddleware(routerMiddleware(history))
+				)
 		);
 	}
 }

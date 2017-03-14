@@ -12,19 +12,19 @@ class StarsRating extends React.Component{
 		this.handleMouseOut = this.handleMouseOut.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
-	handleMouseOver (idx, evt){
+	handleMouseOver (idx){
 		this.setState((state, props) => { return { hoverAt: idx + 1 };});
 		
 		// this.state.hoverAt = idx + 1;
 		// this.forceUpdate(); 
 	}
-	handleMouseOut(idx, evt){
+	handleMouseOut(idx){
 		this.setState((state, props) => { return { hoverAt: null };});
 
 		// this.state.hoverAt = null;
 		// this.forceUpdate();
 	}
-	handleClick(idx, evt){
+	handleClick(idx){
 		this.setState((state, props) => { return { rating: idx + 1 };});
 
 		// this.state.rating = idx + 1;
@@ -38,9 +38,9 @@ class StarsRating extends React.Component{
 			let selected = (i < rating);
 			stars.push(
 			<Star key={i} id={i} selected={selected} style={{cursor: "pointer"}}
-				onMouseOver={this.handleMouseOver}
-				onMouseOut={this.handleMouseOut}
-				onClick={this.handleClick}
+				MouseOver={this.handleMouseOver}
+				MouseOut={this.handleMouseOut}
+				Click={this.handleClick}
 			/>);
 		}
 		return (<div  className="rating">  Your Rate: {stars}</div>);

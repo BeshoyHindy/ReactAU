@@ -1,7 +1,6 @@
 import { NavLink , Link} from 'react-router-dom';
 import React from 'react';
 import { navData } from '../../Data/RouteData';
-import { connect } from 'react-redux';
 
 const AtomNavLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName={props.activeClassName} onClick={()=>props.SmNavCtrl()}> {props.a.desc} </NavLink></li>);
 AtomNavLink.propTypes = {

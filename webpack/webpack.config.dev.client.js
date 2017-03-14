@@ -132,6 +132,11 @@ let config =
 		modules: [
 			"node_modules"
 		],
+		alias: {
+			// "react-router-redux": path.resolve(projectRoot, '../react-router/packages/react-router-redux/'),		
+			// "react-router": path.resolve(projectRoot, '../react-router/packages/react-router/'),		
+			// "react-router-dom": path.resolve(projectRoot, '../react-router/packages/react-router-dom/'),		
+		},
 		unsafeCache : true,
 	},
 	profile: true,

@@ -57,7 +57,7 @@ let FunctionalBar = class FunctionalBar extends React.Component{
 		let { auth} = this.props;
 		if (!auth ||! auth.success || !auth.user)	return <div/>;
 
-		let User = undefined || (auth.user.email && <div className="login-user">{auth.user.email}</div>);
+		let User = (auth.user.email && <div className="login-user">{auth.user.email}</div>);
 		User = User || (auth.user.profile && auth.user.profile.username && <div className="login-user">{auth.user.profile.username}</div>);
 		return User;
 	}
