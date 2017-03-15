@@ -1,4 +1,5 @@
 let webpack = require('webpack');
+// let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 let path  = require( 'path');
 let ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
 
@@ -46,6 +47,9 @@ let config =
 			context: path.join(projectRoot, "src" , "client"),
 			manifest: require("../dll/vendor-manifest.json")
 		}),
+		// new BundleAnalyzerPlugin({
+		// 	analyzerMode: 'static'
+		// }),		
 	],
 	module: {
 		rules: [
@@ -64,6 +68,7 @@ let config =
 					plugins: [
 						"transform-object-rest-spread",
 						"transform-class-properties",
+						"syntax-dynamic-import",
 						"transform-es2015-arrow-functions",
 						"transform-es2015-block-scoped-functions",
 						"transform-es2015-block-scoping",
@@ -88,7 +93,7 @@ let config =
 						"transform-es2015-sticky-regex",
 						["transform-es2015-template-literals", {
 							"loose": true
-						}]
+						}],
 					],  				
 
 				},

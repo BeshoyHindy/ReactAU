@@ -1,16 +1,12 @@
 /* eslint import/no-unresolved: 0*/
-export function fetchComponentsData({ dispatch, components, params, query,  authorize, device }) {
-    const promises = components.map(current => {
+import Homepage from "../shared/components/HomePage";
 
-		if (!current)  return null;
-        const component = current.WrappedComponent ? current.WrappedComponent : current;
-        
-        return component.fetchData
-            ? component.fetchData({ dispatch, params, query,  authorize, device })
+export function fetchComponentsData({ dispatch, actions, params,  authorize, device }) {
+    const promises = Homepage.fetchData
+            ? Homepage.fetchData({ dispatch, params,  authorize, device, specificActionCreators: actions })
             : null;
-    });
 
-    return Promise.all(promises);
+    return promises;
 }
 
 

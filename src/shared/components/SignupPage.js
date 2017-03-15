@@ -9,8 +9,6 @@ import {  Field, reduxForm } from 'redux-form';
 
 import * as actions from '../actions/authAction';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb } from "./Shared/Shared";
 import  {renderField} from "./Shared/renderReduxForm";
 
@@ -108,7 +106,7 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-export default connect(mapStateToProps, ...actions)( reduxForm({
+export default connect(mapStateToProps, ...actions)(connectDataFetchers(reduxForm({
 														form: 'signup',
 														validate,                // <--- validation function given to redux-form
-													})(SignupPage));
+													})(SignupPage), [  ]));

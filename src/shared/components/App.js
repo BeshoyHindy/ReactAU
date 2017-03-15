@@ -2,6 +2,7 @@ if (process.env.BROWSER) {
 	require ('./global.scss');
 }
 
+
 import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
@@ -108,7 +109,11 @@ let Root = class Root extends React.Component{
 				</div>
 			</header>
 			<div id="article">			
-				{routes.map((route, id) => (<RouteWithSubRoutes key={route.path} {...route}/>))}
+				{
+					routes.map((route, id) => {
+						return (<RouteWithSubRoutes key={route.path} route={route} {...this.props} />);
+					}
+				)}
 			</div>
 			<Footer/>
 		</div>

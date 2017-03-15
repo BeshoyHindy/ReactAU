@@ -1,7 +1,5 @@
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { connect } from 'react-redux';
 
 const UnauthorizedPage = (props) 	=> (
@@ -13,5 +11,5 @@ const UnauthorizedPage = (props) 	=> (
 	);
 
 
-export default connect(null)(connectDataFetchers(UnauthorizedPage, [ loadCategories, getDevice ]));
+export default connect(null)(connectDataFetchers(UnauthorizedPage, [ ]));
 

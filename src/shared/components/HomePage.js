@@ -4,8 +4,6 @@ if (process.env.BROWSER) {
 import React from 'react';
 import Carousel from './Shared/Carousel';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { connect } from 'react-redux';
 
 
@@ -62,4 +60,4 @@ const HomePage = (props) => {
 HomePage.propTypes = {
 };
 
-export default connect(null)(connectDataFetchers(HomePage, [ loadCategories, getDevice ]));
+export default connect(null)(connectDataFetchers(HomePage, [ ]));

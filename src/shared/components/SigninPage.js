@@ -8,8 +8,6 @@ import {  Field, reduxForm } from 'redux-form';
 
 import * as actions from '../actions/authAction';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb } from "./Shared/Shared";
 import  {renderField} from "./Shared/renderReduxForm";
 
@@ -120,4 +118,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, actions)(connectDataFetchers(reduxForm({
 														form: 'signin',
 														validate,                // <--- validation function given to redux-form
-													})(SigninPage), [ loadCategories, getDevice ]));
+													})(SigninPage), [  ]));

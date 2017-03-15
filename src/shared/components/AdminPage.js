@@ -4,11 +4,9 @@ if (process.env.BROWSER) {
 import React from 'react';
 import { connect } from 'react-redux';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import {RouteWithSubRoutes} from '../route/util';
 
-let AdminPage = ({match, routes, auth}) => { 
+let AdminPage = ({match, routes, auth, level, Comps, url}) => { 
   return (
 	<div className="container">
 		<div className="loading-wrap">
@@ -16,7 +14,7 @@ let AdminPage = ({match, routes, auth}) => {
 				<h1 className="center-page"> Unauthorized </h1>
 			</div>	    
 			<div>	
-				{routes.map(route => (<RouteWithSubRoutes key={route.path} {...route}/>))}
+				{routes.map(route => (<RouteWithSubRoutes key={route.path} route={route} level={level}  Comps={Comps} url={url}/>))}
 			</div>
 		</div>
 	</div>
@@ -26,6 +24,9 @@ let AdminPage = ({match, routes, auth}) => {
 AdminPage.propTypes = {
 	auth:  React.PropTypes.object,
 	routes:  React.PropTypes.array,
+	Comps:  React.PropTypes.array,
+	level:  React.PropTypes.number,
+	url: React.PropTypes.string,
 	match:  React.PropTypes.object,
     children: React.PropTypes.oneOfType([
       React.PropTypes.arrayOf(React.PropTypes.node),
@@ -40,7 +41,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 AdminPage = connect(mapStateToProps)(
-    connectDataFetchers(AdminPage, [ loadCategories, getDevice ])
+    connectDataFetchers(AdminPage, [ ])
 );
 
 

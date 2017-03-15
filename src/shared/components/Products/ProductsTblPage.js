@@ -12,7 +12,6 @@ import StarsRated from '../Shared/StarsRated';
 import  Favorite  from '../Products/Details/Favorite';
 import HeartToggle from '../Shared/HeartToggle';
 
-import { getDevice } from '../../actions/deviceAction';
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 const BaseProductTblImageComponent = (props) =>
 {

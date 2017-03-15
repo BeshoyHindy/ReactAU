@@ -1,5 +1,11 @@
 if (process.env.BROWSER) {
 	require ('./product.scss');
+}else{
+  var System = {
+    import: function(path) {
+      return Promise.resolve(require(path));
+    }
+  };
 }
 
 
@@ -7,12 +13,10 @@ import { connect } from 'react-redux';
 import { Route, Link} from 'react-router-dom';
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
 import { ProductIndex } from './Products/ProductIndex';
 import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
 import { Metadata } from "../Data/ProductTblSettings";
-import { loadCategories } from '../actions/adminActions';
 import { loadProducts } from '../actions/productsActions';
 import {RouteWithSubRoutes} from '../route/util';
 
@@ -27,7 +31,7 @@ let ProductsPage = class ProductsPage extends React.Component{
 			super(props);
 		}
 		render() {
-			let {match, products, routes} = this.props ;
+			let {match, products, routes, level, Comps, url} = this.props ;
 			let linkpair = [
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
@@ -46,7 +50,7 @@ let ProductsPage = class ProductsPage extends React.Component{
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
-						{routes.map(route => (<RouteWithSubRoutes key={route.path} {...route}/>))}
+						{routes.map(route => (<RouteWithSubRoutes key={route.path} route={route} level={level}  Comps={Comps}  url={url}/>))}
 					</div>
 				</div>
 			</div>
@@ -56,6 +60,9 @@ let ProductsPage = class ProductsPage extends React.Component{
 ProductsPage.propTypes = {
 	match:  React.PropTypes.object,
 	routes:  React.PropTypes.array,
+	Comps:  React.PropTypes.array,
+	level:  React.PropTypes.number,
+	url: React.PropTypes.string,
 	products:  React.PropTypes.array,
 	ajaxState:  React.PropTypes.number,
 };
@@ -67,7 +74,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 ProductsPage = connect(mapStateToProps)(
-    connectDataFetchers(ProductsPage, [ loadProducts, getDevice, loadCategories ])
+    connectDataFetchers(ProductsPage, [ loadProducts])
 );
 
 export default  ProductsPage ;

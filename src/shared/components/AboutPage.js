@@ -4,8 +4,6 @@ if (process.env.BROWSER) {
 import React from 'react';
 import {ImageLoader} from './Shared/ImageLoader';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { connect } from 'react-redux';
 
 import {BrandsData} from '../Data/AboutData';
@@ -70,5 +68,5 @@ const AboutPage = (props) => (
 
 AboutPage.propTypes = {
 };
-export default connect(null)(connectDataFetchers(AboutPage, [ loadCategories, getDevice ]));
+export default connect(null)(connectDataFetchers(AboutPage, [ ]));
 

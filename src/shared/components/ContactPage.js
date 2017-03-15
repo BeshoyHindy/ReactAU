@@ -6,8 +6,6 @@ import React from 'react';
 import { Link} from 'react-router-dom';
 import {ImageLoader} from './Shared/ImageLoader';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { getDevice } from '../actions/deviceAction';
-import { loadCategories } from '../actions/adminActions';
 import { connect } from 'react-redux';
 
 import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared";
@@ -104,4 +102,4 @@ const ContactPage = (props) => {
 };
 
 
-export default connect(null)(connectDataFetchers(ContactPage, [ loadCategories, getDevice ]));
+export default connect(null)(connectDataFetchers(ContactPage, [ ]));

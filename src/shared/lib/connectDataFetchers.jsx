@@ -1,41 +1,42 @@
 import React, { PropTypes } from 'react';
-import * as actions from '../actions/authAction';
-import * as modalActions from '../actions/modalAction';
+
+import { getDevice } from '../actions/deviceAction';
+import { loadCategories } from '../actions/adminActions';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
+const commonActions = [getDevice, loadCategories];
 
 export default function connectDataFetchers(Component, actionCreators) {
     return class DataFetchersWrapper extends React.Component {
         static propTypes = {
-            dispatch : PropTypes.func.isRequired,
-            match   : PropTypes.shape({
-                path : PropTypes.string.required,
-                url   : PropTypes.string,
-                params: PropTypes.string.object
+				dispatch : PropTypes.func.isRequired,
+				match   : PropTypes.shape({
+                path 	: PropTypes.string.required,
+                url   	: PropTypes.string,
+                params  : PropTypes.string.object
             }).isRequired,
         };
 
-        static fetchData({ dispatch, params = {}, authorize= [], device}) {          
-
-            let promiseArray = actionCreators.map(actionCreator => {                    
-                    return actionCreator?(dispatch(actionCreator({ params, device }))):null;
+        static fetchData({ dispatch, params = {}, authorize= [], device, specificActionCreators}) {          
+			let actions = commonActions.concat(specificActionCreators || actionCreators);
+            let promiseArray = actions.map(action => {                    
+                    return action?(dispatch(action({ params, device }))):null;
                 });       
 
             if (process.env.BROWSER && authorize && authorize.length){
                 promiseArray.concat( authorize.map( role => {
                     switch (role) {
                         case "admin":
-                            return dispatch(actions.userCheckAdmin());
+                            return dispatch(authActions.userCheckAdmin());
                         case "normal":
-                            return dispatch(actions.userCheckAuth());
+                            return dispatch(authActions.userCheckAuth());
                         case "reAuth":
-                            return dispatch(actions.userReAuth());
+                            return dispatch(authActions.userReAuth());
                         default:
                             return null;
                     }
                 } ));
             }
-
             return Promise.all( promiseArray );
         }
         componentDidUpdate(prevProps) {
@@ -57,11 +58,11 @@ export default function connectDataFetchers(Component, actionCreators) {
                     let promiseArray =  authorize.map( role => {
                         switch (role) {
                             case "admin":
-                                return dispatch(actions.userCheckAdmin());
+                                return dispatch(authActions.userCheckAdmin());
                             case "normal":
-                                return dispatch(actions.userCheckAuth());
+                                return dispatch(authActions.userCheckAuth());
                             case "reAuth":
-                                return dispatch(actions.userReAuth());
+                                return dispatch(authActions.userReAuth());
                             default:
                                 return null;
                         }
@@ -90,3 +91,5 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
     };
 }
+
+

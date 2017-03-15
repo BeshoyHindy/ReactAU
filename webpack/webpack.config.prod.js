@@ -31,7 +31,7 @@ var config = [
 			path: assetsPath,
 			publicPath: publicPath,
 			filename: '[name]-[chunkhash].js',
-			chunkFilename: '[name]-[chunkhash].js'
+			chunkFilename: 'chunk-[name]-[chunkhash].js'
 		},
 		plugins: [
 			new webpack.DefinePlugin({
@@ -71,13 +71,14 @@ var config = [
 			// new BundleAnalyzerPlugin({
 			// 	analyzerMode: 'static'
 			// }),
-
 			new webpack.optimize.CommonsChunkPlugin({
-				name: 'vendor',
-				minChunks: ({ resource }) => /node_modules/.test(resource),
-			}),
+				name: "vendor",
+				minChunks: function(module){
+				return module.context && module.context.indexOf("node_modules") !== -1;
+				}
+			}),			
 			// Generate a 'manifest' chunk to be inlined in the HTML template
-			new webpack.optimize.CommonsChunkPlugin('manifest'),
+			new webpack.optimize.CommonsChunkPlugin({  name: "manifest",  minChunks: Infinity}),
 
 			// Need this plugin for deterministic hashing
 			// until this issue is resolved: https://github.com/webpack/webpack/issues/1315

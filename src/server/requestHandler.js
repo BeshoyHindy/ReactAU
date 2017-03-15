@@ -39,7 +39,7 @@ function ssr(match, res, req){
 	const componentHTML = ReactDOMServer.renderToString(
 			<Provider store={store}>
 				<StaticRouter location={req.url} context={context} >
-					<App/>
+					<App url={req.url}  level={0}/>
 				</StaticRouter>
 			</Provider>
 		);
@@ -57,14 +57,25 @@ function handleRender(req, res)
 							? asset.bundle.js
 							:'bundle.js';
 
-	const components = [];
+	let components = [];
+	let actions = [];
 	let authorize = [];
 	let match = {};
 	routes.some(route => {
 		match = matchPath(req.url, route);
 		if (match){
-			components.push(route.component);
-			authorize = route.authorize;
+			actions = actions.concat(route.actions || []);
+			components.push(route);
+			authorize = authorize.concat(route.authorize || []);
+			route.routes && route.routes.some(r => {
+				match = matchPath(req.url, r);
+				if (match){
+					actions = actions.concat(r.actions || []);
+					components.push(r);
+					authorize = authorize.concat(r.authorize || []);			
+				}
+				return match;
+			});
 		}
 		return match;
 	});
@@ -72,9 +83,10 @@ function handleRender(req, res)
 	if (!components.length){
 		return ssr({}, res, req)
 	}
+
 	fetchComponentsData({
 			dispatch   : store.dispatch,
-			components : components,
+			actions 	: actions,
 			params     : match.params ,
 			query      : match.query,
 			authorize,

@@ -1,5 +1,8 @@
 import React from 'react';
 import Star from './Star';
+function emptyFunc(){
+	return;
+}
 let StarsRated = (props) => {
 	let stars = [];
 	let {voteCount, count, pretitle} = props;
@@ -9,7 +12,10 @@ let StarsRated = (props) => {
 		let selected = (i < count);
 		let half = (i < count) && ( i > (count - 1)) ;
 		stars.push(
-		<Star key={i} selected={selected} half={half}/>);
+		<Star key={i} selected={selected} half={half}
+				MouseOver={emptyFunc}
+				MouseOut={emptyFunc}
+				Click={emptyFunc}/>);
 	}
 	return (<div  className="rated">{pretitle} {stars} ({count}) {voteCount} </div>);
 };
