@@ -96,7 +96,7 @@ app.use(helmet.contentSecurityPolicy({
 		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", 
 									"https://www.google.com", "https://www.googleapis.com/", "https://clients1.google.com", api_server.http.host],
 		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", api_server.http.host,],
-		frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/"],
+		frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/", "https://maps.google.com/", "https://www.google.com/"],
 		connectSrc: ["'self'", api_server.http.host],
 		reportUri: "/cspviolation"
 	},
