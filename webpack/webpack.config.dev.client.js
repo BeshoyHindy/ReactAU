@@ -102,7 +102,7 @@ let config =
 				test: /(\.css)$/,
 				include: [
 					path.resolve(projectRoot, './src/shared/components/') ,
-					path.resolve(projectRoot, './node_modules/bootstrap/dist/css/') ,
+					path.resolve(projectRoot, './src/shared/css/') ,
 					path.resolve(projectRoot, './node_modules/font-awesome/css/') ,
 				],
 				use: [
@@ -152,7 +152,7 @@ let config =
 			// "react-router-redux": path.resolve(projectRoot, '../react-router/packages/react-router-redux/'),		
 			// "react-router": path.resolve(projectRoot, '../react-router/packages/react-router/'),		
 			// "react-router-dom": path.resolve(projectRoot, '../react-router/packages/react-router-dom/'),		
-			"bootstrap.css": path.resolve(projectRoot, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),		
+			"bootstrap.css": path.resolve(projectRoot, './src/shared/css/bootstrap.min.css'),		
 			"font-awesome.css": path.resolve(projectRoot, 'node_modules/font-awesome/css/font-awesome.min.css'),		
 		},
 		unsafeCache : true,
