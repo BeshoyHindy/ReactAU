@@ -45,7 +45,7 @@ var config = [
 			__DEVTOOLS__: false
 			}),
 			new ExtractTextPlugin({
-				filename: 'css/main.css',
+				filename: 'css/[name].css',
 				disable: false,
 				allChunks: true
 			}),
@@ -99,11 +99,24 @@ var config = [
 						cacheDirectory: true,
 					},
 				},
+{
+					test: /(\.css)$/,
+					include: [
+						path.resolve(projectRoot, './src/shared/css/') ,
+						path.resolve(projectRoot, './node_modules/font-awesome/css/') ,
+					],
+					use:
+						ExtractTextPlugin.extract({
+							fallback: "style-loader",
+							use: [
+								{ loader: 'css-loader'},
+							],
+						})
+				},				
 				{
 					test: /(\.sass|\.scss)$/,
 					include: [
-						path.resolve(projectRoot, './src/shared/components/') ,
-						path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
+						path.resolve(projectRoot, './src/shared/components/') ,				
 					],					
 					use:
 						ExtractTextPlugin.extract({
@@ -111,20 +124,26 @@ var config = [
 							use: [
 								{ loader: 'css-loader', query: { importLoaders: 2}},
 								{ loader: 'postcss-loader' },
-								{ loader: 'resolve-url-loader' },
-								{ loader: 'sass-loader', query: {
-										// sourceMap: true,
-										includePaths: [
-											path.resolve(projectRoot, './node_modules/bootstrap-sass/assets/stylesheets/') ,
-										],
-									}
-								}
+								{ loader: 'sass-loader'},
 							],
 						})
 				},
-				{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
-				{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=fonts/[name].[ext]" },
-				{ test: /\.(gif|jpg|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: "file-loader?name=img/[name].[ext]" },					
+				{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
+					loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" ,
+					include: [
+						path.resolve(projectRoot, './src/shared/fonts/') ,
+						path.resolve(projectRoot, './node_modules/bootstrap/dist/fonts/') ,
+						path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
+					],				
+				},
+				{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
+					loader: "file-loader?name=fonts/[name].[ext]" ,
+					include: [
+						path.resolve(projectRoot, './src/shared/fonts/') ,
+						path.resolve(projectRoot, './node_modules/bootstrap/dist/fonts/') ,
+						path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
+					],
+				},							
 			]
 		},
 		resolveLoader: {
@@ -136,6 +155,10 @@ var config = [
 			modules: [
 				"node_modules"
 			],
+			alias: {
+				"bootstrap.css": path.resolve(projectRoot, 'src/shared/css/bootstrap.min.css'),			
+				"font-awesome.css": path.resolve(projectRoot, 'node_modules/font-awesome/css/font-awesome.min.css'),		
+			},	
 			unsafeCache : true,
 		},
 	},

@@ -1,6 +1,9 @@
 if (process.env.BROWSER) {
+	require("font-awesome.css");
+	require("bootstrap.css");	
 	require ('./global.scss');
 }
+
 
 import React from 'react';
 import { connect } from 'react-redux';

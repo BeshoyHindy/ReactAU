@@ -5,7 +5,6 @@ import { syncHistoryWithStore} from 'react-router-redux';
 import { match,  browserHistory, Router } from 'react-router';
 
 
-import "font-awesome-sass-loader";
 require.context('../shared/fonts', true, /\.?/);
 
 
