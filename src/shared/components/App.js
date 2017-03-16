@@ -1,4 +1,6 @@
 if (process.env.BROWSER) {
+	require("font-awesome.css");
+	require("bootstrap.css");	
 	require ('./global.scss');
 }
 

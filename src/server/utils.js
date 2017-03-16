@@ -1,14 +1,17 @@
 /* eslint import/no-unresolved: 0*/
-import Homepage from "../shared/components/HomePage";
+export function fetchComponentsData({ dispatch, components, params, query,  route, device }) {
+    const promises = components.map(current => {
 
-export function fetchComponentsData({ dispatch, actions, params,  authorize, device }) {
-    const promises = Homepage.fetchData
-            ? Homepage.fetchData({ dispatch, params,  authorize, device, specificActionCreators: actions })
+		if (!current)  return null;
+        const component = current.WrappedComponent ? current.WrappedComponent : current;
+        
+        return component.fetchData
+            ? component.fetchData({ dispatch, params, query,  route, device })
             : null;
+    });
 
-    return promises;
+    return Promise.all(promises);
 }
-
 
 export function getMetaDataFromState({ route, state, params = {}, query = {}, lang, pathname }) {
     /* eslint more/no-duplicated-chains: 0 */

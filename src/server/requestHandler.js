@@ -65,13 +65,13 @@ function handleRender(req, res)
 		match = matchPath(req.url, route);
 		if (match){
 			actions = actions.concat(route.actions || []);
-			components.push(route);
+			components.push(route.component);
 			authorize = authorize.concat(route.authorize || []);
 			route.routes && route.routes.some(r => {
 				match = matchPath(req.url, r);
 				if (match){
 					actions = actions.concat(r.actions || []);
-					components.push(r);
+					components.push(r.component);
 					authorize = authorize.concat(r.authorize || []);			
 				}
 				return match;
@@ -86,7 +86,7 @@ function handleRender(req, res)
 
 	fetchComponentsData({
 			dispatch   : store.dispatch,
-			actions 	: actions,
+			components 	: components,
 			params     : match.params ,
 			query      : match.query,
 			authorize,

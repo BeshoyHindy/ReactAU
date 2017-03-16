@@ -13,7 +13,6 @@ import { BrowserRouter as Router , matchPath} from 'react-router-dom';
 import { ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
-// import "font-awesome-sass-loader";
 require.context('../shared/fonts', true, /\.?/);
 
 import routes from '../shared/route/index';

@@ -17,21 +17,20 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired,
         };
 
-        static fetchData({ dispatch, params = {}, authorize= [], device, specificActionCreators}) {          
-			let actions = commonActions.concat(specificActionCreators || actionCreators);
-            let promiseArray = actions.map(action => {                    
-                    return action?(dispatch(action({ params, device }))):null;
+        static fetchData({ dispatch, params = {}, authorize= [], device}) {          
+            let promiseArray = actionCreators.map(actionCreator => {                    
+                    return actionCreator?(dispatch(actionCreator({ params, device }))):null;
                 });       
 
             if (process.env.BROWSER && authorize && authorize.length){
                 promiseArray.concat( authorize.map( role => {
                     switch (role) {
                         case "admin":
-                            return dispatch(authActions.userCheckAdmin());
+                            return dispatch(actions.userCheckAdmin());
                         case "normal":
-                            return dispatch(authActions.userCheckAuth());
+                            return dispatch(actions.userCheckAuth());
                         case "reAuth":
-                            return dispatch(authActions.userReAuth());
+                            return dispatch(actions.userReAuth());
                         default:
                             return null;
                     }
