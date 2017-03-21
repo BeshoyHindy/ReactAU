@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./SortableTbl.scss');
+	require ('../../Sass/SortableTbl.scss');
 }
 
 import React from 'react';

@@ -2,17 +2,17 @@ let webpack = require('webpack');
 // let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 let path  = require( 'path');
 let ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const webpack_dev_server = require('../.config/configuration').webpack_dev_server;
+const WebpackMd5Hash = require('webpack-md5-hash');
 
-//http://stackoverflow.com/questions/36854862/redux-hot-reload-warning-on-changes
-const web_server = require('../.config/configuration').web_server;
-
-const port = web_server.http.port || 3002;
-const host = web_server.http.host || 'localhost';
+const port = webpack_dev_server.http.port;
+const host = webpack_dev_server.http.host;
 
 
 let projectRoot = process.cwd();
 let assetsPath = path.join(projectRoot,   "public", "build");
-let publicPath = `http://${host}:${port}/build/`;
+let publicPath = `${host}:${port}/build/`;
 let distPath = projectRoot;
 
 let config = 
@@ -20,17 +20,44 @@ let config =
 	cache: false,
 	devtool: 'eval',
 	context: process.cwd(),
-	entry: [
-		'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-		path.resolve(projectRoot, './src/client/index.js')
-	],
+	devServer: {
+	// quiet: true,
+	// noInfo: true,
+		publicPath: publicPath,
+		headers: { 'Access-Control-Allow-Origin': '*' },
+		historyApiFallback: true, 
+		// https: true,
+		port: port,
+		stats: {
+			hash: true,
+			version: true,
+			timings: true,
+			assets: false,
+			chunks: false,
+			modules: true,
+			reasons: false,
+			children: false,
+			source: false,
+			errors: true,
+			errorDetails: true,
+			warnings: true,
+			publicPath: true,
+			colors: true
+		},
+	},
+	entry: {
+		bundle: [
+			'react-hot-loader/patch',
+			`webpack-hot-middleware/client?reload=true&path=${host}:${port}/__webpack_hmr`, //note that it reloads the page if hot module reloading fails.
+			path.resolve(projectRoot, './src/client/index.js'),
+		]
+	},
 	target: 'web',
 	output: {
 		path: assetsPath, // Note: Physical files are only output by the production build task `npm run build`.
 		publicPath: publicPath,
-		filename: 'bundle.js',
-		chunkFilename: '[name]-[chunkhash].js',
-		library: "[name]_[hash]"
+		filename: '[name].js',
+		chunkFilename: 'chunk-[name].js'
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -43,10 +70,24 @@ let config =
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
-		new webpack.DllReferencePlugin({
-			context: path.join(projectRoot, "src" , "client"),
-			manifest: require("../dll/vendor-manifest.json")
-		}),
+		// new webpack.DllReferencePlugin({
+		// 	context: path.join(projectRoot, "src" , "client"),
+		// 	manifest: require("../dll/vendor-manifest.json")
+		// }),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "vendor",
+			minChunks: function(module){
+			return module.context && module.context.indexOf("node_modules") !== -1;
+			}
+		}),			
+		// Generate a 'manifest' chunk to be inlined in the HTML template
+		new webpack.optimize.CommonsChunkPlugin({  name: "manifest",  minChunks: Infinity}),
+
+		// Need this plugin for deterministic hashing
+		// until this issue is resolved: https://github.com/webpack/webpack/issues/1315
+		// for more info: https://webpack.js.org/how-to/cache/
+		new WebpackMd5Hash(),			
+		new AssetsPlugin({fullPath: true})	
 		// new BundleAnalyzerPlugin({
 		// 	analyzerMode: 'static'
 		// }),		
@@ -64,36 +105,38 @@ let config =
 				options: {
 					cacheDirectory: true,
 					babelrc: false,
-					presets: ["react"],
+					presets: [['es2015', {modules: false, loose: true}], "react"],
 					plugins: [
+						"react-hot-loader/babel",
+						"syntax-dynamic-import",
+						"dynamic-import-webpack",
 						"transform-object-rest-spread",
 						"transform-class-properties",
-						"syntax-dynamic-import",
-						"transform-es2015-arrow-functions",
-						"transform-es2015-block-scoped-functions",
-						"transform-es2015-block-scoping",
-						["transform-es2015-classes", {
-							"loose": true
-						}],
-						["transform-es2015-computed-properties", {
-							"loose": true
-						}],
-						"transform-es2015-destructuring",
-						"transform-es2015-duplicate-keys",
-						["transform-es2015-for-of", {
-							"loose": true
-						}],
-						"transform-es2015-function-name",
-						"transform-es2015-object-super",
-						"transform-es2015-parameters",
-						"transform-es2015-shorthand-properties",
-						["transform-es2015-spread", {
-							"loose": true
-						}],
-						"transform-es2015-sticky-regex",
-						["transform-es2015-template-literals", {
-							"loose": true
-						}],
+						// "transform-es2015-arrow-functions",
+						// "transform-es2015-block-scoped-functions",
+						// "transform-es2015-block-scoping",
+						// ["transform-es2015-classes", {
+						// 	"loose": true
+						// }],
+						// ["transform-es2015-computed-properties", {
+						// 	"loose": true
+						// }],
+						// "transform-es2015-destructuring",
+						// "transform-es2015-duplicate-keys",
+						// ["transform-es2015-for-of", {
+						// 	"loose": true
+						// }],
+						// "transform-es2015-function-name",
+						// "transform-es2015-object-super",
+						// "transform-es2015-parameters",
+						// "transform-es2015-shorthand-properties",
+						// ["transform-es2015-spread", {
+						// 	"loose": true
+						// }],
+						// "transform-es2015-sticky-regex",
+						// ["transform-es2015-template-literals", {
+						// 	"loose": true
+						// }],
 					],  				
 
 				},
@@ -113,7 +156,7 @@ let config =
 			{
 				test: /(\.sass|\.scss)$/,
 				include: [
-					path.resolve(projectRoot, './src/shared/components/') ,
+					path.resolve(projectRoot, './src/shared/Sass/') ,
 				],
 				use: [
 					"style-loader",

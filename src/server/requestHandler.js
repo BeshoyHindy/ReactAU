@@ -7,6 +7,7 @@ import { StaticRouter } from 'react-router';
 import { matchPath } from 'react-router-dom';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
+import request from 'request';
 
 import configureStore from '../shared/store/configureStore';
 import App from '../shared/components/App';
@@ -14,18 +15,11 @@ import routes from '../shared/route';
 
 import { getMetaDataFromState, fetchComponentsData} from './utils';
 
-
 let asset = JSON.parse(fs.readFileSync('./webpack-assets.json'));
-let manifest = (process.env.NODE_ENV === 'production')?fs.readFileSync(`./public/build/${asset.manifest.js}`):"";
-
-
 const store = configureStore();
 
 function ssr(match, res, req){
 	const context = {};
-	let vendorJs =(process.env.NODE_ENV === 'production')
-						? `/build/${asset.vendor.js}`
-						: '/dll.vendor.js';	
 	let reduxState = store.getState();
 	let metaData = getMetaDataFromState({
 		params : match.params || {},
@@ -34,7 +28,6 @@ function ssr(match, res, req){
 		state  : reduxState,
 		pathname: match.url || req.url
 	});
-
 	reduxState = serializeJs(reduxState, { isJSON: true });
 	const componentHTML = ReactDOMServer.renderToString(
 			<Provider store={store}>
@@ -43,7 +36,22 @@ function ssr(match, res, req){
 				</StaticRouter>
 			</Provider>
 		);
-	res.render('index', { componentHTML, reduxState, vendorJs, metaData, asset, manifest });
+	let manifest = null;
+	
+	if (process.env.NODE_ENV === 'production') {
+		manifest = fs.readFileSync(`./public/${asset.manifest.js}`);
+		res.render('index', { componentHTML, reduxState,  metaData, asset, manifest });
+	}else{
+		request(asset.manifest.js, function (error, response, body) {
+			if (error)
+				manifest = "";
+
+			manifest = body;
+			res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
+		});
+
+	}
+		
 }
 
 function handleRender(req, res)
@@ -53,10 +61,6 @@ function handleRender(req, res)
 
 	const md = new MobileDetect(req.headers['user-agent']);
 	let device = {mobile: md.mobile()||md.phone(), tablet: md.tablet(), os: md.os() };
-	asset.bundle.js = (process.env.NODE_ENV === 'production')
-							? asset.bundle.js
-							:'bundle.js';
-
 	let components = [];
 	let actions = [];
 	let authorize = [];

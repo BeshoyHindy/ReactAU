@@ -1,11 +1,3 @@
-if (!process.env.BROWSER) {
-  var System = {
-    import: function(path) {
-      return Promise.resolve(require(path));
-    }
-  };
-}
-
 import React from 'react';
 import {  Route, matchPath} from 'react-router-dom';
 function errorLoading(err) {
@@ -18,15 +10,16 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 		let {route, Comps, level, url} = props;
 		let isBrowser = process.env.BROWSER;
 		this.state = { Component: null, match: !!matchPath(url, route) , url };
-		if (isBrowser) {
+		if (isBrowser && process.env.NODE_ENV !== 'development') {
 			if(this.state.match && Comps && Comps[level]){
 				this.state.Component = Comps[level].default;
 				return;
 			}
-			System.import(`../components/${route.componentPath}`).then((mod)=>{
+			import(`../components/${route.componentPath}`).then((mod)=>{
 				this.setState({Component: mod.default});
 			}).catch(errorLoading);
 		}else{
+			//disable code spliting on development(due to react hot loader 3 not support dynamic import code spliting)
 			this.state.Component = route.component;
 		}
 	} 

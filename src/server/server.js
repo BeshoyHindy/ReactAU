@@ -81,27 +81,29 @@ delete process.env.BROWSER;
 const app = express();
 
 const oneDay = 86400000;
-app.use(helmet());
-// app.use(helmet.noCache());   
 
-app.use(helmet.contentSecurityPolicy({
-	directives: {
-		defaultSrc: ["'none'"],
-		//google custom search need 'unsafe-eval'....
-		scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
-												, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
-		// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
-		// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
-		styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.google.com", "https://cse.google.com/", api_server.http.host],
-		imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", 
-									"https://www.google.com", "https://www.googleapis.com/", "https://clients1.google.com", api_server.http.host],
-		fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", api_server.http.host,],
-		frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/", "https://maps.google.com/", "https://www.google.com/"],
-		connectSrc: ["'self'", api_server.http.host],
-		reportUri: "/cspviolation"
-	},
-}));
-app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
+if (process.env.NODE_ENV === 'production') {
+	app.use(helmet());
+	// app.use(helmet.noCache());   
+	app.use(helmet.contentSecurityPolicy({
+		directives: {
+			defaultSrc: ["'none'"],
+			//google custom search need 'unsafe-eval'....
+			scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
+													, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
+			// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
+			// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
+			styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.google.com", "https://cse.google.com/", api_server.http.host],
+			imgSrc: ["'self'", "data:", "https://www.google-analytics.com/", "https://www.facebook.com/", "https://staticxx.facebook.com/", 
+										"https://www.google.com", "https://www.googleapis.com/", "https://clients1.google.com", api_server.http.host],
+			fontSrc: ["'self'", "https://fonts.gstatic.com", "data:", api_server.http.host,],
+			frameSrc: ["'self'", api_server.http.host, "https://accounts.google.com/","https://staticxx.facebook.com/", "https://maps.google.com/", "https://www.google.com/"],
+			connectSrc: ["'self'", api_server.http.host],
+			reportUri: "/cspviolation"
+		},
+	}));
+	app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
+}
 app.use(compression());
 app.use(cookieParser());
 app.engine('ejs', require('ejs').renderFile);

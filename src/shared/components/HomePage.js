@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {	
-	require ('./home.sass');
+	require ('../Sass/home.sass');
 }
 import React from 'react';
 import Carousel from './Shared/Carousel';

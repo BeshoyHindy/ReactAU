@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./contact.scss');
+	require ('../Sass/contact.scss');
 }
 
 import React from 'react';

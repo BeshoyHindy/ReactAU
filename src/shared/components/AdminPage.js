@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./admin.scss');
+	require ('../Sass/admin.scss');
 }
 import React from 'react';
 import { connect } from 'react-redux';

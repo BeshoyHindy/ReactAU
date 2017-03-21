@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./user.sass');
+	require ('../Sass/user.sass');
 }
 
 import { connect } from 'react-redux';

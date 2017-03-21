@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./ImageLoader.sass');
+	require ('../../Sass/ImageLoader.sass');
 }
 
 import React from 'react';

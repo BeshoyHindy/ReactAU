@@ -4,18 +4,26 @@ module.exports =
 	{
 		http:
 		{
-			host: 'https://node-api-server-chingching.herokuapp.com',
-			port: 443,
-			// host: 'http://localhost',
-			// port: 3003,
+			// host: 'https://node-api-server-chingching.herokuapp.com',
+			// port: 443,
+			host: 'http://localhost',
+			port: 3003,
 		}
 	},
 	web_server:
 	{
 		http:
 		{
-			host: 'localhost',
+			host: 'http://localhost',
 			port: process.env.PORT || 3000,
+		}
+	},
+	webpack_dev_server:
+	{
+		http:
+		{
+			host: 'http://localhost',
+			port: 3002,
 		}
 	}
 }

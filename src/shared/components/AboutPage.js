@@ -1,5 +1,5 @@
-if (process.env.BROWSER) {
-	require ('./about.scss');
+if (process.env.BROWSER ) {
+	require ('../Sass/about.scss');
 }
 import React from 'react';
 import {ImageLoader} from './Shared/ImageLoader';

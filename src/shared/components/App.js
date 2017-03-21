@@ -1,10 +1,11 @@
 if (process.env.BROWSER) {
 	require("font-awesome.css");
 	require("bootstrap.css");	
-	require ('./global.scss');
+	require ('../Sass/global.scss');
 }
 
 
+import {RouteWithSubRoutes} from '../route/util';
 import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
@@ -16,7 +17,6 @@ import  NavBar  from './header/NavBar';
 import FunctionalBar from './header/FunctionalBar';
 
 import routes from '../route/index';
-import {RouteWithSubRoutes} from '../route/util';
 
 let Root = class Root extends React.Component{
 	constructor(props) {

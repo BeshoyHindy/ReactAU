@@ -10,7 +10,7 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const AssetsPlugin = require('assets-webpack-plugin');
 
 var projectRoot = process.cwd(); 
-var assetsPath = path.join(projectRoot,   "public", "build");
+var assetsPath = "./public/build";
 var publicPath = "/build/";
 var distPath = projectRoot;
 
@@ -84,7 +84,7 @@ var config = [
 			// until this issue is resolved: https://github.com/webpack/webpack/issues/1315
 			// for more info: https://webpack.js.org/how-to/cache/
 			new WebpackMd5Hash(),	
-			new AssetsPlugin({fullPath: false})	
+			new AssetsPlugin({fullPath: true})	
 		],
 		module: {
 			rules: [
@@ -99,38 +99,40 @@ var config = [
 					options: {
 						cacheDirectory: true,
 						babelrc: false,
-						presets: ["react"],
+						presets: [['es2015', {modules: false, loose: true}], "react"],
 						plugins: [
+							"syntax-dynamic-import",
+							"dynamic-import-webpack",
 							"transform-object-rest-spread",
 							"transform-class-properties",
-							"transform-es2015-arrow-functions",
-							"transform-es2015-block-scoped-functions",
-							"transform-es2015-block-scoping",
-							["transform-es2015-classes", {
-								"loose": true
-							}],
-							["transform-es2015-computed-properties", {
-								"loose": true
-							}],
-							"transform-es2015-destructuring",
-							"transform-es2015-duplicate-keys",
-							["transform-es2015-for-of", {
-								"loose": true
-							}],
-							"transform-es2015-function-name",
-							["transform-es2015-modules-commonjs", {
-								"loose": true
-							}],
-							"transform-es2015-object-super",
-							"transform-es2015-parameters",
-							"transform-es2015-shorthand-properties",
-							["transform-es2015-spread", {
-								"loose": true
-							}],
-							"transform-es2015-sticky-regex",
-							["transform-es2015-template-literals", {
-								"loose": true
-							}],
+							// "transform-es2015-arrow-functions",
+							// "transform-es2015-block-scoped-functions",
+							// "transform-es2015-block-scoping",
+							// ["transform-es2015-classes", {
+							// 	"loose": true
+							// }],
+							// ["transform-es2015-computed-properties", {
+							// 	"loose": true
+							// }],
+							// "transform-es2015-destructuring",
+							// "transform-es2015-duplicate-keys",
+							// ["transform-es2015-for-of", {
+							// 	"loose": true
+							// }],
+							// "transform-es2015-function-name",
+							// ["transform-es2015-modules-commonjs", {
+							// 	"loose": true
+							// }],
+							// "transform-es2015-object-super",
+							// "transform-es2015-parameters",
+							// "transform-es2015-shorthand-properties",
+							// ["transform-es2015-spread", {
+							// 	"loose": true
+							// }],
+							// "transform-es2015-sticky-regex",
+							// ["transform-es2015-template-literals", {
+							// 	"loose": true
+							// }],
 							"transform-react-constant-elements",
 							"transform-react-remove-prop-types",
 							"transform-react-inline-elements"
@@ -154,7 +156,7 @@ var config = [
 				{
 					test: /(\.sass|\.scss)$/,
 					include: [
-						path.resolve(projectRoot, './src/shared/components/') ,				
+						path.resolve(projectRoot, './src/shared/Sass/') ,				
 					],					
 					use:
 						ExtractTextPlugin.extract({
@@ -204,7 +206,7 @@ var config = [
 	{
 		// The configuration for the server-side rendering
 		name: "server-side rendering",
-		entry: "./src/server/server.prod.js",
+		entry: "./src/server/server.js",
 		target: "node",
 		context: process.cwd(),
 		node: {
@@ -247,6 +249,8 @@ var config = [
 						plugins: [
 							"transform-object-rest-spread",
 							"transform-class-properties",
+							"syntax-dynamic-import",
+							"dynamic-import-webpack",
 							"transform-es2015-arrow-functions",
 							"transform-es2015-block-scoped-functions",
 							"transform-es2015-block-scoping",

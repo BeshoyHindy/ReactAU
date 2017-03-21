@@ -1,13 +1,6 @@
 if (process.env.BROWSER) {
-	require ('./product.scss');
-}else{
-  var System = {
-    import: function(path) {
-      return Promise.resolve(require(path));
-    }
-  };
+	require ('../Sass/product.scss');
 }
-
 
 import { connect } from 'react-redux';
 import { Route, Link} from 'react-router-dom';
