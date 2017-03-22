@@ -25,9 +25,9 @@ const contactData =
 	}
 ];
 
-const frontImgData = ["/img/front1.png"
-               , "/img/front2.png"
-               , "/img/front3.png"];
+const frontImgData = ["/build/img/front1.png"
+               , "/build/img/front2.png"
+               , "/build/img/front3.png"];
 
 const gMapLinkData =
 "https://maps.google.com/maps/ms?ie=UTF8&hl=en&msa=0&msid=106769226832839893040.0004696439a6ad4fbbf77&ll=-33.891997,150.964916&spn=0.003117,0.00456&t=h&z=17&output=embed";

@@ -24,8 +24,8 @@ var config = {
     ],
     resolve: {
 		modules: [
-		  path.resolve(__dirname, "../src/client"),
-		  "node_modules"
+			path.resolve(__dirname, "../src/client"),
+			"node_modules"
 		]
     }
 };

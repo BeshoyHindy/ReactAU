@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import update from 'immutability-helper';
-
+import {productEditColDetail} from '../../Data/General';
 import { ImageLoader } from '../Shared/ImageLoader';
 import { SortableTbl }  from '../Shared/SortableTbl';
-import { Metadata } from "../../Data/ProductTblSettings";
 import { routeBaseLink } from '../../Data/RouteData';
 import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 import StarsRated from '../Shared/StarsRated';
@@ -96,44 +95,47 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 				
 		let mobile = !!(device.phone || device.mobile);
 		let viewSettingStyle = {display: mobile ?"none":"block"};
-		if ( !productType || !Metadata[productType] || filtered === []){
+		if ( !productType ||  filtered === []){
 			return (<div/>);
-		}else{
-			let col = [], tHead =[];
-			let colMetadata = Metadata[productType];
-			for (let item of colMetadata) {
-				if (item.visible){
-					col.push(item.columnName);
-					tHead.push(item.displayName);
-				}
+		}
+		
+		
+		let col = [], tHead =[];
+		let obj = filtered[0];
+		let data = [...filtered];
+		for (let item of data) {
+			if (item.images && item.images[0]){
+				item.imageUrl= item.images[0];
+				delete item.images;
 			}
-
-			if(edit) {
+			if(edit){
+				item.edit = editBaseLink;
 				tHead.push("Edit");
 				col.push("edit");
 			}
-			if(this.props.delete) {
+			if(this.props.delete){
+				item.delete = "";
 				tHead.push("Delete");
 				col.push("delete");
 			}
+		}
 
-			let data = [...filtered];
-			for (let item of data) {
-				if (item.images && item.images[0]){
-					item.imageUrl= item.images[0];
-					delete item.images;
-				}
-				if(edit)
-					item.edit = editBaseLink;
-				if(this.props.delete)
-					item.delete = "";
+		tHead.push( "Image");
+		col.push("imageUrl");
+		for (let prop in obj) {
+			let iMap = productEditColDetail.filter((item)=>item.db === prop ).pop();
+			if ( !iMap || iMap.db === '_id' || iMap.db === 'imageUrl' ){
+				continue;
 			}
+			tHead.push( (iMap && iMap.desc) || "");
+			col.push(prop);
+		}
 
 
 		// console.log(Metadata[this.props.productType]);
 		return (
 			<div className="loading-wrap">
-				<div className={`ajax-loading-big ${ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/img/ajax-loader.gif" alt=""/></div>
+				<div className={`ajax-loading-big ${ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/build/img/ajax-loader.gif" alt=""/></div>
 				<ul className="app-view" style={viewSettingStyle}>
 					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
 						<div className="bubble ">list view</div>
@@ -187,8 +189,8 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 			</div>
 			);
 		}
-	}
-};
+	};
+
 
 
 ProductsTblPage.propTypes = {

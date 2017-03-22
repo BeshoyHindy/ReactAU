@@ -230,7 +230,7 @@ class AdminEditProductPage extends React.Component{
 		return (
 	<div className="loading-wrap">
 		<div className={`ajax-loading-big ${showAjaxLoading?'fade-show':'fade-hide'}`} >
-			<img src="/img/ajax-loader.gif" alt=""/>
+			<img src="/build/img/ajax-loader.gif" alt=""/>
 			<div className="ajax-loading-progress">
 				{	(detailPostProgress )
 						? `Apply Change... ${detailPostProgress} % ` 
@@ -314,7 +314,6 @@ class AdminEditProductPage extends React.Component{
 
 
 AdminEditProductPage.propTypes = {
-	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
 	details: React.PropTypes.object,
 	match: React.PropTypes.object.isRequired,	
@@ -326,7 +325,6 @@ AdminEditProductPage.contextTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    categories: state.categories,
 	details: state.details,
 	ajaxState: state.ajaxCallsInProgress
   };

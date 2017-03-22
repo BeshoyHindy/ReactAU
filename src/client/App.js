@@ -4,7 +4,11 @@ import { BrowserRouter as Router , matchPath} from 'react-router-dom';
 import { ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
+require.context('font-awesome.fonts', true, /\.?/);
 require.context('../shared/fonts', true, /\.?/);
+require.context('../shared/img', true, /\.?/);
+require("font-awesome.css");
+require("bootstrap.css");	
 
 import routes from '../shared/route/index';
 
@@ -17,11 +21,11 @@ function fetchSsrComps(){
 		let url = window.location.pathname;
 		match = matchPath( window.location.pathname, route);
 		if (match){
-			promises.push(import(`../shared/components/${route.componentPath}`));
+			promises.push(System.import(`../shared/components/${route.componentPath}`));
 			route.routes && route.routes.some(r => {
 				match = matchPath(url, r);
 				if (match){
-					promises.push(import(`../shared/components/${r.componentPath}`));
+					promises.push(System.import(`../shared/components/${r.componentPath}`));
 				}
 				return match;
 			});

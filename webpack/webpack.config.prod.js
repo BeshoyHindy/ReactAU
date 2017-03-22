@@ -102,37 +102,8 @@ var config = [
 						presets: [['es2015', {modules: false, loose: true}], "react"],
 						plugins: [
 							"syntax-dynamic-import",
-							"dynamic-import-webpack",
 							"transform-object-rest-spread",
 							"transform-class-properties",
-							// "transform-es2015-arrow-functions",
-							// "transform-es2015-block-scoped-functions",
-							// "transform-es2015-block-scoping",
-							// ["transform-es2015-classes", {
-							// 	"loose": true
-							// }],
-							// ["transform-es2015-computed-properties", {
-							// 	"loose": true
-							// }],
-							// "transform-es2015-destructuring",
-							// "transform-es2015-duplicate-keys",
-							// ["transform-es2015-for-of", {
-							// 	"loose": true
-							// }],
-							// "transform-es2015-function-name",
-							// ["transform-es2015-modules-commonjs", {
-							// 	"loose": true
-							// }],
-							// "transform-es2015-object-super",
-							// "transform-es2015-parameters",
-							// "transform-es2015-shorthand-properties",
-							// ["transform-es2015-spread", {
-							// 	"loose": true
-							// }],
-							// "transform-es2015-sticky-regex",
-							// ["transform-es2015-template-literals", {
-							// 	"loose": true
-							// }],
 							"transform-react-constant-elements",
 							"transform-react-remove-prop-types",
 							"transform-react-inline-elements"
@@ -145,14 +116,8 @@ var config = [
 						path.resolve(projectRoot, './src/shared/css/') ,
 						path.resolve(projectRoot, './node_modules/font-awesome/css/') ,
 					],
-					use:
-						ExtractTextPlugin.extract({
-							fallback: "style-loader",
-							use: [
-								{ loader: 'css-loader'},
-							],
-						})
-				},				
+					loader: "file-loader?name=css/[name].[ext]" ,
+				},
 				{
 					test: /(\.sass|\.scss)$/,
 					include: [
@@ -184,7 +149,13 @@ var config = [
 						path.resolve(projectRoot, './node_modules/bootstrap/dist/fonts/') ,
 						path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
 					],
-				},			
+				},
+				{ test: /\.(gif|tif|tiff|jpg|png|jpeg|ico)$/i, 
+					loader: "file-loader?name=img/[name].[ext]" ,
+					include: [
+						path.resolve(projectRoot, './src/shared/img/') ,
+					],
+				},						
 			]
 		},
 		resolveLoader: {
@@ -198,7 +169,8 @@ var config = [
 			],
 			alias: {
 				"bootstrap.css": path.resolve(projectRoot, './src/shared/css/bootstrap.min.css'),		
-				"font-awesome.css": path.resolve(projectRoot, './node_modules/font-awesome/css/font-awesome.min.css'),		
+				"font-awesome.css": path.resolve(projectRoot, './node_modules/font-awesome/css/font-awesome.min.css'),	
+				"font-awesome.fonts": path.resolve(projectRoot, 'node_modules/font-awesome/fonts'),	
 			},
 			unsafeCache : true,
 		},
@@ -245,40 +217,11 @@ var config = [
 					options: {
 						cacheDirectory: true,
 						babelrc: false,
-						presets: ["react"],
+						presets: [['es2015', {modules: false, loose: true}], "react"],
 						plugins: [
 							"transform-object-rest-spread",
 							"transform-class-properties",
-							"syntax-dynamic-import",
-							"dynamic-import-webpack",
-							"transform-es2015-arrow-functions",
-							"transform-es2015-block-scoped-functions",
-							"transform-es2015-block-scoping",
-							["transform-es2015-classes", {
-								"loose": true
-							}],
-							["transform-es2015-computed-properties", {
-								"loose": true
-							}],
-							"transform-es2015-destructuring",
-							"transform-es2015-duplicate-keys",
-							["transform-es2015-for-of", {
-								"loose": true
-							}],
-							"transform-es2015-function-name",
-							["transform-es2015-modules-commonjs", {
-								"loose": true
-							}],
-							"transform-es2015-object-super",
-							"transform-es2015-parameters",
-							"transform-es2015-shorthand-properties",
-							["transform-es2015-spread", {
-								"loose": true
-							}],
-							"transform-es2015-sticky-regex",
-							["transform-es2015-template-literals", {
-								"loose": true
-							}],
+							"syntax-dynamic-import",							
 							"transform-react-constant-elements",
 							"transform-react-remove-prop-types",
 							"transform-react-inline-elements"

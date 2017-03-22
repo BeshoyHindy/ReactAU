@@ -8,12 +8,17 @@ import { matchPath } from 'react-router-dom';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
 import request from 'request';
+import { webpack_dev_server } from '../../.config/configuration';
 
 import configureStore from '../shared/store/configureStore';
 import App from '../shared/components/App';
 import routes from '../shared/route';
 
 import { getMetaDataFromState, fetchComponentsData} from './utils';
+
+
+const devPort = webpack_dev_server.http.port ;
+const devHost = webpack_dev_server.http.host ;
 
 let asset = JSON.parse(fs.readFileSync('./webpack-assets.json'));
 const store = configureStore();
@@ -39,18 +44,20 @@ function ssr(match, res, req){
 	let manifest = null;
 	
 	if (process.env.NODE_ENV === 'production') {
-		manifest = fs.readFileSync(`./public/${asset.manifest.js}`);
-		res.render('index', { componentHTML, reduxState,  metaData, asset, manifest });
+		manifest = fs.readFileSync(`./public${asset.manifest.js}`);
 	}else{
-		request(asset.manifest.js, function (error, response, body) {
-			if (error)
-				manifest = "";
+		asset.vendor = {};
+		asset.vendor.js = '/dll.vendor.js';
+		asset.vendor.css = [`${devHost}:${devPort}/build/css/bootstrap.min.css`, `${devHost}:${devPort}/build/css/font-awesome.min.css`];
+		// request(asset.manifest.js, function (error, response, body) {
+		// 	if (error)
+		// 		manifest = "";
 
-			manifest = body;
-			res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
-		});
-
+		// 	manifest = body;
+		// 	res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
+		// });	
 	}
+	res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
 		
 }
 

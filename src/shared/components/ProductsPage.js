@@ -9,7 +9,6 @@ import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { ProductIndex } from './Products/ProductIndex';
 import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
-import { Metadata } from "../Data/ProductTblSettings";
 import { loadProducts } from '../actions/productsActions';
 import {RouteWithSubRoutes} from '../route/util';
 
@@ -24,7 +23,7 @@ let ProductsPage = class ProductsPage extends React.Component{
 			super(props);
 		}
 		render() {
-			let {match, products, routes, level, Comps, url} = this.props ;
+			let {match, products, routes, level, Comps, url, categories} = this.props ;
 			let linkpair = [
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
@@ -52,6 +51,7 @@ let ProductsPage = class ProductsPage extends React.Component{
 }
 ProductsPage.propTypes = {
 	match:  React.PropTypes.object,
+	categories: React.PropTypes.array,
 	routes:  React.PropTypes.array,
 	Comps:  React.PropTypes.array,
 	level:  React.PropTypes.number,
@@ -63,6 +63,7 @@ ProductsPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     products: state.products,
+	categories: state.categories,
   };
 }
 

@@ -4,7 +4,6 @@ let path  = require( 'path');
 let ExtractTextPlugin  = require( 'extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const webpack_dev_server = require('../.config/configuration').webpack_dev_server;
-const WebpackMd5Hash = require('webpack-md5-hash');
 
 const port = webpack_dev_server.http.port;
 const host = webpack_dev_server.http.host;
@@ -20,31 +19,6 @@ let config =
 	cache: false,
 	devtool: 'eval',
 	context: process.cwd(),
-	devServer: {
-	// quiet: true,
-	// noInfo: true,
-		publicPath: publicPath,
-		headers: { 'Access-Control-Allow-Origin': '*' },
-		historyApiFallback: true, 
-		// https: true,
-		port: port,
-		stats: {
-			hash: true,
-			version: true,
-			timings: true,
-			assets: false,
-			chunks: false,
-			modules: true,
-			reasons: false,
-			children: false,
-			source: false,
-			errors: true,
-			errorDetails: true,
-			warnings: true,
-			publicPath: true,
-			colors: true
-		},
-	},
 	entry: {
 		bundle: [
 			'react-hot-loader/patch',
@@ -68,29 +42,18 @@ let config =
 			__DEVELOPMENT__: true,
 			__DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
 		}),
+		new ExtractTextPlugin({
+			filename: "css/[name].css",
+			disable: false,
+			allChunks: true
+		}),		
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
-		// new webpack.DllReferencePlugin({
-		// 	context: path.join(projectRoot, "src" , "client"),
-		// 	manifest: require("../dll/vendor-manifest.json")
-		// }),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: "vendor",
-			minChunks: function(module){
-			return module.context && module.context.indexOf("node_modules") !== -1;
-			}
-		}),			
-		// Generate a 'manifest' chunk to be inlined in the HTML template
-		new webpack.optimize.CommonsChunkPlugin({  name: "manifest",  minChunks: Infinity}),
-
-		// Need this plugin for deterministic hashing
-		// until this issue is resolved: https://github.com/webpack/webpack/issues/1315
-		// for more info: https://webpack.js.org/how-to/cache/
-		new WebpackMd5Hash(),			
-		new AssetsPlugin({fullPath: true})	
-		// new BundleAnalyzerPlugin({
-		// 	analyzerMode: 'static'
-		// }),		
+		new webpack.DllReferencePlugin({
+			context: path.join(projectRoot, "src" , "client"),
+			manifest: require("../dll/vendor-manifest.json")
+		}),
+        new AssetsPlugin({fullPath: true})	
 	],
 	module: {
 		rules: [
@@ -109,60 +72,31 @@ let config =
 					plugins: [
 						"react-hot-loader/babel",
 						"syntax-dynamic-import",
-						"dynamic-import-webpack",
 						"transform-object-rest-spread",
-						"transform-class-properties",
-						// "transform-es2015-arrow-functions",
-						// "transform-es2015-block-scoped-functions",
-						// "transform-es2015-block-scoping",
-						// ["transform-es2015-classes", {
-						// 	"loose": true
-						// }],
-						// ["transform-es2015-computed-properties", {
-						// 	"loose": true
-						// }],
-						// "transform-es2015-destructuring",
-						// "transform-es2015-duplicate-keys",
-						// ["transform-es2015-for-of", {
-						// 	"loose": true
-						// }],
-						// "transform-es2015-function-name",
-						// "transform-es2015-object-super",
-						// "transform-es2015-parameters",
-						// "transform-es2015-shorthand-properties",
-						// ["transform-es2015-spread", {
-						// 	"loose": true
-						// }],
-						// "transform-es2015-sticky-regex",
-						// ["transform-es2015-template-literals", {
-						// 	"loose": true
-						// }],
-					],  				
-
+						"transform-class-properties",						
+					], 
 				},
 			},
 			{
 				test: /(\.css)$/,
 				include: [
-					path.resolve(projectRoot, './src/shared/components/') ,
 					path.resolve(projectRoot, './src/shared/css/') ,
 					path.resolve(projectRoot, './node_modules/font-awesome/css/') ,
 				],
-				use: [
-					"style-loader",
-					"css-loader"
-				]	
+				loader: "file-loader?name=css/[name].[ext]" ,
 			},
 			{
 				test: /(\.sass|\.scss)$/,
 				include: [
 					path.resolve(projectRoot, './src/shared/Sass/') ,
 				],
-				use: [
-					"style-loader",
-					"css-loader",
-					"sass-loader"
-				]	
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: [
+						{ loader: 'raw-loader', query: { importLoaders: 2}},
+						{ loader: 'sass-loader'},
+					],
+				})
 			},
 			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/i, 
 				loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" ,
@@ -178,6 +112,12 @@ let config =
 					path.resolve(projectRoot, './src/shared/fonts/') ,
 					path.resolve(projectRoot, './node_modules/bootstrap/dist/fonts/') ,
 					path.resolve(projectRoot, './node_modules/font-awesome/fonts/') ,
+				],
+			},	
+			{ test: /\.(gif|tif|tiff|jpg|png|jpeg|ico)$/i, 
+				loader: "file-loader?name=img/[name].[ext]" ,
+				include: [
+					path.resolve(projectRoot, './src/shared/img/') ,
 				],
 			},	
 		]
@@ -197,6 +137,7 @@ let config =
 			// "react-router-dom": path.resolve(projectRoot, '../react-router/packages/react-router-dom/'),		
 			"bootstrap.css": path.resolve(projectRoot, './src/shared/css/bootstrap.min.css'),		
 			"font-awesome.css": path.resolve(projectRoot, 'node_modules/font-awesome/css/font-awesome.min.css'),		
+			"font-awesome.fonts": path.resolve(projectRoot, 'node_modules/font-awesome/fonts'),
 		},
 		unsafeCache : true,
 	},

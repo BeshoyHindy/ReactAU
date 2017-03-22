@@ -15,7 +15,7 @@ import {CronJob} from "cron";
 import fs from 'fs';
 
 import requestHandler from './requestHandler';
-import { api_server, web_server ,development } from '../../.config/configuration';
+import { api_server, web_server  } from '../../.config/configuration';
 
 const port = web_server.http.port || 3000;
 const host = web_server.http.host || 'localhost';

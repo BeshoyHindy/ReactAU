@@ -25,6 +25,7 @@ const serverOptions = {
 	publicPath: config.output.publicPath,
 	headers: { 'Access-Control-Allow-Origin': '*' },
 	progress: true,
+	profile: true,
 	stats: {
 		hash: true,
 		version: true,
@@ -39,7 +40,9 @@ const serverOptions = {
 		errorDetails: true,
 		warnings: true,
 		publicPath: true,
-		colors: true
+		colors: true,
+		// maxModules: Infinity, //to verify what module waste the most time
+		exclude: undefined
 	},
 };
 

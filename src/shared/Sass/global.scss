@@ -279,7 +279,7 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-color: #fff;
-		background-image: url("/img/ajax-loader.gif");
+		background-image: url("/build/img/ajax-loader.gif");
 	}
 
 	.ellipsis {
@@ -663,7 +663,7 @@
     position: relative;
     margin: 0 auto;
     max-width: 1200px;
-    background-image: url('/img/logo.png');
+    background-image: url('/build/img/logo.png');
     background-size: 140px 48px;
     background-position: 0px 28px;
     @include respond-to(sm) {

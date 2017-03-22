@@ -55,7 +55,7 @@ ImageLoader.propTypes = {
 };
 
 ImageLoader.defaultProps = {
-	loadingGif: "url('/img/ajax-loader.gif')"
+	loadingGif: "url('/build/img/ajax-loader.gif')"
 };
 
 export {ImageLoader};				

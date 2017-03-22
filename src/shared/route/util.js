@@ -15,7 +15,7 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 				this.state.Component = Comps[level].default;
 				return;
 			}
-			import(`../components/${route.componentPath}`).then((mod)=>{
+			System.import(`../components/${route.componentPath}`).then((mod)=>{
 				this.setState({Component: mod.default});
 			}).catch(errorLoading);
 		}else{

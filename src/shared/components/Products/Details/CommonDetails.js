@@ -6,7 +6,7 @@ import { DetailsDesc } from './DetailsDesc';
 
 let CommonDetails = ({data, match, ajaxState}) => {
 	if (ajaxState > 0) {
-		return (<div className="ajax-loading"><img src="/img/ajax-loader.gif" alt=""/></div>);
+		return (<div className="ajax-loading"><img src="/build/img/ajax-loader.gif" alt=""/></div>);
 	}
 		
 	let detailsImage = {
