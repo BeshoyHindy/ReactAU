@@ -16,7 +16,7 @@ const BaseProductTblImageComponent = (props) =>
 {
 	return (
 		<td style={{width: '170px', minWidth: '170px', backgroundColor: '#fff'}} >
-			<Link to={routeBaseLink[props.productType] + props.rowData._id}>
+			<Link to={props.rowData.edit?`/admin/productChange/${props.rowData._id}`:routeBaseLink[props.productType] + props.rowData._id}>
 				<ImageLoader src={props.tdData} minHeight="100px"
 					alt={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
 					title={`${props.rowData.brand} - ${props.productType} - ${props.rowData.type} - ${props.rowData.name}`}
@@ -31,6 +31,7 @@ BaseProductTblImageComponent.propTypes = {
 	rowData:  React.PropTypes.object,
 	productType: React.PropTypes.string.isRequired,
 };
+
 
 
 const BaseProductEditComponent = (props) =>
@@ -169,7 +170,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 						return (
 						<div key={id} className="col-sm-6 col-md-4 Grid">
 							<div className="block-wrap">
-								<Link to={`/products/${productType}/spec/${item._id}`}>
+								<Link to={edit?`/admin/productChange/${item._id}`:`/products/${productType}/spec/${item._id}`}>
 								<div className="block">
 									<div className="">
 										<ImageLoader

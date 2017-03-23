@@ -1,14 +1,17 @@
 exports.ids = [1];
 exports.modules = {
 
-/***/ 205:
+/***/ 177:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortableTblTh", function() { return SortableTblTh; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_DetailsApi__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_productsActions__ = __webpack_require__(96);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -17,68 +20,63 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var SortableTblTh = function (_React$Component) {
-	_inherits(SortableTblTh, _React$Component);
 
-	function SortableTblTh(props) {
-		_classCallCheck(this, SortableTblTh);
+
+
+
+
+var BaseProductDeleteComponent = function (_React$Component) {
+	_inherits(BaseProductDeleteComponent, _React$Component);
+
+	function BaseProductDeleteComponent(props) {
+		_classCallCheck(this, BaseProductDeleteComponent);
 
 		var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
 
-		_this.state = {
-			sortCssClass: "fa fa-sort"
-		};
-		_this.sort = _this.sort.bind(_this);
+		_this.deleteItem = _this.deleteItem.bind(_this);
 		return _this;
 	}
 
-	SortableTblTh.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-		//constructor is only invoked when the component is first created. if data change, need to update on componentWillReceiveProps
-		var a = "fa fa-sort";
-		switch (nextProps.asc) {
-			case null:
-				a = "fa fa-sort";
-				break;
-			case true:
-				a = "fa fa-sort-amount-asc";
-				break;
-			case false:
-				a = "fa fa-sort-amount-desc";
-				break;
-		}
-		//console.log(a);
-		if (nextProps.asc !== this.props.asc) {
-			this.setState({ sortCssClass: a });
-		}
+	BaseProductDeleteComponent.prototype.deleteItem = function deleteItem() {
+		var _this2 = this;
+
+		__WEBPACK_IMPORTED_MODULE_3__api_DetailsApi__["a" /* default */].deleteProduct(this.props.rowData._id).then(function (ret) {
+			_this2.props.actions.loadProductList({ params: { cat: _this2.props.productType || "DVR", subType: "All" } });
+			ret && ret.name && alert('Success!! Product [' + ret.name + '] has been deleted');
+		}).catch(function (error) {
+			throw error;
+		});
 	};
 
-	SortableTblTh.prototype.sort = function sort() {
-		this.props.sortData(this.props.dataKey, !this.props.asc);
-	};
-
-	SortableTblTh.prototype.render = function render() {
+	BaseProductDeleteComponent.prototype.render = function render() {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"th",
-			{ onClick: this.sort },
-			" ",
-			this.props.children,
-			" ",
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: this.state.sortCssClass, "aria-hidden": "true" })
+			'td',
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', className: 'btn btn-danger', value: 'Delete', onClick: this.deleteItem })
 		);
 	};
 
-	return SortableTblTh;
+	return BaseProductDeleteComponent;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-SortableTblTh.propTypes = {
-	asc: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.bool,
-	sortData: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.func.isRequired,
-	dataKey: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string,
-	children: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.node
+BaseProductDeleteComponent.propTypes = {
+	rowData: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.object,
+	actions: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.object.isRequired,
+	productType: __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string.isRequired
 };
 
+function mapStateToProps(state, ownProps) {
+	//console.log("mapStateToProps", state);
+	return {};
+}
 
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		actions: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_redux__["a" /* bindActionCreators */])({ loadProductList: __WEBPACK_IMPORTED_MODULE_4__actions_productsActions__["b" /* loadProductList */] }, dispatch)
+	};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(BaseProductDeleteComponent));
 
 /***/ })
 
