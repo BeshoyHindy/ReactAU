@@ -17,8 +17,9 @@ export default function connectDataFetchers(Component, actionCreators) {
             }).isRequired,
         };
 
-        static fetchData({ dispatch, params = {}, authorize= [], device}) {          
-            let promiseArray = actionCreators.map(actionCreator => {                    
+        static fetchData({ dispatch, params = {}, authorize= [], device}) {    
+			let actions = commonActions.concat(actionCreators);
+            let promiseArray = actions.map(actionCreator => {                    
                     return actionCreator?(dispatch(actionCreator({ params, device }))):null;
                 });       
 

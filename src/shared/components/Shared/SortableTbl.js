@@ -131,7 +131,7 @@ class SortableTbl extends React.Component{
 							<tbody>
 							{
 								pageData.map( (item, id) => {
-									return <SortableTblTd key={id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
+									return <SortableTblTd key={(this.props.keyId && item[this.props.keyId]) || id} tdData={item} {...this.props} dKey={this.props.dKey} customTd={this.props.customTd}/>;
 								})
 							}
 							</tbody>
@@ -149,6 +149,7 @@ SortableTbl.propTypes = {
 	paging: React.PropTypes.bool,
 	search: React.PropTypes.bool,
 	defaultCSS: React.PropTypes.bool,
+	keyId: React.PropTypes.string,
 	defaultRowsPerPage: React.PropTypes.number
 };
 

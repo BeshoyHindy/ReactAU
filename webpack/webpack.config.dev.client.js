@@ -115,7 +115,7 @@ let config =
 				],
 			},	
 			{ test: /\.(gif|tif|tiff|jpg|png|jpeg|ico)$/i, 
-				loader: "file-loader?name=img/[name].[ext]" ,
+				loader: "file-loader?name=img/[path][name].[ext]&context=" + path.resolve(projectRoot, './src/shared/img') ,
 				include: [
 					path.resolve(projectRoot, './src/shared/img/') ,
 				],

@@ -10,7 +10,7 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const AssetsPlugin = require('assets-webpack-plugin');
 
 var projectRoot = process.cwd(); 
-var assetsPath = "./public/build";
+var assetsPath = process.cwd()+ "/public/build";
 var publicPath = "/build/";
 var distPath = projectRoot;
 
@@ -151,7 +151,7 @@ var config = [
 					],
 				},
 				{ test: /\.(gif|tif|tiff|jpg|png|jpeg|ico)$/i, 
-					loader: "file-loader?name=img/[name].[ext]" ,
+					loader: "file-loader?name=img/[path][name].[ext]&context=" + path.resolve(projectRoot, './src/shared/img') ,
 					include: [
 						path.resolve(projectRoot, './src/shared/img/') ,
 					],

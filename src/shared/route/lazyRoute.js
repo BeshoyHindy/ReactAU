@@ -45,11 +45,16 @@ const routes = [
     componentPath: 'ContactPage',
 	actions: []	
   },
-  { path: '/products/:product',
+  { path: '/products',
     authorize: ['reAuth'],
     componentPath: 'ProductsPage',
 	actions: [loadProducts ], 
 	routes: [
+      { path: '/products/:product/:ProductsTbl',
+		exact: true,
+        componentPath: 'Products/ProductsTblPage',
+		actions: [loadProducts]	
+      },		
       { path: '/products/:product/:ProductsTbl',
 		exact: true,
         componentPath: 'Products/ProductsTblPage',
@@ -66,6 +71,11 @@ const routes = [
     authorize: ['normal','admin'],
     componentPath: 'AdminPage',
 	routes: [
+      { path: '/admin',
+		exact: true,
+        componentPath: 'Admin/AdminEditProductPage',
+		actions: [loadDetails]
+      },
       { path: '/admin/productChange/:id',
 		exact: true,
         componentPath: 'Admin/AdminEditProductPage',

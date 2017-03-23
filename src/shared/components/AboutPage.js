@@ -29,7 +29,7 @@ const AboutPage = (props) => (
 				</OrangeBoard>
 			</div>
 			<div className="col-sm-3">
-				<img className="img-responsive asia center" alt="Ausrtralian Security Industry Association Limited" title="Ausrtralian Security Industry Association Limited" src="img/ASIALmemberjpeg_hires.jpg"/>
+				<img className="img-responsive asia center" alt="Ausrtralian Security Industry Association Limited" title="Ausrtralian Security Industry Association Limited" src="/build/img/ASIALmemberjpeg_hires.jpg"/>
 			</div>
 			<div className="col-sm-12">
 				<BigHeader smallTitle="">Brands We Carry</BigHeader>

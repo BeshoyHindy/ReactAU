@@ -83,8 +83,8 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 	}
 	render () {
 		let {match, edit, products, editBaseLink, ajaxState, actions, routes, device} = this.props ;
-		let ProductsTbl = match.params.ProductsTbl;
-		let productType = match.params.product || match.params.cat;
+		let ProductsTbl = match.params.ProductsTbl || "All";
+		let productType = match.params.product || match.params.cat || "DVR";
 		let filtered = products;
 		if (ProductsTbl && ProductsTbl !== "All"){
 			filtered = products.filter( item => {
@@ -110,16 +110,13 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 			}
 			if(edit){
 				item.edit = editBaseLink;
-				tHead.push("Edit");
-				col.push("edit");
 			}
 			if(this.props.delete){
 				item.delete = "";
-				tHead.push("Delete");
-				col.push("delete");
 			}
 		}
 
+		
 		tHead.push( "Image");
 		col.push("imageUrl");
 		for (let prop in obj) {
@@ -129,6 +126,14 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 			}
 			tHead.push( (iMap && iMap.desc) || "");
 			col.push(prop);
+		}
+		if(edit){
+			tHead.push("Edit");
+			col.push("edit");
+		}
+		if(this.props.delete){
+			tHead.push("Delete");
+			col.push("delete");
 		}
 
 
@@ -152,7 +157,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 									{custd: BaseProductEditComponent, keyItem: "edit"},
 									{custd: BaseProductDeleteComponent, keyItem: "delete"}
 									]}
-						dKey={col}
+						dKey={col} keyId="_id"
 						productType={productType}
 						actions={actions}
 						params={match.params}/>

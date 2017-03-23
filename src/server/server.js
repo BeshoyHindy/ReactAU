@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-
+"use strict";
 import compression from 'compression';
 import express from 'express';
 import http from 'http';
@@ -15,10 +15,13 @@ import {CronJob} from "cron";
 import fs from 'fs';
 
 import requestHandler from './requestHandler';
-import { api_server, web_server  } from '../../.config/configuration';
+import { api_server, web_server, webpack_dev_server  } from '../../.config/configuration';
 
-const port = web_server.http.port || 3000;
-const host = web_server.http.host || 'localhost';
+const port = web_server.http.port;
+const host = web_server.http.host;
+const devPort = webpack_dev_server.http.port ;
+const devHost = webpack_dev_server.http.host ;
+
 
 let publicPath = path.resolve( process.cwd(), "./public");
 let viewPath = path.resolve(process.cwd(), "./src/server/views");
@@ -134,6 +137,18 @@ app.use('/api', function(req, res, next) {
 
 app.set('views', viewPath);
 app.use( express.static(publicPath, { maxAge: oneDay * 7 }));
+
+
+if (process.env.NODE_ENV === 'development') {
+	const devProxy = httpProxy.createProxyServer({});
+	app.get('/build/img/*', function (request, response) {
+		return devProxy.web(request, response, {
+			target: `${devHost}:${devPort}`
+		});
+	});
+	console.log(`Webpack Dev Server Proxy: ${devHost}:${devPort}...`);
+}
+
 app.use(requestHandler);
 
 //console.log(path.join(__dirname, '../../dist/public'));

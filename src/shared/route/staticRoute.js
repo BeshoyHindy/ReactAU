@@ -60,12 +60,17 @@ const routes = [
     component: ContactPage,
 	actions: []	
   },
-  { path: '/products/:product',
+  { path: '/products',
     authorize: ['reAuth'],
     component: ProductsPage,
 	actions: [loadProducts ], 
 	routes: [
       { path: '/products/:product/:ProductsTbl',
+		exact: true,
+        component: ProductsTblPage,
+		actions: [loadProducts]	
+      },
+      { path: '/products',
 		exact: true,
         component: ProductsTblPage,
 		actions: [loadProducts]	
@@ -81,6 +86,11 @@ const routes = [
     authorize: ['normal','admin'],
     component: AdminPage,
 	routes: [
+      { path: '/admin',
+		exact: true,
+        component: AdminEditProductPage,
+		actions: [loadDetails]
+      },
       { path: '/admin/productChange/:id',
 		exact: true,
         component: AdminEditProductPage,

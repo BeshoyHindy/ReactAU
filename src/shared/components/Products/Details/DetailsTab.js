@@ -50,7 +50,7 @@ const DetailsTab = (props) => {
 				props.data.docs && (
 					<TabPanel>
 						<div className="download-tbl">
-							<SortableTbl tblData={props.data.docs}
+							<SortableTbl tblData={props.data.docs} keyId="desc"
 								tHead={["Description","Size(KB)","File Type","Download"]}
 								customTd={[{custd: CustomDownloadTd, keyItem: "src"}]}
 								dKey={["desc","size","filetype", "src"]} />

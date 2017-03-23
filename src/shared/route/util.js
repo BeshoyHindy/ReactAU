@@ -9,7 +9,7 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 		super(props);
 		let {route, Comps, level, url} = props;
 		let isBrowser = process.env.BROWSER;
-		this.state = { Component: null, match: !!matchPath(url, route) , url };
+		this.state = { Component: null, match: !!matchPath(url, route)};
 		if (isBrowser && process.env.NODE_ENV !== 'development') {
 			if(this.state.match && Comps && Comps[level]){
 				this.state.Component = Comps[level].default;
@@ -27,7 +27,6 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 	}
 	componentWillReceiveProps(nextProps, nextContext) {
 		if (window.location.pathname != this.state.url){
-			this.setState({url:window.location.pathname});
 			let m = !!matchPath(window.location.pathname, nextProps.route);
 			if (m !== this.state.match){
 				this.setState({match: m});
@@ -46,7 +45,7 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 				<Component {...props} routes={route.routes} Comps={Comps} level={level+1} url={url}/>)}/>
 			);
 	}
-}
+};
 
 RouteWithSubRoutes.propTypes = {
     route: React.PropTypes.object,

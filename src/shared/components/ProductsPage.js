@@ -28,8 +28,9 @@ let ProductsPage = class ProductsPage extends React.Component{
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
 						];
-			match.params.product && linkpair.push({link:"/products/" + match.params.product + "/All", desc:match.params.product}	);
-			match.params.ProductsTbl && linkpair.push({link:"", desc:match.params.ProductsTbl});
+			let params = {...match.params, product: match.params.product || "DVR", ProductsTbl: match.params.ProductsTbl || "All"};
+			linkpair.push({link:"/products/" + params.product + "/All", desc:params.product}	);
+			linkpair.push({link:"", desc:params.ProductsTbl});
 
 			return (
 			<div className="container">
@@ -38,11 +39,11 @@ let ProductsPage = class ProductsPage extends React.Component{
 						<Breadcrumb linkPair={linkpair}/>
 					</div>
 					<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-						<ProductCategorySidebar products={products} productType={match.params.product} ProductsTbl={match.params.ProductsTbl} params={match.params}/>
+						<ProductCategorySidebar products={products} productType={params.product } ProductsTbl={params.ProductsTbl} params={params}/>
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
-						{routes.map(route => (<RouteWithSubRoutes key={route.path} route={route} level={level}  Comps={Comps}  url={url}/>))}
+						{routes.map(route => (<RouteWithSubRoutes key={route.path + level} route={route} level={level}  Comps={Comps}  url={url}/>))}
 					</div>
 				</div>
 			</div>

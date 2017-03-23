@@ -14,7 +14,7 @@ let AdminPage = ({match, routes, auth, level, Comps, url}) => {
 				<h1 className="center-page"> Unauthorized </h1>
 			</div>	    
 			<div>	
-				{routes.map(route => (<RouteWithSubRoutes key={route.path} route={route} level={level}  Comps={Comps} url={url}/>))}
+				{routes.map(route => (<RouteWithSubRoutes key={route.path + level} route={route} level={level}  Comps={Comps} url={url}/>))}
 			</div>
 		</div>
 	</div>

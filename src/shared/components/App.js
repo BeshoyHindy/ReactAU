@@ -111,7 +111,7 @@ let Root = class Root extends React.Component{
 			<div id="article">			
 				{
 					routes.map((route, id) => {
-						return (<RouteWithSubRoutes key={route.path} route={route} {...this.props} />);
+						return (<RouteWithSubRoutes key={route.path + 0} route={route} {...this.props} />);
 					}
 				)}
 			</div>

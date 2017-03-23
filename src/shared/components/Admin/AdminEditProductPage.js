@@ -51,7 +51,7 @@ class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			details : (props.match.params.id == 0) ? initialStateDB: props.details,
+			details : !props.match.params.id ? initialStateDB: props.details,
 			selectedTab : 0,
 			upload:{
 				images: initialImageUpload,
@@ -201,7 +201,7 @@ class AdminEditProductPage extends React.Component{
 		.then( e => {
 			let actionData ={};
 			let cat = categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
-			actionData.params = Object.assign({},match.params);
+			actionData.params = Object.assign({},match.params ,{ id: match.params.id||0});
 			dispatch(loadDetails(actionData));
 
 			actionData.params.cat = cat;
@@ -209,7 +209,7 @@ class AdminEditProductPage extends React.Component{
 			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
 								delete: {images: [], docs: []},
 								detailPostProgress: 0});
-			if((match.params.id == 0)){
+			if((!match.params.id)){
 				this.context.router.history.push(`/admin/productList/${cat}`);			
 			}
 		}).catch(error => {
@@ -224,8 +224,10 @@ class AdminEditProductPage extends React.Component{
 		idCounter = 0;
 		let {categories, details,match} = this.props;
 		let {upload, detailPostProgress} = this.state;
+		let params = {...match.params, id: match.params.id || 0};
 		let showAjaxLoading = (upload.images.progress || upload.docs.progress || detailPostProgress  
 							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
+
 		let tabId=0;
 		return (
 	<div className="loading-wrap">
@@ -244,8 +246,8 @@ class AdminEditProductPage extends React.Component{
 		<div className="row">
 			<div className="col-xs-12">
 				<Breadcrumb linkPair={[{link:"/home", desc:"Home"},	{link:"/admin/productChange/0", desc:"Administration"},
-																	{link:"", desc:match.params.id !=0 ?"Edit Product":"Add Product"}]}/>
-				<BigHeader smallTitle="">{match.params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
+																	{link:"", desc:params.id !=0 ?"Edit Product":"Add Product"}]}/>
+				<BigHeader smallTitle="">{params.id !=0 ?`Edit Product - ${details.name}`:"Add Product"}</BigHeader>
 			</div>
 		</div>
 		<div className="row">
@@ -265,7 +267,7 @@ class AdminEditProductPage extends React.Component{
 					</TabList>
 
 					<TabPanel>
-						<AdminEditBasicTab details={this.state.details}  tabId={tabId++} params={match.params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
+						<AdminEditBasicTab details={this.state.details}  tabId={tabId++} params={params} setData={this.setBasic} delArrayMember={this.delArrayMember} 
 											addArrayMember={this.addArrayMember} setNewFiles={this.setNewFiles} fileField="images" categories={categories} newImages={upload.images.newData}/>
 					</TabPanel>
 
@@ -299,7 +301,7 @@ class AdminEditProductPage extends React.Component{
 					{
 						(
 							<TabPanel>
-								<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
+								<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs || []} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
 										fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 							</TabPanel>
 						)
@@ -315,6 +317,7 @@ class AdminEditProductPage extends React.Component{
 
 AdminEditProductPage.propTypes = {
 	ajaxState: React.PropTypes.number,
+	categories: React.PropTypes.array,
 	details: React.PropTypes.object,
 	match: React.PropTypes.object.isRequired,	
 	dispatch: React.PropTypes.func.isRequired,	
@@ -326,7 +329,8 @@ AdminEditProductPage.contextTypes = {
 function mapStateToProps(state, ownProps) {
   return {
 	details: state.details,
-	ajaxState: state.ajaxCallsInProgress
+	ajaxState: state.ajaxCallsInProgress,
+	categories: state.categories,
   };
 }
 

@@ -1,6 +1,6 @@
 const navData = [
 	{name: "home", link: "/home", desc: "Home"},
-	{name: "products", link: "/products/DVR/All", desc: "Products"
+	{name: "products", link: "/products", desc: "Products"
 		, sub: [
 			{name: "DVR", link: "/products/DVR/All", desc: "DVR", sub:[
 					{name: "HD-SDI", link:"/products/DVR/HD-SDI", desc:"HD-SDI"},
@@ -24,7 +24,7 @@ const navData = [
 		]},
 	{name: "aboutus", link: "/aboutus", desc: "About Us"},
 	{name: "contact", link: "/contact", desc: "Contact"},
-	{name: "admin", link: "/admin/productChange/0", desc: "Admin"
+	{name: "admin", link: "/admin", desc: "Admin"
 		, sub: [
 			{name: "productChange", link: "/admin/productChange/0", desc: "Add Product"},
 			{name: "editproduct", link: "/admin/productList/DVR", desc: "Edit Product"},

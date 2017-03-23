@@ -2,7 +2,15 @@ import { NavLink , Link} from 'react-router-dom';
 import React from 'react';
 import { navData } from '../../Data/RouteData';
 
-const AtomNavLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName={props.activeClassName} onClick={()=>props.SmNavCtrl()}> {props.a.desc} </NavLink></li>);
+// const parentActive = (match, location) => {
+//   console.log(match, location);
+//   if (!match) {
+//     return false
+//   }
+//   return true;
+// }
+
+const AtomNavLink = (props) =>  (<li> <NavLink to={props.a.link} activeClassName={props.activeClassName} /*isActive={parentActive}*/ onClick={()=>props.SmNavCtrl()}> {props.a.desc} </NavLink></li>);
 AtomNavLink.propTypes = {
   a: React.PropTypes.object,
   SmNavCtrl: React.PropTypes.func.isRequired,  
