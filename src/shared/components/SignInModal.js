@@ -1,10 +1,10 @@
 if (process.env.BROWSER) {
-	require ('./auth.sass');
+	require ('../Sass/auth.sass');
 }
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import {  Field, reduxForm } from 'redux-form';
 
 import { api_server } from '../../../.config/configuration';
@@ -31,7 +31,7 @@ let SignInModal = class SignInModal extends React.Component{
 		this.setcusGoogleBtn = this.setcusGoogleBtn.bind(this);
 	}
 	componentDidMount() {
-		this.googleLogin();	
+		this.googleLogin();
 	}
 	handleOpenModal () {
 		this.props.changeModal(true);
@@ -45,7 +45,7 @@ let SignInModal = class SignInModal extends React.Component{
 		this.props.userSignin({email, password},this.props.pathname);
 	}
 	goToSignUp(values) {
-		this.props.router && this.props.router.push('/signup');
+		this.context.router && this.context.router.history.push('/signup');
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps !== this.props && this.props.auth && !this.props.auth.success && nextProps.auth && nextProps.auth.success){
@@ -60,11 +60,11 @@ let SignInModal = class SignInModal extends React.Component{
 		this.googleAuth2.attachClickHandler(this.customGoogleBtn, {}, this.handleGoogleLogin, function(error) {
 				alert(JSON.stringify(error, undefined, 2)
 			);
-		});		
-	}	
+		});
+	}
 	fbLogin(){
 		FB.login( this.handleFbLogin, {
-			scope: 'email', 
+			scope: 'email',
 			return_scopes: true
 		});
 
@@ -72,21 +72,21 @@ let SignInModal = class SignInModal extends React.Component{
 		//http://stackoverflow.com/questions/9793373/how-to-open-facebook-login-dialog-in-the-same-window-instead-of-popup-window
 		//https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
 
-		//sdk docs		
+		//sdk docs
 		//https://developers.facebook.com/docs/reference/javascript/FB.login/v2.8
 	}
 	handleFbLogin(response){
 		if (response.authResponse) {
 			if (status === 'not_authorized'){
-				return this.setState((state, props) => { return { socialErsMsg: "Unauthorized" };});				
+				return this.setState((state, props) => { return { socialErsMsg: "Unauthorized" };});
 			}
 			if (status === 'unknown'){
-				return this.setState((state, props) => { return { socialErsMsg: "Loading..." };});				
+				return this.setState((state, props) => { return { socialErsMsg: "Loading..." };});
 			}
 			let {accessToken, userID} = response.authResponse;
 			this.props.userSocialLoginClient({type: "facebook", token: accessToken, id: userID});
 		} else {
-			this.setState((state, props) => { return { socialErsMsg: "For FB Login, You need to not fully authorize" };});				
+			this.setState((state, props) => { return { socialErsMsg: "For FB Login, You need to not fully authorize" };});
 		}
 	}
 	handleGoogleLogin(googleUser) {
@@ -94,7 +94,7 @@ let SignInModal = class SignInModal extends React.Component{
 		let profile = googleUser.getBasicProfile();
 		let id_token = googleUser.getAuthResponse().id_token;
 		this.props.userSocialLoginClient({type: "google", token: id_token, id: profile.getId()});
-	}	
+	}
 	renderAlert() {
 		if (this.props.auth.error || this.state.socialErsMsg) {
 			return (
@@ -116,10 +116,10 @@ let SignInModal = class SignInModal extends React.Component{
 				</div>
 				<div className="col-lg-12">
 				<div className="social-login">
-					<lable className="social-label"> Sign In with Social Account</lable>	
-					<i className="fa fa-facebook-square btn-social btn-facebook" aria-hidden="true" onClick={this.fbLogin} />	
-					<i className="fa fa-google-plus-square btn-social btn-google" id="customGoogleBtn" aria-hidden="true" 
-						ref={this.setcusGoogleBtn} onClick={this.googleLogin} />	
+					<lable className="social-label"> Sign In with Social Account</lable>
+					<i className="fa fa-facebook-square btn-social btn-facebook" aria-hidden="true" onClick={this.fbLogin} />
+					<i className="fa fa-google-plus-square btn-social btn-google" id="customGoogleBtn" aria-hidden="true"
+						ref={this.setcusGoogleBtn} onClick={this.googleLogin} />
 				</div>
 					{this.renderAlert()}
 					<div>
@@ -139,17 +139,18 @@ SignInModal.propTypes = {
 	changeModal: React.PropTypes.func.isRequired,
 	userSignin: React.PropTypes.func.isRequired,
 	showSigninModal: React.PropTypes.bool.isRequired,
-	errorMessage: React.PropTypes.string,	
+	errorMessage: React.PropTypes.string,
 	auth: React.PropTypes.object.isRequired,
-	router: React.PropTypes.object,
 	getGoogleAuth2: React.PropTypes.func.isRequired,
 	userSocialLoginClient: React.PropTypes.func.isRequired,
     children: React.PropTypes.oneOfType([
       React.PropTypes.arrayOf(React.PropTypes.node),
       React.PropTypes.node
-    ])	
+    ])
 };
-
+SignInModal.contextTypes = {
+	router: React.PropTypes.object
+};
 
 const validate = values => {
 	const errors = {};
@@ -167,12 +168,12 @@ const validate = values => {
 };
 
 function mapStateToProps(state) {
-  return { 
+  return {
     auth: state.auth,
 	errorMessage: state.auth.error,
 	showSigninModal: state.modal.showModal,
   };
-}	
+}
 
 
 SignInModal = reduxForm({

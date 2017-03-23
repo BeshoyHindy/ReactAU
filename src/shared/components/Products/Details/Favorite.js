@@ -15,7 +15,7 @@ let Favorite = class Favorite extends React.Component{
 	save(love){
 		let {auth, id, changeModal, setUserFavorite} = this.props;
 		if (!auth || !auth.success ){
-			return changeModal({open:true});
+			return changeModal(true);
 		}
 		setUserFavorite({love, id});
 	}

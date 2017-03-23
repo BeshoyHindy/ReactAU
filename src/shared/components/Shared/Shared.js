@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageLoader} from './ImageLoader';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const CustomDownloadTd = (props) => (
 	<td ><a className="download" href={props.tdData} target="_blank">Download </a></td>

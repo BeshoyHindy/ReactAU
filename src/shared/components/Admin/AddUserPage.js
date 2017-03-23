@@ -3,8 +3,6 @@ import React from 'react';
 import {  Field, reduxForm } from 'redux-form';
 
 import AdminApi from '../../api/AdminApi';
-import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
-import { loadCategories } from '../../actions/adminActions';
 import { Breadcrumb } from "../Shared/Shared";
 import  {renderField, renderSelectField, renderDropzoneInput} from "../Shared/renderReduxForm";
 

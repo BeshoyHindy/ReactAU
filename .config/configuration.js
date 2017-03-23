@@ -14,8 +14,16 @@ module.exports =
 	{
 		http:
 		{
-			host: 'localhost',
-			port: process.env.PORT || 3000,
+			host: 'http://localhost',
+			port: process.env.PORT || 3000, // process.env.PORT is need for heroku
+		}
+	},
+	webpack_dev_server:
+	{
+		http:
+		{
+			host: 'http://localhost',
+			port: 3002,
 		}
 	}
 }

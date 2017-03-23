@@ -1,4 +1,4 @@
-import { Link} from 'react-router';
+import { Link} from 'react-router-dom';
 import React from 'react';
 import axios from 'axios';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -58,7 +58,7 @@ class DetailsImage extends React.Component{
 						<ul className={productImagesThumbClass}>
 							{
 								this.props.data.images && this.props.data.images.map( (item, id) => {
-									return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage} 
+									return (<ImageList key={id} id={id} src={item} activeItem={this.state.activeItem} toHandleClick={this.changeShowImage}
 												alt={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
 												title={`${this.props.brand} - ${this.props.productType} - ${this.props.type} - ${this.props.name}`}
 												minHeight="60px"

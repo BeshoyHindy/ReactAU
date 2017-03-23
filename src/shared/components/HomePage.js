@@ -1,8 +1,10 @@
 if (process.env.BROWSER) {	
-	require ('./home.sass');
+	require ('../Sass/home.sass');
 }
-import Carousel from './Shared/Carousel';
 import React from 'react';
+import Carousel from './Shared/Carousel';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { connect } from 'react-redux';
 
 
 const Child1 = (props) => (
@@ -41,6 +43,7 @@ const HomePage = (props) => {
 		autoplay : 5000,
 		carouselChildren: [Child1, Child2, Child3]
 	};
+
 	return (
 	<div className="HomePage">
 		<div className="home-banner">
@@ -57,4 +60,4 @@ const HomePage = (props) => {
 HomePage.propTypes = {
 };
 
-export default HomePage;
+export default connect(null)(connectDataFetchers(HomePage, [ ]));

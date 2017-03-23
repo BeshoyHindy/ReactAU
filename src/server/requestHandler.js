@@ -2,94 +2,117 @@ import fs from 'fs';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext, createMemoryHistory } from 'react-router';
+import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from 'react-router';
+import { matchPath } from 'react-router-dom';
 import serializeJs  from 'serialize-javascript';
 import MobileDetect from 'mobile-detect';
-
-// import createRoutes from '../shared/route/lazyRoute';
-// disable code split on server side rendering
-import createRoutes from '../shared/route/index';
-// disable code split on server side rendering
+import request from 'request';
+import { webpack_dev_server } from '../../.config/configuration';
 
 import configureStore from '../shared/store/configureStore';
-import {hodeXsNavAction} from '../shared/actions/modalAction';
+import App from '../shared/components/App';
+import routes from '../shared/route';
 
-import { fetchComponentsData,
-         getMetaDataFromState,
-         getIp
-	} from './utils';
+import { getMetaDataFromState, fetchComponentsData} from './utils';
 
+
+const devPort = webpack_dev_server.http.port ;
+const devHost = webpack_dev_server.http.host ;
 
 let asset = JSON.parse(fs.readFileSync('./webpack-assets.json'));
-let manifest = (process.env.NODE_ENV === 'production')?fs.readFileSync(`./public/build/${asset.manifest.js}`):"";
-
-
-const history = createMemoryHistory();
 const store = configureStore();
 
-function hideXsNav() {
-	store.dispatch(hodeXsNavAction);
+function ssr(match, res, req){
+	const context = {};
+	let reduxState = store.getState();
+	let metaData = getMetaDataFromState({
+		params : match.params || {},
+		query  : match.query || "",
+		route  : match.path || "",
+		state  : reduxState,
+		pathname: match.url || req.url
+	});
+	reduxState = serializeJs(reduxState, { isJSON: true });
+	const componentHTML = ReactDOMServer.renderToString(
+			<Provider store={store}>
+				<StaticRouter location={req.url} context={context} >
+					<App url={req.url}  level={0}/>
+				</StaticRouter>
+			</Provider>
+		);
+	let manifest = null;
+	
+	if (process.env.NODE_ENV === 'production') {
+		manifest = fs.readFileSync(`./public${asset.manifest.js}`);
+	}else{
+		asset.vendor = {};
+		asset.vendor.js = '/dll.vendor.js';
+		asset.vendor.css = [`${devHost}:${devPort}/build/css/bootstrap.min.css`, `${devHost}:${devPort}/build/css/font-awesome.min.css`];
+		// request(asset.manifest.js, function (error, response, body) {
+		// 	if (error)
+		// 		manifest = "";
+
+		// 	manifest = body;
+		// 	res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
+		// });	
+	}
+	res.render('index', { componentHTML, reduxState, metaData, asset, manifest });
+		
 }
 
-function handleRender(req, res) 
-{
-
-	const routes = createRoutes(store, hideXsNav);
+function handleRender(req, res)
+{	
 	const location = req.url;
-	let vendorJs =(process.env.NODE_ENV === 'production')
-						? `/build/${asset.vendor.js}`
-						: '/dll.vendor.js';
+
 
 	const md = new MobileDetect(req.headers['user-agent']);
 	let device = {mobile: md.mobile()||md.phone(), tablet: md.tablet(), os: md.os() };
-	asset.bundle.js = (process.env.NODE_ENV === 'production')
-							? asset.bundle.js
-							:'bundle.js';
-				
-  match({ routes, location }, (error, redirectLocation, renderProps) => {
-	if (redirectLocation) {
-		res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-	} else if (error) {
-		res.status(500).render('500', error);
-	} else if (renderProps == null) {
-		res.status(404).render('404');
-	} else {
-		
-		fetchComponentsData({
-                 dispatch   : store.dispatch,
-                 components : renderProps.components,
-                 params     : renderProps.params,
-                 query      : renderProps.location.query,
-                 route      : renderProps.routes[renderProps.routes.length - 1],
-				device,
-                })
-                .then(() => {
-                let reduxState = store.getState();
-                let metaData = getMetaDataFromState({
-                    params : renderProps.params,
-                    query  : renderProps.location.query,
-                    route  : renderProps.routes[renderProps.routes.length - 1].path,
-                    state  : reduxState,
-					pathname: renderProps.location.pathname
-                });
-                
-                const componentHTML = renderToString(
-                    <Provider store={store}>
-                        <RouterContext {...renderProps} />
-                    </Provider>
-                );
-				reduxState = serializeJs(reduxState, { isJSON: true });
-                res.render('index', { componentHTML, reduxState, vendorJs, metaData, asset, manifest });	
-                })
-                .catch(error => {
-                    console.log( error);
-                    res.status(500).json({
-                        err:error.message
-                    });
-            });
+	let components = [];
+	let actions = [];
+	let authorize = [];
+	let match = {};
+	routes.some(route => {
+		match = matchPath(req.url, route);
+		if (match){
+			actions = actions.concat(route.actions || []);
+			components.push(route.component);
+			authorize = authorize.concat(route.authorize || []);
+			route.routes && route.routes.some(r => {
+				match = matchPath(req.url, r);
+				if (match){
+					actions = actions.concat(r.actions || []);
+					components.push(r.component);
+					authorize = authorize.concat(r.authorize || []);			
+				}
+				return match;
+			});
 		}
+		return match;
 	});
+
+	if (!components.length){
+		return ssr({}, res, req)
+	}
+
+	fetchComponentsData({
+			dispatch   : store.dispatch,
+			components 	: components,
+			params     : match.params ,
+			query      : match.query,
+			authorize,
+			device,
+	})
+	.then(() => {
+		return ssr(match, res, req);
+	})
+	.catch(error => {
+		console.log( error);
+		res.status(500).json({
+			err:error.message
+		});
+	});
+
 }
 
 export default handleRender;

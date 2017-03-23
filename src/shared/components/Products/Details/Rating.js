@@ -15,7 +15,7 @@ let Rating = class Rating extends React.Component{
 	}
 
 	signin(){
-		this.props.changeModal({open:true});
+		this.props.changeModal(true);
 	}
 	rate(rate){
 		this.props.setUserProductRate({id:this.props.id, rate});
@@ -23,14 +23,14 @@ let Rating = class Rating extends React.Component{
 	render(){
 		let {stars, auth, id} = this.props;
 		let c = Math.round((stars.totalStars / stars.voteCount) * 100) / 100;
-		c = isNaN(c)?0:c; 
+		c = isNaN(c)?0:c;
 
 		let rate = <input type="button" className="btn btn-warning rating" value="Rate it" onClick={this.signin}/>;
 		if (auth && auth.success ){
 			let nRate = auth.user.data.rate.filter(function (rate) {
 				return rate.productId === id;
 			})[0];
-			let userRate = (nRate && nRate.rate) || 0;			
+			let userRate = (nRate && nRate.rate) || 0;
 			rate = <StarsRating id={id} rate={this.rate} initRate={userRate}/>;
 		}
 
@@ -55,7 +55,7 @@ Rating.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  return { 
+  return {
     auth: state.auth,
 	stars:state.details.stars,
 	id:	state.details._id
@@ -65,4 +65,3 @@ function mapStateToProps(state) {
 
 export default Rating = connect(mapStateToProps,  {...modalActions, ...userActions})(Rating);
 
-							

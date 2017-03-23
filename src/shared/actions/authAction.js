@@ -1,9 +1,5 @@
 import { browserHistory } from 'react-router';
-import _map from "lodash/fp/map";
-import _flattenDeep from "lodash/fp/flattenDeep";
-import _flow from "lodash/fp/flow";
-import _filter from "lodash/fp/filter";
-
+import { push } from 'react-router-redux';
 import AuthApi from '../api/AuthApi';
 import * as types from './actionTypes';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
@@ -20,10 +16,8 @@ export function userSignup(user) {
     dispatch(beginAjaxCall());
     return AuthApi.userSignup(user).then(user => {
         dispatch(signupUserSuccess(user.details));
-        // - Save the JWT token
+		dispatch(push('/user'));
         localStorage.setItem('token', user.token);
-        // - redirect to the route '/feature'
-        browserHistory.push('/user');
     }).catch(error => {
         dispatch(signupUserFail(error.err));      
     });
@@ -35,8 +29,8 @@ export function userSignin(user) {
     dispatch(beginAjaxCall());
     return AuthApi.userSignin(user).then(user => {
         localStorage.setItem('token', user.token);
-        dispatch(signupUserSuccess(user.details));
 		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
+        dispatch(signupUserSuccess(user.details));
     }).catch(error => {
 		// console.log(error);
         dispatch(signupUserFail(error.err));      
@@ -50,10 +44,11 @@ export function userSocialLoginClient(data) {
     dispatch(beginAjaxCall());
     return AuthApi.userSocialLoginClient(data).then(user => {
         localStorage.setItem('token', user.token);
-        dispatch(signupUserSuccess(user.details));
 		dispatch({type: types.CHANGE_MODAL_OPEN, modal:false}); 
+        dispatch(signupUserSuccess(user.details));
     }).catch(error => {
 		// console.log(error);
+		dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});  
         dispatch(signupUserFail(error.err));      
     });
   };
@@ -62,29 +57,38 @@ export function userSocialLoginClient(data) {
 export function userCheckAuth() {
   return dispatch => {
     dispatch(beginAjaxCall());    
-    let token = "";
+    let token = null;
     if (process.env.BROWSER ){
       token = localStorage.getItem('token');
     }
-
+	if(!token){
+		dispatch(push('/unauthorized'));
+		return;
+	}
     return AuthApi.userCheckAuth( token ).then(user => {
 		localStorage.setItem('token', user.token);
+		if(!user.details || user.details.accessRight === undefined){
+			dispatch(push('/unauthorized'));
+			return;
+		}
         dispatch(signupUserSuccess(user.details));
     }).catch(error => {
-        dispatch(signupUserFail(error.err));      
-        dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});      
-        // browserHistory.push('/signin');
+        dispatch(signupUserFail(error.err));   
+		dispatch(push('/signin'));
+		dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});   
     });
   };
 }
 export function userReAuth() {
   return dispatch => {
     dispatch(beginAjaxCall());    
-    let token = "";
+    let token = null;
     if (process.env.BROWSER ){
       token = localStorage.getItem('token');
     }
-
+	if(!token){
+		return;
+	}
     return AuthApi.userCheckAuth( token ).then(user => {
 		localStorage.setItem('token', user.token);
         dispatch(signupUserSuccess(user.details));
@@ -96,36 +100,32 @@ export function userReAuth() {
 export function userCheckAdmin() {
   return dispatch => {
     dispatch(beginAjaxCall());    
-    let token = "";
+    let token = null;
     if (process.env.BROWSER ){
       token = localStorage.getItem('token');
     }
+	if(!token){
+		dispatch(push('/unauthorized'));
+		return;
+	}
 
     return AuthApi.userCheckAuth( token ).then(user => {
-      if(!user.details || !user.details.accessRight || user.details.accessRight !== 8)
-          browserHistory.push('/unauthorized');
-
-		localStorage.setItem('token', user.token);
+		if(!user.details || !user.details.accessRight || user.details.accessRight !== 8){
+			dispatch(push('/unauthorized'));
+			return;
+		}
 		dispatch(signupUserSuccess(user.details));
     }).catch(error => {
-        dispatch(signupUserFail(error.err));      
-        // browserHistory.push('/signin');
-		dispatch({type: types.CHANGE_MODAL_OPEN, modal:true});  
+        dispatch(signupUserFail(error.err));
     });
   };
 }
 
 
-export function userSignOut(routes) {
-	localStorage.removeItem('token');
-	const routeRoles = _flow(
-		_filter(item => item.authorize), // access to custom attribute
-		_map(item => item.authorize),
-		_flattenDeep                 
-	)(routes).filter((item) => {return item==="admin" || item==="normal";});		
-
-	if (process.env.BROWSER && routeRoles && routeRoles.length){
-		browserHistory.push('/home');
-	}   
-	return {type: types.USER_SIGN_OUT};
+export function userSignOut() {
+	return dispatch => {
+		localStorage.removeItem('token');
+		dispatch(push('/'));
+		return dispatch({type: types.USER_SIGN_OUT});
+	};
 }

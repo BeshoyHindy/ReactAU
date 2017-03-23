@@ -8,13 +8,13 @@ class Star extends React.Component{
 		this.onClick = this.onClick.bind(this);
 	}
 	onMouseOver(e){
-		this.props.onMouseOver(this.props.id, e);
+		this.props.MouseOver(this.props.id);
 	}
 	onMouseOut(e){
-		this.props.onMouseOut(this.props.id, e);
+		this.props.MouseOut(this.props.id);
 	}
 	onClick(e){
-		this.props.onClick(this.props.id, e);
+		this.props.Click(this.props.id);
 	}
 	render(){	
 		let {selected, half} = this.props;
@@ -32,9 +32,9 @@ class Star extends React.Component{
 }
 Star.propTypes = {
 	selected: React.PropTypes.bool,
-	onMouseOver: React.PropTypes.func,
-	onMouseOut: React.PropTypes.func,
-	onClick: React.PropTypes.func,
+	MouseOver: React.PropTypes.func,
+	MouseOut: React.PropTypes.func,
+	Click: React.PropTypes.func,
 	half: React.PropTypes.bool,
 	id: React.PropTypes.number
 };

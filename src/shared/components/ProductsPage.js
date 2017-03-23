@@ -1,58 +1,36 @@
 if (process.env.BROWSER) {
-	require ('./product.scss');
+	require ('../Sass/product.scss');
 }
 
-
 import { connect } from 'react-redux';
-import { Link} from 'react-router';
+import { Route, Link} from 'react-router-dom';
 import React from 'react';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-
-import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
 import { ProductIndex } from './Products/ProductIndex';
 import { Breadcrumb} from "./Shared/Shared";
 import {isvalidRoute} from '../Data/RouteData';
-import { Metadata } from "../Data/ProductTblSettings";
-
 import { loadProducts } from '../actions/productsActions';
+import {RouteWithSubRoutes} from '../route/util';
 
-class ProductsP extends React.Component{
+import ProductCategorySidebar from './Products/Sidebar/ProductCategorySidebar';
+import ProductIndexSidebar from './Products/Sidebar/ProductIndexSidebar';
+import ProductCategory from './Products/ProductCategory';
+import ProductsTblPage from './Products/ProductsTblPage';
+
+
+let ProductsPage = class ProductsPage extends React.Component{
 		constructor(props) {
 			super(props);
-			this.getProductContent = this.getProductContent.bind(this);
-			this.getProductSidebar = this.getProductSidebar.bind(this);
-		}
-		getProductContent() {
-			if(!this.props.content){
-				return <ProductIndex/>;
-			}
-			let ProductsTbl = this.props.params.ProductsTbl;
-			let filtered = this.props.products;
-			if (ProductsTbl && ProductsTbl !== "All"){
-				filtered = this.props.products.filter( item => {
-					return item.type == ProductsTbl
-						|| item.brand == ProductsTbl;
-				});
-			}
-			let ProductContentComponentElement
-				= React.cloneElement(this.props.content, {products: filtered, productType:this.props.params.product, ajaxState:this.props.ajaxState});
-			return ProductContentComponentElement;
-		}
-		getProductSidebar() {
-			if(!this.props.sidebar){
-				return <ProductIndexSidebar/>;
-			}
-			let ProductSidebarComponentElement
-				= React.cloneElement(this.props.sidebar, {products: this.props.products, productType:this.props.params.product, ProductsTbl:this.props.params.ProductsTbl});
-			return ProductSidebarComponentElement;
 		}
 		render() {
+			let {match, products, routes, level, Comps, url, categories} = this.props ;
 			let linkpair = [
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
 						];
-			this.props.params.product && linkpair.push({link:"/products/" + this.props.params.product + "/All", desc:this.props.params.product}	);
-			this.props.params.ProductsTbl && linkpair.push({link:"", desc:this.props.params.ProductsTbl});
+			let params = {...match.params, product: match.params.product || "DVR", ProductsTbl: match.params.ProductsTbl || "All"};
+			linkpair.push({link:"/products/" + params.product + "/All", desc:params.product}	);
+			linkpair.push({link:"", desc:params.ProductsTbl});
 
 			return (
 			<div className="container">
@@ -61,21 +39,24 @@ class ProductsP extends React.Component{
 						<Breadcrumb linkPair={linkpair}/>
 					</div>
 					<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-						{ this.getProductSidebar() }
+						<ProductCategorySidebar products={products} productType={params.product } ProductsTbl={params.ProductsTbl} params={params}/>
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
-						{this.getProductContent()}
+						{routes.map(route => (<RouteWithSubRoutes key={route.path + level} route={route} level={level}  Comps={Comps}  url={url}/>))}
 					</div>
 				</div>
 			</div>
 			);
 		}
 }
-ProductsP.propTypes = {
-	content: React.PropTypes.node,
-	sidebar: React.PropTypes.node,
-	params:  React.PropTypes.object,
+ProductsPage.propTypes = {
+	match:  React.PropTypes.object,
+	categories: React.PropTypes.array,
+	routes:  React.PropTypes.array,
+	Comps:  React.PropTypes.array,
+	level:  React.PropTypes.number,
+	url: React.PropTypes.string,
 	products:  React.PropTypes.array,
 	ajaxState:  React.PropTypes.number,
 };
@@ -83,12 +64,12 @@ ProductsP.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     products: state.products,
-	ajaxState: state.ajaxCallsInProgress
+	categories: state.categories,
   };
 }
 
-const ProductsPage = connect(mapStateToProps)(
-    connectDataFetchers(ProductsP, [ loadProducts ])
+ProductsPage = connect(mapStateToProps)(
+    connectDataFetchers(ProductsPage, [ loadProducts])
 );
 
 export default  ProductsPage ;

@@ -1,62 +1,56 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { syncHistoryWithStore} from 'react-router-redux';
-import { match,  browserHistory, Router } from 'react-router';
-
-
-require.context('../shared/fonts', true, /\.?/);
-
-
+import { render as ReactDOMRender} from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import { fetchSsrComps, ClientApp} from './App';
+import createHistory from 'history/createBrowserHistory';
 import configureStore from '../shared/store/configureStore';
-import { loadCategories } from '../shared/actions/adminActions';
-import {hodeXsNavAction} from '../shared/actions/modalAction';
 
 const initialState = window.__REDUX_STATE__ || {};
+const history = createHistory();
+const store = configureStore(initialState, history);
 
-const store = configureStore(initialState);
-const history = syncHistoryWithStore(browserHistory, store);
 
-function hideXsNav() {
-	store.dispatch(hodeXsNavAction);
+function errorLoading(err) {
+	console.error('Dynamic page loading failed', err);
 }
 
-let Routes;
-
-
-
-if (process.env.NODE_ENV === 'production') {
-	//enable code spliting for production
-	let createRoutes = require('../shared/route/lazyRoute').default;
-	Routes = createRoutes(store, hideXsNav);
-	render(
-		<Provider store={store}>
-			<Router history={history} routes={Routes} />
-		</Provider>,
-		document.getElementById('rootWrap')
-	);
-}else{
-	//disable code spliting for development, then HMR work
-
-	Routes = require('../shared/route/index');
-	//https://github.com/reactjs/react-router-redux/issues/179
-	//need to wrap as compnent to let HMR work
-	class App extends React.Component {
-		hideXsNav() {
-			store.dispatch(hodeXsNavAction);
-		}
-		render() {
-			return (
-				<Provider store={store}>
-					<Routes history={history} hideXsNav={this.hideXsNav}/>
-				</Provider>
+function renderApp(TheApp) {
+	if (process.env.NODE_ENV !== 'development') {
+		//disable code spliting on development(due to react hot loader 3 not support dynamic import code spliting)
+		fetchSsrComps().then((Comps)=>{
+			ReactDOMRender(
+				<AppContainer>
+					<TheApp Comps={Comps} store={store} history={history}/>
+				</AppContainer>,
+				document.getElementById('rootWrap')
 			);
-		}
+		})
+		.catch(errorLoading);
+		return;
 	}
-	render(
-		<App/>,
+
+	ReactDOMRender(
+		<AppContainer>
+			<TheApp store={store} history={history}/>
+		</AppContainer>,
 		document.getElementById('rootWrap')
+	);
+	return;	
+
+}
+
+// Hot Module Replacement API
+if (process.env.NODE_ENV === 'development' && module.hot) {
+	// Accept changes to this file for hot reloading.
+	module.hot.accept('./index.js');
+	
+	// Any changes to our App will cause a hotload re-render.			
+	module.hot.accept(
+		'./App.js', 
+		() => renderApp(require('./App').ClientApp, true)
 	);
 }
 
+
+renderApp(ClientApp);
 

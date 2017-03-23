@@ -1,12 +1,12 @@
 # A Real World React Redux with Server Side Rendering(SSR/isomorphic javascript) Web App
 The app is a real world website project, integrate with react, redux, server side rendering, redux form, auth with RESTful API server, user login(both local and social Logins) and with aditional web UI to ADD/DELETE/EDIT backend data
 
-* React + Redux
+* React + Redux + React Router V4
 * Server Side Rending (SSR/isomorphic javascript)
 * Auth with another RESTful API server( [`https://github.com/Grace951/node-api-server-demo`](https://github.com/Grace951/node-api-server-demo))
 * User Login (both Local and Social Logins Strategy)
 * Rating and Favorite Markable for Logined User
-* RWD (not completed yet)
+* RWD
 * Additional Friendly Web UI to ADD/DELETE/EDIT Backend Data
 * Webpack2 + Code Split + Lazy Route + Hot Reload
 * Node.js + MongoDB ( For the data schema, please refer to my another git repo:  [`https://github.com/Grace951/node-api-server-demo`](https://github.com/Grace951/node-api-server-demo))

@@ -3,6 +3,7 @@ import UserApi from '../api/UserApi';
 import * as types from './actionTypes';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
+
 function signupUserSuccess(user) {
   return {type: types.USER_CHANGE_PROFILE_SUCCESS, user:user};
 }

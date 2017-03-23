@@ -1,35 +1,30 @@
 import React, { PropTypes } from 'react';
-import _map from "lodash/fp/map";
-import _flattenDeep from "lodash/fp/flattenDeep";
-import _flow from "lodash/fp/flow";
-import _filter from "lodash/fp/filter";
 
-import * as actions from '../actions/authAction';
+import { getDevice } from '../actions/deviceAction';
+import { loadCategories } from '../actions/adminActions';
 
 let IS_FIRST_MOUNT_AFTER_LOAD = true;
+const commonActions = [getDevice, loadCategories];
 
 export default function connectDataFetchers(Component, actionCreators) {
     return class DataFetchersWrapper extends React.Component {
-        static contextTypes = { i18n: PropTypes.object };
-
         static propTypes = {
-            dispatch : PropTypes.func.isRequired,
-            params   : PropTypes.object.isRequired,
-            location : PropTypes.shape({
-                pathname : PropTypes.string.required,
-                search   : PropTypes.string,
-                query    : PropTypes.string.object
-            }).isRequired
+				dispatch : PropTypes.func.isRequired,
+				match   : PropTypes.shape({
+                path 	: PropTypes.string.required,
+                url   	: PropTypes.string,
+                params  : PropTypes.string.object
+            }).isRequired,
         };
 
-        static fetchData({ dispatch, params = {}, query = {},  route= [], device}) {          
-
-            let promiseArray = actionCreators.map(actionCreator => {                    
-                    return actionCreator?(dispatch(actionCreator({ params, query,  device }))):null;
+        static fetchData({ dispatch, params = {}, authorize= [], device}) {    
+			let actions = commonActions.concat(actionCreators);
+            let promiseArray = actions.map(actionCreator => {                    
+                    return actionCreator?(dispatch(actionCreator({ params, device }))):null;
                 });       
 
-            if (process.env.BROWSER && route.authorize && route.authorize.length){
-                promiseArray.concat( route.authorize.map( role => {
+            if (process.env.BROWSER && authorize && authorize.length){
+                promiseArray.concat( authorize.map( role => {
                     switch (role) {
                         case "admin":
                             return dispatch(actions.userCheckAdmin());
@@ -42,11 +37,10 @@ export default function connectDataFetchers(Component, actionCreators) {
                     }
                 } ));
             }
-
             return Promise.all( promiseArray );
         }
         componentDidUpdate(prevProps) {
-            const { location } = this.props;
+            const { location , dispatch} = this.props;
             const { location: prevLocation } = prevProps;
 
             const isUrlChanged = (location.pathname !== prevLocation.pathname)
@@ -54,28 +48,21 @@ export default function connectDataFetchers(Component, actionCreators) {
 
             if (isUrlChanged) {
                 this._fetchDataOnClient();
-            }
+            }			
         }
 
         componentDidMount() {
+			let {authorize, dispatch} = this.props;
             if (IS_FIRST_MOUNT_AFTER_LOAD) {
-
-                let {dispatch, routes} = this.props; 
-                const routeRoles = _flow(
-                    _filter(item => item.authorize), // access to custom attribute
-                    _map(item => item.authorize),
-                    _flattenDeep,                    
-                )(routes);
-
-                if (process.env.BROWSER && routeRoles && routeRoles.length){
-                    let promiseArray =  routeRoles.map( role => {
+                if (process.env.BROWSER && authorize && authorize.length){
+                    let promiseArray =  authorize.map( role => {
                         switch (role) {
                             case "admin":
-                                return dispatch(actions.userCheckAdmin());
+                                return dispatch(authActions.userCheckAdmin());
                             case "normal":
-                                return dispatch(actions.userCheckAuth());
+                                return dispatch(authActions.userCheckAuth());
                             case "reAuth":
-                                return dispatch(actions.userReAuth());
+                                return dispatch(authActions.userReAuth());
                             default:
                                 return null;
                         }
@@ -85,18 +72,15 @@ export default function connectDataFetchers(Component, actionCreators) {
             }else{
                 this._fetchDataOnClient();
             }
-
             IS_FIRST_MOUNT_AFTER_LOAD = false;
         }
 
 
         _fetchDataOnClient() {
-
             DataFetchersWrapper.fetchData({
                 dispatch : this.props.dispatch,
-                params   : this.props.params,
-                query    : this.props.location.query,
-                route    : this.props.route
+                params   : this.props.match.params,
+                authorize    : this.props.authorize
             });
         }
 
@@ -107,3 +91,5 @@ export default function connectDataFetchers(Component, actionCreators) {
         }
     };
 }
+
+

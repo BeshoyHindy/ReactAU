@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./auth.sass');
+	require ('../Sass/auth.sass');
 }
 
 import { connect } from 'react-redux';
@@ -8,7 +8,6 @@ import {  Field, reduxForm } from 'redux-form';
 
 import * as actions from '../actions/authAction';
 import connectDataFetchers from '../lib/connectDataFetchers.jsx';
-import { loadCategories } from '../actions/adminActions';
 import { Breadcrumb } from "./Shared/Shared";
 import  {renderField} from "./Shared/renderReduxForm";
 
@@ -17,17 +16,17 @@ class SigninPage extends React.Component {
 		super(props);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
-	}	
+	}
 	componentWillMount() {
 		if (this.props.auth.success){
-			this.props.router.push(`/user`);	
+			this.context.router.history.push(`/user`);
 		}
-	}	
+	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.auth.success){
-			this.props.router.push(`/user`);	
+			this.context.router.history.push(`/user`);
 		}
-	}	  
+	}
 	handleFormSubmit(values) {
 		// Call action creator to sign up the user!
 			let {email, password} = values;
@@ -101,21 +100,22 @@ SigninPage.propTypes = {
 	submitting: React.PropTypes.bool.isRequired,
 	pristine: React.PropTypes.bool.isRequired,
 	userSignin: React.PropTypes.func.isRequired,
-	errorMessage: React.PropTypes.string,	
+	errorMessage: React.PropTypes.string,
 	auth: React.PropTypes.object.isRequired,
-	router: React.PropTypes.object.isRequired,
 	location: React.PropTypes.object.isRequired,
 };
-
+SigninPage.contextTypes = {
+	router: React.PropTypes.object
+};
 function mapStateToProps(state) {
-  return { 
+  return {
     auth: state.auth,
 		errorMessage: state.auth.error
   };
 }
 
-export default connect(mapStateToProps, actions)(reduxForm({
-													form: 'signup',
-													validate,                // <--- validation function given to redux-form
-												} )(SigninPage));
 
+export default connect(mapStateToProps, actions)(connectDataFetchers(reduxForm({
+														form: 'signin',
+														validate,                // <--- validation function given to redux-form
+													})(SigninPage), [  ]));

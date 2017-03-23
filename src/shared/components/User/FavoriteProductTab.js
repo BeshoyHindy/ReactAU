@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { SortableTbl }  from '../Shared/SortableTbl';
 import { BigHeader} from "../Shared/Shared";
@@ -8,7 +8,7 @@ import HeartToggle from '../Shared/HeartToggle';
 
 const PID = (props) =>
 {
-	
+
 	return (
 		<td style={{minWidth: '120px', backgroundColor: '#fff'}} >
 			<Link to={`/products/${props.rowData.cat}/spec/${props.tdData}`}>
@@ -42,7 +42,7 @@ let FavoriteProductTab = (props) => {
 	let {user,categories} = props;
 	let data = [];
 	if (user.data && user.data.favorite && categories){
-		data = user.data.favorite.map((item)=> { 
+		data = user.data.favorite.map((item)=> {
 			let cat = categories.filter((catItem) => {return catItem._id===parseInt(item.cat) ;});
 			cat = (cat && cat.length > 0 && cat[0].categoryName) || "Unknown";
 			return {pid: item.productId, fav: 1, cat};
@@ -50,9 +50,9 @@ let FavoriteProductTab = (props) => {
 	}
 	return (
 		<div className="user-info">
-			{ 
+			{
 				user.data && user.data.favorite && categories &&
-				<div> 
+				<div>
 					<BigHeader smallTitle="">My Favorite Products</BigHeader>
 					<SortableTbl categories={categories} tblData={data}
 						tHead={[  "Product ID", "Product Type", "Favorite"]}
@@ -60,12 +60,12 @@ let FavoriteProductTab = (props) => {
 									{custd: PID, keyItem: "pid"},
 									{custd: Fav, keyItem: "fav"},
 								]}
-						dKey={["pid", "cat", "fav"]}/>		
+						dKey={["pid", "cat", "fav"]}/>
 				</div>
 			}
 		</div>
 	);
-}; 
+};
 
 FavoriteProductTab.propTypes = {
 	user:  React.PropTypes.object.isRequired,
@@ -75,7 +75,7 @@ FavoriteProductTab.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
 	user: state.auth.user || {},
-    categories: state.categories,		
+    categories: state.categories,
   };
 }
 FavoriteProductTab = connect(mapStateToProps)(FavoriteProductTab);
@@ -84,4 +84,4 @@ FavoriteProductTab = connect(mapStateToProps)(FavoriteProductTab);
 export default FavoriteProductTab;
 
 
-	
+

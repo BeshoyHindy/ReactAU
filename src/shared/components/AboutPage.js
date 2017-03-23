@@ -1,8 +1,10 @@
-if (process.env.BROWSER) {
-	require ('./about.scss');
+if (process.env.BROWSER ) {
+	require ('../Sass/about.scss');
 }
 import React from 'react';
 import {ImageLoader} from './Shared/ImageLoader';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { connect } from 'react-redux';
 
 import {BrandsData} from '../Data/AboutData';
 import { Breadcrumb , BigHeader, OrangeBoard} from "./Shared/Shared";
@@ -27,7 +29,7 @@ const AboutPage = (props) => (
 				</OrangeBoard>
 			</div>
 			<div className="col-sm-3">
-				<img className="img-responsive asia center" alt="Ausrtralian Security Industry Association Limited" title="Ausrtralian Security Industry Association Limited" src="img/ASIALmemberjpeg_hires.jpg"/>
+				<img className="img-responsive asia center" alt="Ausrtralian Security Industry Association Limited" title="Ausrtralian Security Industry Association Limited" src="/build/img/ASIALmemberjpeg_hires.jpg"/>
 			</div>
 			<div className="col-sm-12">
 				<BigHeader smallTitle="">Brands We Carry</BigHeader>
@@ -66,5 +68,5 @@ const AboutPage = (props) => (
 
 AboutPage.propTypes = {
 };
+export default connect(null)(connectDataFetchers(AboutPage, [ ]));
 
-export default AboutPage;

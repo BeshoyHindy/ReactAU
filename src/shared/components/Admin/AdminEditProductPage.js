@@ -51,7 +51,7 @@ class AdminEditProductPage extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			details : (props.params.id == 0) ? initialStateDB: props.details,
+			details : !props.match.params.id ? initialStateDB: props.details,
 			selectedTab : 0,
 			upload:{
 				images: initialImageUpload,
@@ -163,6 +163,7 @@ class AdminEditProductPage extends React.Component{
 	}	
 	submit (e){
 		e.preventDefault();
+		let {categories, match, dispatch} = this.props;
 		if (!this.state.details.name || !this.state.details.name.trim() || this.state.details.name.trim() === ""){
 			alert("Please key in product name...");
 			return;
@@ -199,17 +200,18 @@ class AdminEditProductPage extends React.Component{
 		})		
 		.then( e => {
 			let actionData ={};
-			let cat = this.props.categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
-			actionData.params = Object.assign({},this.props.params);
-			this.props.dispatch(loadDetails(actionData));
+			let cat = categories.filter((item) => {return item._id===this.state.details.cat;})[0].categoryName;
+			actionData.params = Object.assign({},match.params ,{ id: match.params.id||0});
+			dispatch(loadDetails(actionData));
 
 			actionData.params.cat = cat;
-			this.props.dispatch(loadProductList(actionData));
+			dispatch(loadProductList(actionData));
 			this.setState({		upload: {images: initialImageUpload, docs: initialDocsUpload},
 								delete: {images: [], docs: []},
 								detailPostProgress: 0});
-			if((this.props.params.id == 0))
-				this.props.router.push(`/admin/productList/${cat}`);
+			if((!match.params.id)){
+				this.context.router.history.push(`/admin/productList/${cat}`);			
+			}
 		}).catch(error => {
 			alert("Process Fail, Error Message: " + error.err);
 			// console.error(error);
@@ -220,15 +222,17 @@ class AdminEditProductPage extends React.Component{
 	}
 	render () {
 		idCounter = 0;
-		let {categories, details,params} = this.props;
+		let {categories, details,match} = this.props;
 		let {upload, detailPostProgress} = this.state;
+		let params = {...match.params, id: match.params.id || 0};
 		let showAjaxLoading = (upload.images.progress || upload.docs.progress || detailPostProgress  
 							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
+
 		let tabId=0;
 		return (
 	<div className="loading-wrap">
 		<div className={`ajax-loading-big ${showAjaxLoading?'fade-show':'fade-hide'}`} >
-			<img src="/img/ajax-loader.gif" alt=""/>
+			<img src="/build/img/ajax-loader.gif" alt=""/>
 			<div className="ajax-loading-progress">
 				{	(detailPostProgress )
 						? `Apply Change... ${detailPostProgress} % ` 
@@ -297,7 +301,7 @@ class AdminEditProductPage extends React.Component{
 					{
 						(
 							<TabPanel>
-								<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
+								<AdminEditDocsTab  tabId={tabId++} docs={this.state.details.docs || []} field="docs" delArrayMember={this.delArrayMember}  newDocs={upload.docs.newData} 
 										fileField="docs" setNewDocs={this.setNewFiles} addArrayMember={this.addArrayMember} setArrayMember={this.setArrayMember} />
 							</TabPanel>
 						)
@@ -312,19 +316,21 @@ class AdminEditProductPage extends React.Component{
 
 
 AdminEditProductPage.propTypes = {
-	categories: React.PropTypes.array,
 	ajaxState: React.PropTypes.number,
+	categories: React.PropTypes.array,
 	details: React.PropTypes.object,
-	params: React.PropTypes.object.isRequired,	
-	router: React.PropTypes.object.isRequired,	
+	match: React.PropTypes.object.isRequired,	
 	dispatch: React.PropTypes.func.isRequired,	
+};
+AdminEditProductPage.contextTypes = {
+	router: React.PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    categories: state.categories,
 	details: state.details,
-	ajaxState: state.ajaxCallsInProgress
+	ajaxState: state.ajaxCallsInProgress,
+	categories: state.categories,
   };
 }
 

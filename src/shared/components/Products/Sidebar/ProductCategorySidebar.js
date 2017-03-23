@@ -1,4 +1,4 @@
-import { Link} from 'react-router';
+import { Link} from 'react-router-dom';
 import React from 'react';
 import { isvalidRoute} from '../../../Data/RouteData';
 
@@ -55,7 +55,7 @@ class ProductCategorySidebar extends React.Component{
 			let a = [];
 			a = arrArg.filter((elem, pos, arr) => {
 				count[elem] === undefined && (count[elem] = 0);
-				count[elem]++; 
+				count[elem]++;
 				return arr.indexOf(elem) == pos;
 			});
 			count.All = arrArg.length;

@@ -1,10 +1,12 @@
 if (process.env.BROWSER) {
-	require ('./contact.scss');
+	require ('../Sass/contact.scss');
 }
 
 import React from 'react';
-import { Link} from 'react-router';
+import { Link} from 'react-router-dom';
 import {ImageLoader} from './Shared/ImageLoader';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { connect } from 'react-redux';
 
 import { Breadcrumb , BigHeader, PureList, GoogleMap} from "./Shared/Shared";
 import { contactData, frontImgData, gMapLinkData} from '../Data/ContactData';
@@ -80,13 +82,13 @@ const ContactPage = (props) => {
 						<ImageLoader
 							src={frontImgData[0]} minHeight="383px"
 							alt="Hi-Tech Digital CCTV,  Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
-							title="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"							
+							title="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
 							/>
 					</div>
 					<div className="front-door-t">
 						<ul className="front-thumbs" >
 							{
-								frontImgData.map( (item, id) => ( <ImageList key={id} src={item} minHeight="120px" 
+								frontImgData.map( (item, id) => ( <ImageList key={id} src={item} minHeight="120px"
 									alt="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
 									title="Hi-Tech Digital CCTV, Unit 10/62 Hume Highway, Corner of Knight Street, Lansvale 2166, NSW Australia"
 									/>))
@@ -99,4 +101,5 @@ const ContactPage = (props) => {
     );
 };
 
-export default ContactPage;
+
+export default connect(null)(connectDataFetchers(ContactPage, [ ]));

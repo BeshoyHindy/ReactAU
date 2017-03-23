@@ -1,4 +1,6 @@
 import React from 'react';
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
+import { connect } from 'react-redux';
 
 const UnauthorizedPage = (props) 	=> (
 		<div className="row">
@@ -9,5 +11,5 @@ const UnauthorizedPage = (props) 	=> (
 	);
 
 
+export default connect(null)(connectDataFetchers(UnauthorizedPage, [ ]));
 
-export default UnauthorizedPage;

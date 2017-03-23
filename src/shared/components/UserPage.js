@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./user.sass');
+	require ('../Sass/user.sass');
 }
 
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import React from 'react';
 import update from 'immutability-helper';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs-isomorphic';
 
+import connectDataFetchers from '../lib/connectDataFetchers.jsx';
 import { Breadcrumb} from "./Shared/Shared";
 import EditUserTab from './User/EditUserTab.js';
 import UserProfileTab from './User/UserProfileTab.js';
@@ -93,4 +94,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps)(connectDataFetchers(UserPage, [ ]));

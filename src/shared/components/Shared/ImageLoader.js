@@ -1,5 +1,5 @@
 if (process.env.BROWSER) {
-	require ('./ImageLoader.sass');
+	require ('../../Sass/ImageLoader.sass');
 }
 
 import React from 'react';
@@ -55,7 +55,7 @@ ImageLoader.propTypes = {
 };
 
 ImageLoader.defaultProps = {
-	loadingGif: "url('/img/ajax-loader.gif')"
+	loadingGif: "url('/build/img/ajax-loader.gif')"
 };
 
 export {ImageLoader};				
