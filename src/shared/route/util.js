@@ -11,6 +11,7 @@ let RouteWithSubRoutes = class RouteWithSubRoutes extends React.Component{
 		let isBrowser = process.env.BROWSER;
 		this.state = { Component: null, match: !!matchPath(url, route)};
 		if (isBrowser && process.env.NODE_ENV !== 'development') {
+			// console.log(this.state.match, Comps , Comps[level], level );
 			if(this.state.match && Comps && Comps[level]){
 				this.state.Component = Comps[level].default;
 				return;

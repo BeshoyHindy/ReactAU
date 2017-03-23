@@ -32,7 +32,7 @@ function fetchSsrComps(){
 		}
 		return match;
 	});
-	return {promise: Promise.all(promises)};
+	return Promise.all(promises);
 }
 
 

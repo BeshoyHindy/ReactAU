@@ -17,7 +17,7 @@ function errorLoading(err) {
 function renderApp(TheApp) {
 	if (process.env.NODE_ENV !== 'development') {
 		//disable code spliting on development(due to react hot loader 3 not support dynamic import code spliting)
-		fetchSsrComps().promise.then((Comps)=>{
+		fetchSsrComps().then((Comps)=>{
 			ReactDOMRender(
 				<AppContainer>
 					<TheApp Comps={Comps} store={store} history={history}/>
@@ -26,6 +26,7 @@ function renderApp(TheApp) {
 			);
 		})
 		.catch(errorLoading);
+		return;
 	}
 
 	ReactDOMRender(
