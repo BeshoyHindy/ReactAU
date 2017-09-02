@@ -69,7 +69,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 ProductsPage = connect(mapStateToProps)(
-    connectDataFetchers(ProductsPage, [ loadProducts])
+    connectDataFetchers(ProductsPage)
 );
 
 export default  ProductsPage ;
