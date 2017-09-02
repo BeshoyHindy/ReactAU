@@ -10,6 +10,7 @@ import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 import StarsRated from '../Shared/StarsRated';
 import  Favorite  from '../Products/Details/Favorite';
 import HeartToggle from '../Shared/HeartToggle';
+import { loadProducts } from '../..//actions/productsActions';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 const BaseProductTblImageComponent = (props) =>
@@ -219,7 +220,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-ProductsTblPage = connect(mapStateToProps)(ProductsTblPage);
+ProductsTblPage = connect(mapStateToProps)(
+    connectDataFetchers(ProductsTblPage, [ loadProducts]));
 
 export default ProductsTblPage;
 
