@@ -82,7 +82,7 @@ global.__CLIENT__ = false; // eslint-disable-line
 delete process.env.BROWSER;
 
 const app = express();
-
+app.disable('view cache');
 const oneDay = 86400000;
 if (process.env.NODE_ENV === 'production') {
 	app.use(helmet());
