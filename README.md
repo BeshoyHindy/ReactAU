@@ -38,7 +38,7 @@ npm run dev
 // build isomorphic code
 
 npm run dev:start 
-// start up wev server
+// start up wed server
 ```
 
 Then open [`localhost:3000`](http://localhost:3000) in a browser.
