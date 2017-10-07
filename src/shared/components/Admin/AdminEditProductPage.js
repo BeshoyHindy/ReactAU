@@ -229,6 +229,9 @@ class AdminEditProductPage extends React.Component{
 							|| this.props.ajaxState > 0 || !categories || categories.length ===0 );
 
 		let tabId=0;
+		if ( params.id != 0 && !params.id){
+			params.id = 0
+		}
 		return (
 	<div className="loading-wrap">
 		<div className={`ajax-loading-big ${showAjaxLoading?'fade-show':'fade-hide'}`} >
