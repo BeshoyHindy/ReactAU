@@ -30,7 +30,15 @@ cd ReactAU
 cd .config
 //Then EDIT the configuration file(configuration.js) to meet your requirements
 npm install
+```
+
+
+```
 npm run dev
+// build isomorphic code
+
+npm run dev:start 
+// start up wev server
 ```
 
 Then open [`localhost:3000`](http://localhost:3000) in a browser.
