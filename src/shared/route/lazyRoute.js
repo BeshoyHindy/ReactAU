@@ -55,7 +55,7 @@ const routes = [
         componentPath: 'Products/ProductsTblPage',
 		actions: [loadProducts]	
       },		
-      { path: '/products/:product/:ProductsTbl',
+      { path: '/products',
 		exact: true,
         componentPath: 'Products/ProductsTblPage',
 		actions: [loadProducts]	
@@ -71,7 +71,7 @@ const routes = [
     authorize: ['normal','admin'],
     componentPath: 'AdminPage',
 	routes: [
-      { path: '/admin',
+      { path: '/admin/productChange/0',
 		exact: true,
         componentPath: 'Admin/AdminEditProductPage',
 		actions: [loadDetails]

@@ -21,6 +21,7 @@ let config =
 	context: process.cwd(),
 	entry: {
 		bundle: [
+			path.resolve(projectRoot, './webpack/util/polyfills.js'),
 			'react-hot-loader/patch',
 			`webpack-hot-middleware/client?reload=true&path=${host}:${port}/__webpack_hmr`, //note that it reloads the page if hot module reloading fails.
 			path.resolve(projectRoot, './src/client/index.js'),

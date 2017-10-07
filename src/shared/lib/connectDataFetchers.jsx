@@ -43,8 +43,8 @@ export default function connectDataFetchers(Component, actionCreators) {
             const { location , dispatch} = this.props;
             const { location: prevLocation } = prevProps;
 
-            const isUrlChanged = (location.pathname !== prevLocation.pathname)
-                              || (location.search !== prevLocation.search);
+            const isUrlChanged = location && ((location.pathname !== prevLocation.pathname)
+                              || (location.search !== prevLocation.search)) || false;
 
             if (isUrlChanged) {
                 this._fetchDataOnClient();

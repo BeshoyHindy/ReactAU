@@ -86,7 +86,7 @@ const routes = [
     authorize: ['normal','admin'],
     component: AdminPage,
 	routes: [
-      { path: '/admin',
+      { path: '/admin/productChange/0',
 		exact: true,
         component: AdminEditProductPage,
 		actions: [loadDetails]
