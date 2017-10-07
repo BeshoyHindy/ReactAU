@@ -42,7 +42,11 @@ function ssr(match, res, req){
 			</Provider>
 		);
 	let manifest = null;
-	
+	res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+	res.setHeader('Content-Type', 'text/html');
+	res.setHeader('Expires', '-1');
+	res.setHeader('Pragma', 'no-cache');
+
 	if (process.env.NODE_ENV === 'production') {
 		manifest = fs.readFileSync(`./public${asset.manifest.js}`);
 	}else{
@@ -108,6 +112,10 @@ function handleRender(req, res)
 	})
 	.catch(error => {
 		console.log( error);
+		res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Expires', '-1');
+		res.setHeader('Pragma', 'no-cache');		
 		res.status(500).json({
 			err:error.message
 		});
