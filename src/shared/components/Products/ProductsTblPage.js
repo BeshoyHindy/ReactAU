@@ -171,7 +171,7 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 							params={match.params}/>
 					</div>
 				}
-				<div className="grid-container" style={{display: this.state.gridView?"block":"none"}}>
+				<div className="grid-container" style={{display: productType != "ALARM"?(this.state.gridView?"block":"none"):"block"}}>
 					{data.map((item, id)=>{
 						let c = 0;
 						item.stars && (c = (Math.round((item.stars.totalStars / item.stars.voteCount) * 100) / 100));
