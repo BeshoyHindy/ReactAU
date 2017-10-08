@@ -67,6 +67,11 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		window.addEventListener('resize', this.handleResize, false);
 		dispatch(changeProductType(productType));
 	}
+	componentDidUpdate(prevProps, prevState) {
+		let {match, dispatch} = this.props ;
+		let productType = match.params.product || match.params.cat || "DVR";
+		dispatch(changeProductType(productType));		
+	}
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
