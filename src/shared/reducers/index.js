@@ -3,6 +3,7 @@ import products from './productReducer';
 import details from './detailReducer';
 import auth from './authReducer';
 import modal from './modalReducer';
+import productType from './productTypeReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import categories from './categoriesReducer.js';
 import { reducer as formReducer } from 'redux-form';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   auth,
   modal,
   device,  
+  productType,
   form: formReducer ,
   router: routerReducer
 });

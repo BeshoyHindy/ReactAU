@@ -4,6 +4,12 @@ import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 const loadProductsSuccess = (products) => ({ type: types.LOAD_PRODUCTS_SUCCESS, products });
 
+export function changeProductType(productType) {
+	return dispatch => {
+		dispatch({type: types.LOAD_PRODUCT_TYPE_SUCCESS, productType});
+	};
+}
+
 export function loadProducts(detail) {  
   return function(dispatch) {
 	dispatch(beginAjaxCall());    

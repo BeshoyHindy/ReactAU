@@ -23,12 +23,12 @@ let ProductsPage = class ProductsPage extends React.Component{
 			super(props);
 		}
 		render() {
-			let {match, products, routes, level, Comps, url, categories} = this.props ;
+			let {match, products, routes, level, Comps, url, categories, productType} = this.props ;
 			let linkpair = [
 							{link:"/home", desc:"Home"},
 							{link:"/products", desc:"Products"}
 						];
-			let params = {...match.params, product: match.params.product || "DVR", ProductsTbl: match.params.ProductsTbl || "All"};
+			let params = {...match.params, product: productType, ProductsTbl: match.params.ProductsTbl || "All"};
 			linkpair.push({link:"/products/" + params.product + "/All", desc:params.product}	);
 			linkpair.push({link:"", desc:params.ProductsTbl});
 
@@ -39,7 +39,7 @@ let ProductsPage = class ProductsPage extends React.Component{
 						<Breadcrumb linkPair={linkpair}/>
 					</div>
 					<div className="col-md-3 col-lg-2 hidden-sm hidden-xs sidebar">
-						<ProductCategorySidebar products={products} productType={params.product } ProductsTbl={params.ProductsTbl} params={params}/>
+						<ProductCategorySidebar products={products} productType={productType } ProductsTbl={params.ProductsTbl} params={params}/>
 					</div>
 
 					<div className="col-md-9 col-lg-10 roghtcontent">
@@ -65,6 +65,7 @@ function mapStateToProps(state, ownProps) {
   return {
     products: state.products,
 	categories: state.categories,
+	productType: state.productType,
   };
 }
 

@@ -10,7 +10,7 @@ import BaseProductDeleteComponent from "../Admin/AdminEditDelete";
 import StarsRated from '../Shared/StarsRated';
 import  Favorite  from '../Products/Details/Favorite';
 import HeartToggle from '../Shared/HeartToggle';
-import { loadProducts } from '../..//actions/productsActions';
+import { loadProducts, changeProductType } from '../..//actions/productsActions';
 
 import connectDataFetchers from '../../lib/connectDataFetchers.jsx';
 const BaseProductTblImageComponent = (props) =>
@@ -61,7 +61,11 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		this.handleResize = this.handleResize.bind(this);
 	}
 	componentDidMount() {
+		let {match, changeProductType} = this.props ;
+		let productType = match.params.product || match.params.cat || "DVR";
+
 		window.addEventListener('resize', this.handleResize, false);
+		changeProductType(productType);
 	}
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
@@ -227,7 +231,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-ProductsTblPage = connect(mapStateToProps)(
+ProductsTblPage = connect(mapStateToProps, {changeProductType})(
     connectDataFetchers(ProductsTblPage, [ loadProducts]));
 
 export default ProductsTblPage;
