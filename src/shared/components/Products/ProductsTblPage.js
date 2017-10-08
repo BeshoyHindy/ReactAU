@@ -146,27 +146,31 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		return (
 			<div className="loading-wrap">
 				<div className={`ajax-loading-big ${ajaxState > 0?'fade-show':'fade-hide'}`} ><img src="/build/img/ajax-loader.gif" alt=""/></div>
-				<ul className="app-view" style={viewSettingStyle}>
-					<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
-						<div className="bubble ">list view</div>
-					</li>
-					<li className="hiddenView fa fa-th btn-list" data-view="grid" onClick={this.setGridListView}>
-						<div className="bubble ">grid view</div>
-					</li>
-				</ul>
-				<div className="list-container" style={{display: this.state.gridView?"none":"block"}}>
-					<SortableTbl tblData={data}
-						tHead={tHead}
-						customTd={[
-									{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
-									{custd: BaseProductEditComponent, keyItem: "edit"},
-									{custd: BaseProductDeleteComponent, keyItem: "delete"}
-									]}
-						dKey={col} keyId="_id"
-						productType={productType}
-						actions={actions}
-						params={match.params}/>
-				</div>
+				{ productType != "ALARM" &&		
+					<ul className="app-view" style={viewSettingStyle}>
+						<li className="hiddenView fa fa-th-list btn-list" data-view="list" onClick={this.setGridListView}>
+							<div className="bubble ">list view</div>
+						</li>
+						<li className="hiddenView fa fa-th btn-list" data-view="grid" onClick={this.setGridListView}>
+							<div className="bubble ">grid view</div>
+						</li>
+					</ul>
+				}
+				{ productType != "ALARM" &&		
+					<div className="list-container" style={{display: this.state.gridView?"none":"block"}}>
+						<SortableTbl tblData={data}
+							tHead={tHead}
+							customTd={[
+										{custd: BaseProductTblImageComponent, keyItem: "imageUrl"},
+										{custd: BaseProductEditComponent, keyItem: "edit"},
+										{custd: BaseProductDeleteComponent, keyItem: "delete"}
+										]}
+							dKey={col} keyId="_id"
+							productType={productType}
+							actions={actions}
+							params={match.params}/>
+					</div>
+				}
 				<div className="grid-container" style={{display: this.state.gridView?"block":"none"}}>
 					{data.map((item, id)=>{
 						let c = 0;
