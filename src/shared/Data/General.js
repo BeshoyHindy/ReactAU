@@ -17,6 +17,6 @@ let productEditColDetail = [
 	{	desc: "Description",	db:"desc",		type: 2	}, 
 	{	desc: "PoE port",		db:"PoEport",		type: 4	}, 
 	{	desc: "IR",				db:"ir",		type: 1	},
-	{	desc: "Input/Output",	db:"io",		type: 1	}  
+	{	desc: "Indoor/Outdoor",	db:"io",		type: 1	}  
 ];
 export {productEditColDetail};
