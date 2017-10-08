@@ -92,7 +92,8 @@ if (process.env.NODE_ENV === 'production') {
 			defaultSrc: ["'none'"],
 			//google custom search need 'unsafe-eval'....
 			scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
-													, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
+													, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com"
+													, "'https://cdn.polyfill.io/", api_server.http.host	],
 			// scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google-analytics.com/", "http://cse.google.com/", "https://cse.google.com/", "https://connect.facebook.net/"
 			// 										, "https://apis.google.com/", "https://cdn.jsdelivr.net/", "https://ajax.googleapis.com/", "https://www.google.com", api_server.http.host	],
 			styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.google.com", "https://cse.google.com/", api_server.http.host],
