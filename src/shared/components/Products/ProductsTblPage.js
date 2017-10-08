@@ -61,11 +61,11 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 		this.handleResize = this.handleResize.bind(this);
 	}
 	componentDidMount() {
-		let {match, changeProductType} = this.props ;
+		let {match, dispatch} = this.props ;
 		let productType = match.params.product || match.params.cat || "DVR";
 
 		window.addEventListener('resize', this.handleResize, false);
-		changeProductType(productType);
+		dispatch(changeProductType(productType));
 	}
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
@@ -231,7 +231,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-ProductsTblPage = connect(mapStateToProps, {changeProductType})(
+ProductsTblPage = connect(mapStateToProps)(
     connectDataFetchers(ProductsTblPage, [ loadProducts]));
 
 export default ProductsTblPage;
