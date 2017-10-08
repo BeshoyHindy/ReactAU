@@ -126,6 +126,9 @@ let ProductsTblPage = class ProductsTblPage extends React.Component{
 			if ( !iMap || iMap.db === '_id' || iMap.db === 'imageUrl' ){
 				continue;
 			}
+			if ( (productType == "DVR" || productType == "NVR" ) && (iMap.db === 'remote' || iMap.db === 'backup')){
+				continue;
+			}
 			tHead.push( (iMap && iMap.desc) || "");
 			col.push(prop);
 		}
